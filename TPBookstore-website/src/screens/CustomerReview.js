@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 import { useSelector } from "react-redux";
 
 const CustomerReview = () => {
@@ -28,7 +28,7 @@ const CustomerReview = () => {
           <div className="col l-4 m-6">
             <div className="evaluate__user">
               <div className="evaluate__user-img">
-                <img src="../images/user.png" alt="" />
+                <img src="../images/avatar/default.png" alt="" />
               </div>
               <div className="evaluate__content">
                 <div className="evaluate__content-icon">
@@ -38,12 +38,11 @@ const CustomerReview = () => {
                   <i className="evaluate__content-icon--star fas fa-star"></i>
                   <i className="evaluate__content-icon--star fas fa-star"></i>
                 </div>
-                <h3 className="evaluate__content--name">Tran Quoc Bao</h3>
+                <h3 className="evaluate__content--name">Nguyen Khac Tuan</h3>
                 <p className="evaluate__content--desc">
                   {newProduct
                     ? newProduct[2]?.[0]?.reviewContent
-                    : `The Adidas Stan Smith is one of the shoes of the era that gives me a sense of excitement every time I
-                  put my feet on it. If you don't know where to choose shoes, you can refer to Mew Shoes shoes.`}
+                    : `There are many meaningful books here and their prices are also very reasonable.`}
                 </p>
               </div>
             </div>
@@ -51,7 +50,7 @@ const CustomerReview = () => {
           <div className="col l-4 m-6">
             <div className="evaluate__user">
               <div className="evaluate__user-img">
-                <img src="../images/user.png" alt="" />
+                <img src="../images/avatar/default.png" alt="" />
               </div>
               <div className="evaluate__content">
                 <div className="evaluate__content-icon">
@@ -61,35 +60,11 @@ const CustomerReview = () => {
                   <i className="evaluate__content-icon--star fas fa-star"></i>
                   <i className="evaluate__content-icon--star fas fa-star"></i>
                 </div>
-                <h3 className="evaluate__content--name">Pham Xuan Nhut</h3>
+                <h3 className="evaluate__content--name">Nguyen Viet Phu</h3>
                 <p className="evaluate__content--desc">
                   {newProduct
                     ? newProduct[1]?.[0]?.reviewContent
-                    : `The Adidas Stan Smith is one of the shoes of the era that gives me a sense of excitement every time I
-                  put my feet on it. If you don't know where to choose shoes, you can refer to Mew Shoes shoes.`}
-                </p>
-              </div>
-            </div>
-          </div>
-          <div className="col l-4 m-6">
-            <div className="evaluate__user">
-              <div className="evaluate__user-img">
-                <img src="../images/user.png" alt="" />
-              </div>
-              <div className="evaluate__content">
-                <div className="evaluate__content-icon">
-                  <i className="evaluate__content-icon--star fas fa-star"></i>
-                  <i className="evaluate__content-icon--star fas fa-star"></i>
-                  <i className="evaluate__content-icon--star fas fa-star"></i>
-                  <i className="evaluate__content-icon--star fas fa-star"></i>
-                  <i className="evaluate__content-icon--star fas fa-star"></i>
-                </div>
-                <h3 className="evaluate__content--name">Nguyen Tri Hai</h3>
-                <p className="evaluate__content--desc">
-                  {newProduct
-                    ? newProduct[0]?.[0]?.reviewContent
-                    : `The Adidas Stan Smith is one of the shoes of the era that gives me a sense of excitement every time I
-                  put my feet on it. If you don't know where to choose shoes, you can refer to Mew Shoes shoes.`}
+                    : `There are many meaningful books here and their prices are also very reasonable`}
                 </p>
               </div>
             </div>
@@ -100,4 +75,4 @@ const CustomerReview = () => {
   );
 };
 
-export default CustomerReview
+export default CustomerReview;

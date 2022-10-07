@@ -13,15 +13,19 @@ const ToastObjects = {
   pauseOnFocusLoss: false,
   draggable: false,
   pauseOnHover: false,
-  autoClose: 2000,
+  autoClose: 2000
 };
 const AddProductMain = () => {
   const [name, setName] = useState("");
   const [category, setCategory] = useState("");
   const [price, setPrice] = useState(0);
+  const [priceSale, setPriceSale] = useState("");
+  const [author, setAuthor] = useState("");
   const [image, setImage] = useState("");
   const [countInStock, setCountInStock] = useState(0);
   const [description, setDescription] = useState("");
+  const [publisher, setPublisher] = useState("");
+  const [supplier, setSupplier] = useState("");
 
   const dispatch = useDispatch();
 
@@ -29,29 +33,45 @@ const AddProductMain = () => {
   const { loading, error, product } = productCreateAdmin;
 
   const categoryListAdmin = useSelector((state) => state.categoryListAdmin);
-  const {
-    category: categoryAddProduct } = categoryListAdmin;
+  const { category: categoryAddProduct } = categoryListAdmin;
 
   useEffect(() => {
     dispatch(listCategoryAdmin());
     if (product) {
-      toast.success("Product Added", ToastObjects);
+      toast.success("Thêm sách thành công!", ToastObjects);
       dispatch({ type: PRODUCT_CREATE_RESET });
       setName("");
       setDescription("");
       setCountInStock(0);
       setImage("");
+      setAuthor("");
       setPrice(0);
+      setPriceSale(0);
+      setPublisher("");
+      setSupplier("");
     }
   }, [product, dispatch]);
 
   const submitHandler = (e) => {
     e.preventDefault();
     if (price >= 0 && countInStock >= 0) {
-      dispatch(createProductAdmin(name, category, price, description, image, countInStock));
+      dispatch(
+        createProductAdmin(
+          name,
+          price,
+          priceSale,
+          description,
+          author,
+          image,
+          countInStock,
+          category,
+          publisher,
+          supplier
+        )
+      );
     } else {
       dispatch({ type: PRODUCT_CREATE_FAIL });
-      toast.error("Add product fail!!!", ToastObjects)
+      toast.error("Thêm sách không thành công!", ToastObjects);
     }
   };
 
@@ -62,12 +82,12 @@ const AddProductMain = () => {
         <form onSubmit={submitHandler}>
           <div className="content-header">
             <Link to="/admin/products" className="btn btn-danger text-white btn-size">
-              Go to products
+              Quản lý sản phẩm
             </Link>
-            <h2 className="content-title">Add product</h2>
+            <h2 className="content-title">Sản phẩm mới</h2>
             <div>
               <button type="submit" className="btn btn-primary btn-size">
-                Publish now
+                Hoàn thành
               </button>
             </div>
           </div>
@@ -80,11 +100,11 @@ const AddProductMain = () => {
                   {loading && <Loading />}
                   <div className="mb-4">
                     <label htmlFor="product_title" className="form-label">
-                      Product title
+                      Tiêu đề
                     </label>
                     <input
                       type="text"
-                      placeholder="Type here"
+                      placeholder="Nhập tiêu đề"
                       className="form-control"
                       id="product_title"
                       required
@@ -92,37 +112,69 @@ const AddProductMain = () => {
                       onChange={(e) => setName(e.target.value)}
                     />
                   </div>
-                  {/* {errorCategory && <Message variant="alert-danger">{errorCategory}</Message>}
-                  {loadingCategory && <Loading />} */}
+                  <div className="mb-4">
+                    <label htmlFor="product_author" className="form-label">
+                      Tác giả
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="Nhập Tác giả"
+                      className="form-control"
+                      id="product_author"
+                      required
+                      value={author}
+                      onChange={(e) => setAuthor(e.target.value)}
+                    />
+                  </div>
                   <div className="mb-4">
                     <label htmlFor="category_title" className="form-label">
-                      Category
+                      Danh mục
                     </label>
-                    <select
-                      id="category_title"
-                      className="form-select"
-                      onChange={(e) => setCategory(e.target.value)}
-                    >
-                      <option value="">Choose category</option>
-                      {
-                        categoryAddProduct && categoryAddProduct.map((category, index) => (
-                          <option
-                            key={index}
-                            value={category._id}
-                          >
+                    <select id="category_title" className="form-select" onChange={(e) => setCategory(e.target.value)}>
+                      <option value="">Chọn danh mục</option>
+                      {categoryAddProduct &&
+                        categoryAddProduct.map((category, index) => (
+                          <option key={index} value={category._id}>
                             {category.name}
                           </option>
-                        ))
-                      }
+                        ))}
                     </select>
                   </div>
                   <div className="mb-4">
+                    <label htmlFor="product_publisher" className="form-label">
+                      Nhà xuất bản
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="Nhập Nhà xuất bản"
+                      className="form-control"
+                      id="product_publisher"
+                      required
+                      value={publisher}
+                      onChange={(e) => setPublisher(e.target.value)}
+                    />
+                  </div>
+                  <div className="mb-4">
+                    <label htmlFor="product_supplier" className="form-label">
+                      Nhà cung cấp
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="Nhập Nhà cung cấp"
+                      className="form-control"
+                      id="product_supplier"
+                      required
+                      value={supplier}
+                      onChange={(e) => setSupplier(e.target.value)}
+                    />
+                  </div>
+                  <div className="mb-4">
                     <label htmlFor="product_price" className="form-label">
-                      Price
+                      Giá sản phẩm
                     </label>
                     <input
                       type="number"
-                      placeholder="Type here"
+                      placeholder="0 đ"
                       className="form-control"
                       id="product_price"
                       required
@@ -131,23 +183,37 @@ const AddProductMain = () => {
                     />
                   </div>
                   <div className="mb-4">
-                    <label htmlFor="product_price" className="form-label">
-                      Count In Stock
+                    <label htmlFor="product_price_sale" className="form-label">
+                      Giá bán
                     </label>
                     <input
                       type="number"
-                      placeholder="Type here"
+                      placeholder="0 đ"
                       className="form-control"
-                      id="product_price"
+                      id="product_price_sale"
+                      required
+                      value={priceSale}
+                      onChange={(e) => setPriceSale(e.target.value)}
+                    />
+                  </div>
+                  <div className="mb-4">
+                    <label htmlFor="product_count_in_stock" className="form-label">
+                      Số lượng sản phẩm trong kho
+                    </label>
+                    <input
+                      type="number"
+                      placeholder="Số lượng"
+                      className="form-control"
+                      id="product_count_in_stock"
                       required
                       value={countInStock}
                       onChange={(e) => setCountInStock(e.target.value)}
                     />
                   </div>
                   <div className="mb-4">
-                    <label className="form-label">Description</label>
+                    <label className="form-label">Mô tả</label>
                     <textarea
-                      placeholder="Type here"
+                      placeholder="Nhập mô tả sản phẩm"
                       className="form-control"
                       rows="7"
                       required
@@ -156,11 +222,11 @@ const AddProductMain = () => {
                     ></textarea>
                   </div>
                   <div className="mb-4">
-                    <label className="form-label">Images</label>
+                    <label className="form-label">Hình ảnh sản phẩm</label>
                     <input
                       className="form-control"
                       type="text"
-                      placeholder="Enter Image URL"
+                      placeholder="Nhập URL hình ảnh"
                       value={image}
                       required
                       onChange={(e) => setImage(e.target.value)}

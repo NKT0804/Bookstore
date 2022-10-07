@@ -52,6 +52,10 @@ const orderSchema = mongoose.Schema(
             required: true,
             default: 0.0
         },
+        phone: {
+            type: String,
+            require: true
+        },
         isPaid: {
             type: Boolean,
             required: true,

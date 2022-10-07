@@ -52,7 +52,9 @@ app.use(
 
 app.get("/", (req, res) => {
     res.send(
-        'Welcome to NBS-Store API, <a href="http://nbs-store.quocbaoit.com">Click here to visit the shopping page</a><br>Made by Bảo&Nhựt&Hải 24.06.2022'
+        `Welcome to TPBookstore API, <a href='${
+            process.env.WEB_CLIENT_URL || 3000
+        }'>Click here to visit the shopping page</a><br>Made by Tuan&Phu 01/10/2022`
     );
 });
 

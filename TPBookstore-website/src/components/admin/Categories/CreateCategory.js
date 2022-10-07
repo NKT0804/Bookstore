@@ -31,15 +31,9 @@ const CreateCategory = () => {
     }
   }, [category, dispatch, loading, error]);
 
-  function convertToSlug(Text) {
-    return Text.toLowerCase()
-      .replace(/ /g, "-")
-      .replace(/[^\w-]+/g, "");
-  }
-
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(createCategoryAdmin({ name, slug: convertToSlug(name) }));
+    dispatch(createCategoryAdmin({ name }));
   };
   return (
     <>

@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import { getCartListItem } from "../Redux/Actions/cartActions";
 import { logout } from "../Redux/Actions/userActions";
-import TrendingSearch from "./searchComponents/TrendingSearch";
 // import Sidebar from "./sidebar/Sidebar";
 
 const Header = () => {
@@ -50,10 +49,10 @@ const Header = () => {
           <div className="row">
             <div className="col-md-6 d-flex align-items-center display-none">
               <p>+0909 0009</p>
-              <p>contact.nbs.store@gmail.com</p>
+              <p>tp.bookstore@gmail.com</p>
             </div>
             <div className=" col-12 col-lg-6 justify-content-center justify-content-lg-end d-flex align-items-center">
-              <a target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/nbs.store.cn19b">
+              <a target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/">
                 <i className="fab fa-facebook-f"></i>
               </a>
               <a target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/">
@@ -179,9 +178,6 @@ const Header = () => {
                     search
                   </button>
                 </form>
-                <div className="trending-search">
-                  <TrendingSearch />
-                </div>
               </div>
               <div className="col-md-3 d-flex align-items-center justify-content-end Login-Register">
                 {userInfo ? (

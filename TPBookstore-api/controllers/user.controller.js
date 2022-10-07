@@ -38,7 +38,7 @@ const login = async (req, res) => {
             _id: user._id,
             name: user.name,
             email: user.email,
-            avatarUrl: user.avatarUrl || "./images/user.png",
+            avatarUrl: user.avatarUrl || "./images/avatar/default.png",
             isAdmin: user.isAdmin,
             token: generateToken(user._id, process.env.ACCESS_TOKEN_SECRET, process.env.ACCESS_TOKEN_EXPIRESIN),
             refreshToken: newRefreshToken.tokenValue,
@@ -116,7 +116,7 @@ const register = async (req, res, next) => {
                 _id: newUser._id,
                 name: newUser.name,
                 email: newUser.email,
-                avatarUrl: newUser.avatarUrl || "./images/user.png",
+                avatarUrl: newUser.avatarUrl || "./images/avatar/default.png",
                 isAdmin: newUser.isAdmin,
                 isDisabled: newUser.isDisabled,
                 token: generateToken(newUser._id, process.env.ACCESS_TOKEN_SECRET, process.env.ACCESS_TOKEN_EXPIRESIN),
@@ -158,7 +158,7 @@ const updateProfile = async (req, res) => {
         _id: updatedUser._id,
         name: updatedUser.name,
         email: updatedUser.email,
-        avatarUrl: updatedUser.avatarUrl || "./images/user.png",
+        avatarUrl: updatedUser.avatarUrl || "./images/avatar/default.png",
         isAdmin: updatedUser.isAdmin,
         createAt: updatedUser.createAt,
         isDisabled: updatedUser.isDisabled,
@@ -225,16 +225,13 @@ const getUsers = async (req, res) => {
 //User upload avatar
 const uploadAvatar = async (req, res) => {
     // const userId = req.user._id ? req.user._id : null;
-    console.log(req.user._id.toString(), req.params.userId);
     let user = await User.findOne({
         _id: req.user._id,
         isDisabled: false
     });
-    console.log("userLog", mongoose.isValidObjectId(req.params.userId));
     if (user.isAdmin && mongoose.isValidObjectId(req.params.userId)) {
         user = await User.findById(req.params.userId);
     }
-    console.log("userLog2", user);
     if (!user) {
         res.status(400);
         throw new Error("User not Found");

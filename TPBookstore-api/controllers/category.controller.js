@@ -7,9 +7,8 @@ import { categoryQueryParams, commentQueryParams, validateConstants } from "../c
 
 //Admin create new category
 const createCategory = async (req, res) => {
-    const { name, slug, isDisabled } = req.body;
-    const createdBy = req.user._id;
-    const updatedBy = req.user._id;
+    const { name, slug } = req.body;
+
     const isExist = await Category.findOne({ name: name, isDisabled: false });
     if (isExist) {
         res.status(400);
@@ -17,9 +16,7 @@ const createCategory = async (req, res) => {
     }
     const newCategory = new Category({
         name,
-        slug,
-        createdBy,
-        updatedBy
+        slug
     });
     if (!newCategory) {
         res.status(400);
@@ -92,7 +89,6 @@ const updateCategory = async (req, res) => {
     }
     category.name = name || category.name;
     category.slug = slug || category.slug;
-    category.updatedBy = req.user._id;
     const updatedCategory = await category.save();
     res.json(updatedCategory);
 };

@@ -5,25 +5,40 @@ import Category from "../models/CategoryModel.js";
 import Order from "../models/OrderModel.js";
 import Cart from "../models/CartModel.js";
 import Comment from "../models/CommentModel.js";
+import createSlug from "../utils/createSlug.js";
+import uploadImage from "../utils/uploadImage.js";
 import { admin, protect, optional } from "../middleware/AuthMiddleware.js";
 import { productQueryParams, validateConstants } from "../constants/searchConstants.js";
 
 //Admin create new product
 const createProduct = async (req, res) => {
-    const { name, price, description, image, countInStock, category } = req.body;
+    const { name, price, priceSale, description, author, image, countInStock, category, publisher, supplier } =
+        req.body;
     const isExist = await Product.findOne({ name: name });
     if (isExist) {
         res.status(400);
         throw new Error("Product name already exist");
     }
+    // Tạo slug
+    const slug = createSlug(name);
+    // Upload image
+    const urlImage = await uploadImage(image, "TPBookstore/products", slug);
+    if (!urlImage.url) {
+        res.status(400);
+        throw new Error(urlImage.err);
+    }
     const newProduct = new Product({
         name,
+        slug,
         price,
+        priceSale,
+        author,
         description,
-        image,
+        image: urlImage.url,
         countInStock,
         category,
-        user: req.user._id
+        publisher,
+        supplier
     });
     if (!newProduct) {
         res.status(400);
@@ -69,10 +84,13 @@ const createProduct = async (req, res) => {
 const getProducts = async (req, res) => {
     const pageSize = Number(req.query.pageSize) || 20; //EDIT HERE
     const page = Number(req.query.pageNumber) || 1;
-    const dateOrderFilter = validateConstants(productQueryParams, "date", req.query.dateOrder);
-    const priceOrderFilter = validateConstants(productQueryParams, "price", req.query.priceOrder);
+    const rating = Number(req.query.rating) || 0;
+    const maxPrice = Number(req.query.maxPrice) || 0;
+    const minPrice = Number(req.query.minPrice) || 0;
+    const dateSort = validateConstants(productQueryParams, "date", req.query.dateSort);
+    const priceSort = validateConstants(productQueryParams, "price", req.query.priceSort);
     const bestSellerFilter = validateConstants(productQueryParams, "totalSales", req.query.bestSeller);
-    const sortBy = { ...bestSellerFilter, ...priceOrderFilter, ...dateOrderFilter };
+    const sortBy = { ...bestSellerFilter, ...priceSort, ...dateSort };
     let statusFilter;
     if (!req.user || req.user.isAdmin == false) {
         statusFilter = validateConstants(productQueryParams, "status", "default");
@@ -99,16 +117,44 @@ const getProducts = async (req, res) => {
     } else {
         categoryIds = await Category.find({ name: categoryName, ...statusFilter }).select({ _id: 1 });
     }
-    const categoryFilter = categoryIds ? { category: categoryIds } : {};
     //(categoryFilter);
-    const count = await Product.countDocuments({ ...keyword, ...categoryFilter, ...statusFilter });
+    const categoryFilter = categoryIds ? { category: categoryIds } : {};
+    //rating filter
+    const ratingFilter = rating
+        ? {
+              rating: { $gte: rating }
+          }
+        : {};
+    //price filter
+    const priceFilter =
+        maxPrice > 0
+            ? {
+                  priceSale: {
+                      $gte: minPrice,
+                      $lte: maxPrice
+                  }
+              }
+            : {};
+    const count = await Product.countDocuments({
+        ...keyword,
+        ...categoryFilter,
+        ...ratingFilter,
+        ...priceFilter,
+        ...statusFilter
+    });
     //Check if product match keyword
     if (count == 0) {
         res.status(204);
         throw new Error("No products found for this keyword");
     }
     //else
-    const products = await Product.find({ ...keyword, ...categoryFilter, ...statusFilter })
+    const products = await Product.find({
+        ...keyword,
+        ...categoryFilter,
+        ...ratingFilter,
+        ...priceFilter,
+        ...statusFilter
+    })
         .limit(pageSize)
         .skip(pageSize * (page - 1))
         .sort(sortBy)
@@ -231,16 +277,21 @@ const reviewProduct = async (req, res, next) => {
 
 //Admin update product
 const updateProduct = async (req, res) => {
-    const { name, price, description, image, countInStock, category } = req.body;
+    const { name, slug, price, priceSale, description, author, image, countInStock, category } = req.body;
     const productId = req.params.id || null;
     const product = await Product.findOne({ _id: productId, isDisabled: false });
     if (!product) {
         res.status(404);
         throw new Error("Product not Found");
     }
+    const fixSlug = slug.replace(/\s/g, "-");
+
     product.name = name || product.name;
+    product.slug = fixSlug || product.slug;
     product.price = price || product.price;
+    product.priceSale = priceSale || product.priceSale;
     product.description = description || product.description;
+    product.author = author || product.author;
     product.image = image || product.image;
     product.countInStock = countInStock || product.countInStock;
     let existedCategory;

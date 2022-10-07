@@ -1,23 +1,32 @@
 import React from "react";
 
-const PriceFilter = ({ priceFilter, setPriceFilter }) => {
+const PriceFilter = ({ setMinPriceInput, setMaxPriceInput, minPrice, maxPrice, message, ApplyHandler }) => {
   return (
-    <div className="filter-menu-item mt-3">
-      <b>Sort by</b>
-      <select
-        className="form-select"
-        aria-label="Filter by price"
-        value={priceFilter}
-        onChange={(e) => setPriceFilter(e.target.value)}
-      >
-        <option value="">Price</option>
-        <option value="asc" id="asc">
-          Price: Low to high
-        </option>
-        <option value="desc" id="desc">
-          Price: High to low
-        </option>
-      </select>
+    <div className="filter-menu-item">
+      <div className="distance-price">
+        <p className="distance-price__p">Khoảng giá</p>
+        <div className="distance-price__flex" style={{ display: "flex", alignItems: "center" }}>
+          <input
+            type="number"
+            placeholder="$TỪ"
+            value={minPrice}
+            onChange={(e) => setMinPriceInput(e.target.value)}
+            min="0"
+          ></input>
+          <label>-</label>
+          <input
+            type="number"
+            placeholder="$ĐẾN"
+            value={maxPrice}
+            onChange={(e) => setMaxPriceInput(e.target.value)}
+            min="1"
+          ></input>
+        </div>
+        <p style={{ fontSize: "14px", color: "red" }}>{message}</p>
+        <button className="distance-price__submit" onClick={ApplyHandler}>
+          ÁP DỤNG
+        </button>
+      </div>
     </div>
   );
 };

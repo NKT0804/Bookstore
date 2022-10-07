@@ -2,19 +2,18 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 const Footer = () => {
-  const [visible, setVisible] = useState(false)
+  const [visible, setVisible] = useState(false);
 
   const toggleVisible = () => {
     const scrolled = document.documentElement.scrollTop;
     if (scrolled > 300) {
-      setVisible(true)
-    }
-    else if (scrolled <= 300) {
-      setVisible(false)
+      setVisible(true);
+    } else if (scrolled <= 300) {
+      setVisible(false);
     }
   };
 
-  window.addEventListener('scroll', toggleVisible);
+  window.addEventListener("scroll", toggleVisible);
   return (
     <>
       <footer className="footer">
@@ -25,9 +24,9 @@ const Footer = () => {
                 <div className="footer__infomation-contact">
                   <h3 className="footer__infomation--contact-heading">CONTACT</h3>
                   <ul className="footer__infomation--contact-list">
-                    <li className="footer__infomation--contact-name">NBS Store</li>
-                    <li className="footer__infomation--contact-address">Address: Go Vap, Ho Chi Minh City</li>
-                    <li className="footer__infomation--contact-email">Email: contact.nbs.store@gmail.com</li>
+                    <li className="footer__infomation--contact-name">TP Bookstore</li>
+                    <li className="footer__infomation--contact-address">Address: Q12, Ho Chi Minh City</li>
+                    <li className="footer__infomation--contact-email">Email: tp.bookstore@gmail.com</li>
                     <li className="footer__infomation--contact-phone">Phone: +0909 0009</li>
                     <div className="gird">
                       <div className="row no-gutters">
@@ -87,7 +86,7 @@ const Footer = () => {
                   <ul className="footer__infomation--list">
                     <li className="footer__infomation--item">
                       <Link to="#" className="footer__infomation--link">
-                        About New Shoes
+                        About New Book
                       </Link>
                     </li>
                     <li className="footer__infomation--item">
@@ -98,11 +97,6 @@ const Footer = () => {
                     <li className="footer__infomation--item">
                       <Link to="#" className="footer__infomation--link">
                         Ordering guide
-                      </Link>
-                    </li>
-                    <li className="footer__infomation--item">
-                      <Link to="#" className="footer__infomation--link">
-                        Guide to choose size
                       </Link>
                     </li>
                     <li className="footer__infomation--item">
@@ -178,7 +172,7 @@ const Footer = () => {
                 </div>
               </div>
             </div>
-            <p className="footer__copyright">Copyright 2022 © | NBS Store</p>
+            <p className="footer__copyright">Copyright 2022 © | TP Bookstore</p>
           </div>
         </div>
       </footer>

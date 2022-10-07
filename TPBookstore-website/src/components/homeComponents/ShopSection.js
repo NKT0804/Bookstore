@@ -8,14 +8,14 @@ import Message from "./../base/LoadingError/Error";
 import Filter from "../../screens/Filter";
 import { listCategory } from "../../Redux/Actions/categoryActions";
 import CardProductLoading from "../base/LoadingError/CardProductLoading";
+import SortBy from "./SortBy";
 
 const ShopSection = (props) => {
   const { keyword, pageNumber, isFilter, setIsFilter } = props;
   const dispatch = useDispatch();
 
   const [categoryFilter, setCategoryFilter] = useState("");
-  const [priceFilter, setPriceFilter] = useState("");
-  const [dateFilter, setDateFilter] = useState("");
+  const [sortBy, setSortBy] = useState("");
 
   const productList = useSelector((state) => state.productList);
   const { loading, error, products, page, pages } = productList;
@@ -26,17 +26,17 @@ const ShopSection = (props) => {
   // const checkNameCategory = (item) => item.name === categoryFilter;
   // const nameCate = category?.find(checkNameCategory)?.name;
   const checkIsFilter = useCallback(() => {
-    if (categoryFilter !== "" || priceFilter !== "" || dateFilter !== "") {
+    if (categoryFilter !== "" || sortBy !== "") {
       setIsFilter(true);
     } else {
       return isFilter;
     }
-  }, [categoryFilter, isFilter, setIsFilter, priceFilter, dateFilter]);
+  }, [categoryFilter, isFilter, setIsFilter, sortBy]);
 
   const loadData = useCallback(() => {
-    dispatch(listProducts(keyword, pageNumber, categoryFilter, priceFilter, dateFilter));
+    dispatch(listProducts(keyword, pageNumber, categoryFilter, sortBy));
     dispatch(listCategory());
-  }, [dispatch, keyword, pageNumber, categoryFilter, priceFilter, dateFilter]);
+  }, [dispatch, keyword, pageNumber, categoryFilter, sortBy]);
 
   useEffect(() => {
     loadData();
@@ -52,18 +52,14 @@ const ShopSection = (props) => {
                 <div className="title-section">
                   <h2 className="heading-section main-effect">all product</h2>
                 </div>
+
+                <SortBy sortBy={sortBy} setSortBy={setSortBy} />
+
                 <div className="row">
                   <div className="col-2 pc-header">
-                    <Filter
-                      category={category}
-                      categoryFilter={categoryFilter}
-                      setCategoryFilter={setCategoryFilter}
-                      priceFilter={priceFilter}
-                      setPriceFilter={setPriceFilter}
-                      dateFilter={dateFilter}
-                      setDateFilter={setDateFilter}
-                    />
+                    <Filter category={category} categoryFilter={categoryFilter} setCategoryFilter={setCategoryFilter} />
                   </div>
+
                   <div className="col-8 row product-container ">
                     {loading ? (
                       products?.map((product) => {

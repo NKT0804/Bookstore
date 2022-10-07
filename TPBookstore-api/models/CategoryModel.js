@@ -11,16 +11,7 @@ const CategorySchema = mongoose.Schema(
             required: false,
             default: ""
         },
-        /*createdBy: {
-            type: mongoose.Schema.Types.ObjectId,
-            required: true,
-            ref: "User"
-        },
-        updatedBy: {
-            type: mongoose.Schema.Types.ObjectId,
-            required: true,
-            ref: "User"
-        },*/
+
         isDisabled: {
             type: Boolean,
             required: true,

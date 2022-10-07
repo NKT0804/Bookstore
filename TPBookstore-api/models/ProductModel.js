@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-// import Category from "./Category";
 
 const reviewSchema = mongoose.Schema(
     {
@@ -33,39 +32,32 @@ const productSchema = mongoose.Schema(
             required: false,
             default: ""
         },
-        image: {
-            type: String
-        },
-        description: {
+        author: {
             type: String,
             required: true
         },
-        reviews: [reviewSchema],
         category: {
             type: mongoose.Schema.Types.ObjectId,
-            required: false,
-            ref: "Category"
+            ref: "Category",
+            required: false
         },
-        author: {
-            type: mongoose.Schema.Types.ObjectId,
-            required: true,
-            ref: "Author",
+        publisher: {
+            type: String,
             required: true
         },
-        rating: {
-            type: Number,
-            required: true,
-            default: 0
+        supplier: {
+            type: String,
+            required: true
         },
-        numReviews: {
-            type: Number,
-            required: true,
-            default: 0
-        },
-        numViews: {
-            type: Number,
-            required: true,
-            default: 0
+        // supplier: {
+        //     type: mongoose.Schema.Types.ObjectId,
+        //     ref: "Supplier",
+        //     required: false
+        // },
+
+        description: {
+            type: String,
+            required: true
         },
         price: {
             type: Number,
@@ -82,7 +74,26 @@ const productSchema = mongoose.Schema(
             required: true,
             default: 0
         },
+        image: {
+            type: String
+        },
         totalSales: {
+            type: Number,
+            required: true,
+            default: 0
+        },
+        reviews: [reviewSchema],
+        rating: {
+            type: Number,
+            required: true,
+            default: 0
+        },
+        numReviews: {
+            type: Number,
+            required: true,
+            default: 0
+        },
+        numViews: {
             type: Number,
             required: true,
             default: 0

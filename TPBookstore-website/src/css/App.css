@@ -3,7 +3,7 @@
 :root {
   --white-color: #fff;
   --black-color: #000;
-  --primary-color: #014c8f;
+  --primary-color: #4ac4fa;
   --text-color: #4c4c4c;
   --red-color: #d50000;
   --border-color: #ccc;
@@ -80,7 +80,7 @@ textarea:focus {
   padding: 10px 0px 3px 0px;
 }
 .navbar-brand img {
-  width: 60%;
+  width: 80%;
 }
 .input-group {
   height: 40px;
