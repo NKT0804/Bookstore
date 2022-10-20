@@ -69,12 +69,17 @@
   }
   .shoptext {
     font-size: 14px;
-    min-height: 160px;
+    min-height: 140px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
     flex-wrap: nowrap;
   }
+
+  .shoptext__name {
+    height:32px;
+  }
+
   .pc-header {
     display: none !important;
   }
@@ -341,6 +346,10 @@
     padding: 0 16px;
   }
 
+  .icon__footer-social--item {
+    display: none;
+  }
+
   .box__seclecter {
     flex-basis: 10%;
   }
@@ -349,5 +358,13 @@
     bottom: 45px;
     right: 5px;
   }
+
+  .form-select-sort {
+    width:55%;
+  }
+
+  .rating span {
+    margin-left: 6px;
+}
 
 }

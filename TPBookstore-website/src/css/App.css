@@ -259,7 +259,7 @@ textarea:focus {
   position : absolute;
   right : 16px;
   top:0;
-  padding : 6px;
+  padding : 4px;
   border-radius: 50%;
   background-color: #C92127;
   color : #fff;
@@ -293,10 +293,11 @@ textarea:focus {
 .shoptext__price-special-discount {
   background-color: #C92127;
   margin-left: 4px;
-  padding: 2px 4px;
+  padding: 1px 4px;
   border-radius: 4px;
   color: #fff;
   font-size : 14px;
+  font-weight: 500;
 }
 
 .shoptext__price-old {
