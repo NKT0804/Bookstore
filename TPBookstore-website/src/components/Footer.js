@@ -13,6 +13,8 @@ const Footer = () => {
     }
   };
 
+  // hanlde set show icon footer
+
   window.addEventListener("scroll", toggleVisible);
   return (
     <>
@@ -22,9 +24,14 @@ const Footer = () => {
             <div className="row">
               <div className="col l-2-4 m-6 c-12">
                 <div className="footer__infomation-contact">
-                  <h3 className="footer__infomation--contact-heading">CONTACT</h3>
+                  {/* <h3 className="footer__infomation--contact-heading">CONTACT</h3> */}
+                  <div className="footer__infomation-contact-heading">
+                    <Link className="footer__infomation--contact-logo" to="/">
+                      <img alt="logo" src="/images/logo.png" />
+                    </Link>
+                  </div>
                   <ul className="footer__infomation--contact-list">
-                    <li className="footer__infomation--contact-name">TP Bookstore</li>
+                    {/* <li className="footer__infomation--contact-name">TP Bookstore</li> */}
                     <li className="footer__infomation--contact-address">Address: Q12, Ho Chi Minh City</li>
                     <li className="footer__infomation--contact-email">Email: tp.bookstore@gmail.com</li>
                     <li className="footer__infomation--contact-phone">Phone: +0909 0009</li>
@@ -176,6 +183,67 @@ const Footer = () => {
           </div>
         </div>
       </footer>
+
+      {/* icon footer left */}
+      <div className="icon__footer" style={{ display: visible ? "inline" : "none" }}>
+        <div class="icon__footer-left">
+          <div class="icon__footer-social">
+            <div class="icon__footer-social--list hidden-mobile">
+              <li class="icon__footer-social--item">
+                <a
+                  href="https://www.facebook.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="icon__footer-social-link"
+                >
+                  <i class="icon-footer fab fa-facebook"></i>
+                </a>
+              </li>
+              <li class="icon__footer-social--item">
+                <a
+                  href="https://www.facebook.com/messages/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="icon__footer-social-link"
+                >
+                  <i class="icon-footer fab fa-facebook-messenger"></i>
+                </a>
+              </li>
+              <li class="icon__footer-social--item">
+                <a
+                  href="https://www.instagram.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="icon__footer-social-link"
+                >
+                  <i class="icon-footer fab fa-instagram"></i>
+                </a>
+              </li>
+              <li class="icon__footer-social--item">
+                <a
+                  href="https://www.linkedin.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="icon__footer-social-link"
+                >
+                  <i class="icon-footer fas fa-phone"></i>
+                </a>
+              </li>
+              <li class="icon__footer-social--item">
+                <a
+                  href="https://twitter.com/?lang=vi"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="icon__footer-social-link"
+                >
+                  <i class="icon-footer fab fa-twitter"></i>
+                </a>
+              </li>
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* Arrow circle */}
       <Link to="#" className="active-top" style={{ display: visible ? "inline" : "none" }}>
         <i className="fas fa-arrow-circle-up"></i>
       </Link>

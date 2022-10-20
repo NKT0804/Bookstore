@@ -292,6 +292,9 @@
     bottom: 60px;
     right: 0;
   }
+
+
+
 }
 
 /* Mobile */
@@ -333,6 +336,7 @@
     flex-basis: 40%;
   }
 
+  /* footer */
   .footer__information {
     padding: 0 16px;
   }
@@ -345,4 +349,5 @@
     bottom: 45px;
     right: 5px;
   }
+
 }

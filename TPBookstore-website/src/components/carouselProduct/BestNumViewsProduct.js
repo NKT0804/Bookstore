@@ -21,7 +21,7 @@ const BestNumViewsProduct = () => {
 
   const settings = {
     dots: false,
-    infinite: true,
+    infinite: false,
     speed: 500,
     slidesToShow: 5,
     slidesToScroll: 4,
@@ -79,6 +79,7 @@ const BestNumViewsProduct = () => {
                       <Link to={`/products/${product._id}`}>
                         <div className="shopBack main-effect">
                           <img className="main-scale" src={product.image} alt={product.name} />
+                          <span className="label-product_discount">30%</span>
                         </div>
                       </Link>
 

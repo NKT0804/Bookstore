@@ -3,9 +3,14 @@ import React from "react";
 const SortBy = (props) => {
   const { sortBy, setSortBy } = props;
   return (
-    <div className="">
-      <b>Sort by</b>
-      <select className="form-select" aria-label="Sort By" value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
+    <div className="sort__product">
+      <span className="sort__product-title">Sắp xếp theo</span>
+      <select
+        className="form-select form-select-sort"
+        aria-label="Sort By"
+        value={sortBy}
+        onChange={(e) => setSortBy(e.target.value)}
+      >
         <option value="">Sort by</option>
         <option value="asc" id="asc">
           Giá từ thấp đến cao

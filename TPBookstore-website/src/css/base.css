@@ -311,7 +311,7 @@ html {
 }
 
 .shoptext {
-  height: 210px;
+  height: 140px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

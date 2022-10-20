@@ -844,6 +844,7 @@ ul.row-sm {
 
 .form-control:hover,
 .form-select:hover {
+    cursor: pointer;
     border-color: var(--primary-color);
 }
 

@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { listProductsBestSeller } from '../../Redux/Actions/productActions';
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { listProductsBestSeller } from "../../Redux/Actions/productActions";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import Rating from '../homeComponents/Rating';
+import Rating from "../homeComponents/Rating";
 import CardProductLoading from "../base/LoadingError/CardProductLoading";
 
 const BestSellerProduct = () => {
@@ -19,7 +19,7 @@ const BestSellerProduct = () => {
 
   const settings = {
     dots: false,
-    infinite: true,
+    infinite: false,
     speed: 500,
     slidesToShow: 5,
     slidesToScroll: 4,
@@ -77,10 +77,11 @@ const BestSellerProduct = () => {
                       <Link to={`/products/${product._id}`}>
                         <div className="shopBack main-effect">
                           <img className="main-scale" src={product.image} alt={product.name} />
+                          <span className="label-product_discount">30%</span>
                         </div>
                       </Link>
 
-                      <div className="shoptext">
+                      <div className="">
                         <p>
                           <Link to={`/products/${product._id}`}>
                             {`${product.name.length} >= 20` ? `${product.name.slice(0, 20)}...` : ` ${product.name}}`}
@@ -101,4 +102,4 @@ const BestSellerProduct = () => {
   );
 };
 
-export default BestSellerProduct
+export default BestSellerProduct;
