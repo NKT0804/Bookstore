@@ -13,6 +13,7 @@ import fs from "fs";
 import mongoose from "mongoose";
 import RefreshToken from "../models/RefreshTokenModel.js";
 import { userQueryParams, validateConstants } from "../constants/searchConstants.js";
+import uploadImage from "../utils/uploadImage.js";
 
 const __dirname = path.resolve();
 
@@ -107,7 +108,6 @@ const register = async (req, res, next) => {
                 session
             );
             if (!newCart) {
-                //Note: không biết trả về status với error gì cho hợp lý.
                 res.status(500);
                 await session.abortTransaction();
                 throw new Error("Failed to create user cart");
@@ -115,8 +115,11 @@ const register = async (req, res, next) => {
             res.status(201).json({
                 _id: newUser._id,
                 name: newUser.name,
+                phone: newUser.phone,
                 email: newUser.email,
                 avatarUrl: newUser.avatarUrl || "./images/avatar/default.png",
+                sex: newUser.sex,
+                address: newUser.address,
                 isAdmin: newUser.isAdmin,
                 isDisabled: newUser.isDisabled,
                 token: generateToken(newUser._id, process.env.ACCESS_TOKEN_SECRET, process.env.ACCESS_TOKEN_EXPIRESIN),
@@ -225,13 +228,16 @@ const getUsers = async (req, res) => {
 //User upload avatar
 const uploadAvatar = async (req, res) => {
     // const userId = req.user._id ? req.user._id : null;
+    console.log(req.user._id.toString(), req.params.userId);
     let user = await User.findOne({
         _id: req.user._id,
         isDisabled: false
     });
+    console.log("userLog", mongoose.isValidObjectId(req.params.userId));
     if (user.isAdmin && mongoose.isValidObjectId(req.params.userId)) {
         user = await User.findById(req.params.userId);
     }
+    console.log("userLog2", user);
     if (!user) {
         res.status(400);
         throw new Error("User not Found");

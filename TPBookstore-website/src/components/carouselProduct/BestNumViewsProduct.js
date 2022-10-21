@@ -21,7 +21,7 @@ const BestNumViewsProduct = () => {
 
   const settings = {
     dots: false,
-    infinite: true,
+    infinite: false,
     speed: 500,
     slidesToShow: 5,
     slidesToScroll: 4,
@@ -76,7 +76,7 @@ const BestNumViewsProduct = () => {
                 return (
                   <div className="mb-4 col-lg-3" key={index}>
                     <div className="shadow p-3 mb-4 me-2 rounded">
-                      <Link to={`/products/${product._id}`}>
+                      <Link to={`/product/${product._id}`}>
                         <div className="shopBack main-effect">
                           <img className="main-scale" src={product.image} alt={product.name} />
                         </div>
@@ -84,8 +84,8 @@ const BestNumViewsProduct = () => {
 
                       <div className="shoptext">
                         <p>
-                          <Link to={`/products/${product._id}`}>
-                            {`${product.name.length} >= 20` ? `${product.name.slice(0, 20)}...` : ` ${product.name}}`}
+                          <Link to={`/product/${product._id}`}>
+                            {product.name.length >= 55 ? `${product.name.slice(0, 55)}...` : ` ${product.name}`}
                           </Link>
                         </p>
                         <Rating value={product.rating} text={`${product.numReviews} reviews`} />

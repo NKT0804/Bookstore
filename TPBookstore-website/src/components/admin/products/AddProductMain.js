@@ -231,7 +231,7 @@ const AddProductMain = () => {
                       required
                       onChange={(e) => setImage(e.target.value)}
                     />
-                    <input className="form-control mt-3" type="file" />
+                    <input className="form-control mt-3" type="file" accept=".png, .jpg, .jpeg" />
                   </div>
                 </div>
               </div>

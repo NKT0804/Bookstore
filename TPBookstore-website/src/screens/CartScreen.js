@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import Header from "../components/Header";
 import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from 'react-redux';
-import { getCartListItem, removeFromCartItem, updateCart } from './../Redux/Actions/cartActions';
+import { useDispatch, useSelector } from "react-redux";
+import { getCartListItem, removeFromCartItem, updateCart } from "./../Redux/Actions/cartActions";
 import { toast } from "react-toastify";
 import Toast from "../components/base/LoadingError/Toast";
 
@@ -10,13 +10,13 @@ const ToastObjects = {
   pauseOnFocusLoss: false,
   draggable: false,
   pauseOnHover: false,
-  autoClose: 2000,
+  autoClose: 2000
 };
 const CartScreen = ({ history }) => {
   window.scrollTo(0, 0);
   const dispatch = useDispatch();
   const cart = useSelector((state) => {
-      return state.cartListItem.cartUser ?? state.cartListItem;
+    return state.cartListItem.cartUser ?? state.cartListItem;
   });
   const { cartItems } = cart;
 

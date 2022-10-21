@@ -19,18 +19,20 @@ function removeVietnameseTones(str) {
     str = str.replace(/\u0300|\u0301|\u0303|\u0309|\u0323/g, ""); // ̀ ́ ̃ ̉ ̣  huyền, sắc, ngã, hỏi, nặng
     str = str.replace(/\u02C6|\u0306|\u031B/g, ""); // ˆ ̆ ̛  Â, Ê, Ă, Ơ, Ư
     // Remove extra spaces
-    // Bỏ các khoảng trắng liền nhau
-    str = str.replace(/ + /g, " ");
-    str = str.trim();
     // Remove punctuations
     // Bỏ dấu câu, kí tự đặc biệt
     str = str.replace(/!|@|%|\^|\*|\(|\)|\+|\=|\<|\>|\?|\/|,|\.|\:|\;|\'|\"|\&|\#|\[|\]|~|\$|_|`|-|{|}|\||\\/g, " ");
+    // Bỏ các khoảng trắng liền nhau
+    str = str.replace(/ + /g, " ");
+    str = str.trim();
     return str;
 }
 
 const createSlug = (str) => {
     //Bỏ dấu tiếng việt
     let slug = removeVietnameseTones(str);
+    //Chuyển chữ hoa thành chữ thường
+    slug = slug.toLowerCase();
     //Thay thế khoảng trắng thành kí tự "-"
     slug = slug.replace(/\s/g, "-");
     return slug;

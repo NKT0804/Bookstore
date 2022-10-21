@@ -95,20 +95,19 @@ const Header = () => {
                         data-toggle="dropdown"
                         aria-haspopup="true"
                         aria-expanded="false"
-                      >
-                        <i className="fas fa-user"></i>
-                      </button>
+                      ></button>
+                      <i class="fa fa-user" aria-hidden="true"></i>
                       <div className="dropdown-menu">
                         <Link className="dropdown-item" to="/profile">
-                          Profile
+                          Tài khoản
                         </Link>
                         {userInfo?.isAdmin === true && (
                           <Link className="dropdown-item" to="/admin">
-                            Admin page
+                            Trang Quản trị
                           </Link>
                         )}
                         <Link className="dropdown-item" to="#" onClick={logoutHandler}>
-                          Logout
+                          Đăng xuất
                         </Link>
                       </div>
                     </div>
@@ -125,11 +124,11 @@ const Header = () => {
                       </button>
                       <div className="dropdown-menu">
                         <Link className="dropdown-item" to="/login">
-                          Login
+                          Đăng nhập
                         </Link>
 
                         <Link className="dropdown-item" to="/register">
-                          Register
+                          Đăng ký
                         </Link>
                       </div>
                     </div>
@@ -145,12 +144,12 @@ const Header = () => {
                     <input
                       type="search"
                       className="form-control rounded search"
-                      placeholder="Search"
+                      placeholder="Tìm kiếm"
                       // value={keyword}
                       onChange={(e) => setKeyword(e.target.value)}
                     />
                     <button type="submit" className="search-button">
-                      search
+                      Tìm kiếm
                     </button>
                   </form>
                 </div>
@@ -171,23 +170,25 @@ const Header = () => {
                   <input
                     type="search"
                     className="form-control rounded search"
-                    placeholder="Search"
+                    placeholder="Tìm kiếm"
                     onChange={(e) => setKeyword(e.target.value)}
                   />
                   <button type="submit" className="search-button">
-                    search
+                    Tìm kiếm
                   </button>
                 </form>
               </div>
               <div className="col-md-3 d-flex align-items-center justify-content-end Login-Register">
                 {userInfo ? (
                   <div className="btn-group">
-                    <img
-                      className="img-xs rounded-circle"
-                      src={userInfo?.avatarUrl}
-                      onError={onAvatarLoadError}
-                      alt="User avatar"
-                    />
+                    <Link to="/profile">
+                      <img
+                        className="img-xs rounded-circle"
+                        src={userInfo?.avatarUrl}
+                        onError={onAvatarLoadError}
+                        alt="User avatar"
+                      />
+                    </Link>
                     <button
                       type="button"
                       className="name-button dropdown-toggle"
@@ -195,31 +196,30 @@ const Header = () => {
                       aria-haspopup="true"
                       aria-expanded="false"
                     >
-                      Hi,{" "}
-                      {`${userInfo?.name.length} >= 10` ? `  ${userInfo?.name.slice(0, 10)}...` : `  ${userInfo?.name}`}
+                      {`${userInfo?.name.length} >= 10` ? `  ${userInfo?.name.slice(0, 10)}` : `  ${userInfo?.name}`}
                     </button>
                     <div className="dropdown-menu">
                       <Link className="dropdown-item" to="/profile">
-                        Profile
+                        Tài khoản
                       </Link>
                       {userInfo?.isAdmin === true && (
                         <Link className="dropdown-item" to="/admin">
-                          Admin page
+                          Trang Quản trị
                         </Link>
                       )}
                       <Link className="dropdown-item" to="#" onClick={logoutHandler}>
-                        Logout
+                        Đăng xuất
                       </Link>
                     </div>
                   </div>
                 ) : (
                   <>
                     <button className="name-button">
-                      <Link to="/register">Register</Link>
+                      <Link to="/register">Đăng ký</Link>
                     </button>
 
                     <button className="name-button">
-                      <Link to="/login">Login</Link>
+                      <Link to="/login">Đăng nhập</Link>
                     </button>
                   </>
                 )}

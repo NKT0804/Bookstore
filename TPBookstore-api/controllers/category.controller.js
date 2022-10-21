@@ -7,12 +7,18 @@ import { categoryQueryParams, commentQueryParams, validateConstants } from "../c
 
 //Admin create new category
 const createCategory = async (req, res) => {
-    const { name, slug } = req.body;
+    const { name } = req.body;
 
     const isExist = await Category.findOne({ name: name, isDisabled: false });
     if (isExist) {
         res.status(400);
         throw new Error("Category name is already exist");
+    }
+    // Tạo slug
+    let slug = createSlug(name);
+    const isExistSlug = await Category.findOne({ slug: slug });
+    if (isExistSlug) {
+        slug = slug + "-" + Math.round(Math.random() * 10000).toString();
     }
     const newCategory = new Category({
         name,
@@ -31,7 +37,6 @@ const getCategory = async (req, res) => {
     const dateOrderFilter = validateConstants(categoryQueryParams, "date", req.query.dateOrder);
     let statusFilter;
     if (!req.user || req.user.isAdmin == false) {
-        console.log("here");
         statusFilter = validateConstants(categoryQueryParams, "status", "default");
     } else if (req.user.isAdmin) {
         statusFilter = validateConstants(categoryQueryParams, "status", req.query.status);
@@ -80,12 +85,18 @@ const getCategory = async (req, res) => {
 
 //Admin udpate category
 const updateCategory = async (req, res) => {
-    const { name, slug } = req.body;
+    const { name } = req.body;
     const categoryId = req.params.id || null;
     const category = await Category.findOne({ _id: categoryId, isDisabled: false });
     if (!category) {
         res.status(404);
         throw new Error("Category not Found");
+    }
+    // Tạo slug
+    let slug = createSlug(name);
+    const isExistSlug = await Category.findOne({ slug: slug });
+    if (isExistSlug) {
+        slug = slug + "-" + Math.round(Math.random() * 10000).toString();
     }
     category.name = name || category.name;
     category.slug = slug || category.slug;

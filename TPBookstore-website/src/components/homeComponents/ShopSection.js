@@ -77,7 +77,7 @@ const ShopSection = (props) => {
                       products?.map((product) => (
                         <div className="col-lg-3" key={product._id}>
                           <div className="shadow p-3 mb-4 bg-body rounded">
-                            <Link to={`/products/${product._id}`}>
+                            <Link to={`/product/${product._id}`}>
                               <div className="shopBack main-effect">
                                 <img className="main-scale" src={product.image} alt={product.name} />
                               </div>
@@ -85,11 +85,8 @@ const ShopSection = (props) => {
 
                             <div className="shoptext">
                               <p>
-                                <Link to={`/products/${product._id}`}>
-                                  {`${product.name.length} >= 30`
-                                    ? `  
-                                    ${product.name.slice(0, 30)}...`
-                                    : ` ${product.name}}`}
+                                <Link to={`/product/${product._id}`}>
+                                  {product.name.length >= 55 ? `${product.name.slice(0, 55)}...` : ` ${product.name}`}
                                 </Link>
                               </p>
 

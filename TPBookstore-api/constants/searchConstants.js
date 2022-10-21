@@ -77,20 +77,6 @@ const categoryQueryParams = {
     }
 };
 
-const publisherQueryParams = {
-    date: {
-        newest: { createdAt: "desc" },
-        latest: { createdAt: "asc" },
-        default: { createdAt: "desc" }
-    },
-    status: {
-        disabled: { isDisabled: true },
-        notDisabled: { isDisabled: false },
-        all: {},
-        default: { isDisabled: false }
-    }
-};
-
 const validateConstants = function (reference, constant, constantField) {
     constantField = constantField ? constantField.toString().trim().toLowerCase() : "";
     return reference[constant].hasOwnProperty(constantField)
@@ -104,6 +90,5 @@ export {
     orderQueryParams,
     userQueryParams,
     categoryQueryParams,
-    publisherQueryParams,
     validateConstants
 };

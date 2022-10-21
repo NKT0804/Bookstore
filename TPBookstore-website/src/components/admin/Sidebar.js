@@ -7,7 +7,7 @@ const Sidebar = () => {
       <aside className="navbar-aside" id="offcanvas_aside">
         <div className="aside-top">
           <Link to="/" className="brand-wrap">
-            <img src="/images/logo.png" style={{ height: "46" }} className="logo" alt="Ecommerce dashboard template" />
+            <img src="/images/logo.png" className="logo" alt="Ecommerce dashboard template" />
           </Link>
           <div>
             <button className="btn btn-icon btn-aside-minimize">
@@ -58,6 +58,12 @@ const Sidebar = () => {
               <NavLink activeClassName="active" className="menu-link" to="/admin/comments">
                 <i className="icon fas fa-comments"></i>
                 <span className="text">Comments</span>
+              </NavLink>
+            </li>
+            <li className="menu-item">
+              <NavLink activeClassName="active" className="menu-link" to="/admin/sliders">
+                <i className="icon fas fa-sliders-h"></i>
+                <span className="text">Sliders</span>
               </NavLink>
             </li>
             {/* <li className="menu-item">

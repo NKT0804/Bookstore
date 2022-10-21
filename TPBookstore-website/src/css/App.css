@@ -143,6 +143,7 @@ textarea:focus {
   border: 0 !important;
   padding: 0 !important;
   overflow: hidden;
+  display: none;
 }
 .dropdown-menu a {
   padding: 10px 20px !important;
@@ -515,6 +516,10 @@ textarea:focus {
   outline: 0;
 }
 
+.btn-change-avatar {
+  margin-left: 16px;
+}
+
 .btn-group-avt {
   display: flex;
   flex-direction: row;
@@ -529,13 +534,16 @@ textarea:focus {
   padding: 3px 10px !important;
   font-size: 16px !important;
   background: var(--primary-color);
-  color: #ccc;
+  color: var(--white-color);
   z-index: 10;
 }
 .enableCancel {
   z-index: 10;
   right: 0;
   background-color: var(--red-color);
+  border: none;
+  border-radius: 5px;
+  margin-right: 10px;
 }
 
 .btn-cancel-change-avt,
@@ -544,6 +552,9 @@ textarea:focus {
 }
 .enable {
   display: block !important;
+  border: none;
+  border-radius: 5px;
+  margin-right: 10px;
 }
 .btn-submit-change-avt:hover {
   color: var(--white-color);
@@ -808,6 +819,7 @@ textarea:focus {
 
 .policy__list::-webkit-scrollbar {
   display: block;
+  background-color: #f1f1f1;
 }
 
 .policy__item {
@@ -1083,6 +1095,10 @@ a.popu-cate__item {
   line-height: 2;
   font-style: italic;
   padding: 10px 0;
+}
+/*User avatar*/
+.change-avatar {
+  display: none;
 }
 
 /* trademark */
