@@ -45,7 +45,7 @@ const Header = () => {
     <div>
       {/* Top Header */}
       <div className="Announcement ">
-        <div className="container">
+        {/* <div className="container">
           <div className="row">
             <div className="col-md-6 d-flex align-items-center display-none">
               <p>+0909 0009</p>
@@ -69,8 +69,10 @@ const Header = () => {
               </a>
             </div>
           </div>
-        </div>
+        </div> */}
+        <img alt="banner_book" src=".././images/banner.jpg" className="banner__header" />
       </div>
+
       {/* Header */}
       <div className="header">
         <div className="container">

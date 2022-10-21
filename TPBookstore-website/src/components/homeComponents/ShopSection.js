@@ -91,7 +91,14 @@ const ShopSection = (props) => {
                               </p>
 
                               <Rating value={product.rating} text={`${product.numReviews} reviews`} />
-                              <h3>${product.price}</h3>
+                              <div className="shoptext__price">
+                                <p className="shoptext__price-special">
+                                  <span className="shoptext__price-special-new">${product.price}</span>
+                                  <span className="shoptext__price-special-discount">-30%</span>
+                                </p>
+                                <p className="shoptext__price-old">$7000</p>
+                                {/* <h3>${product.price}</h3> */}
+                              </div>
                             </div>
                           </div>
                         </div>

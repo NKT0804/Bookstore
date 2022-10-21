@@ -841,7 +841,8 @@ ul.row-sm {
 
 .form-control:hover,
 .form-select:hover {
-  border-color: var(--primary-color);
+    cursor: pointer;
+    border-color: var(--primary-color);
 }
 
 .btn-facebook {

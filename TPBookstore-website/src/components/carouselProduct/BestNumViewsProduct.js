@@ -79,6 +79,7 @@ const BestNumViewsProduct = () => {
                       <Link to={`/product/${product._id}`}>
                         <div className="shopBack main-effect">
                           <img className="main-scale" src={product.image} alt={product.name} />
+                          <span className="label-product_discount">30%</span>
                         </div>
                       </Link>
 

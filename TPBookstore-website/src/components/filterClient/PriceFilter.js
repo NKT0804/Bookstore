@@ -7,6 +7,7 @@ const PriceFilter = ({ setMinPriceInput, setMaxPriceInput, minPrice, maxPrice, m
         <p className="distance-price__p">Khoảng giá</p>
         <div className="distance-price__flex" style={{ display: "flex", alignItems: "center" }}>
           <input
+            className="distance-price__input"
             type="number"
             placeholder="$TỪ"
             value={minPrice}
@@ -15,6 +16,7 @@ const PriceFilter = ({ setMinPriceInput, setMaxPriceInput, minPrice, maxPrice, m
           ></input>
           <label>-</label>
           <input
+            className="distance-price__input"
             type="number"
             placeholder="$ĐẾN"
             value={maxPrice}

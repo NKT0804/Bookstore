@@ -77,10 +77,11 @@ const BestSellerProduct = () => {
                       <Link to={`/product/${product._id}`}>
                         <div className="shopBack main-effect">
                           <img className="main-scale" src={product.image} alt={product.name} />
+                          <span className="label-product_discount">30%</span>
                         </div>
                       </Link>
 
-                      <div className="shoptext">
+                      <div className="">
                         <p>
                           <Link to={`/product/${product._id}`}>
                             {product.name.length >= 55 ? `${product.name.slice(0, 55)}...` : ` ${product.name}`}

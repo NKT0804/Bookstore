@@ -23,11 +23,11 @@ const Filter = (props) => {
     <>
       <div className="filter-menu">
         <div>
-          <h4>DANH MỤC</h4>
+          <h4 className="filter-menu__title">DANH MỤC</h4>
         </div>
         <CategoryFilter category={category} categoryFilter={categoryFilter} setCategoryFilter={setCategoryFilter} />
         <div>
-          <h4>BỘ LỌC TÌM KIẾM</h4>
+          <h4 className="filter-menu__title">BỘ LỌC TÌM KIẾM</h4>
         </div>
         <PriceFilter
           minPrice={minPrice}
