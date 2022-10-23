@@ -99,7 +99,7 @@ const ShopSection = (props) => {
                                   <span className="shoptext__price-special-new">${product.price}</span>
                                   <span className="shoptext__price-special-discount">-30%</span>
                                 </p>
-                                <p className="shoptext__price-old">$7000</p>
+                                <p className="shoptext__price-old">7000</p>
                                 {/* <h3>${product.price}</h3> */}
                               </div>
                             </div>

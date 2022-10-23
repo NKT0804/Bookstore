@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import Header from "../components/Header";
+import Footer from "../components/Footer";
 import Rating from "../components/homeComponents/Rating";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -214,10 +215,23 @@ const SingleProduct = ({ history, match }) => {
                   </div>
                   <p>{product.description}</p>
 
+                  <div className="product-manuafactures">
+                    <span>
+                      <i>Nhà cung cấp : </i> <b>Minh Long</b>
+                    </span>
+                    <span>
+                      <i>Tác giả : </i> <b>Robin Sharma</b>
+                    </span>
+                  </div>
+
                   <div className="product-count col-lg-7 ">
                     <div className="flex-box d-flex justify-content-between align-items-center">
                       <h6>Price</h6>
-                      <span>${product.price}</span>
+                      <div>
+                        <span className="product-count__new-price">${product.price}</span>
+                        <span className="product-count__old-price">7000</span>
+                        <span class="shoptext__price-special-discount">-30%</span>
+                      </div>
                     </div>
                     <div className="flex-box d-flex justify-content-between align-items-center">
                       <h6>Status</h6>
@@ -306,7 +320,7 @@ const SingleProduct = ({ history, match }) => {
                     <div className="my-3">
                       <button
                         disabled={loadingCreateReview}
-                        className="col-12 bg-black border-0 p-3 rounded text-white"
+                        className="btn-submit btn-primary col-12 border-0 p-3 rounded text-white"
                       >
                         SUBMIT
                       </button>
@@ -347,16 +361,24 @@ const SingleProduct = ({ history, match }) => {
                           </Link>
 
                           <div className="shoptext">
-                            <p>
+                            <p className="shoptext__name">
                               <Link to={`/products/${product._id}`}>
                                 {`${product.name.length} >= 30`
-                                  ? ` ${product.name.slice(0, 30)}...`
+                                  ? `  
+                                    ${product.name.slice(0, 30)}...`
                                   : ` ${product.name}}`}
                               </Link>
                             </p>
 
                             <Rating value={product.rating} text={`${product.numReviews} reviews`} />
-                            <h3>${product.price}</h3>
+                            <div className="shoptext__price">
+                              <p className="shoptext__price-special">
+                                <span className="shoptext__price-special-new">${product.price}</span>
+                                <span className="shoptext__price-special-discount">-30%</span>
+                              </p>
+                              <p className="shoptext__price-old">7000</p>
+                              {/* <h3>${product.price}</h3> */}
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -370,6 +392,7 @@ const SingleProduct = ({ history, match }) => {
           </>
         )}
       </div>
+      <Footer />
     </>
   );
 };

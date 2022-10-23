@@ -153,7 +153,7 @@ const ProductComment = (props) => {
             value={content}
             onChange={(e) => setContent(e.target.value)}
           ></textarea>
-          <button type="submit" className="btn btn-primary mt-3 btn-size p-2">
+          <button type="submit" className="btn btn-submit mt-3 btn-size p-2">
             SEND COMMENT
           </button>
         </form>

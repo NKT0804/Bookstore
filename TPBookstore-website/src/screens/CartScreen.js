@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
 import Header from "../components/Header";
+import Footer from "../components/Footer";
 import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from 'react-redux';
-import { getCartListItem, removeFromCartItem, updateCart } from './../Redux/Actions/cartActions';
+import { useDispatch, useSelector } from "react-redux";
+import { getCartListItem, removeFromCartItem, updateCart } from "./../Redux/Actions/cartActions";
 import { toast } from "react-toastify";
 import Toast from "../components/base/LoadingError/Toast";
 
@@ -10,18 +11,18 @@ const ToastObjects = {
   pauseOnFocusLoss: false,
   draggable: false,
   pauseOnHover: false,
-  autoClose: 2000,
+  autoClose: 2000
 };
 const CartScreen = ({ history }) => {
   window.scrollTo(0, 0);
   const dispatch = useDispatch();
   const cart = useSelector((state) => {
-      return state.cartListItem.cartUser ?? state.cartListItem;
+    return state.cartListItem.cartUser ?? state.cartListItem;
   });
   const { cartItems } = cart;
 
   // product total handler
-  const totalHandler = cartItems?.reduce((pro, item) => pro + item.qty * item?.product.price, 0).toFixed(2);
+  const totalHandler = cartItems?.reduce((pro, item) => pro + item.qty * item?.product.price, 0); /*.toFixed(2);*/
 
   const addToCart = useSelector((state) => state.addToCart);
   const { success } = addToCart;
@@ -146,6 +147,7 @@ const CartScreen = ({ history }) => {
           </>
         )}
       </div>
+      <Footer />
     </>
   );
 };
