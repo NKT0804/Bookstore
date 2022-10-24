@@ -280,7 +280,10 @@ const SingleProduct = ({ history, match }) => {
                       <strong>{review.user.name}</strong>
                       <Rating value={review.rating} />
                       <span>{moment(review.createdAt).calendar()}</span>
-                      <div className="alert alert-info mt-3">{review.reviewContent}</div>
+                      <div className="review-content alert alert-info mt-3">
+                        {review.reviewContent}
+                        <i class="delete__review fas fa-trash-alt"></i>
+                      </div>
                     </div>
                   ))}
               </div>
@@ -298,7 +301,7 @@ const SingleProduct = ({ history, match }) => {
                       <select
                         value={rating}
                         onChange={(e) => setRating(e.target.value)}
-                        className="col-12 bg-light p-3 mt-2 border-0 rounded"
+                        className="col-12 bg-light p-3 mt-2 border-1 rounded"
                       >
                         <option value="">Select...</option>
                         <option value="1">1 - Poor</option>
@@ -314,13 +317,13 @@ const SingleProduct = ({ history, match }) => {
                         row="3"
                         value={reviewContent}
                         onChange={(e) => setReviewContent(e.target.value)}
-                        className="col-12 bg-light p-3 mt-2 border-0 rounded"
+                        className="col-12 bg-light p-3 mt-2 border-1 rounded"
                       ></textarea>
                     </div>
                     <div className="my-3">
                       <button
                         disabled={loadingCreateReview}
-                        className="btn-submit btn-primary col-12 border-0 p-3 rounded text-white"
+                        className="btn-submit btn-primary col-12 border-1 p-3 rounded text-white"
                       >
                         SUBMIT
                       </button>

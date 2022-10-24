@@ -1665,6 +1665,15 @@ a.popu-cate__item {
   padding-left: 50px;
 }
 
+.review-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.delete__review {
+  padding: 8px;
+}
 
 
 /* TEST CSS*/
