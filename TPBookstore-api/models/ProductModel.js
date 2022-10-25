@@ -30,7 +30,7 @@ const productSchema = mongoose.Schema(
         slug: {
             type: String,
             required: false,
-            default: ""
+            unique: true
         },
         author: {
             type: String,
@@ -49,11 +49,6 @@ const productSchema = mongoose.Schema(
             type: String,
             required: true
         },
-        // supplier: {
-        //     type: mongoose.Schema.Types.ObjectId,
-        //     ref: "Supplier",
-        //     required: false
-        // },
 
         description: {
             type: String,

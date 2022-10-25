@@ -7,14 +7,16 @@ const userSchema = mongoose.Schema(
             type: String,
             required: true
         },
-        phone: {
-            type: String,
-            required: true
-        },
+
         email: {
             type: String,
             required: true,
             unique: true
+        },
+        phone: {
+            type: String,
+            required: false,
+            default: ""
         },
         password: {
             type: String,
@@ -23,7 +25,7 @@ const userSchema = mongoose.Schema(
         avatarUrl: {
             type: String,
             required: false,
-            default: "/images/avatar/default.png"
+            default: "./images/avatar/default.png"
         },
         isAdmin: {
             type: Boolean,
@@ -36,10 +38,13 @@ const userSchema = mongoose.Schema(
             default: false
         },
         sex: {
-            type: String
+            type: String,
+            required: false,
+            default: ""
         },
         address: {
             type: String,
+            required: false,
             default: ""
         }
     },

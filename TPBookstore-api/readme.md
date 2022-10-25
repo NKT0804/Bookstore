@@ -38,7 +38,6 @@ product
 user
 order
 <!-- New -->
-Publisher
 category
 <!-- Future -->
 config (for email)

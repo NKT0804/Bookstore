@@ -1,4 +1,3 @@
-- chỉnh sửa các thuộc tính liên quan đến "Publisher" model
 - xem lại các thuộc tính của các model
 - chỉnh sửa các icon, logo thông tin project
 - màu thương hiệu #4ac4fa

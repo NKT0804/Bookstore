@@ -41,7 +41,7 @@ const HomeScreen = ({ match }) => {
       {/* <PopularProduct /> */}
       <ShopSection keyword={keyword} pageNumber={pageNumber} isFilter={isFilter} setIsFilter={setIsFilter} />
       <CustomerReview />
-      <Trademark />
+      {/* <Trademark /> */}
       <CalltoActionSection />
       <ContactInfo />
       <Footer />

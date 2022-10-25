@@ -357,15 +357,20 @@ const SingleProduct = ({ history, match }) => {
                     {relatedProducts?.map((product) => (
                       <div className="shop col-lg-3 " key={product._id}>
                         <div className="border-product me-3">
-                          <Link to={`/products/${product._id}`}>
+                          <Link to={`/product/${product._id}`}>
                             <div className="shopBack main-effect">
                               <img className="main-scale" src={product.image} alt={product.name} />
                             </div>
                           </Link>
 
                           <div className="shoptext">
+<<<<<<< HEAD
                             <p className="shoptext__name">
                               <Link to={`/products/${product._id}`}>
+=======
+                            <p>
+                              <Link to={`/product/${product._id}`}>
+>>>>>>> cc4f936b2ae82fa3d9566618472f5aba920528e5
                                 {`${product.name.length} >= 30`
                                   ? `  
                                     ${product.name.slice(0, 30)}...`

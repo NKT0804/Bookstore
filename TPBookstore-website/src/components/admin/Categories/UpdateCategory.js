@@ -5,7 +5,6 @@ import Loading from "../../base/LoadingError/Loading";
 
 const UpdateCategory = ({ currentCategory, setIsEditCategory }) => {
   const [name, setName] = useState("");
-  const [slug, setSlug] = useState("");
 
   const dispatch = useDispatch();
 
@@ -17,9 +16,7 @@ const UpdateCategory = ({ currentCategory, setIsEditCategory }) => {
 
   const updateCategoryHandler = useCallback(() => {
     const nameUpdate = category[currentCategory]?.name;
-    const slugUpdate = category[currentCategory]?.slug;
     setName(nameUpdate);
-    setSlug(slugUpdate);
   }, [category, currentCategory]);
 
   useEffect(() => {
@@ -31,7 +28,6 @@ const UpdateCategory = ({ currentCategory, setIsEditCategory }) => {
       updateCategoryAdmin({
         _id: category[currentCategory]?._id,
         name,
-        slug,
         status: true
       })
     );
@@ -54,19 +50,6 @@ const UpdateCategory = ({ currentCategory, setIsEditCategory }) => {
                 id="category_name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-              />
-            </div>
-            <div className="mb-3 w-50 ms-3">
-              <label htmlFor="category_slug" className="form-label">
-                Slug
-              </label>
-              <input
-                type="text"
-                placeholder="Slug here"
-                className="form-control"
-                id="category_slug"
-                value={slug}
-                onChange={(e) => setSlug(e.target.value)}
               />
             </div>
           </div>

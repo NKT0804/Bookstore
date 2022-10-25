@@ -74,7 +74,7 @@ const BestSellerProduct = () => {
                 return (
                   <div className="mb-5" key={index}>
                     <div className="shadow p-3 mb-4 me-2 rounded">
-                      <Link to={`/products/${product._id}`}>
+                      <Link to={`/product/${product._id}`}>
                         <div className="shopBack main-effect">
                           <img className="main-scale" src={product.image} alt={product.name} />
                           <span className="label-product_discount">30%</span>
@@ -83,8 +83,8 @@ const BestSellerProduct = () => {
 
                       <div className="">
                         <p>
-                          <Link to={`/products/${product._id}`}>
-                            {`${product.name.length} >= 20` ? `${product.name.slice(0, 20)}...` : ` ${product.name}}`}
+                          <Link to={`/product/${product._id}`}>
+                            {product.name.length >= 55 ? `${product.name.slice(0, 55)}...` : ` ${product.name}`}
                           </Link>
                         </p>
                         <Rating value={product.rating} text={`${product.numReviews} reviews`} />

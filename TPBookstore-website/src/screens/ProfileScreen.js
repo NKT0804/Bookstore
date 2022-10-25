@@ -47,9 +47,15 @@ const ProfileScreen = () => {
               </div>
               <div className="author-card-profile row">
                 <div className="author-card-avatar col-md-5">
+<<<<<<< HEAD
                   <img src={userInfo.avatarUrl} onError={onAvatarLoadError} alt="userprofileimage" />
                 </div>
                 <Avatar />
+=======
+                  <img src={userInfo?.avatarUrl} onError={onAvatarLoadError} alt="userprofileimage" />
+                </div>
+                <Avatar avatarUrl={userInfo?.avatarUrl} />
+>>>>>>> cc4f936b2ae82fa3d9566618472f5aba920528e5
               </div>
             </div>
             <div className="wizard pt-3 ">

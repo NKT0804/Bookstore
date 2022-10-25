@@ -20,7 +20,11 @@ const createProduct = async (req, res) => {
         throw new Error("Product name already exist");
     }
     // Tạo slug
-    const slug = createSlug(name);
+    let slug = createSlug(name);
+    const isExistSlug = await Product.findOne({ slug: slug });
+    if (isExistSlug) {
+        slug = slug + "-" + Math.round(Math.random() * 10000).toString();
+    }
     // Upload image
     const urlImage = await uploadImage(image, "TPBookstore/products", slug);
     if (!urlImage.url) {
@@ -194,23 +198,33 @@ const getProducts = async (req, res) => {
 //     })
 // );
 
-//Non-user, user, admin get product by id
+//Non-user, user get product by slug
+// const getDetailProductBySlug = async (req, res) => {
+//     const productSlug = req.params.slug || null;
+//     const product = await Product.findOne({ slug: productSlug, isDisabled: false }).populate(
+//         "reviews.user",
+//         "name avatarUrl"
+//     );
+//     if (!product) {
+//         res.status(404);
+//         throw new Error("Product not Found");
+//     }
+
+//     // increment Product View counter
+//     product.numViews = product.numViews + 1;
+//     await product.save();
+
+//     res.status(200);
+//     res.json(product);
+// };
+
+// Non-user, user, admin get detail product by id
 const getDetailProductById = async (req, res) => {
     const productId = req.params.id || null;
     const product = await Product.findOne({ _id: productId, isDisabled: false }).populate(
         "reviews.user",
         "name avatarUrl"
     );
-
-    // let product;
-    // console.log("new", product);
-    // try {
-    //   product = await Product.findById(req.params.id).exec();
-    // } catch (error) {
-    //   console.log("err", product);
-    //   res.status(404);
-    //   throw new Error("Product not Found");
-    // }
     if (!product) {
         res.status(404);
         throw new Error("Product not Found");
@@ -231,7 +245,7 @@ const getProductComments = async (req, res) => {
         res.status(404);
         throw new Error("Product not Found");
     }
-    let comments = await Comment.find({ product: req.params.id, isDisabled: false }).populate("user replies.user");
+    let comments = await Comment.find({ product: product._id, isDisabled: false }).populate("user replies.user");
     res.status(200);
     res.json(comments);
 };
@@ -277,23 +291,33 @@ const reviewProduct = async (req, res, next) => {
 
 //Admin update product
 const updateProduct = async (req, res) => {
-    const { name, slug, price, priceSale, description, author, image, countInStock, category } = req.body;
+    const { name, price, priceSale, description, author, image, countInStock, category, publisher, supplier } =
+        req.body;
     const productId = req.params.id || null;
     const product = await Product.findOne({ _id: productId, isDisabled: false });
     if (!product) {
         res.status(404);
         throw new Error("Product not Found");
     }
-    const fixSlug = slug.replace(/\s/g, "-");
+    // Tạo slug
+    const slug = createSlug(name);
+    // Upload image
+    const urlImage = await uploadImage(image, "TPBookstore/products", slug);
+    if (!urlImage.url) {
+        res.status(400);
+        throw new Error(urlImage.err);
+    }
 
     product.name = name || product.name;
-    product.slug = fixSlug || product.slug;
+    product.slug = slug || product.slug;
     product.price = price || product.price;
     product.priceSale = priceSale || product.priceSale;
     product.description = description || product.description;
     product.author = author || product.author;
-    product.image = image || product.image;
+    product.image = urlImage.url || product.image;
     product.countInStock = countInStock || product.countInStock;
+    product.publisher = publisher || product.publisher;
+    product.supplier = supplier || product.supplier;
     let existedCategory;
     if (category != null) {
         existedCategory = await Category.findOne({ _id: category, isDisabled: false });
@@ -398,6 +422,7 @@ const deleteProduct = async (req, res) => {
 const ProductControler = {
     createProduct,
     getProducts,
+    // getDetailProductBySlug,
     getDetailProductById,
     getProductComments,
     reviewProduct,

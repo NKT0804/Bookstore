@@ -11,6 +11,7 @@ productRouter.get("/:id/comments", expressAsyncHandler(ProductControler.getProdu
 productRouter.patch("/:id/disable", protect, admin, expressAsyncHandler(ProductControler.disableProduct));
 productRouter.patch("/:id/restore", protect, admin, expressAsyncHandler(ProductControler.restoreProduct));
 productRouter.post("/:id/review", protect, expressAsyncHandler(ProductControler.reviewProduct));
+// productRouter.get("/:slug", expressAsyncHandler(ProductControler.getDetailProductBySlug));
 productRouter.get("/:id", expressAsyncHandler(ProductControler.getDetailProductById));
 productRouter.put("/:id", protect, admin, expressAsyncHandler(ProductControler.updateProduct));
 productRouter.delete("/:id", protect, admin, expressAsyncHandler(ProductControler.deleteProduct));
