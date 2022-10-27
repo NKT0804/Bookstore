@@ -346,6 +346,10 @@
     padding: 0 16px;
   }
 
+  .footer__infomation-content {
+    text-align: center;
+  }
+
   .icon__footer-social--item {
     display: none;
   }

@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import Header from "../components/Header";
+import Footer from "../components/Footer";
 import Rating from "../components/homeComponents/Rating";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -201,7 +202,7 @@ const SingleProduct = ({ history, match }) => {
           <Message variant="alert-danger">{error}</Message>
         ) : (
           <>
-            <div className="row">
+            <div className="row bg-w pd-y">
               <div className="col-md-6">
                 <div className="single-image">
                   <img src={product.image} alt={product.name} />
@@ -212,12 +213,34 @@ const SingleProduct = ({ history, match }) => {
                   <div className="product-info">
                     <div className="product-name">{product.name}</div>
                   </div>
-                  <p>{product.description}</p>
+
+                  <div className="product-manuafactures">
+                    <div className="product-manuafactures__item">
+                      <span>
+                        <i>Nhà cung cấp : </i> <b>Minh Long</b>
+                      </span>
+                      <span>
+                        <i>Tác giả : </i> <b>Robin Sharma</b>
+                      </span>
+                    </div>
+                    <div className="product-manuafactures__item">
+                      <span>
+                        <i>Nhà xuất bản: </i> <b>Kim Đồng</b>
+                      </span>
+                      <span>
+                        <i>Hình thức bìa : </i> <b>Bìa mềm</b>
+                      </span>
+                    </div>
+                  </div>
 
                   <div className="product-count col-lg-7 ">
                     <div className="flex-box d-flex justify-content-between align-items-center">
                       <h6>Price</h6>
-                      <span>${product.price}</span>
+                      <div>
+                        <span className="product-count__new-price">${product.price}</span>
+                        <span className="product-count__old-price">7000</span>
+                        <span class="shoptext__price-special-discount">-30%</span>
+                      </div>
                     </div>
                     <div className="flex-box d-flex justify-content-between align-items-center">
                       <h6>Status</h6>
@@ -249,8 +272,52 @@ const SingleProduct = ({ history, match }) => {
               </div>
             </div>
 
+            {/* Product View Information */}
+            <div className="product-view-info">
+              <div className="product-view-title pd-y">
+                <b>Thông tin chi tiết sản phẩm</b>
+              </div>
+              <div className="product-view-info_detail">
+                <div className="product-view-info_detail-row">
+                  <label className="product-view-info_detail-title">Tên nhà cung cấp</label>
+                  <div>NXB Kim Đồng</div>
+                </div>
+                <div className="product-view-info_detail-row">
+                  <label className="product-view-info_detail-title">Tác giả</label>
+                  <div>Robin Sharma</div>
+                </div>
+                <div className="product-view-info_detail-row">
+                  <label className="product-view-info_detail-title">Năm xuất bản</label>
+                  <div>2022</div>
+                </div>
+                <div className="product-view-info_detail-row">
+                  <label className="product-view-info_detail-title">Nhà xuất bản</label>
+                  <div>NXB Kim Đồng</div>
+                </div>
+                <div className="product-view-info_detail-row">
+                  <label className="product-view-info_detail-title">Ngôn ngữ</label>
+                  <div>Tiếng Việt</div>
+                </div>
+                <div className="product-view-info_detail-row">
+                  <label className="product-view-info_detail-title">Số trang</label>
+                  <div>100</div>
+                </div>
+                <div className="product-view-info_detail-row">
+                  <label className="product-view-info_detail-title">Hình thức</label>
+                  <div>Bìa mềm</div>
+                </div>
+              </div>
+
+              <div className="product-description">
+                <div>
+                  <b>Mô tả</b>
+                </div>
+                <div className="product-description_content">{product.description}</div>
+              </div>
+            </div>
+
             {/* RATING */}
-            <div className="row my-5">
+            <div className="row my-5 bg-w pd-y">
               <div className="col-md-6">
                 <h6 className="mb-3">REVIEWS</h6>
                 {product.reviews.length === 0 && <Message variant={"alert-info mt-3"}>No Reviews</Message>}
@@ -266,7 +333,10 @@ const SingleProduct = ({ history, match }) => {
                       <strong>{review.user.name}</strong>
                       <Rating value={review.rating} />
                       <span>{moment(review.createdAt).calendar()}</span>
-                      <div className="alert alert-info mt-3">{review.reviewContent}</div>
+                      <div className="review-content alert alert-info mt-3">
+                        {review.reviewContent}
+                        <i class="delete__review fas fa-trash-alt"></i>
+                      </div>
                     </div>
                   ))}
               </div>
@@ -284,7 +354,7 @@ const SingleProduct = ({ history, match }) => {
                       <select
                         value={rating}
                         onChange={(e) => setRating(e.target.value)}
-                        className="col-12 bg-light p-3 mt-2 border-0 rounded"
+                        className="col-12 bg-light p-3 mt-2 border-1 rounded"
                       >
                         <option value="">Select...</option>
                         <option value="1">1 - Poor</option>
@@ -300,13 +370,13 @@ const SingleProduct = ({ history, match }) => {
                         row="3"
                         value={reviewContent}
                         onChange={(e) => setReviewContent(e.target.value)}
-                        className="col-12 bg-light p-3 mt-2 border-0 rounded"
+                        className="col-12 bg-light p-3 mt-2 border-1 rounded"
                       ></textarea>
                     </div>
                     <div className="my-3">
                       <button
                         disabled={loadingCreateReview}
-                        className="col-12 bg-black border-0 p-3 rounded text-white"
+                        className="btn-submit btn-primary col-12 border-1 p-3 rounded text-white"
                       >
                         SUBMIT
                       </button>
@@ -326,7 +396,7 @@ const SingleProduct = ({ history, match }) => {
               </div>
             </div>
             {/* Related products */}
-            <div>
+            <div className="ralated-product-list pd-y">
               {relatedProducts?.length > 0 && <h3 className="mb-3">Related products category</h3>}
               <div className="col-8 row related-product-container">
                 {loading ? (
@@ -339,7 +409,7 @@ const SingleProduct = ({ history, match }) => {
                   <Slider {...settings}>
                     {relatedProducts?.map((product) => (
                       <div className="shop col-lg-3 " key={product._id}>
-                        <div className="border-product me-3">
+                        <div className="border-product me-3 border border-1">
                           <Link to={`/product/${product._id}`}>
                             <div className="shopBack main-effect">
                               <img className="main-scale" src={product.image} alt={product.name} />
@@ -347,16 +417,24 @@ const SingleProduct = ({ history, match }) => {
                           </Link>
 
                           <div className="shoptext">
-                            <p>
-                              <Link to={`/product/${product._id}`}>
+                            <p className="shoptext__name">
+                              <Link to={`/products/${product._id}`}>
                                 {`${product.name.length} >= 30`
-                                  ? ` ${product.name.slice(0, 30)}...`
+                                  ? `  
+                                    ${product.name.slice(0, 30)}...`
                                   : ` ${product.name}}`}
                               </Link>
                             </p>
 
                             <Rating value={product.rating} text={`${product.numReviews} reviews`} />
-                            <h3>${product.price}</h3>
+                            <div className="shoptext__price">
+                              <p className="shoptext__price-special">
+                                <span className="shoptext__price-special-new">${product.price}</span>
+                                <span className="shoptext__price-special-discount">-30%</span>
+                              </p>
+                              <p className="shoptext__price-old">7000</p>
+                              {/* <h3>${product.price}</h3> */}
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -366,10 +444,12 @@ const SingleProduct = ({ history, match }) => {
               </div>
             </div>
             {/* Product comment */}
+
             <ProductComment userInfo={userInfo} match={match} />
           </>
         )}
       </div>
+      <Footer />
     </>
   );
 };

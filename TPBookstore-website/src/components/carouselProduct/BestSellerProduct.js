@@ -55,65 +55,62 @@ const BestSellerProduct = () => {
   };
   return (
     <>
-      <div className="title-section">
-        <h2 className="heading-section main-effect">Best seller</h2>
-      </div>
-      <div className="best-seller-container">
-        <Slider {...settings}>
-          {loading
-            ? productsBestSeller?.map((product) => {
-                return (
-                  <div className="mb-5" key={product._id}>
-                    <div className="shadow p-3 mb-4 me-2 rounded">
-                      <CardProductLoading />
+      <div className="best-seller">
+        <div className="title-section">
+          <h2 className="heading-section main-effect">Best seller</h2>
+        </div>
+        <div className="best-seller-container">
+          <Slider {...settings}>
+            {loading
+              ? productsBestSeller?.map((product) => {
+                  return (
+                    <div className="mb-5" key={product._id}>
+                      <div className="shadow p-3 mb-4 me-2 rounded">
+                        <CardProductLoading />
+                      </div>
                     </div>
-                  </div>
-                );
-              })
-            : productsBestSeller?.map((product, index) => {
-                return (
-                  <div className="mb-5" key={index}>
-                    <div className="shadow p-3 mb-4 me-2 rounded">
-                      <Link to={`/product/${product._id}`}>
-                        <div className="shopBack main-effect">
-                          <img className="main-scale" src={product.image} alt={product.name} />
-
-                          {product.priceSale < product.price ? (
+                  );
+                })
+              : productsBestSeller?.map((product, index) => {
+                  return (
+                    <div className="mb-5" key={index}>
+                      <div className="shadow p-3 mb-4 me-2 border border-1 rounded">
+                        <Link to={`/product/${product._id}`}>
+                          <div className="shopBack main-effect">
+                            <img className="main-scale" src={product.image} alt={product.name} />
                             <span className="label-product_discount">
                               {Math.round(100 - (product.priceSale / product.price) * 100)}%
                             </span>
-                          ) : (
-                            <></>
-                          )}
-                        </div>
-                      </Link>
+                          </div>
+                        </Link>
 
-                      <div className="">
-                        <p>
-                          <Link to={`/product/${product._id}`}>
-                            {product.name.length >= 55 ? `${product.name.slice(0, 55)}...` : ` ${product.name}`}
-                          </Link>
-                        </p>
-                        <Rating value={product.rating} text={`${product.numReviews} reviews`} />
-                        <div className="shoptext__price">
-                          <p className="shoptext__price-special">
-                            <span className="shoptext__price-special-new">${product.priceSale}</span>
+                        <div className="shoptext">
+                          <p className="shoptext__name">
+                            <Link to={`/product/${product._id}`}>
+                              {product.name.length >= 55 ? `${product.name.slice(0, 25)}...` : ` ${product.name}`}
+                            </Link>
                           </p>
-                          {product.priceSale < product.price ? (
-                            <p className="shoptext__price-old">${product.price}</p>
-                          ) : (
-                            <></>
-                          )}
+                          <Rating value={product.rating} text={`${product.numReviews} reviews`} />
+                          <div className="shoptext__price">
+                            <p className="shoptext__price-special">
+                              <span className="shoptext__price-special-new">${product.priceSale}</span>
+                            </p>
+                            {product.priceSale < product.price ? (
+                              <p className="shoptext__price-old">${product.price}</p>
+                            ) : (
+                              <></>
+                            )}
+                          </div>
+                          <p>
+                            Total Sales <b>{product.totalSales}</b>
+                          </p>
                         </div>
-                        <p>
-                          Total Sales <b>{product.totalSales}</b>
-                        </p>
                       </div>
                     </div>
-                  </div>
-                );
-              })}
-        </Slider>
+                  );
+                })}
+          </Slider>
+        </div>
       </div>
     </>
   );

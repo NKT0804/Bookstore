@@ -7,6 +7,7 @@ import Orders from "./../components/profileComponents/Orders";
 import moment from "moment";
 import { listMyOrders } from "../Redux/Actions/orderActions";
 import Avatar from "../components/profileComponents/Avatar";
+import Footer from "../components/Footer";
 
 const ProfileScreen = () => {
   window.scrollTo(0, 0);
@@ -31,9 +32,9 @@ const ProfileScreen = () => {
   return (
     <>
       <Header />
-      <div className="container mt-lg-5 mt-3">
+      <div className="container user__profile mt-lg-5 mt-3">
         <div className="row align-items-start">
-          <div className="col-lg-4 p-0 shadow ">
+          <div className="col-lg-3 p-0 shadow ">
             <div className="author-card pb-0 pb-md-3">
               <div className="author-card-cover">
                 <div className="author-card-details col-md-7">
@@ -49,7 +50,7 @@ const ProfileScreen = () => {
                 <div className="author-card-avatar col-md-5">
                   <img src={userInfo?.avatarUrl} onError={onAvatarLoadError} alt="Avatar" />
                 </div>
-                <Avatar avatarUrl={userInfo?.avatarUrl} />
+                <Avatar />
               </div>
             </div>
             <div className="wizard pt-3 ">
@@ -70,7 +71,7 @@ const ProfileScreen = () => {
                     aria-controls="v-pills-home"
                     aria-selected="true"
                   >
-                    Profile Settings
+                    Tài khoản của tôi
                   </button>
                   <button
                     className="nav-link d-flex justify-content-between"
@@ -82,7 +83,7 @@ const ProfileScreen = () => {
                     aria-controls="v-pills-profile"
                     aria-selected="false"
                   >
-                    Orders List
+                    Danh sách đơn hàng
                     <span className="badge2">{orders ? orders.length : 0}</span>
                   </button>
                 </div>
@@ -91,7 +92,7 @@ const ProfileScreen = () => {
           </div>
 
           {/* panels */}
-          <div className="tab-content col-lg-8 pb-5 pt-lg-0 pt-3" id="v-pills-tabContent">
+          <div className="tab-content col-lg-9 pb-5 pt-lg-0 pt-3" id="v-pills-tabContent">
             <div
               className="tab-pane fade show active"
               id="v-pills-home"
@@ -106,6 +107,7 @@ const ProfileScreen = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 };

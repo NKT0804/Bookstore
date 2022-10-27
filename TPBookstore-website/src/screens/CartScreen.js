@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import Header from "../components/Header";
+import Footer from "../components/Footer";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getCartListItem, removeFromCartItem, updateCart } from "./../Redux/Actions/cartActions";
@@ -21,7 +22,7 @@ const CartScreen = ({ history }) => {
   const { cartItems } = cart;
 
   // product total handler
-  const totalHandler = cartItems?.reduce((pro, item) => pro + item.qty * item?.product.price, 0).toFixed(2);
+  const totalHandler = cartItems?.reduce((pro, item) => pro + item.qty * item?.product.price, 0); /*.toFixed(2);*/
 
   const addToCart = useSelector((state) => state.addToCart);
   const { success } = addToCart;
@@ -146,6 +147,7 @@ const CartScreen = ({ history }) => {
           </>
         )}
       </div>
+      <Footer />
     </>
   );
 };
