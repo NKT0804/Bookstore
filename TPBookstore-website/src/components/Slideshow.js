@@ -32,17 +32,33 @@ const slideImages = [
 const Slideshow = () => {
   return (
     <div className="slide-container">
-      <Fade>
-        {slideImages.map((slideImage, index) => (
-          <div className="grid wide">
-            <div className="each-slide" key={index}>
-              {/* <div style={{ 'backgroundImage': `url(${slideImage.url})` }}>
+      <div className="grid wide">
+        <div className="row">
+          <div className="col l-7">
+            <Fade>
+              {slideImages.map((slideImage, index) => (
+                <div className="slide-container__img">
+                  <div className="each-slide" key={index}>
+                    {/* <div style={{ 'backgroundImage': `url(${slideImage.url})` }}>
             </div> */}
-              <img src={slideImage.url} alt={slideImage.caption} />
+                    <img src={slideImage.url} alt={slideImage.caption} />
+                  </div>
+                </div>
+              ))}
+            </Fade>
+          </div>
+          <div className="col l -5">
+            <div className="detail-slide">
+              <div>
+                <img className="detail-slide__img" src="../images/sliders/slide-img5.png" alt=""></img>
+              </div>
+              <div>
+                <img className="detail-slide__img" src="../images/sliders/slide-img4.png" alt=""></img>
+              </div>
             </div>
           </div>
-        ))}
-      </Fade>
+        </div>
+      </div>
     </div>
   );
 };

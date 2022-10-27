@@ -44,10 +44,10 @@ const ShopSection = (props) => {
   }, [loadData, checkIsFilter]);
   return (
     <>
-      <div className="container">
+      <div className="container all-products">
         <div className="section">
           <div className="row">
-            <div className="col-lg-12 col-md-12 article">
+            <div className="col-lg-12 col-md-12  article">
               <div className="shopcontainer row">
                 <div className="title-section">
                   <h2 className="heading-section main-effect">all product</h2>
@@ -56,7 +56,7 @@ const ShopSection = (props) => {
                 <SortBy sortBy={sortBy} setSortBy={setSortBy} />
 
                 <div className="row">
-                  <div className="col-2 pc-header">
+                  <div className="find-product col-2 pc-header">
                     <Filter category={category} categoryFilter={categoryFilter} setCategoryFilter={setCategoryFilter} />
                   </div>
 
@@ -76,7 +76,7 @@ const ShopSection = (props) => {
                     ) : (
                       products?.map((product) => (
                         <div className="col-lg-3" key={product._id}>
-                          <div className="shadow p-3 mb-4 bg-body rounded">
+                          <div className="shadow p-3 mb-4 bg-body border border-1 rounded">
                             <Link to={`/product/${product._id}`}>
                               <div className="shopBack main-effect">
                                 <img className="main-scale" src={product.image} alt={product.name} />
@@ -84,7 +84,7 @@ const ShopSection = (props) => {
                             </Link>
 
                             <div className="shoptext">
-                              <p>
+                              <p className="shoptext__name">
                                 <Link to={`/product/${product._id}`}>
                                   {product.name.length >= 55 ? `${product.name.slice(0, 55)}...` : ` ${product.name}`}
                                 </Link>

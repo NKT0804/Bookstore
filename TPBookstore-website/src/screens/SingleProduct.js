@@ -202,7 +202,7 @@ const SingleProduct = ({ history, match }) => {
           <Message variant="alert-danger">{error}</Message>
         ) : (
           <>
-            <div className="row">
+            <div className="row bg-w pd-y">
               <div className="col-md-6">
                 <div className="single-image">
                   <img src={product.image} alt={product.name} />
@@ -213,15 +213,24 @@ const SingleProduct = ({ history, match }) => {
                   <div className="product-info">
                     <div className="product-name">{product.name}</div>
                   </div>
-                  <p>{product.description}</p>
 
                   <div className="product-manuafactures">
-                    <span>
-                      <i>Nhà cung cấp : </i> <b>Minh Long</b>
-                    </span>
-                    <span>
-                      <i>Tác giả : </i> <b>Robin Sharma</b>
-                    </span>
+                    <div className="product-manuafactures__item">
+                      <span>
+                        <i>Nhà cung cấp : </i> <b>Minh Long</b>
+                      </span>
+                      <span>
+                        <i>Tác giả : </i> <b>Robin Sharma</b>
+                      </span>
+                    </div>
+                    <div className="product-manuafactures__item">
+                      <span>
+                        <i>Nhà xuất bản: </i> <b>Kim Đồng</b>
+                      </span>
+                      <span>
+                        <i>Hình thức bìa : </i> <b>Bìa mềm</b>
+                      </span>
+                    </div>
                   </div>
 
                   <div className="product-count col-lg-7 ">
@@ -263,8 +272,52 @@ const SingleProduct = ({ history, match }) => {
               </div>
             </div>
 
+            {/* Product View Information */}
+            <div className="product-view-info">
+              <div className="product-view-title pd-y">
+                <b>Thông tin chi tiết sản phẩm</b>
+              </div>
+              <div className="product-view-info_detail">
+                <div className="product-view-info_detail-row">
+                  <label className="product-view-info_detail-title">Tên nhà cung cấp</label>
+                  <div>NXB Kim Đồng</div>
+                </div>
+                <div className="product-view-info_detail-row">
+                  <label className="product-view-info_detail-title">Tác giả</label>
+                  <div>Robin Sharma</div>
+                </div>
+                <div className="product-view-info_detail-row">
+                  <label className="product-view-info_detail-title">Năm xuất bản</label>
+                  <div>2022</div>
+                </div>
+                <div className="product-view-info_detail-row">
+                  <label className="product-view-info_detail-title">Nhà xuất bản</label>
+                  <div>NXB Kim Đồng</div>
+                </div>
+                <div className="product-view-info_detail-row">
+                  <label className="product-view-info_detail-title">Ngôn ngữ</label>
+                  <div>Tiếng Việt</div>
+                </div>
+                <div className="product-view-info_detail-row">
+                  <label className="product-view-info_detail-title">Số trang</label>
+                  <div>100</div>
+                </div>
+                <div className="product-view-info_detail-row">
+                  <label className="product-view-info_detail-title">Hình thức</label>
+                  <div>Bìa mềm</div>
+                </div>
+              </div>
+
+              <div className="product-description">
+                <div>
+                  <b>Mô tả</b>
+                </div>
+                <div className="product-description_content">{product.description}</div>
+              </div>
+            </div>
+
             {/* RATING */}
-            <div className="row my-5">
+            <div className="row my-5 bg-w pd-y">
               <div className="col-md-6">
                 <h6 className="mb-3">REVIEWS</h6>
                 {product.reviews.length === 0 && <Message variant={"alert-info mt-3"}>No Reviews</Message>}
@@ -343,7 +396,7 @@ const SingleProduct = ({ history, match }) => {
               </div>
             </div>
             {/* Related products */}
-            <div>
+            <div className="ralated-product-list pd-y">
               {relatedProducts?.length > 0 && <h3 className="mb-3">Related products category</h3>}
               <div className="col-8 row related-product-container">
                 {loading ? (
@@ -356,7 +409,7 @@ const SingleProduct = ({ history, match }) => {
                   <Slider {...settings}>
                     {relatedProducts?.map((product) => (
                       <div className="shop col-lg-3 " key={product._id}>
-                        <div className="border-product me-3">
+                        <div className="border-product me-3 border border-1">
                           <Link to={`/product/${product._id}`}>
                             <div className="shopBack main-effect">
                               <img className="main-scale" src={product.image} alt={product.name} />
@@ -364,13 +417,8 @@ const SingleProduct = ({ history, match }) => {
                           </Link>
 
                           <div className="shoptext">
-<<<<<<< HEAD
                             <p className="shoptext__name">
                               <Link to={`/products/${product._id}`}>
-=======
-                            <p>
-                              <Link to={`/product/${product._id}`}>
->>>>>>> cc4f936b2ae82fa3d9566618472f5aba920528e5
                                 {`${product.name.length} >= 30`
                                   ? `  
                                     ${product.name.slice(0, 30)}...`
@@ -396,6 +444,7 @@ const SingleProduct = ({ history, match }) => {
               </div>
             </div>
             {/* Product comment */}
+
             <ProductComment userInfo={userInfo} match={match} />
           </>
         )}

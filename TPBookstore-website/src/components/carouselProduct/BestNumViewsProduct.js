@@ -57,48 +57,50 @@ const BestNumViewsProduct = () => {
   };
   return (
     <>
-      <div className="title-section">
-        <h2 className="heading-section main-effect">Most viewed products</h2>
-      </div>
-      <div className="best-seller-container">
-        <Slider {...settings}>
-          {loading
-            ? newProducts?.map((product) => {
-                return (
-                  <div className="mb-4 col-lg-3" key={product._id}>
-                    <div className="shadow p-3 mb-4 me-2 rounded">
-                      <CardProductLoading />
-                    </div>
-                  </div>
-                );
-              })
-            : newProducts?.map((product, index) => {
-                return (
-                  <div className="mb-4 col-lg-3" key={index}>
-                    <div className="shadow p-3 mb-4 me-2 rounded">
-                      <Link to={`/product/${product._id}`}>
-                        <div className="shopBack main-effect">
-                          <img className="main-scale" src={product.image} alt={product.name} />
-                          <span className="label-product_discount">30%</span>
-                        </div>
-                      </Link>
-
-                      <div className="shoptext">
-                        <p>
-                          <Link to={`/product/${product._id}`}>
-                            {product.name.length >= 55 ? `${product.name.slice(0, 55)}...` : ` ${product.name}`}
-                          </Link>
-                        </p>
-                        <Rating value={product.rating} text={`${product.numReviews} reviews`} />
-                        <p>
-                          Total views <b>{product.numViews}</b>
-                        </p>
+      <div className="best-number-view">
+        <div className="title-section">
+          <h2 className="heading-section main-effect">Most viewed products</h2>
+        </div>
+        <div className="best-seller-container">
+          <Slider {...settings}>
+            {loading
+              ? newProducts?.map((product) => {
+                  return (
+                    <div className="mb-4 col-lg-3" key={product._id}>
+                      <div className="shadow p-3 mb-4 me-2 rounded">
+                        <CardProductLoading />
                       </div>
                     </div>
-                  </div>
-                );
-              })}
-        </Slider>
+                  );
+                })
+              : newProducts?.map((product, index) => {
+                  return (
+                    <div className="mb-4 col-lg-3" key={index}>
+                      <div className="shadow p-3 mb-4 me-2 border border-1 rounded">
+                        <Link to={`/product/${product._id}`}>
+                          <div className="shopBack main-effect">
+                            <img className="main-scale" src={product.image} alt={product.name} />
+                            <span className="label-product_discount">30%</span>
+                          </div>
+                        </Link>
+
+                        <div className="shoptext">
+                          <p>
+                            <Link to={`/product/${product._id}`}>
+                              {product.name.length >= 55 ? `${product.name.slice(0, 55)}...` : ` ${product.name}`}
+                            </Link>
+                          </p>
+                          <Rating value={product.rating} text={`${product.numReviews} reviews`} />
+                          <p>
+                            Total views <b>{product.numViews}</b>
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+          </Slider>
+        </div>
       </div>
     </>
   );
