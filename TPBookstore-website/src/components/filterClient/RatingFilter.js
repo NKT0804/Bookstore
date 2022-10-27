@@ -12,6 +12,22 @@ const RatingFilter = ({ ratingFilter, setRatingFilter }) => {
               style={{ display: "none" }}
               className="star-none"
               name="star"
+              id="five"
+              value={"5"}
+              onClick={(e) => {
+                setRatingFilter(e.target.value);
+              }}
+            ></input>
+            <label for="five" className={ratingFilter === "5" ? "rating-color" : " "}>
+              <Rating value="5"></Rating>
+            </label>
+          </div>
+          <div display={{ display: "flex", alignItems: "center" }}>
+            <input
+              type="radio"
+              style={{ display: "none" }}
+              className="star-none"
+              name="star"
               id="four"
               value={"4"}
               onClick={(e) => {

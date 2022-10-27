@@ -47,7 +47,7 @@ const ProfileScreen = () => {
               </div>
               <div className="author-card-profile row">
                 <div className="author-card-avatar col-md-5">
-                  <img src={userInfo?.avatarUrl} onError={onAvatarLoadError} alt="userprofileimage" />
+                  <img src={userInfo?.avatarUrl} onError={onAvatarLoadError} alt="Avatar" />
                 </div>
                 <Avatar avatarUrl={userInfo?.avatarUrl} />
               </div>

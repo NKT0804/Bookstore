@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import CategoryFilter from "../components/filterClient/CategoryFilter";
 import PriceFilter from "../components/filterClient/PriceFilter";
 import RatingFilter from "../components/filterClient/RatingFilter";
@@ -11,14 +11,22 @@ const Filter = (props) => {
     setCategoryFilter,
     ratingFilter,
     setRatingFilter,
-    minPrice,
-    maxPrice,
     setMinPriceInput,
-    setMaxPriceInput,
-    message,
-    ApplyHandler,
-    ClearHandle
+    setMaxPriceInput
   } = props;
+
+  const [currentMinPrice, setCurrentMinPrice] = useState("");
+  const [currentMaxPrice, setCurrentMaxPrice] = useState("");
+  const [message, SetMessage] = useState("");
+  const ClearHandle = () => {
+    setCategoryFilter("");
+    setRatingFilter("");
+    setMinPriceInput("");
+    setMaxPriceInput("");
+    setCurrentMinPrice("");
+    setCurrentMaxPrice("");
+    SetMessage("");
+  };
   return (
     <>
       <div className="filter-menu">
@@ -30,12 +38,14 @@ const Filter = (props) => {
           <h4 className="filter-menu__title">BỘ LỌC TÌM KIẾM</h4>
         </div>
         <PriceFilter
-          minPrice={minPrice}
-          maxPrice={maxPrice}
           setMinPriceInput={setMinPriceInput}
           setMaxPriceInput={setMaxPriceInput}
+          currentMaxPrice={currentMaxPrice}
+          setCurrentMaxPrice={setCurrentMaxPrice}
+          currentMinPrice={currentMinPrice}
+          setCurrentMinPrice={setCurrentMinPrice}
           message={message}
-          ApplyHandler={ApplyHandler}
+          SetMessage={SetMessage}
         />
         <RatingFilter ratingFilter={ratingFilter} setRatingFilter={setRatingFilter} />
       </div>

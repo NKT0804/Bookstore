@@ -18,7 +18,10 @@ import {
   USER_UPDATE_AVATAR_SUCCESS,
   USER_UPDATE_PROFILE_FAIL,
   USER_UPDATE_PROFILE_REQUEST,
-  USER_UPDATE_PROFILE_SUCCESS
+  USER_UPDATE_PROFILE_SUCCESS,
+  USER_GET_ADDRESS_DATA_REQUEST,
+  USER_GET_ADDRESS_DATA_SUCCESS,
+  USER_GET_ADDRESS_DATA_FAIL
 } from "../Constants/userConstants";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -239,6 +242,20 @@ export const listUser = () => async (dispatch, getState) => {
     dispatch({
       type: USER_LIST_FAIL,
       payload: message
+    });
+  }
+};
+
+//Get address data
+export const getAddressData = () => async (dispatch) => {
+  try {
+    dispatch({ type: USER_GET_ADDRESS_DATA_REQUEST });
+    const { data } = await axios.get(`https://provinces.open-api.vn/api/?depth=3`);
+    dispatch({ type: USER_GET_ADDRESS_DATA_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: USER_GET_ADDRESS_DATA_FAIL,
+      payload: error.response && error.response.data.message ? error.response.data.message : error.message
     });
   }
 };

@@ -61,9 +61,9 @@ const Sidebar = () => {
               </NavLink>
             </li>
             <li className="menu-item">
-              <NavLink activeClassName="active" className="menu-link" to="/admin/sliders">
+              <NavLink activeClassName="active" className="menu-link" to="/admin/slider-banner/">
                 <i className="icon fas fa-sliders-h"></i>
-                <span className="text">Sliders</span>
+                <span className="text">Sliders & Banner</span>
               </NavLink>
             </li>
             {/* <li className="menu-item">

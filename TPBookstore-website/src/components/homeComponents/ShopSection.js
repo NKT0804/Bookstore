@@ -15,6 +15,10 @@ const ShopSection = (props) => {
   const dispatch = useDispatch();
 
   const [categoryFilter, setCategoryFilter] = useState("");
+  const [ratingFilter, setRatingFilter] = useState("");
+  const [minPrice, setMinPriceInput] = useState("");
+  const [maxPrice, setMaxPriceInput] = useState("");
+
   const [sortBy, setSortBy] = useState("");
 
   const productList = useSelector((state) => state.productList);
@@ -26,17 +30,17 @@ const ShopSection = (props) => {
   // const checkNameCategory = (item) => item.name === categoryFilter;
   // const nameCate = category?.find(checkNameCategory)?.name;
   const checkIsFilter = useCallback(() => {
-    if (categoryFilter !== "" || sortBy !== "") {
+    if (categoryFilter !== "" || ratingFilter !== "" || maxPrice > 0) {
       setIsFilter(true);
     } else {
       return isFilter;
     }
-  }, [categoryFilter, isFilter, setIsFilter, sortBy]);
+  }, [categoryFilter, ratingFilter, maxPrice, isFilter, setIsFilter]);
 
   const loadData = useCallback(() => {
-    dispatch(listProducts(keyword, pageNumber, categoryFilter, sortBy));
+    dispatch(listProducts(keyword, pageNumber, categoryFilter, ratingFilter, minPrice, maxPrice, sortBy));
     dispatch(listCategory());
-  }, [dispatch, keyword, pageNumber, categoryFilter, sortBy]);
+  }, [dispatch, keyword, pageNumber, categoryFilter, ratingFilter, minPrice, maxPrice, , sortBy]);
 
   useEffect(() => {
     loadData();
@@ -57,7 +61,15 @@ const ShopSection = (props) => {
 
                 <div className="row">
                   <div className="col-2 pc-header">
-                    <Filter category={category} categoryFilter={categoryFilter} setCategoryFilter={setCategoryFilter} />
+                    <Filter
+                      category={category}
+                      categoryFilter={categoryFilter}
+                      setCategoryFilter={setCategoryFilter}
+                      ratingFilter={ratingFilter}
+                      setRatingFilter={setRatingFilter}
+                      setMinPriceInput={setMinPriceInput}
+                      setMaxPriceInput={setMaxPriceInput}
+                    />
                   </div>
 
                   <div className="col-8 row product-container ">
@@ -93,11 +105,20 @@ const ShopSection = (props) => {
                               <Rating value={product.rating} text={`${product.numReviews} reviews`} />
                               <div className="shoptext__price">
                                 <p className="shoptext__price-special">
-                                  <span className="shoptext__price-special-new">${product.price}</span>
-                                  <span className="shoptext__price-special-discount">-30%</span>
+                                  <span className="shoptext__price-special-new">${product.priceSale}</span>
+                                  {product.priceSale < product.price ? (
+                                    <span className="shoptext__price-special-discount">
+                                      -{Math.round(100 - (product.priceSale / product.price) * 100)}%
+                                    </span>
+                                  ) : (
+                                    <></>
+                                  )}
                                 </p>
-                                <p className="shoptext__price-old">$7000</p>
-                                {/* <h3>${product.price}</h3> */}
+                                {product.priceSale < product.price ? (
+                                  <p className="shoptext__price-old">${product.price}</p>
+                                ) : (
+                                  <></>
+                                )}
                               </div>
                             </div>
                           </div>

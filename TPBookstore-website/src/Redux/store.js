@@ -2,21 +2,22 @@ import { createStore, combineReducers, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 import {
-    addToCartReducer,
-    cartListItemReducers,
-    cartRemoveReducer,
-    cartUpdateReducer,
-    savePaymentMethodReducers,
-    saveShippingAddressReducers
+  addToCartReducer,
+  cartListItemReducers,
+  cartRemoveReducer,
+  cartUpdateReducer,
+  savePaymentMethodReducers,
+  saveShippingAddressReducers
 } from "./Reducers/cartReducers";
 //admin
 import {
-    userDetailsReducer,
-    userListReducer,
-    userLoginReducer,
-    userRegisterReducer,
-    userUpdateAvatarReducer,
-    userUpdateProfileReducer
+  userDetailsReducer,
+  userListReducer,
+  userLoginReducer,
+  userRegisterReducer,
+  userUpdateAvatarReducer,
+  userUpdateProfileReducer,
+  userGetAddressDataReducer
 } from "./Reducers/userReducers";
 import {
   productListReducer,
@@ -85,6 +86,7 @@ const reducer = combineReducers({
   orderPay: orderPayReducer,
   listMyOrders: orderListMyReducer,
   categoryList: categoryListReducer,
+  addressData: userGetAddressDataReducer,
 
   //admin
   userList: userListReducer,
@@ -116,20 +118,20 @@ const userInfoFromLocalStorage = localStorage.getItem("userInfo") ? JSON.parse(l
 
 // shipping address
 const shippingAddressFromLocalStorage = localStorage.getItem("shippingAddress")
-    ? JSON.parse(localStorage.getItem("shippingAddress"))
-    : {};
+  ? JSON.parse(localStorage.getItem("shippingAddress"))
+  : {};
 
 // payment method
 const paymentMethodFromLocalStorage = localStorage.getItem("paymentMethod")
-    ? JSON.parse(localStorage.getItem("paymentMethod"))
-    : {};
+  ? JSON.parse(localStorage.getItem("paymentMethod"))
+  : {};
 // cart: {
 //   cartItems: cartItemsFromLocalStorage,
 // },
 const initialState = {
-    shippingAddress: shippingAddressFromLocalStorage,
-    paymentMethod: paymentMethodFromLocalStorage,
-    userLogin: { userInfo: userInfoFromLocalStorage }
+  shippingAddress: shippingAddressFromLocalStorage,
+  paymentMethod: paymentMethodFromLocalStorage,
+  userLogin: { userInfo: userInfoFromLocalStorage }
 };
 
 const middleware = [thunk];

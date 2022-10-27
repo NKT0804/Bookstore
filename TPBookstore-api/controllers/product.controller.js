@@ -91,10 +91,8 @@ const getProducts = async (req, res) => {
     const rating = Number(req.query.rating) || 0;
     const maxPrice = Number(req.query.maxPrice) || 0;
     const minPrice = Number(req.query.minPrice) || 0;
-    const dateSort = validateConstants(productQueryParams, "date", req.query.dateSort);
-    const priceSort = validateConstants(productQueryParams, "price", req.query.priceSort);
-    const bestSellerFilter = validateConstants(productQueryParams, "totalSales", req.query.bestSeller);
-    const sortBy = { ...bestSellerFilter, ...priceSort, ...dateSort };
+    const Sort = validateConstants(productQueryParams, "sort", req.query.sortBy);
+    const sortBy = { ...Sort };
     let statusFilter;
     if (!req.user || req.user.isAdmin == false) {
         statusFilter = validateConstants(productQueryParams, "status", "default");

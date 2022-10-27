@@ -56,12 +56,12 @@ import { PRODUCT_CREATE_REVIEW_REQUEST } from "./../Constants/productConstants";
  */
 // product list action
 export const listProducts =
-  (keyword = "", pageNumber = "", category = "", priceOrder = "", dateOrder = "") =>
+  (keyword = "", pageNumber = "", categoryFilter = "", ratingFilter = "", minPrice = "", maxPrice = "", sortBy = "") =>
   async (dispatch) => {
     try {
       dispatch({ type: PRODUCT_LIST_REQUEST });
       const { data } = await axios.get(
-        `/api/v1/product?priceOrder=${priceOrder}&dateOrder=${dateOrder}&category=${category}&keyword=${keyword}&pageNumber=${pageNumber}&pageSize=20`
+        `/api/v1/product?&category=${categoryFilter}&keyword=${keyword}&rating=${ratingFilter}&minPrice=${minPrice}&maxPrice=${maxPrice}&sortBy=${sortBy}&pageNumber=${pageNumber}&pageSize=20`
       );
       dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
     } catch (error) {
@@ -75,7 +75,7 @@ export const listProducts =
 export const listProductsBestSeller = () => async (dispatch) => {
   try {
     dispatch({ type: PRODUCT_BEST_SELLER_REQUEST });
-    const { data } = await axios.get(`/api/v1/product?bestSeller=true&pageSize=12`);
+    const { data } = await axios.get(`/api/v1/product?&sortBy=total_sales&pageSize=12`);
     dispatch({ type: PRODUCT_BEST_SELLER_SUCCESS, payload: data });
   } catch (error) {
     dispatch({

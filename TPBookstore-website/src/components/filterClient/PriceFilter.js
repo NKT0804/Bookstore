@@ -1,6 +1,40 @@
 import React from "react";
+import isEmpty from "validator/lib/isEmpty";
 
-const PriceFilter = ({ setMinPriceInput, setMaxPriceInput, minPrice, maxPrice, message, ApplyHandler }) => {
+const PriceFilter = ({
+  setMinPriceInput,
+  setMaxPriceInput,
+  currentMinPrice,
+  setCurrentMinPrice,
+  currentMaxPrice,
+  setCurrentMaxPrice,
+  message,
+  SetMessage
+}) => {
+  //xủ lí logic check form
+  const checkPrice = () => {
+    let msg = "";
+    if (
+      (isEmpty(currentMinPrice) && isEmpty(currentMaxPrice)) ||
+      !(Number(currentMaxPrice) > 0) ||
+      Number(currentMinPrice) > Number(currentMaxPrice)
+    ) {
+      msg = "Vui lòng nhập khoảng giá phù hợp";
+      SetMessage(msg);
+      return false;
+    }
+    SetMessage(msg);
+    return true;
+  };
+  const ApplyHandler = () => {
+    if (!checkPrice()) return;
+    setMinPriceInput(currentMinPrice);
+    setMaxPriceInput(currentMaxPrice);
+  };
+  function validatorPrice(setValue, value) {
+    if (/^\d*\.?\d*$/.test(value)) setValue(value);
+  }
+
   return (
     <div className="filter-menu-item">
       <div className="distance-price">
@@ -8,20 +42,18 @@ const PriceFilter = ({ setMinPriceInput, setMaxPriceInput, minPrice, maxPrice, m
         <div className="distance-price__flex" style={{ display: "flex", alignItems: "center" }}>
           <input
             className="distance-price__input"
-            type="number"
+            type="text"
             placeholder="$TỪ"
-            value={minPrice}
-            onChange={(e) => setMinPriceInput(e.target.value)}
-            min="0"
+            value={currentMinPrice}
+            onChange={(e) => validatorPrice(setCurrentMinPrice, e.target.value)}
           ></input>
           <label>-</label>
           <input
             className="distance-price__input"
-            type="number"
+            type="text"
             placeholder="$ĐẾN"
-            value={maxPrice}
-            onChange={(e) => setMaxPriceInput(e.target.value)}
-            min="1"
+            value={currentMaxPrice}
+            onChange={(e) => validatorPrice(setCurrentMaxPrice, e.target.value)}
           ></input>
         </div>
         <p style={{ fontSize: "14px", color: "red" }}>{message}</p>

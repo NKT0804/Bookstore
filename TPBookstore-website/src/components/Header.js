@@ -45,31 +45,6 @@ const Header = () => {
     <div>
       {/* Top Header */}
       <div className="Announcement ">
-        {/* <div className="container">
-          <div className="row">
-            <div className="col-md-6 d-flex align-items-center display-none">
-              <p>+0909 0009</p>
-              <p>tp.bookstore@gmail.com</p>
-            </div>
-            <div className=" col-12 col-lg-6 justify-content-center justify-content-lg-end d-flex align-items-center">
-              <a target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/">
-                <i className="fab fa-facebook-f"></i>
-              </a>
-              <a target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/">
-                <i className="fab fa-instagram"></i>
-              </a>
-              <a target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/">
-                <i className="fab fa-linkedin-in"></i>
-              </a>
-              <a target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/">
-                <i className="fab fa-youtube"></i>
-              </a>
-              <a target="_blank" rel="noopener noreferrer" href="https://www.pinterest.com/">
-                <i className="fab fa-pinterest-p"></i>
-              </a>
-            </div>
-          </div>
-        </div> */}
         <img alt="banner_book" src=".././images/banner.jpg" className="banner__header" />
       </div>
 

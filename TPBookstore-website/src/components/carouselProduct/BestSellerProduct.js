@@ -77,7 +77,14 @@ const BestSellerProduct = () => {
                       <Link to={`/product/${product._id}`}>
                         <div className="shopBack main-effect">
                           <img className="main-scale" src={product.image} alt={product.name} />
-                          <span className="label-product_discount">30%</span>
+
+                          {product.priceSale < product.price ? (
+                            <span className="label-product_discount">
+                              {Math.round(100 - (product.priceSale / product.price) * 100)}%
+                            </span>
+                          ) : (
+                            <></>
+                          )}
                         </div>
                       </Link>
 
@@ -88,6 +95,16 @@ const BestSellerProduct = () => {
                           </Link>
                         </p>
                         <Rating value={product.rating} text={`${product.numReviews} reviews`} />
+                        <div className="shoptext__price">
+                          <p className="shoptext__price-special">
+                            <span className="shoptext__price-special-new">${product.priceSale}</span>
+                          </p>
+                          {product.priceSale < product.price ? (
+                            <p className="shoptext__price-old">${product.price}</p>
+                          ) : (
+                            <></>
+                          )}
+                        </div>
                         <p>
                           Total Sales <b>{product.totalSales}</b>
                         </p>

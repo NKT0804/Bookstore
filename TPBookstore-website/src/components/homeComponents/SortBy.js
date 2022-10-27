@@ -11,7 +11,7 @@ const SortBy = (props) => {
         value={sortBy}
         onChange={(e) => setSortBy(e.target.value)}
       >
-        <option value="">Sort by</option>
+        <option value="">------</option>
         <option value="asc" id="asc">
           Giá từ thấp đến cao
         </option>

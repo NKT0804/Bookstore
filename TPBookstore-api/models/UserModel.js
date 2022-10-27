@@ -1,6 +1,28 @@
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 
+const addressSchema = mongoose.Schema({
+    province: {
+        type: String,
+        required: false,
+        default: ""
+    },
+    district: {
+        type: String,
+        required: false,
+        default: ""
+    },
+    ward: {
+        type: String,
+        required: false,
+        default: ""
+    },
+    specificAddress: {
+        type: String,
+        required: false,
+        default: ""
+    }
+});
 const userSchema = mongoose.Schema(
     {
         name: {
@@ -42,11 +64,7 @@ const userSchema = mongoose.Schema(
             required: false,
             default: ""
         },
-        address: {
-            type: String,
-            required: false,
-            default: ""
-        }
+        address: addressSchema
     },
     {
         timestamps: true

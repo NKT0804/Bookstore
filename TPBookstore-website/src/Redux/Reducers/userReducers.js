@@ -20,6 +20,9 @@ import {
   USER_UPDATE_PROFILE_FAIL,
   USER_UPDATE_PROFILE_REQUEST,
   USER_UPDATE_PROFILE_SUCCESS,
+  USER_GET_ADDRESS_DATA_REQUEST,
+  USER_GET_ADDRESS_DATA_SUCCESS,
+  USER_GET_ADDRESS_DATA_FAIL
 } from "../Constants/userConstants";
 
 // LOGIN
@@ -63,7 +66,7 @@ export const userDetailsReducer = (state = { user: {} }, action) => {
     case USER_DETAILS_RESET:
       return {
         user: {}
-      }
+      };
     default:
       return state;
   }
@@ -106,6 +109,20 @@ export const userListReducer = (state = { users: [] }, action) => {
       return { loading: false, error: action.payload };
     case USER_LIST_RESET:
       return { users: [] };
+    default:
+      return state;
+  }
+};
+
+// Get address data
+export const userGetAddressDataReducer = (state = {}, action) => {
+  switch (action.type) {
+    case USER_GET_ADDRESS_DATA_REQUEST:
+      return { loading: true };
+    case USER_GET_ADDRESS_DATA_SUCCESS:
+      return { loading: false, addressData: action.payload };
+    case USER_GET_ADDRESS_DATA_FAIL:
+      return { loading: false, error: action.payload };
     default:
       return state;
   }
