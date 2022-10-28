@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from "react-redux";
 import { listProductsAdminAll } from "../../../Redux/Actions/productActions";
 
 const TopTotal = (props) => {
@@ -37,7 +37,7 @@ const TopTotal = (props) => {
               <i className="text-success fas fa-bags-shopping"></i>
             </span>
             <div className="text">
-              <h6 className="mb-1">Total Orders</h6>
+              <h6 className="mb-1">Tổng đơn hàng</h6>
               {orders ? <span>{orders.length}</span> : <span>0</span>}
             </div>
           </article>

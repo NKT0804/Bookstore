@@ -113,7 +113,7 @@ textarea:focus {
 }
 
 .search-button:hover {
-  background-color: #7ed8ff;
+  opacity: 0.9;
 }
 
 .trending-search > a {
@@ -356,7 +356,7 @@ textarea:focus {
   font-size: 17px;
 }
 .distance-price__submit:hover {
-  background-color: #7ed8ff;
+  opacity: 0.9
 }
 
 .distance-price__input {
@@ -376,6 +376,7 @@ textarea:focus {
 .rating i {
   font-size: 12px;
   color: #ebb450;
+  cursor: pointer;
 }
 
 .rating span {
@@ -583,7 +584,7 @@ textarea:focus {
 
 .round-black-btn:hover,
 .round-black-btn:focus {
-  background: #7ed8ff;
+  opacity: 0.9;
 }
 
 .btn-submit {
@@ -592,7 +593,7 @@ textarea:focus {
 }
 
 .btn-submit:hover {
-  background-color: #7ed8ff;
+  opacity: 0.9;
 }
 
 .product-view-info {
@@ -739,6 +740,8 @@ textarea:focus {
   box-shadow: 0px 0px 27px 0px rgba(0, 0, 0, 0.377);
 }
 
+
+
 /* .author-change-avt {
 }
  */
@@ -858,7 +861,7 @@ textarea:focus {
 }
 
 .form {
-  padding: 20px 0;
+  padding: 8px 0;
 }
 
 .form label {
@@ -875,9 +878,8 @@ textarea:focus {
 }
 
 .row.form-container {
-  margin-left:  20px;
   background-color: var(--white-color);
-  padding : 32px;
+  padding-bottom: 12px;
 }
 
 .form-container button {
@@ -890,15 +892,74 @@ textarea:focus {
   color: #ffffff;
 }
 
-.user__information {
-  /* padding-right: 20px; */
+.form-container button:hover {
+  opacity: 0.9;
+}
+
+.row .profile-title {
+  padding-top : 20px;
+  font-size:20px;
+}
+
+.user-information,
+.user-password {
+  margin-top : 16px;
+}
+
+.user-information {
+  display: grid;
+  grid-template-columns: 80%;
+  grid-gap: 0;
+  justify-content: center;
+  align-items: center;
+}
+
+.user-password {
+  display: grid;
+  grid-template-columns: 50%;
+  grid-gap: 0;
+  justify-content: center;
+  align-items: center;
+}
+
+.account-address__select {
+  margin: 0px 0 16px 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.acount-address__item {
+  width : 30%;
+  padding: 7px 5px;
+}
+
+.account-sex {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 12px;
+}
+
+.account-sex p {
+  display: flex;
+}
+
+.account-sex p label{
+  color: #000 !important;
+}
+
+
+.account-sex input {
+  margin-right: 6px;
+  display : flex;
 
 }
 
-.user__password {
-  margin-left: 48px;
-  border-left: 1px solid #ccc;
-  padding-left: 40px;
+.user-password__input {
+  display: grid;
+  grid-template-columns: 130px 1fr;
+  grid-gap: 28px 20px;
+  padding: 0 20px;
+  align-items: center;
 }
 
 

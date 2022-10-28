@@ -8,6 +8,7 @@ import moment from "moment";
 import { listMyOrders } from "../Redux/Actions/orderActions";
 import Avatar from "../components/profileComponents/Avatar";
 import Footer from "../components/Footer";
+import UserPassword from "../components/profileComponents/UserPassword";
 
 const ProfileScreen = () => {
   window.scrollTo(0, 0);
@@ -73,6 +74,20 @@ const ProfileScreen = () => {
                   >
                     Tài khoản của tôi
                   </button>
+
+                  <button
+                    className="nav-link"
+                    id="v-pills-password-tab"
+                    data-bs-toggle="pill"
+                    data-bs-target="#v-pills-password"
+                    type="button"
+                    role="tab"
+                    aria-controls="v-pills-password"
+                    aria-selected="true"
+                  >
+                    Đổi mật khẩu
+                  </button>
+
                   <button
                     className="nav-link d-flex justify-content-between"
                     id="v-pills-profile-tab"
@@ -101,6 +116,16 @@ const ProfileScreen = () => {
             >
               <ProfileTabs />
             </div>
+
+            <div
+              className="tab-pane fade show"
+              id="v-pills-password"
+              role="tabpanel"
+              aria-labelledby="v-pills-password-tab"
+            >
+              <UserPassword />
+            </div>
+
             <div className="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
               <Orders orders={orders} loading={loading} error={error} />
             </div>
