@@ -58,10 +58,10 @@ const refreshAccessToken = async (req, res) => {
     });
 };
 
-const RefreshTokenControler = {
+const RefreshTokenController = {
     getAllRefreshTokenForTest,
     createNewRefreshTokenForTest,
     refreshAccessToken
 };
 
-export default RefreshTokenControler;
+export default RefreshTokenController;

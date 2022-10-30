@@ -1,47 +1,26 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Fade } from "react-slideshow-image";
 import "react-slideshow-image/dist/styles.css";
-
-const slideImages = [
-  {
-    url: "../images/sliders/slide-img1.png",
-    caption: "Slide 1"
-  },
-  {
-    url: "../images/sliders/slide-img2.png",
-    caption: "Slide 2"
-  },
-  {
-    url: "../images/sliders/slide-img3.png",
-    caption: "Slide 3"
-  },
-  {
-    url: "../images/sliders/slide-img4.png",
-    caption: "Slide 4"
-  },
-  {
-    url: "../images/sliders/slide-img5.png",
-    caption: "Slide 5"
-  },
-  {
-    url: "../images/sliders/slide-img6.png",
-    caption: "Slide 6"
-  }
-];
-
+import { useDispatch, useSelector } from "react-redux";
+import { listSlider } from "../Redux/Actions/bannerActions";
 const Slideshow = () => {
+  const dispatch = useDispatch();
+  const sliderList = useSelector((state) => state.sliderList);
+  const { error, loading, sliders } = sliderList;
+
+  useEffect(() => {
+    dispatch(listSlider());
+  }, [dispatch]);
   return (
     <div className="slide-container">
       <div className="grid wide">
         <div className="row">
           <div className="col l-7">
             <Fade>
-              {slideImages.map((slideImage, index) => (
+              {sliders?.map((item, index) => (
                 <div className="slide-container__img">
                   <div className="each-slide" key={index}>
-                    {/* <div style={{ 'backgroundImage': `url(${slideImage.url})` }}>
-            </div> */}
-                    <img src={slideImage.url} alt={slideImage.caption} />
+                    <img src={item.image} alt={item.name} />
                   </div>
                 </div>
               ))}

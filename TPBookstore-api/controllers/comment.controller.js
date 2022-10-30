@@ -303,7 +303,7 @@ const restoreComment = async (req, res) => {
     res.json(restoredComment);
 };
 
-const CommentControler = {
+const CommentController = {
     createComment,
     getCommentByAdmin,
     deleteComment,
@@ -312,4 +312,4 @@ const CommentControler = {
     restoreComment
 };
 
-export default CommentControler;
+export default CommentController;

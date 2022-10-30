@@ -35,11 +35,15 @@ const login = async (req, res) => {
             tokenValue: tokenValue,
             refreshTokenItems: [tokenValue]
         }).save();
-        res.json({
+        res.status(200).json({
             _id: user._id,
             name: user.name,
             email: user.email,
+            phone: user.phone,
             avatarUrl: user.avatarUrl || "./images/avatar/default.png",
+            sex: user.sex,
+            birthday: user.birthday,
+            address: user.address,
             isAdmin: user.isAdmin,
             token: generateToken(user._id, process.env.ACCESS_TOKEN_SECRET, process.env.ACCESS_TOKEN_EXPIRESIN),
             refreshToken: newRefreshToken.tokenValue,
@@ -119,6 +123,7 @@ const register = async (req, res, next) => {
                 email: newUser.email,
                 avatarUrl: newUser.avatarUrl || "./images/avatar/default.png",
                 sex: newUser.sex,
+                birthday: newUser.birthday,
                 address: newUser.address,
                 isAdmin: newUser.isAdmin,
                 isDisabled: newUser.isDisabled,
@@ -135,11 +140,14 @@ const register = async (req, res, next) => {
 
 //User get profile
 const getProfile = async (req, res) => {
-    res.status(200);
-    res.json({
+    res.status(200).json({
         _id: req.user._id,
         name: req.user.name,
         email: req.user.email,
+        phone: req.user.phone,
+        sex: req.user.sex,
+        birthday: req.user.birthday,
+        address: req.user.address,
         avatarUrl: req.user.avatarUrl || "./images/avatar/default.png",
         isAdmin: req.user.isAdmin,
         createAt: req.user.createAt,
@@ -152,15 +160,21 @@ const updateProfile = async (req, res) => {
     const user = req.user;
     user.name = req.body.name || user.name;
     user.email = req.body.email || user.email;
-    if (req.body.password) {
-        user.password = req.body.password;
-    }
+    user.phone = req.body.phone || user.phone;
+    user.sex = req.body.sex || user.sex;
+    user.birthday = req.body.birthday || user.birthday;
+    user.address = req.body.address || user.address;
+
     const updatedUser = await user.save();
     res.status(200);
     res.json({
         _id: updatedUser._id,
         name: updatedUser.name,
         email: updatedUser.email,
+        phone: updatedUser.phone,
+        sex: updatedUser.sex,
+        birthday: updatedUser.birthday,
+        address: updatedUser.address,
         avatarUrl: updatedUser.avatarUrl || "./images/avatar/default.png",
         isAdmin: updatedUser.isAdmin,
         createAt: updatedUser.createAt,
@@ -168,21 +182,6 @@ const updateProfile = async (req, res) => {
         token: generateToken(updatedUser._id, process.env.ACCESS_TOKEN_SECRET, process.env.ACCESS_TOKEN_EXPIRESIN)
     });
 };
-
-// userRouter.get(
-//     "/",
-//     protect,
-//     admin,
-//     expressAsyncHandler(async (req, res) => {
-//         const dateOrderFilter = validateConstants(userQueryParams, "date", req.query.dateOrder);
-//         const statusFilter = validateConstants(userQueryParams, "status", req.query.status);
-//         const users = await User.find({ ...statusFilter })
-//             .sort({ ...dateOrderFilter })
-//             .select("-password");
-//         res.status(200);
-//         res.json(users);
-//     })
-// );
 
 //Admin get users
 const getUsers = async (req, res) => {
@@ -192,38 +191,6 @@ const getUsers = async (req, res) => {
     res.status(200);
     res.json(users);
 };
-
-// /**
-//  * GET ALL USERS by ADMIN
-//  * SWAGGER SETUP: no
-//  */
-// userRouter.get(
-//     "/",
-//     protect,
-//     admin,
-//     expressAsyncHandler(async (req, res) => {
-//         const users = await User.find({ isDisabled: false }).select({ cart: 0 });
-//         res.status(200);
-//         res.json(users);
-//     })
-// );
-
-// //Admin get all disabled users
-// userRouter.get(
-//     "/disabled",
-//     protect,
-//     admin,
-//     expressAsyncHandler(async (req, res) => {
-//         const users = await User.find({ isDisabled: true }).select({ cart: 0 });
-//         if (users.length != 0) {
-//             res.status(200);
-//             res.json(users);
-//         } else {
-//             res.status(204);
-//             res.json({ message: "No users are disabled" });
-//         }
-//     })
-// );
 
 //User upload avatar
 const uploadAvatar = async (req, res) => {
@@ -263,10 +230,14 @@ const uploadAvatar = async (req, res) => {
         });
     }
 
-    res.json({
+    res.status(200).json({
         _id: updateUser._id,
         name: updateUser.name,
         email: updateUser.email,
+        phone: updateUser.phone,
+        sex: updateUser.sex,
+        birthday: updateUser.birthday,
+        address: updateUser.address,
         avatarUrl: updateUser.avatarUrl,
         isAdmin: updateUser.isAdmin,
         token: generateToken(updateUser._id, process.env.ACCESS_TOKEN_SECRET, process.env.ACCESS_TOKEN_EXPIRESIN),
@@ -288,17 +259,7 @@ const disableUser = async (req, res) => {
         res.status(400);
         throw new Error("Cannot disable user who had ordered");
     }
-    // const disabledUser = await User.findOneAndUpdate({ _id: user._id }, { isDisabled: true }, { new: true });
-    // //disable user comments
-    // await Comment.updateMany({ isDisabled: false, user: disabledUser._id }, { $set: { isDisabled: true } });
-    // //disable user replies
-    // await Comment.updateMany(
-    //     {},
-    //     { $set: { "replies.$[element].isDisabled": true } },
-    //     { arrayFilters: [{ "element.isDisabled": false, "element.user": disabledUser._id }] }
-    // );
-    res.status(200);
-    res.json(disabledUser);
+    res.status(200).json(disabledUser);
 };
 
 //Admin restore disabled user
@@ -309,36 +270,8 @@ const restoreUser = async (req, res) => {
         res.status(404);
         throw new Error("User not found");
     }
-    // const duplicatedUser = await User.findOne({
-    //     name: user.name,
-    //     isDisabled: false
-    // });
-    // if (duplicatedUser) {
-    //     res.status(400);
-    //     throw new Error("Restore this user will result in duplicated user name");
-    // }
     const restoredUser = await User.findOneAndUpdate({ _id: user._id }, { isDisabled: false }, { new: true });
-    //.
-    //restore comments
-    // const comments = await Comment.find({
-    //     $or: [
-    //         { $and: [{ user: restoredUser._id }, { isDisabled: true }] },
-    //         { replies: { $elemMatch: { user: restoredUser._id, isDisabled: true } } }
-    //     ]
-    // }).populate("user product replies.user replies.product");
-    // for (const comment of comments) {
-    //     if (comment.user._id.toString() === restoredUser._id.toString() && comment.isDisabled == true) {
-    //         comment.isDisabled = comment.user.isDisabled || comment.product.isDisabled || false;
-    //     }
-    //     for (const reply of comment.replies) {
-    //         if (reply.user._id.toString() === restoredUser._id.toString() && reply.isDisabled == true) {
-    //             reply.isDisabled = reply.user.isDisabled || reply.product.isDisabled || false;
-    //         }
-    //     }
-    //     await comment.save();
-    // }
-    res.status(200);
-    res.json(restoredUser);
+    res.status(200).json(restoredUser);
 };
 
 //Admin delete user
@@ -388,8 +321,7 @@ const deleteUser = async (req, res, next) => {
             const deletedComments = await Comment.deleteMany({
                 user: deletedUser._id
             }).session(session);
-            res.status(200);
-            res.json({ message: "User has been deleted" });
+            res.status(200).json({ message: "User has been deleted" });
         }, transactionOptions);
     } catch (error) {
         next(error);
@@ -398,7 +330,7 @@ const deleteUser = async (req, res, next) => {
     }
 };
 
-const UserControler = {
+const UserController = {
     login,
     register,
     getProfile,
@@ -410,4 +342,4 @@ const UserControler = {
     deleteUser
 };
 
-export default UserControler;
+export default UserController;

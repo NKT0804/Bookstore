@@ -4,6 +4,7 @@ import { admin, protect, optional } from "../middleware/AuthMiddleware.js";
 import Category from "../models/CategoryModel.js";
 import Product from "../models/ProductModel.js";
 import { categoryQueryParams, commentQueryParams, validateConstants } from "../constants/searchConstants.js";
+import createSlug from "../utils/createSlug.js";
 
 //Admin create new category
 const createCategory = async (req, res) => {
@@ -29,7 +30,12 @@ const createCategory = async (req, res) => {
         throw new Error("Invalid category data");
     }
     const createdCategory = await newCategory.save();
-    res.status(201).json(createdCategory);
+    if (createdCategory) {
+        res.status(201).json({ categoryName: createdCategory.name });
+    } else {
+        res.status(400);
+        throw new Error("Create category fail");
+    }
 };
 
 //Get category
@@ -45,43 +51,6 @@ const getCategory = async (req, res) => {
     res.status(200);
     res.json(categories);
 };
-
-// //Admin get all categories
-// categoryRouter.get(
-//     "/all",
-//     protect,
-//     admin,
-//     expressAsyncHandler(async (req, res) => {
-//         const categories = await Category.find({ isDisabled: false }).sort({ _id: -1 });
-//         res.json(categories);
-//     })
-// );
-
-// //Admin get all disabled categories
-// categoryRouter.get(
-//     "/disabled",
-//     protect,
-//     admin,
-//     expressAsyncHandler(async (req, res) => {
-//         const categories = await Category.find({ isDisabled: true });
-//         if (categories.length != 0) {
-//             res.status(200);
-//             res.json(categories);
-//         } else {
-//             res.status(204);
-//             res.json({ message: "No categories are disabled" });
-//         }
-//     })
-// );
-
-// //User, non-user get all catgories
-// categoryRouter.get(
-//     "/",
-//     expressAsyncHandler(async (req, res) => {
-//         const categories = await Category.find({ isDisabled: false }).sort({ _id: -1 });
-//         res.json(categories);
-//     })
-// );
 
 //Admin udpate category
 const updateCategory = async (req, res) => {
@@ -158,7 +127,7 @@ const deleteCategory = async (req, res) => {
     res.json({ message: "Category has been deleted" });
 };
 
-const CategoryControler = {
+const CategoryController = {
     createCategory,
     getCategory,
     updateCategory,
@@ -167,4 +136,4 @@ const CategoryControler = {
     deleteCategory
 };
 
-export default CategoryControler;
+export default CategoryController;

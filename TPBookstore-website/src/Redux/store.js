@@ -58,6 +58,13 @@ import {
   categoryListReducerAdmin,
   categoryUpdateReducerAdmin
 } from "./Reducers/categoryReducers";
+import {
+  bannerListReducer,
+  sliderListReducer,
+  bannerCreateReducerAdmin,
+  bannerDeleteReducerAdmin,
+  bannerUpdateReducerAdmin
+} from "./Reducers/bannerReducers";
 
 const reducer = combineReducers({
   productList: productListReducer,
@@ -100,12 +107,16 @@ const reducer = combineReducers({
   categoryListAdmin: categoryListReducerAdmin,
   categoryCreateAdmin: categoryCreateReducerAdmin,
   categoryDeleteAdmin: categoryDeleteReducerAdmin,
-  // categoryEditAdmin: categoryEditReducerAdmin,
   categoryUpdateAdmin: categoryUpdateReducerAdmin,
   orderListAdmin: orderListReducerAdmin,
   orderDeliver: orderDeliveredReducer,
   orderDeleteAdmin: orderDeleteReducerAdmin,
-  orderIsPaidAdmin: orderIsPaidReducer
+  orderIsPaidAdmin: orderIsPaidReducer,
+  bannerList: bannerListReducer,
+  sliderList: sliderListReducer,
+  bannerCreate: bannerCreateReducerAdmin,
+  bannerDelete: bannerDeleteReducerAdmin,
+  bannerUpdate: bannerUpdateReducerAdmin
 });
 
 //get cart from localstorage

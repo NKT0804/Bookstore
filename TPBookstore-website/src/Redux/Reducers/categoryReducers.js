@@ -59,7 +59,7 @@ export const categoryCreateReducerAdmin = (state = {}, action) => {
     case CATEGORY_CREATE_REQUEST:
       return { loading: true };
     case CATEGORY_CREATE_SUCCESS:
-      return { loading: false, success: true, category: action.payload };
+      return { loading: false, success: true, categoryName: action.payload };
     case CATEGORY_CREATE_FAIL:
       return { loading: false, error: action.payload };
     case CATEGORY_CREATE_RESET:

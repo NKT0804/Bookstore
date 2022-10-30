@@ -17,10 +17,10 @@ const CreateCategory = () => {
   const dispatch = useDispatch();
 
   const categoryCreateAdmin = useSelector((state) => state.categoryCreateAdmin);
-  const { loading, error, category } = categoryCreateAdmin;
+  const { loading, error, success } = categoryCreateAdmin;
 
   useEffect(() => {
-    if (category) {
+    if (success) {
       toast.success("Category Added", ToastObjects);
       dispatch({ type: CATEGORY_CREATE_RESET });
       setName("");
@@ -29,7 +29,7 @@ const CreateCategory = () => {
       toast.error(error, ToastObjects);
       dispatch({ type: CATEGORY_CREATE_RESET });
     }
-  }, [category, dispatch, loading, error]);
+  }, [success, dispatch, loading, error]);
 
   const submitHandler = (e) => {
     e.preventDefault();

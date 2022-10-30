@@ -119,7 +119,7 @@ const removeCart = async (req, res) => {
     res.json(returnCart);
 };
 
-const CartControler = {
+const CartController = {
     userGetTheirCart,
     createNewCart,
     userAddToCart,
@@ -127,4 +127,4 @@ const CartControler = {
     removeCart
 };
 
-export default CartControler;
+export default CartController;

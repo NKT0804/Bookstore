@@ -417,7 +417,7 @@ const deleteProduct = async (req, res) => {
 //     await Product.updateMany({}, { numViews: 0 });
 // };
 
-const ProductControler = {
+const ProductController = {
     createProduct,
     getProducts,
     // getDetailProductBySlug,
@@ -431,4 +431,4 @@ const ProductControler = {
     // updatenewfield
 };
 
-export default ProductControler;
+export default ProductController;
