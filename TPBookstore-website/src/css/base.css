@@ -326,8 +326,11 @@ html {
   float: right;
 }
 
+/* Products in homepage */
+
 .shoptext {
-  height: 140px;
+  height: 160px;
+  padding-top: 10px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
