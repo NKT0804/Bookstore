@@ -55,7 +55,7 @@ const BestSellerProduct = () => {
   };
   return (
     <>
-      <div className="best-seller">
+      <div className="row best-seller">
         <div className="title-section">
           <h2 className="heading-section main-effect">Best seller</h2>
         </div>

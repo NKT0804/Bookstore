@@ -60,7 +60,7 @@ const ProfileTabs = () => {
       {error && <Message variant="alert-danger">{error}</Message>}
       {loading && <Loading />}
       {updateLoading && <Loading />}
-      <form className="row ms-4 form-container" onSubmit={submitHandler} encType="multipart/form-data">
+      <form className="row form-container ms-4 shadow" onSubmit={submitHandler} encType="multipart/form-data">
         <div className="profile-title">
           <b>Thông tin cá nhân</b>
         </div>

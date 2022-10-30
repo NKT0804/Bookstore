@@ -3,7 +3,7 @@ import Rating from "../homeComponents/Rating.js";
 const RatingFilter = ({ ratingFilter, setRatingFilter }) => {
   return (
     <div className="filter-menu-item">
-      <div className="assess-star">
+      <div className="ms-1 assess-star">
         <p className="distance-price__p">Review</p>
         <div className="assess-star__div">
           <div display={{ display: "flex", alignItems: "center" }}>

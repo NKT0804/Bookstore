@@ -49,20 +49,22 @@ const Policy = () => {
       {/* <!-- policy --> */}
       <div className="policy">
         <div className="grid wide">
-          <ul className="policy__list">
-            {policyData &&
-              policyData.map((item) => (
-                <li className="policy__item" key={item.id}>
-                  <div className="policy__icon">
-                    <i className={`${item.icon}`}></i>
-                  </div>
-                  <div className="policy__desc">
-                    <h4 className="policy__title">{item.title}</h4>
-                    <h5 className="policy__sub-title">{item.subTitle}</h5>
-                  </div>
-                </li>
-              ))}
-          </ul>
+          <div className="row">
+            <ul className="policy__list">
+              {policyData &&
+                policyData.map((item) => (
+                  <li className="policy__item" key={item.id}>
+                    <div className="policy__icon">
+                      <i className={`${item.icon}`}></i>
+                    </div>
+                    <div className="policy__desc">
+                      <h4 className="policy__title">{item.title}</h4>
+                      <h5 className="policy__sub-title">{item.subTitle}</h5>
+                    </div>
+                  </li>
+                ))}
+            </ul>
+          </div>
         </div>
       </div>
     </>
