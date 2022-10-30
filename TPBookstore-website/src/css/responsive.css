@@ -243,6 +243,10 @@
     margin-top: 16px;
   }
 
+  .row {
+    --bs-gutter-x : 0.7rem !important;
+  }
+
   /* Collection */
   .collection__content {
     display: block;
@@ -298,7 +302,25 @@
     right: 0;
   }
 
+  /* profile */
+  .row .form-container {
+    margin-left: 0 !important;
+  }
 
+  .user-information,
+  .user-password {
+    grid-template-columns: 100%;
+  }
+
+  .account-address__select {
+    display: inline-block;
+    width : 100%;
+  }
+
+  .account-address__select select {
+    width: 100%;
+    margin-top: 8px;
+  }
 
 }
 

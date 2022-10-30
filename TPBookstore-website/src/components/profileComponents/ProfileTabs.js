@@ -60,11 +60,12 @@ const ProfileTabs = () => {
       {error && <Message variant="alert-danger">{error}</Message>}
       {loading && <Loading />}
       {updateLoading && <Loading />}
-      <form className="row  form-container" onSubmit={submitHandler} encType="multipart/form-data">
-        <div className="col-md-6 user__information">
-          <span>
-            <b>Thông tin cá nhân</b>
-          </span>
+      <form className="row ms-4 form-container" onSubmit={submitHandler} encType="multipart/form-data">
+        <div className="profile-title">
+          <b>Thông tin cá nhân</b>
+        </div>
+        <div className="user-information">
+          {/* User name */}
           <div className="col-md-12">
             <div className="form">
               <label htmlFor="account-fn">Tên người dùng</label>
@@ -77,6 +78,22 @@ const ProfileTabs = () => {
               />
             </div>
           </div>
+
+          {/* Phone number */}
+          <div className="col-md-12">
+            <div className="form">
+              <label htmlFor="account-phone">Số điện thoại</label>
+              <input
+                className="form-control"
+                type="text"
+                // value={email}
+                // onChange={(e) => setEmail(e.target.value)}
+                // disabled
+              />
+            </div>
+          </div>
+
+          {/* Email */}
           <div className="col-md-12">
             <div className="form">
               <label htmlFor="account-email">Địa chỉ e-mail</label>
@@ -89,61 +106,63 @@ const ProfileTabs = () => {
               />
             </div>
           </div>
+
+          {/* ADDRESS */}
           <div className="col-md-12">
             <div className="form">
-              <label htmlFor="account-address">Địa chỉ</label>
+              <label htmlFor="account-address__title">Địa chỉ</label>
+              <div className="account-address__select">
+                <select className="acount-address__item">
+                  <option value="">Tỉnh/Thành phố</option>
+                  <option value="">TP.Hồ Chí Minh</option>
+                  <option value="">TP.Hà Nội</option>
+                </select>
+                <select className="acount-address__item">
+                  <option value="">Quận/Huyện</option>
+                  <option value="">Quận 1</option>
+                  <option value="">Quận 12</option>
+                  <option value="">Quận 10</option>
+                </select>
+                <select className="acount-address__item">
+                  <option value="">Xã/Phường</option>
+                  <option value="">Phường Tân Chánh Hiệp</option>
+                  <option value="">Phường 11</option>
+                  <option value="">Phường Thạnh Lộc</option>
+                </select>
+              </div>
               <input
                 className="form-control input__address"
                 type="text"
                 required
-                placeholder="Nhập địa chỉ"
+                placeholder="Nhập địa chỉ cụ thể"
                 // value={name}
                 // onChange={(e) => setName(e.target.value)}
               />
             </div>
           </div>
-        </div>
 
-        <div className="col-md-5 user__password">
-          <span>
-            <b>Thay đổi mật khẩu</b>
-          </span>
-          <div className="col-md-12">
-            <div className="form">
-              <label htmlFor="account-pass__current">Mật khẩu hiện tại</label>
-              <input
-                className="form-control"
-                type="password"
-                value={password}
-                // onChange={(e) => setPassword(e.target.value)}
-                placeholder="Nhập mật khẩu hiện tại"
-              />
-            </div>
-            <div className="form">
-              <label htmlFor="account-pass__new">Mật khẩu mới</label>
-              <input
-                className="form-control"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="Nhập mật khẩu mới"
-              />
+          {/* Sex */}
+          <div className="col-md-6">
+            <div className="form account-sex">
+              <label htmlFor="account-address__title">Giới tính</label>
+              <p>
+                <input type="radio" name="gender" value="nam" />
+                <label for="male">Nam</label>
+              </p>
+
+              <p>
+                <input type="radio" name="gender" id="female" value="nữ" class="information_input-sex--item" />
+                <label for="female">Nữ</label>
+              </p>
+
+              <p>
+                <input type="radio" name="gender" value="khác" id="another" class="information_input-sex--item" />
+                <label for="another">Khác</label>
+              </p>
             </div>
           </div>
-          <div className="col-md-12">
-            <div className="form">
-              <label htmlFor="account-confirm-pass">Xác nhận mật khẩu</label>
-              <input
-                className="form-control"
-                type="password"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                placeholder="Xác nhận mật khẩu mới"
-              />
-            </div>
-          </div>
+          <button type="submit">Cập nhật</button>
         </div>
-        <button type="submit">Update Profile</button>
       </form>
     </>
   );

@@ -9,7 +9,7 @@ const Orders = (props) => {
   console.log("orders: ", orders);
   return (
     <div className=" d-flex justify-content-center align-items-center flex-column">
-      <p className="d-flex flex-end fw-bold border-bottom border-secondary rounded">TOTAL ORDER: {orders?.length}</p>
+      <p className="d-flex flex-end fw-bold border-bottom border-secondary rounded">Tổng đơn hàng: {orders?.length}</p>
       {loading ? (
         <Loading />
       ) : error ? (
@@ -35,7 +35,7 @@ const Orders = (props) => {
                 <div key={order._id} className=" p-3 mb-3 bg-body rounded shadow">
                   <div className="d-flex align-items-center justify-content-between mb-1">
                     <p className="fs-6">
-                      <span className="fw-bold">Order ID:</span>&nbsp;
+                      <span className="fw-bold">Mã đơn hàng:</span>&nbsp;
                       <a href={`/order/${order._id}`} className="">
                         {order._id}
                       </a>
@@ -83,7 +83,7 @@ const Orders = (props) => {
                       )}
                     </div>
                     <div className="fw-bold">
-                      Order Total:{" "}
+                      Tổng:{" "}
                       <span className="fs-5 text-danger">
                         {order.totalPrice}
                         <i className="fas fa-dollar-sign fs-6 align-text-top fw-normal"></i>
@@ -118,7 +118,7 @@ const Orders = (props) => {
                       </div>
                     </div>
                     <div className="fw-bold mt-3">
-                      Order Total:{" "}
+                      Tổng:{" "}
                       <span className="fs-5 text-danger">
                         {order.totalPrice}
                         <i className="fas fa-dollar-sign fs-6 align-text-top fw-normal"></i>

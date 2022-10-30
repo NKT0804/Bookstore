@@ -51,9 +51,8 @@ const Avatar = () => {
     <>
       <div className="col-md-12">
         <div className="form">
-          <label>Change Profile Avatar</label>
           <input
-            className="form-control"
+            className="form-control form-choose__file"
             type="file"
             name="image"
             accept=".png, .jpg, .jpeg"
