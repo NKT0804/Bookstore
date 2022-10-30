@@ -23,7 +23,7 @@ export const listBanner = () => async (dispatch) => {
   try {
     dispatch({ type: BANNER_LIST_REQUEST });
 
-    const { data } = await axios.get(`/api/v1/banner`, { role: "banner" });
+    const { data } = await axios.get(`/api/v1/banner?role=banner`);
 
     dispatch({ type: BANNER_LIST_SUCCESS, payload: data });
   } catch (error) {

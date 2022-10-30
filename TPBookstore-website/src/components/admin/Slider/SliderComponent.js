@@ -7,11 +7,6 @@ const SliderComponent = () => {
   const [isEditSlider, setIsEditSlider] = useState(false);
   const [currentSlider, setCurrentSlider] = useState("");
 
-  const handleEditSlider = () => setIsEditSlider(true);
-
-  const handleCurrentSlider = (slider) => {
-    setCurrentSlider(slider);
-  };
   return (
     <>
       <div className="content-header">
@@ -28,11 +23,7 @@ const SliderComponent = () => {
           )}
         </div>
         <div className="card p-3">
-          <SliderTable
-            setIsEditSlider={setIsEditSlider}
-            handleEditSlider={handleEditSlider}
-            handleCurrentSlider={handleCurrentSlider}
-          />
+          <SliderTable setIsEditSlider={setIsEditSlider} setCurrentSlider={setCurrentSlider} />
         </div>
       </div>
     </>

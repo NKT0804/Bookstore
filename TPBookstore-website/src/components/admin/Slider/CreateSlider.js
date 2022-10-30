@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import Loading from "../../base/LoadingError/Loading";
 import { BANNER_CREATE_RESET } from "../../../Redux/Constants/bannerConstants";
-import { createBannerAdmin } from "../../../Redux/Actions/bannerActions";
+import { createBannerAdmin, listSlider } from "../../../Redux/Actions/bannerActions";
 
 const ToastObjects = {
   pauseOnFocusLoss: false,
@@ -28,12 +28,13 @@ const CreateSlider = () => {
       setName("");
       setImage("");
       setLinkTo("");
+      dispatch(listSlider());
     }
     if (error) {
       toast.error(error, ToastObjects);
       dispatch({ type: BANNER_CREATE_RESET });
     }
-  }, [success, dispatch, loading, error]);
+  }, [success, dispatch, loading, error, listSlider()]);
 
   const submitHandler = (e) => {
     e.preventDefault();

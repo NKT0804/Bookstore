@@ -3,6 +3,9 @@ import BannerTable from "./BannerTable";
 import UpdateBanner from "./UpdateBanner";
 
 const BannerComponent = () => {
+  const [isEditBanner, setIsEditBanner] = useState(false);
+  const [currentBanner, setCurrentBanner] = useState("");
+
   return (
     <>
       <div className="content-header">
@@ -11,10 +14,15 @@ const BannerComponent = () => {
 
       <div className="row">
         <div className="card shadow-sm p-3 pb-3 mb-3">
-          <UpdateBanner />
+          <UpdateBanner
+            isEditBanner={isEditBanner}
+            currentBanner={currentBanner}
+            setIsEditBanner={setIsEditBanner}
+            setCurrentBanner={setCurrentBanner}
+          />
         </div>
         <div className="card p-3">
-          <BannerTable />
+          <BannerTable setIsEditBanner={setIsEditBanner} setCurrentBanner={setCurrentBanner} />
         </div>
       </div>
     </>

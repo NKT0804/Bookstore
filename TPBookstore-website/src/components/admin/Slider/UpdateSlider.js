@@ -1,16 +1,53 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Loading from "../../base/LoadingError/Loading";
+import { updateBannerAdmin, listSlider } from "../../../Redux/Actions/bannerActions";
 
-const UpdateCategory = ({ currentCategory, setIsEditCategory }) => {
-  const [name, setName] = useState("");
+const UpdateSlider = ({ currentSlider, setIsEditSlider }) => {
   const dispatch = useDispatch();
+
+  const [name, setName] = useState("");
+  const [image, setImage] = useState("");
+  const [linkTo, setLinkTo] = useState("");
+
+  const sliderList = useSelector((state) => state.sliderList);
+  const { sliders } = sliderList;
+
+  const sliderUpdate = useSelector((state) => state.bannerUpdate);
+  const { loading, success } = sliderUpdate;
+
+  const updateSLiderHandler = useCallback(() => {
+    setName(sliders[currentSlider]?.name);
+    setImage(sliders[currentSlider]?.image);
+    setLinkTo(sliders[currentSlider]?.linkTo);
+  }, [sliders, currentSlider]);
+
+  useEffect(() => {
+    updateSLiderHandler();
+  }, [updateSLiderHandler]);
+
+  useEffect(() => {
+    if (success) {
+      setIsEditSlider(false);
+      dispatch(listSlider());
+    }
+  }, [dispatch, setIsEditSlider, listSlider()]);
+  const submitHandler = () => {
+    dispatch(
+      updateBannerAdmin({
+        _id: sliders[currentSlider]?._id,
+        name,
+        image,
+        linkTo
+      })
+    );
+  };
 
   return (
     <>
       <div className="">
         <div>
-          {/* {loading && <Loading />} */}
+          {loading && <Loading />}
           <div className="d-flex justify-content-between">
             <div className="mb-4 w-50">
               <label htmlFor="slider_name" className="form-label">
@@ -21,8 +58,8 @@ const UpdateCategory = ({ currentCategory, setIsEditCategory }) => {
                 placeholder="Nhập tên slider"
                 className="form-control"
                 id="slider_name"
-                // value={name}
-                // onChange={(e) => setName(e.target.value)}
+                value={name}
+                onChange={(e) => setName(e.target.value)}
               />
             </div>
             <div className="mb-4 w-50">
@@ -34,8 +71,8 @@ const UpdateCategory = ({ currentCategory, setIsEditCategory }) => {
                 placeholder="Nhập url hình ảnh"
                 className="form-control"
                 id="slider_image"
-                // value={name}
-                // onChange={(e) => setName(e.target.value)}
+                value={image}
+                onChange={(e) => setImage(e.target.value)}
               />
             </div>
             <div className="mb-4 w-50">
@@ -47,13 +84,18 @@ const UpdateCategory = ({ currentCategory, setIsEditCategory }) => {
                 placeholder="Nhập liên kết"
                 className="form-control"
                 id="slider_linkTo"
-                // value={name}
-                // onChange={(e) => setName(e.target.value)}
+                value={linkTo}
+                onChange={(e) => setLinkTo(e.target.value)}
               />
             </div>
           </div>
           <div className="d-flex justify-content-between">
-            <button className="btn btn-size btn-primary p-2">Cập nhật Slider</button>
+            <button className="btn btn-primary p-2" onClick={() => setIsEditSlider(false)}>
+              Cancel update
+            </button>
+            <button className="btn btn-warning p-2" onClick={() => submitHandler()}>
+              Update category
+            </button>
           </div>
         </div>
       </div>
@@ -61,4 +103,4 @@ const UpdateCategory = ({ currentCategory, setIsEditCategory }) => {
   );
 };
 
-export default UpdateCategory;
+export default UpdateSlider;
