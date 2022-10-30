@@ -31,10 +31,10 @@ const slideImages = [
 
 const Slideshow = () => {
   return (
-    <div className="slide-container">
-      <div className="grid wide">
-        <div className="row">
-          <div className="col l-7">
+    <div className="grid wide">
+      <div className="row">
+        <div className="slide-container">
+          <div className="slide__img">
             <Fade>
               {slideImages.map((slideImage, index) => (
                 <div className="slide-container__img">
@@ -47,14 +47,12 @@ const Slideshow = () => {
               ))}
             </Fade>
           </div>
-          <div className="col l -5">
-            <div className="detail-slide">
-              <div>
-                <img className="detail-slide__img" src="../images/sliders/slide-img5.png" alt=""></img>
-              </div>
-              <div>
-                <img className="detail-slide__img" src="../images/sliders/slide-img4.png" alt=""></img>
-              </div>
+          <div className="slide__banner">
+            <div>
+              <img className="slide__banner-img" src="../images/sliders/slide-img3.png" alt=""></img>
+            </div>
+            <div>
+              <img className="slide__banner-img" src="../images/sliders/slide-img4.png" alt=""></img>
             </div>
           </div>
         </div>

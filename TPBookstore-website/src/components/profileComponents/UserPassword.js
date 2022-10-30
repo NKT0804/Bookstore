@@ -63,7 +63,7 @@ const UserPassword = () => {
       {updateLoading && <Loading />}
 
       {/* Giao diện */}
-      <form className="row form-container ms-4" onSubmit={submitHandler} encType="multipart/form-data">
+      <form className="row form-container ms-4 shadow" onSubmit={submitHandler} encType="multipart/form-data">
         <div className="profile-title">
           <b>Đổi mật khẩu</b>
         </div>

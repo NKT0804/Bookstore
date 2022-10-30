@@ -126,7 +126,7 @@ const Header = () => {
                       onChange={(e) => setKeyword(e.target.value)}
                     />
                     <button type="submit" className="search-button">
-                      Tìm kiếm
+                      <i class="far fa-search"></i>
                     </button>
                   </form>
                 </div>
@@ -151,7 +151,7 @@ const Header = () => {
                     onChange={(e) => setKeyword(e.target.value)}
                   />
                   <button type="submit" className="search-button">
-                    Tìm kiếm
+                    <i class="far fa-search"></i>
                   </button>
                 </form>
               </div>

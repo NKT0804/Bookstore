@@ -37,7 +37,7 @@ const PriceFilter = ({
 
   return (
     <div className="filter-menu-item">
-      <div className="distance-price">
+      <div className="distance-price ms-1">
         <p className="distance-price__p">Khoảng giá</p>
         <div className="distance-price__flex" style={{ display: "flex", alignItems: "center" }}>
           <input

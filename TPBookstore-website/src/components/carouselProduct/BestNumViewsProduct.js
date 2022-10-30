@@ -57,7 +57,7 @@ const BestNumViewsProduct = () => {
   };
   return (
     <>
-      <div className="best-number-view">
+      <div className="row best-number-view">
         <div className="title-section">
           <h2 className="heading-section main-effect">Most viewed products</h2>
         </div>

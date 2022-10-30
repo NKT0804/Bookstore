@@ -2,7 +2,7 @@ import React from "react";
 
 const CategoryFilter = ({ category, categoryFilter, setCategoryFilter }) => {
   return (
-    <div className="filter-menu-item">
+    <div className="filter-menu-item ms-1">
       <select
         className="form-select"
         aria-label="Filter by category"

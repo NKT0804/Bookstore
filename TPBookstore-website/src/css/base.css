@@ -362,9 +362,3 @@ html {
 .text-bold {
   font-weight: bold;
 }
-
-
-/* ADD  */
-.react-slideshow-container .default-nav {
-  background-color:var(--primary-color);
-}
