@@ -262,7 +262,7 @@ const deteleOrder = async (req, res) => {
     res.json({ message: "Order has been deleted" });
 };
 
-const OrderControler = {
+const OrderController = {
     createNewOrder,
     getOrderAdmin,
     getOrder,
@@ -274,4 +274,4 @@ const OrderControler = {
     deteleOrder
 };
 
-export default OrderControler;
+export default OrderController;

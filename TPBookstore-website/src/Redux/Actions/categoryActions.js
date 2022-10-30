@@ -82,7 +82,7 @@ export const createCategoryAdmin = (category) => async (dispatch, getState) => {
       }
     };
 
-    const { data } = await axios.post(`/api/v1/category/`, { name: category.name, status: category.status }, config);
+    const { data } = await axios.post(`/api/v1/category/`, { name: category.name }, config);
 
     dispatch({ type: CATEGORY_CREATE_SUCCESS, payload: data });
   } catch (error) {

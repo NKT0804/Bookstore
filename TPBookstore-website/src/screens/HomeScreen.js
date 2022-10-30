@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Header from "../components/Header";
 import ShopSection from "../components/homeComponents/ShopSection";
 import ContactInfo from "../components/homeComponents/ContactInfo";
@@ -18,6 +18,7 @@ const HomeScreen = ({ match }) => {
   const pageNumber = match.params.pageNumber !== undefined ? match.params.pageNumber : match.params.pagenumber;
 
   const [isFilter, setIsFilter] = useState(false);
+
   return (
     <div>
       <Header />

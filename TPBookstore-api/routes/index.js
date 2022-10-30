@@ -4,7 +4,7 @@ import productRouter from "./productRoutes.js";
 import userRouter from "./userRoutes.js";
 import categoryRouter from "./categoryRoutes.js";
 import cartRouter from "./cartRoutes.js";
-import sliderRouter from "./sliderRoutes.js";
+import bannerRouter from "./bannerRoutes.js";
 import commentRouter from "./commentRoutes.js";
 import refreshTokenRouter from "./refreshTokenRoutes.js";
 
@@ -16,7 +16,7 @@ const routes = (app) => {
     app.use("/api/v1/category", categoryRouter);
     app.use("/api/v1/cart", cartRouter);
     app.use("/api/v1/comment", commentRouter);
-    app.use("/api/v1/slider", sliderRouter);
+    app.use("/api/v1/banner", bannerRouter);
     app.use("/api/v1/refresh-token", refreshTokenRouter);
     app.use("/api/v1/config/paypal", (req, res) => {
         res.send(process.env.PAYPAL_CLIENT_ID);
