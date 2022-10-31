@@ -44,49 +44,51 @@ const CreateSlider = () => {
     <>
       <form onSubmit={submitHandler}>
         {loading && <Loading />}
-        <div className="d-flex justify-content-between">
-          <div className="mb-4 w-50">
-            <label htmlFor="slider_name" className="form-label">
-              Tên Slider
-            </label>
-            <input
-              type="text"
-              placeholder="Nhập tên slider"
-              className="form-control"
-              id="slider_name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
+        <div className="admin__sliders-banner-update">
+          <div className="d-flex justify-content-between admin__sliders-banner-update-input">
+            <div className="">
+              <label htmlFor="slider_name" className="form-label">
+                Tên Slider
+              </label>
+              <input
+                type="text"
+                placeholder="Nhập tên slider"
+                className="form-control"
+                id="slider_name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+            </div>
+            <div className="">
+              <label htmlFor="slider_image" className="form-label">
+                Hình ảnh
+              </label>
+              <input
+                type="url"
+                placeholder="Nhập url hình ảnh"
+                className="form-control"
+                id="slider_image"
+                value={image}
+                onChange={(e) => setImage(e.target.value)}
+              />
+            </div>
+            <div className="">
+              <label htmlFor="slider_linkTo" className="form-label">
+                Liên kết đến
+              </label>
+              <input
+                type="url"
+                placeholder="Nhập liên kết"
+                className="form-control"
+                id="slider_linkTo"
+                value={linkTo}
+                onChange={(e) => setLinkTo(e.target.value)}
+              />
+            </div>
           </div>
-          <div className="mb-4 w-50">
-            <label htmlFor="slider_image" className="form-label">
-              Hình ảnh
-            </label>
-            <input
-              type="url"
-              placeholder="Nhập url hình ảnh"
-              className="form-control"
-              id="slider_image"
-              value={image}
-              onChange={(e) => setImage(e.target.value)}
-            />
+          <div className="d-grid">
+            <button className="btn btn-size btn-primary p-2">Thêm slider</button>
           </div>
-          <div className="mb-4 w-50">
-            <label htmlFor="slider_linkTo" className="form-label">
-              Liên kết đến
-            </label>
-            <input
-              type="url"
-              placeholder="Nhập liên kết"
-              className="form-control"
-              id="slider_linkTo"
-              value={linkTo}
-              onChange={(e) => setLinkTo(e.target.value)}
-            />
-          </div>
-        </div>
-        <div className="d-grid w-25">
-          <button className="btn btn-size btn-primary p-2">Thêm slider</button>
         </div>
       </form>
     </>
