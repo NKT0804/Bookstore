@@ -30,17 +30,13 @@ const userSchema = mongoose.Schema(
             required: true,
             default: false
         },
-        isDisabled: {
-            type: Boolean,
-            required: true,
-            default: false
-        },
         sex: {
             type: String,
             default: ""
         },
         birthday: {
-            type: Date
+            type: String,
+            default: ""
         },
         address: {
             province: {
@@ -59,6 +55,11 @@ const userSchema = mongoose.Schema(
                 type: String,
                 default: ""
             }
+        },
+        isDisabled: {
+            type: Boolean,
+            required: true,
+            default: false
         }
     },
     {

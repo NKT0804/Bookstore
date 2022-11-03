@@ -1,12 +1,17 @@
 import React, { useEffect } from "react";
 import { Fade } from "react-slideshow-image";
 import "react-slideshow-image/dist/styles.css";
+import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { listSlider } from "../Redux/Actions/bannerActions";
+import { listSlider, listBanner } from "../Redux/Actions/bannerActions";
 const Slideshow = () => {
   const dispatch = useDispatch();
+
   const sliderList = useSelector((state) => state.sliderList);
   const { error, loading, sliders } = sliderList;
+
+  const bannerList = useSelector((state) => state.bannerList);
+  const { banners } = bannerList;
 
   useEffect(() => {
     dispatch(listSlider());
@@ -20,7 +25,9 @@ const Slideshow = () => {
               {sliders?.map((item, index) => (
                 <div className="slide-container__img">
                   <div className="each-slide" key={index}>
-                    <img src={item.image} alt={item.name} />
+                    <Link to={item.linkTo}>
+                      <img src={item.image} alt={item.name} />
+                    </Link>
                   </div>
                 </div>
               ))}
@@ -28,10 +35,22 @@ const Slideshow = () => {
           </div>
           <div className="slide__banner">
             <div>
-              <img className="slide__banner-img" src="../images/sliders/slide-img3.png" alt=""></img>
+              {banners?.length > 0 ? (
+                <Link to={banners[1].linkTo}>
+                  <img src={banners[1].image} alt={banners[1].name} className="slide__banner-img" />
+                </Link>
+              ) : (
+                <img className="slide__banner-img" src="" alt="Banner"></img>
+              )}
             </div>
             <div>
-              <img className="slide__banner-img" src="../images/sliders/slide-img4.png" alt=""></img>
+              {banners?.length > 0 ? (
+                <Link to={banners[2].linkTo}>
+                  <img src={banners[2].image} alt={banners[2].name} className="slide__banner-img" />
+                </Link>
+              ) : (
+                <img className="slide__banner-img" src="" alt="Banner"></img>
+              )}
             </div>
           </div>
         </div>

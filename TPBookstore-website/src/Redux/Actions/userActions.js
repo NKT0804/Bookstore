@@ -29,47 +29,6 @@ import {
 import axios from "axios";
 import { toast } from "react-toastify";
 
-// ADMIN LOGIN
-export const adminLoginAction = (email, password) => async (dispatch) => {
-  const ToastObjects = {
-    pauseOnFocusLoss: false,
-    draggable: false,
-    pauseOnHover: false,
-    autoClose: 2000
-  };
-  try {
-    dispatch({ type: USER_LOGIN_REQUEST });
-
-    const config = {
-      headers: {
-        "Content-Type": "application/json"
-      }
-    };
-
-    const { data } = await axios.post(`/api/v1/user/login`, { email, password }, config);
-
-    if (!data.isAdmin === true) {
-      toast.error("You are not Admin", ToastObjects);
-      dispatch({
-        type: USER_LOGIN_FAIL
-      });
-    } else {
-      dispatch({ type: USER_LOGIN_SUCCESS, payload: data });
-    }
-
-    localStorage.setItem("userInfo", JSON.stringify(data));
-  } catch (error) {
-    const message = error.response && error.response.data.message ? error.response.data.message : error.message;
-    if (message === "Not authorized, token failed") {
-      dispatch(logout());
-    }
-    dispatch({
-      type: USER_LOGIN_FAIL,
-      payload: message
-    });
-  }
-};
-
 // USER LOGIN
 export const userLoginAction = (email, password) => async (dispatch) => {
   try {
@@ -112,7 +71,7 @@ export const userRegisterAction = (name, email, password) => async (dispatch) =>
       }
     };
     const { data } = await axios.post(`/api/v1/user`, { name, email, password }, config);
-    dispatch({ type: USER_REGISTER_SUCCESS, payload: data });
+    dispatch({ type: USER_REGISTER_SUCCESS, payload: { userId: data._id } });
     dispatch({ type: USER_LOGIN_SUCCESS, payload: data });
     localStorage.setItem("userInfo", JSON.stringify(data));
   } catch (error) {

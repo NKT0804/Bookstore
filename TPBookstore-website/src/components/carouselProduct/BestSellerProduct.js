@@ -57,7 +57,7 @@ const BestSellerProduct = () => {
     <>
       <div className="row best-seller">
         <div className="title-section">
-          <h2 className="heading-section main-effect">Best seller</h2>
+          <h2 className="heading-section main-effect">Sách bán chạy</h2>
         </div>
         <div className="best-seller-container">
           <Slider {...settings}>

@@ -4,13 +4,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { saveShippingAddress } from "../Redux/Actions/cartActions";
 import { Link } from "react-router-dom";
 import { getAddressData } from "../Redux/Actions/userActions";
-//import { updateUserProfile } from "../Redux/Actions/userActions";
+import { updateUserProfile } from "../Redux/Actions/userActions";
 
 const ShippingScreen = ({ history }) => {
   window.scrollTo(0, 0);
 
-  //const userDetails = useSelector((state) => state.userDetails);
-  //const { user, loading, error } = userDetails;
+  const userDetails = useSelector((state) => state.userDetails);
+  const { user, loading, error } = userDetails;
   const getListAddressData = useSelector((state) => state.addressData);
   const { addressData } = getListAddressData;
   const [districtList, setDistrictList] = useState([]);
@@ -23,34 +23,54 @@ const ShippingScreen = ({ history }) => {
 
   const dispatch = useDispatch();
 
+  //get list district and list ward
+  const getArrayAddress = (inputArray, value) => {
+    const outputArray = inputArray?.find((item) => {
+      return item.name === value;
+    });
+    return outputArray;
+  };
   const selectProvinceHandler = (value) => {
     setProvince(value);
     setDistrict("");
     setWard("");
     setWardList([]);
-    const getDistrict = addressData.find((item) => {
-      return item.name == value;
-    });
-    if (getDistrict) {
-      setDistrictList(getDistrict.districts);
-    } else setDistrictList([]);
   };
   const selectDistrictHandler = (value) => {
     setDistrict(value);
     setWard("");
-    const getWard = districtList.find((item) => {
-      return item.name == value;
-    });
-    if (getWard) {
-      setWardList(getWard.wards);
-    } else setDistrictList([]);
   };
+
+  useEffect(() => {
+    if (user) {
+      setProvince(user.address?.province || "");
+      setDistrict(user.address?.district || "");
+      setWard(user.address?.ward || "");
+      setSpecificAddress(user.address?.specificAddress || "");
+    }
+  }, [dispatch, user]);
+
+  useEffect(() => {
+    if (addressData?.length > 0 && province) {
+      const getDistrict = getArrayAddress(addressData, province || "");
+      if (getDistrict) {
+        setDistrictList(getDistrict.districts);
+      } else setDistrictList([]);
+    }
+    if (districtList?.length > 0 && district) {
+      const getWard = getArrayAddress(districtList, district);
+
+      if (getWard) {
+        setWardList(getWard.wards);
+      } else setDistrictList([]);
+    }
+  }, [dispatch, addressData, province, districtList, district]);
 
   const submitHandler = (e) => {
     e.preventDefault();
-    // const addressUpdate = { province, district, ward, specificAddress };
-    // user.address = addressUpdate;
-    // dispatch(updateUserProfile(user));
+    const addressUpdate = { province, district, ward, specificAddress };
+    user.address = addressUpdate;
+    dispatch(updateUserProfile(user));
     history.push("/payment");
   };
   useEffect(() => {
@@ -61,7 +81,7 @@ const ShippingScreen = ({ history }) => {
       <Header />
       <div className="container d-flex justify-content-center align-items-center login-center">
         <form className="Login col-md-8 col-lg-4 col-11" onSubmit={submitHandler}>
-          <h6>DELIVERY ADDRESS</h6>
+          <h6>ĐỊA CHỈ GIAO HÀNG</h6>
 
           <div className="filter-menu-item">
             <select
@@ -119,11 +139,7 @@ const ShippingScreen = ({ history }) => {
             onChange={(e) => setSpecificAddress(e.target.value)}
           />
 
-          <button type="submit">
-            <Link to="/payment" className="text-white">
-              Continue
-            </Link>
-          </button>
+          <button type="submit">Tiếp tục</button>
         </form>
       </div>
     </>

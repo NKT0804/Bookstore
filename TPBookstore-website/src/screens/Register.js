@@ -8,7 +8,6 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import Message from "../components/base/LoadingError/Error";
 import Loading from "../components/base/LoadingError/Loading";
-// import '../../asset/styles/signup.css';
 
 const Register = ({ location, history }) => {
   window.scrollTo(0, 0);

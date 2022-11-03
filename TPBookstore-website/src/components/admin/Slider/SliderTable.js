@@ -11,11 +11,19 @@ const SliderTable = ({ setIsEditSlider, setCurrentSlider }) => {
   const sliderList = useSelector((state) => state.sliderList);
   const { error, loading, sliders } = sliderList;
 
+  const sliderDelete = useSelector((state) => state.bannerDelete);
+  const { success } = sliderDelete;
+
   const sliderDeleteHandler = (id) => {
     if (window.confirm("Bạn có chắc chắn muốn xóa slider này?")) {
       dispatch(deleteBannerAdmin(id));
     }
   };
+  useEffect(() => {
+    if (success) {
+      dispatch(listSlider());
+    }
+  }, [dispatch, listSlider()]);
 
   useEffect(() => {
     dispatch(listSlider());
