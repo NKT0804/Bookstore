@@ -85,7 +85,7 @@ const BestNumViewsProduct = () => {
                         </Link>
 
                         <div className="shoptext">
-                          <p>
+                          <p className="shoptext__name">
                             <Link to={`/product/${product._id}`}>
                               {product.name.length >= 55 ? `${product.name.slice(0, 55)}...` : ` ${product.name}`}
                             </Link>

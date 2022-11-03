@@ -51,8 +51,13 @@ const UsersScreen = () => {
           <div className="shadow-sm">
             <div className="card shadow-sm p-3 pb-3 mb-3">
               <Toast />
-              <BannerComponent />
-              <SliderComponent />
+              <div className="component__banner">
+                <BannerComponent />
+              </div>
+              <div className="border__bottom-admin"></div>
+              <div className="component__sliders">
+                <SliderComponent />
+              </div>
             </div>
           </div>
         </section>

@@ -99,7 +99,6 @@ textarea:focus {
 .input-group {
   height: 40px;
   width: 100%;
-  margin-top: 12px;
 }
 
 .search-button {
@@ -298,10 +297,6 @@ textarea:focus {
 /* ALL PRODUCT */
 .sort-product {
   margin-left: 2px;
-}
-
-.shoptext {
-  padding-top: 10px;
 }
 
 .shoptext__name {
@@ -1205,7 +1200,7 @@ textarea:focus {
 }
 
 .slide__img {
-  width: 67.5%;
+  width: 68%;
 }
 
 .each-slide > img {
@@ -1215,7 +1210,7 @@ textarea:focus {
 }
 
 .slide__banner {
-  width: 32%;
+  width: 31.5%;
   height : 100%;
   display :flex;
   flex-direction: column;
@@ -1768,9 +1763,17 @@ a.popu-cate__item {
 }
 
 /* best seller */
+.slick-prev {
+  left : -14px !important;
+}
+
 .slick-prev:before {
   content: "←";
   color: black !important;
+}
+
+.slick-next {
+  right : -14px !important;
 }
 
 .slick-next:before {

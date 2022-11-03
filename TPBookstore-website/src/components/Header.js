@@ -152,7 +152,7 @@ const Header = () => {
                   <img alt="logo" src="/images/logo.png" />
                 </Link>
               </div>
-              <div className="col-md-6 col-4 d-flex flex-column">
+              <div className="col-md-6 col-4 d-flex align-items-center">
                 <form onSubmit={submitHandler} className="input-group">
                   <input
                     type="search"

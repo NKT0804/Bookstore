@@ -31,18 +31,18 @@ const SliderTable = ({ setIsEditSlider, setCurrentSlider }) => {
 
   return (
     <>
-      <table className="table">
+      <table className="admin__sliders-banner-table">
         <thead>
           <tr>
-            <th>STT</th>
-            <th>Tên Slider</th>
-            <th>Hình ảnh</th>
-            <th>Liên kết đến</th>
-            <th className="text-end">Action</th>
+            <th className="admin__sliders-banner-table-id">STT</th>
+            <th className="admin__sliders-banner-table-name">Tên Slider</th>
+            <th className="admin__sliders-banner-table-img">Hình ảnh</th>
+            <th className="admin__sliders-banner-table-link">Liên kết đến</th>
+            <th className="admin__sliders-banner-table-action text-end">Action</th>
           </tr>
         </thead>
         {/* Table Data */}
-        <tbody>
+        <tbody className="admin__sliders-banner-table-content">
           {loading ? (
             <tr className="mb-5 mt-5">
               <Loading />

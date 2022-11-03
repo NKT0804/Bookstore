@@ -37,6 +37,9 @@ a.disabled {
   background-color: var(--primary-color) !important;
   border: 1px solid var(--primary-color) !important;
 }
+.btn-hover {
+  opacity: 0.9;
+}
 
 
 .Header-green {
@@ -169,7 +172,7 @@ body.offcanvas-active {
 
 .main-wrap {
   margin-left: 260px;
-  background-color: #f8f9fa;
+  background-color: #f5f5f5;
 }
 
 .content-main {
@@ -940,4 +943,85 @@ ul.row-sm {
 
 button.btn.btn-success.col-12 {
   font-size: 16px;
+}
+
+/* Sliders and banner */
+
+.component__banner,
+.component__sliders {
+  margin-bottom : 20px;
+  
+}
+
+
+.border__bottom-admin {
+  border: 8px solid #f5f5f5;
+  margin: 8px -16px 12px -16px;
+
+}
+
+.admin__sliders-banner {
+  padding-bottom: 24px;
+}
+
+.admin__sliders-banner-item,
+.admin__sliders-banner-item-table {
+  padding: 12px 8px 20px 8px;
+}
+
+.admin__sliders-banner-update-input{
+  display: flex;
+  flex-direction: column;
+  margin-bottom : 20px;
+}
+
+
+/* sliders-banner table */
+
+.admin__sliders-banner-table {
+  width: 100%;
+}
+
+.admin__sliders-banner-table th {
+  border : 1px solid #777;
+  text-align: center !important;
+}
+
+.admin__sliders-banner-table-id {
+  width: 7%;
+
+}
+
+.admin__sliders-banner-table-name {
+  width: 15%;
+
+}
+
+.admin__sliders-banner-table-img {
+width: 40%;
+}
+
+.admin__sliders-banner-table-link {
+width: 25%;
+}
+
+.admin__sliders-banner-table-action {
+width: 13%;
+text-align: center;
+}
+
+.admin__sliders-banner-table-content tr {
+  border : 1px solid #777;
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.admin__sliders-banner-table-content td {
+  padding: 8px;
+  border : 1px solid #777;
+}
+
+.admin__sliders-banner-table-content td>img {
+  width : 85%;
+  height :85%;
 }
