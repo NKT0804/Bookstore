@@ -13,6 +13,8 @@ const Avatar = () => {
   const [inputImg, setInputImg] = useState("");
   const [blob, setBlob] = useState(null);
 
+  const inputAvatarElement = document.getElementsByName("input-avatar");
+
   const getBlob = (blob) => {
     // pass blob up from the ImageCropper component
     setBlob(blob);
@@ -54,10 +56,14 @@ const Avatar = () => {
           <input
             className="form-control form-choose__file"
             type="file"
-            name="image"
+            id="input-avatar"
             accept=".png, .jpg, .jpeg"
             onChange={handleFileSelect}
+            hidden
           />
+          <label for="input-avatar" className="btn ">
+            Thay đổi
+          </label>
           {inputImg && <ImageCropper getBlob={getBlob} inputImg={inputImg} />}
           <span className="btn-group-avt">
             <button className={`${inputImg}` ? `enableCancel` : "btn-cancel-change-avt"} onClick={onCancelAvt}>

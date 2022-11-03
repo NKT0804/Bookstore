@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import { getCartListItem } from "../Redux/Actions/cartActions";
 import { logout } from "../Redux/Actions/userActions";
-// import Sidebar from "./sidebar/Sidebar";
+import { listBanner } from "../Redux/Actions/bannerActions";
 
 const Header = () => {
   const [keyword, setKeyword] = useState();
@@ -18,8 +18,12 @@ const Header = () => {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
+  const bannerList = useSelector((state) => state.bannerList);
+  const { banners } = bannerList;
+
   useEffect(() => {
     dispatch(getCartListItem());
+    dispatch(listBanner());
   }, [dispatch]);
 
   const logoutHandler = () => {
@@ -45,7 +49,13 @@ const Header = () => {
     <div>
       {/* Top Header */}
       <div className="Announcement ">
-        <img alt="banner_book" src=".././images/banner.jpg" className="banner__header" />
+        {banners?.length > 0 ? (
+          <Link to={banners[0].linkTo}>
+            <img src={banners[0].image} alt={banners[0].name} className="banner__header" />
+          </Link>
+        ) : (
+          <img alt="Banner" src="" className="banner__header" />
+        )}
       </div>
 
       {/* Header */}

@@ -5,6 +5,7 @@ import Loading from "./../base/LoadingError/Loading";
 import Message from "./../base/LoadingError/Error";
 import { toast } from "react-toastify";
 import { updateUserProfile } from "../../Redux/Actions/userActions";
+import { getAddressData } from "../../Redux/Actions/userActions";
 
 const ProfileTabs = () => {
   const toastObjects = {
@@ -16,15 +17,40 @@ const ProfileTabs = () => {
     draggable: true,
     progress: undefined
   };
+  const dispatch = useDispatch();
+
+  const getListAddressData = useSelector((state) => state.addressData);
+  const { addressData } = getListAddressData;
+  const [districtList, setDistrictList] = useState([]);
+  const [wardList, setWardList] = useState([]);
+
+  const [province, setProvince] = useState("");
+  const [district, setDistrict] = useState("");
+  const [ward, setWard] = useState("");
+  const [specificAddress, setSpecificAddress] = useState("");
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [phone, setPhone] = useState("");
+  const [birthday, setBirthday] = useState("");
+  const setSexValue = (sex) => {
+    var radioSex = document.getElementsByName("gender");
+    for (var i = 0; i < radioSex.length; i++) {
+      if (radioSex[i].value === sex) {
+        radioSex[i].checked = true;
+      }
+    }
+  };
+  const getSexValue = () => {
+    var radioSex = document.getElementsByName("gender");
+    for (var i = 0; i < radioSex.length; i++) {
+      if (radioSex[i].checked === true) {
+        return radioSex[i].value;
+      }
+    }
+  };
 
   const toastId = React.useRef(null);
-
-  const dispatch = useDispatch();
 
   const userDetails = useSelector((state) => state.userDetails);
   const { user, loading, error } = userDetails;
@@ -32,28 +58,79 @@ const ProfileTabs = () => {
   const userUpdateProfile = useSelector((state) => state.userUpdateProfile);
   const { loading: updateLoading } = userUpdateProfile;
 
+  //get list district and list ward
+  const getArrayAddress = (inputArray, value) => {
+    const outputArray = inputArray?.find((item) => {
+      return item.name === value;
+    });
+    return outputArray;
+  };
+
+  const selectProvinceHandler = (value) => {
+    setProvince(value);
+    setDistrict("");
+    setWard("");
+    setWardList([]);
+  };
+  const selectDistrictHandler = (value) => {
+    setDistrict(value);
+    setWard("");
+  };
+
   useEffect(() => {
     if (user) {
       setName(user.name);
       setEmail(user.email);
+      setPhone(user.phone || "");
+      setSexValue(user.sex);
+      setBirthday(user.birthday || "");
+      setProvince(user.address?.province || "");
+      setDistrict(user.address?.district || "");
+      setWard(user.address?.ward || "");
+      setSpecificAddress(user.address?.specificAddress || "");
     }
   }, [dispatch, user]);
 
+  useEffect(() => {
+    if (addressData?.length > 0 && province) {
+      const getDistrict = getArrayAddress(addressData, province || "");
+      if (getDistrict) {
+        setDistrictList(getDistrict.districts);
+      } else setDistrictList([]);
+    }
+    if (districtList?.length > 0 && district) {
+      const getWard = getArrayAddress(districtList, district);
+
+      if (getWard) {
+        setWardList(getWard.wards);
+      } else setDistrictList([]);
+    }
+  }, [dispatch, addressData, province, districtList, district]);
+
   const submitHandler = (e) => {
     e.preventDefault();
-    // check password match
-    if (password !== confirmPassword || password === "" || password.length < 6 || password.length > 16) {
-      if (!toast.isActive(toastId.current)) {
-        toastId.current = toast.error("Password does not match", toastObjects);
-      }
-    } else {
-      dispatch(updateUserProfile({ id: user._id, name, email, avatarUrl: user.avatarUrl, password }));
-
-      if (!toast.isActive(toastId.current)) {
-        toastId.current = toast.success("Profile Updated", toastObjects);
-      }
+    const sex = getSexValue();
+    const address = { province, district, ward, specificAddress };
+    dispatch(
+      updateUserProfile({
+        id: user._id,
+        name,
+        email: user.email,
+        phone,
+        avatarUrl: user.avatarUrl,
+        sex,
+        birthday,
+        address
+      })
+    );
+    if (!toast.isActive(toastId.current)) {
+      toastId.current = toast.success("Cập nhật thông tin thành công", toastObjects);
     }
   };
+
+  useEffect(() => {
+    dispatch(getAddressData());
+  }, [dispatch]);
   return (
     <>
       <Toast />
@@ -83,13 +160,7 @@ const ProfileTabs = () => {
           <div className="col-md-12">
             <div className="form">
               <label htmlFor="account-phone">Số điện thoại</label>
-              <input
-                className="form-control"
-                type="text"
-                // value={email}
-                // onChange={(e) => setEmail(e.target.value)}
-                // disabled
-              />
+              <input className="form-control" type="text" value={phone} onChange={(e) => setPhone(e.target.value)} />
             </div>
           </div>
 
@@ -97,46 +168,54 @@ const ProfileTabs = () => {
           <div className="col-md-12">
             <div className="form">
               <label htmlFor="account-email">Địa chỉ e-mail</label>
-              <input
-                className="form-control disabled-email"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                disabled
-              />
+              <input className="form-control disabled-email" type="email" value={email} disabled />
             </div>
           </div>
 
           {/* ADDRESS */}
           <div className="col-md-12">
             <div className="form">
-              <label htmlFor="account-address__title">Địa chỉ</label>
+              <label htmlFor="account-address">Địa chỉ</label>
               <div className="account-address__select">
-                <select className="acount-address__item">
+                <select
+                  className="acount-address__item"
+                  value={province}
+                  onChange={(e) => selectProvinceHandler(e.target.value)}
+                >
                   <option value="">Tỉnh/Thành phố</option>
-                  <option value="">TP.Hồ Chí Minh</option>
-                  <option value="">TP.Hà Nội</option>
+                  {addressData?.map((item, index) => (
+                    <option value={item.name} key={index} id={item.code}>
+                      {item.name}
+                    </option>
+                  ))}
                 </select>
-                <select className="acount-address__item">
+                <select
+                  className="acount-address__item"
+                  value={district}
+                  onChange={(e) => selectDistrictHandler(e.target.value)}
+                >
                   <option value="">Quận/Huyện</option>
-                  <option value="">Quận 1</option>
-                  <option value="">Quận 12</option>
-                  <option value="">Quận 10</option>
+                  {districtList?.map((item, index) => (
+                    <option value={item.name} key={index} id={item.code}>
+                      {item.name}
+                    </option>
+                  ))}
                 </select>
-                <select className="acount-address__item">
-                  <option value="">Xã/Phường</option>
-                  <option value="">Phường Tân Chánh Hiệp</option>
-                  <option value="">Phường 11</option>
-                  <option value="">Phường Thạnh Lộc</option>
+                <select className="acount-address__item" value={ward} onChange={(e) => setWard(e.target.value)}>
+                  <option value="">Phường/Xã</option>
+                  {wardList?.map((item, index) => (
+                    <option value={item.name} key={index} id={item.code}>
+                      {item.name}
+                    </option>
+                  ))}
                 </select>
               </div>
               <input
                 className="form-control input__address"
                 type="text"
-                required
                 placeholder="Nhập địa chỉ cụ thể"
-                // value={name}
-                // onChange={(e) => setName(e.target.value)}
+                value={specificAddress}
+                onChange={(e) => setSpecificAddress(e.target.value)}
               />
             </div>
           </div>
@@ -144,9 +223,9 @@ const ProfileTabs = () => {
           {/* Sex */}
           <div className="col-md-6">
             <div className="form account-sex">
-              <label htmlFor="account-address__title">Giới tính</label>
+              <label htmlFor="account-sex">Giới tính</label>
               <p>
-                <input type="radio" name="gender" value="nam" />
+                <input type="radio" name="gender" id="male" value="nam" class="information_input-sex--item" />
                 <label for="male">Nam</label>
               </p>
 
@@ -160,6 +239,12 @@ const ProfileTabs = () => {
                 <label for="another">Khác</label>
               </p>
             </div>
+          </div>
+          {/*Birthday*/}
+          <div>
+            <label htmlFor="account-birthday">Ngày sinh</label>
+
+            <input type="date" name="birthday" value={birthday} onChange={(e) => setBirthday(e.target.value)}></input>
           </div>
           <button type="submit">Cập nhật</button>
         </div>

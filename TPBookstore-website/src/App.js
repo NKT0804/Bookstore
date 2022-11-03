@@ -15,7 +15,8 @@ import ProfileScreen from "./screens/ProfileScreen";
 import PaymentScreen from "./screens/PaymentScreen";
 import PlaceOrderScreen from "./screens/PlaceOrderScreen";
 import OrderScreen from "./screens/OrderScreen";
-// import NotFound from "./screens/NotFound";
+import NotFound from "./screens/NotFound";
+
 //admin
 import "../src/css/AdminApp.css";
 import "../src/css/AdminResponsive.css";
@@ -26,17 +27,14 @@ import CategoriesScreenAdmin from "./screens/admin/CategoriesScreen";
 import OrderScreenAdmin from "./screens/admin/OrderScreen";
 import OrderDetailScreenAdmin from "./screens/admin/OrderDetailScreen";
 import AddProductAdmin from "./screens/admin/AddProduct";
-// import LoginAdmin from "./screens/admin/LoginScreen";
 import UsersScreenAdmin from "./screens/admin/UsersScreen";
 import CommentScreenAdmin from "./screens/admin/CommentsScreen";
 import ProductEditScreenAdmin from "./screens/admin/ProductEditScreen";
-// import NotFoundAdmin from "./screens/admin/NotFoundAdmin";
 import { PrivateRouter, AdminPrivateRouter } from "./PrivateRouter";
 import { useDispatch, useSelector } from "react-redux";
 import { listProductsAdmin } from "./Redux/Actions/productActions";
 import { listOrders } from "./Redux/Actions/orderActions";
 import SliderBannerScreenAdmin from "./screens/admin/SliderBannerScreen";
-import NotFound from "./screens/NotFound";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -81,8 +79,6 @@ const App = () => {
         <AdminPrivateRouter path="/admin/users" component={UsersScreenAdmin} />
         <AdminPrivateRouter path="/admin/slider-banner/" component={SliderBannerScreenAdmin} />
         <AdminPrivateRouter path="/admin/comments" component={CommentScreenAdmin} />
-        {/* <Route path="/admin/login" component={LoginAdmin} /> */}
-        {/* <AdminPrivateRouter path="/admin/*" component={NotFoundAdmin} /> */}
         <Route path="*" component={NotFound} />
       </Switch>
     </Router>

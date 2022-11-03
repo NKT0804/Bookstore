@@ -4,7 +4,7 @@ const RatingFilter = ({ ratingFilter, setRatingFilter }) => {
   return (
     <div className="filter-menu-item">
       <div className="ms-1 assess-star">
-        <p className="distance-price__p">Review</p>
+        <p className="distance-price__p">Đánh giá</p>
         <div className="assess-star__div">
           <div display={{ display: "flex", alignItems: "center" }}>
             <input

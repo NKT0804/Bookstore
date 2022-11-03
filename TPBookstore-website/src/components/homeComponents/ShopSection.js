@@ -54,7 +54,7 @@ const ShopSection = (props) => {
             <div className="col-lg-12 col-md-12  article">
               <div className="shopcontainer row">
                 <div className="title-section">
-                  <h2 className="heading-section main-effect">all products</h2>
+                  <h2 className="heading-section main-effect">Tất cả sách</h2>
                 </div>
 
                 <SortBy sortBy={sortBy} setSortBy={setSortBy} />
