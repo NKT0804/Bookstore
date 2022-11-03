@@ -34,7 +34,6 @@ const UserPassword = () => {
 
   useEffect(() => {
     if (user) {
-      setName(user.name);
       setEmail(user.email);
     }
   }, [dispatch, user]);

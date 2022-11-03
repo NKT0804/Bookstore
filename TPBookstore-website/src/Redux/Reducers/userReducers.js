@@ -22,7 +22,10 @@ import {
   USER_UPDATE_PROFILE_SUCCESS,
   USER_GET_ADDRESS_DATA_REQUEST,
   USER_GET_ADDRESS_DATA_SUCCESS,
-  USER_GET_ADDRESS_DATA_FAIL
+  USER_GET_ADDRESS_DATA_FAIL,
+  USER_UPDATE_PASSWORD_REQUEST,
+  USER_UPDATE_PASSWORD_SUCCESS,
+  USER_UPDATE_PASSWORD_FAIL
 } from "../Constants/userConstants";
 
 // LOGIN
@@ -84,6 +87,21 @@ export const userUpdateProfileReducer = (state = {}, action) => {
       return state;
   }
 };
+
+// USER UPDATE PASSWORD
+export const userUpdatePasswordReducer = (state = {}, action) => {
+  switch (action.type) {
+    case USER_UPDATE_PASSWORD_REQUEST:
+      return { loading: true };
+    case USER_UPDATE_PASSWORD_SUCCESS:
+      return { loading: false, success: true, userUpdatePassword: action.payload };
+    case USER_UPDATE_PASSWORD_FAIL:
+      return { loading: false, success: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
 // USER UPDATE AVATAR
 export const userUpdateAvatarReducer = (state = {}, action) => {
   switch (action.type) {

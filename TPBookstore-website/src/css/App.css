@@ -497,7 +497,7 @@ textarea:focus {
 
 .single-image img {
   width: 90%;
-  height: 700px;
+  height: 500px;
   object-fit: contain;
 }
 
