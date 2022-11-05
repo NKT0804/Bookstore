@@ -61,7 +61,7 @@ export const listProducts =
     try {
       dispatch({ type: PRODUCT_LIST_REQUEST });
       const { data } = await axios.get(
-        `/api/v1/product?&category=${categoryFilter}&keyword=${keyword}&rating=${ratingFilter}&minPrice=${minPrice}&maxPrice=${maxPrice}&sortBy=${sortBy}&pageNumber=${pageNumber}&pageSize=20`
+        `/api/v1/product?&category=${categoryFilter}&keyword=${keyword}&rating=${ratingFilter}&minPrice=${minPrice}&maxPrice=${maxPrice}&sortBy=${sortBy}&pageNumber=${pageNumber}&pageSize=8`
       );
       dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
     } catch (error) {

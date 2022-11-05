@@ -28,6 +28,9 @@ const OrderScreen = ({ match }) => {
 
     order.itemsPrice = addDecimals(order.orderItems.reduce((acc, item) => acc + item.price * item.qty, 0));
   }
+  const formatPrice = (price) => {
+    return (price / 1000).toFixed(3) + " ₫";
+  };
 
   useEffect(() => {
     const addPayPalScript = async () => {
@@ -77,12 +80,10 @@ const OrderScreen = ({ match }) => {
                   </div>
                   <div className="col-md-8 center">
                     <h5>
-                      <strong>Customer</strong>
+                      <strong>Khách hàng</strong>
                     </h5>
-                    <p>{order.user.name}</p>
-                    <p>
-                      <a href={`mailto:${order.user.email}`}>{order.user.email}</a>
-                    </p>
+                    <p>Tên: {order.user.name}</p>
+                    <p>SĐT: {order.user.phone}</p>
                   </div>
                 </div>
               </div>
@@ -96,21 +97,10 @@ const OrderScreen = ({ match }) => {
                   </div>
                   <div className="col-md-8 center">
                     <h5>
-                      <strong>Order info</strong>
+                      <strong>Thông tin vận chuyển</strong>
                     </h5>
-                    <p>Shipping: {order.shippingAddress.country}</p>
-                    <p>Pay method: {order.paymentMethod}</p>
-                    {order.isPaid ? (
-                      <div className="bg-info p-2 col-12">
-                        <p className="text-white text-center text-sm-start">
-                          Paid on {moment(order.paidAt).calendar()}
-                        </p>
-                      </div>
-                    ) : (
-                      <div className="bg-danger p-2 col-12">
-                        <p className="text-white text-center text-sm-start">Not Paid</p>
-                      </div>
-                    )}
+                    <p>Đơn vị vận chuyển: GHTK</p>
+                    <p>Hình thức vận chuyển: Nhanh</p>
                   </div>
                 </div>
               </div>
@@ -124,21 +114,42 @@ const OrderScreen = ({ match }) => {
                   </div>
                   <div className="col-md-8 center">
                     <h5>
-                      <strong>Deliver to</strong>
+                      <strong>Địa chỉ giao hàng</strong>
+                      <p>{order.shippingAddress}</p>
                     </h5>
-                    <p>
-                      Address: {order.shippingAddress.city}, {order.shippingAddress.address},{" "}
-                      {order.shippingAddress.postalCode}
-                    </p>
-                    {order.isDelivered ? (
+                  </div>
+                </div>
+              </div>
+              {/* 4 */}
+              <div className="col-lg-4 col-sm-4 mb-lg-4 mb-5 mb-sm-0">
+                <div className="row">
+                  <div className="col-md-4 center">
+                    <div className="alert-success order-box">
+                      <i className="fas fa-map-marker-alt"></i>
+                    </div>
+                  </div>
+                  <div className="col-md-8 center">
+                    <h5>
+                      <strong>Trạng thái đơn hàng</strong>
+                    </h5>
+                    {order.isPaid ? (
                       <div className="bg-info p-2 col-12">
                         <p className="text-white text-center text-sm-start">
-                          Delivered on {moment(order.deliveredAt).calendar()}
+                          Đã thanh toán: {moment(order.paidAt).format("LT") + " " + moment(order.paidAt).format("L")}
                         </p>
                       </div>
                     ) : (
                       <div className="bg-danger p-2 col-12">
-                        <p className="text-white text-center text-sm-start">Not Delivered</p>
+                        <p className="text-white text-center text-sm-start">Chưa thanh toán</p>
+                      </div>
+                    )}
+                    {order.isDelivered ? (
+                      <div className="bg-info p-2 col-12">
+                        <p className="text-white text-center text-sm-start">Đang giao</p>
+                      </div>
+                    ) : (
+                      <div className="bg-danger p-2 col-12">
+                        <p className="text-white text-center text-sm-start">Đang xử lý</p>
                       </div>
                     )}
                   </div>
@@ -149,26 +160,32 @@ const OrderScreen = ({ match }) => {
             <div className="row order-products justify-content-between">
               <div className="col-lg-8">
                 {order?.orderItems.length === 0 ? (
-                  <Message variant="alert-info mt-5">Your order is empty</Message>
+                  <Message variant="alert-info mt-5">Bạn chưa có đơn hàng nào</Message>
                 ) : (
                   <>
                     {order?.orderItems.map((item, index) => (
                       <div className="order-product row" key={index}>
                         <div className="col-md-3 col-6">
-                          <img src={item.image} alt={item.name} />
+                          <Link to={`/product/${item.product}`}>
+                            <img src={item.image} alt={item.name} />
+                          </Link>
                         </div>
                         <div className="col-md-5 col-6 d-flex align-items-center">
-                          <Link to={`/products/${item.product}`}>
+                          <Link to={`/product/${item.product}`}>
                             <h6>{item.name}</h6>
                           </Link>
                         </div>
                         <div className="mt-3 mt-md-0 col-md-2 col-6  d-flex align-items-center flex-column justify-content-center ">
-                          <h4>QUANTITY</h4>
+                          <h4>Số lượng</h4>
                           <h6>{item.qty}</h6>
                         </div>
+                        <div className="mt-3 mt-md-0 col-md-2 col-6  d-flex align-items-center flex-column justify-content-center ">
+                          <h4>Đơn giá</h4>
+                          <h6>{formatPrice(item.price)}</h6>
+                        </div>
                         <div className="mt-3 mt-md-0 col-md-2 col-6 align-items-end  d-flex flex-column justify-content-center ">
-                          <h4>SUBTOTAL</h4>
-                          <h6>${item.qty * item.price}</h6>
+                          <h4>Thành tiền</h4>
+                          <h6>{formatPrice(item.qty * item.price)}</h6>
                         </div>
                       </div>
                     ))}
@@ -181,27 +198,33 @@ const OrderScreen = ({ match }) => {
                   <tbody>
                     <tr>
                       <td>
-                        <strong>Products</strong>
+                        <strong>Tổng tiền sản phẩm</strong>
                       </td>
-                      <td>${order.itemsPrice}</td>
+                      <td>{formatPrice(order.itemsPrice)}</td>
                     </tr>
                     <tr>
                       <td>
-                        <strong>Shipping</strong>
+                        <strong>Phí vận chuyển</strong>
                       </td>
-                      <td>${order.shippingPrice}</td>
+                      <td>{formatPrice(order.shippingPrice)}</td>
                     </tr>
                     <tr>
                       <td>
-                        <strong>Tax</strong>
+                        <strong>Thuế VAT (5%)</strong>
                       </td>
-                      <td>${order.taxPrice}</td>
+                      <td>{formatPrice(order.taxPrice)}</td>
                     </tr>
                     <tr>
                       <td>
-                        <strong>Total</strong>
+                        <strong>Tổng cộng</strong>
                       </td>
-                      <td>${order.totalPrice}</td>
+                      <td>{formatPrice(order.totalPrice)}</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <strong>Phương thức thanh toán </strong>
+                      </td>
+                      <td>{order.paymentMethod}</td>
                     </tr>
                   </tbody>
                 </table>

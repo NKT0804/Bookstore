@@ -7,25 +7,27 @@ import { deleteOrderAdmin } from "../../../Redux/Actions/orderActions";
 const Orders = (props) => {
   const dispatch = useDispatch();
   const { orders } = props;
-
+  const formatPrice = (price) => {
+    return (price / 1000).toFixed(3) + " ₫";
+  };
   const handleDeleteOrder = (id) => {
-    if (window.confirm(("Are you sure delete order???"))) {
+    if (window.confirm("Are you sure delete order???")) {
       dispatch(deleteOrderAdmin(id));
     }
-  }
+  };
 
   return (
     <table className="table">
       <thead>
         <tr>
-          <th scope="col">Name</th>
-          <th scope="col">Email</th>
-          <th scope="col">Total</th>
-          <th scope="col">Paid</th>
-          <th scope="col">Date</th>
-          <th>Status</th>
+          <th scope="col">Mã đơn hàng</th>
+          <th scope="col">Tên khách hàng</th>
+          <th scope="col">Tổng cộng</th>
+          <th scope="col">Trạng thái thanh toán</th>
+          <th scope="col">Ngày đặt</th>
+          <th scope="col">Trạng thái</th>
           <th scope="col" className="text-end">
-            Action
+            Thao tác
           </th>
         </tr>
       </thead>
@@ -34,25 +36,29 @@ const Orders = (props) => {
           orders.map((order) => (
             <tr key={order._id}>
               <td>
-                <b>{`${order.user.name.lenght} >=15` ? `${order.user.name.slice(0, 15)}...` : `${order.user.name}`}</b>
+                <td>
+                  <Link to={`/admin/order/${order._id}`}>{order._id}</Link>
+                </td>
               </td>
-              <td>{order.user.email}</td>
-              <td>${order.totalPrice}</td>
+              <td>
+                <b>{order.user.name.lenght >= 15 ? `${order.user.name.slice(0, 15)}...` : `${order.user.name}`}</b>
+              </td>
+              <td>{formatPrice(order.totalPrice)}</td>
               <td>
                 {order.isPaid ? (
                   <span className="badge3 rounded-pill alert-success fw-bold">
-                    Paid At {moment(order.paidAt).format("MMM Do YY")}
+                    Thanh toán lúc {moment(order.paidAt).format("L")}
                   </span>
                 ) : (
-                  <span className="badge3 rounded-pill alert-danger fw-bold">Not Paid</span>
+                  <span className="badge3 rounded-pill alert-danger fw-bold">Chưa thanh toán</span>
                 )}
               </td>
-              <td>{moment(order.createdAt).format("MMM Do YY")}</td>
+              <td>{moment(order.createdAt).format("L")}</td>
               <td>
                 {order.isDelivered ? (
-                  <span className="badge3 btn-success">Delivered</span>
+                  <span className="badge3 btn-success">Đang giao</span>
                 ) : (
-                  <span className="badge3 btn-dark">Not delivered</span>
+                  <span className="badge3 btn-dark">Đang xử lý</span>
                 )}
               </td>
               <td className="d-flex justify-content-end align-item-center">

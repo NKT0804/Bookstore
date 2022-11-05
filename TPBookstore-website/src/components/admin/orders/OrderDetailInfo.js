@@ -10,10 +10,10 @@ const OrderDetailInfo = (props) => {
             <i className="text-success fas fa-user"></i>
           </span>
           <div className="text">
-            <h6 className="mb-1">Customer</h6>
+            <h6 className="mb-1">Khách hàng</h6>
             <p className="mb-1">
               {order.user.name} <br />
-              <a href={`mailto:${order.user.email}`}>{order.user.email}</a>
+              {order.user.phone} <br />
             </p>
           </div>
         </article>
@@ -24,11 +24,9 @@ const OrderDetailInfo = (props) => {
             <i className="text-success fas fa-truck-moving"></i>
           </span>
           <div className="text">
-            <h6 className="mb-1">Order info</h6>
-            <p className="mb-1">
-              Shipping: {order.shippingAddress.country} <br /> Pay method:{" "}
-              {order.paymentMethod}
-            </p>
+            <h6 className="mb-1">Thông tin vận chuyển</h6>
+            <p className="mb-1">Đơn vị vận chuyển: GHTK</p>
+            <p className="mb-1">Hình thức vận chuyển: Nhanh</p>
           </div>
         </article>
       </div>
@@ -38,13 +36,19 @@ const OrderDetailInfo = (props) => {
             <i className="text-success fas fa-map-marker-alt"></i>
           </span>
           <div className="text">
-            <h6 className="mb-1">Deliver to</h6>
-            <p className="mb-1">
-              Address: {order.shippingAddress.city}
-              <br />
-              {order.shippingAddress.address}
-              <br /> {order.shippingAddress.postalCode}
-            </p>
+            <h6 className="mb-1">Địa chỉ giao hàng</h6>
+            <p className="mb-1">{order.shippingAddress}</p>
+          </div>
+        </article>
+      </div>
+      <div className="col-md-6 col-lg-4">
+        <article className="icontext align-items-start">
+          <span className="icon icon-sm rounded-circle alert-success">
+            <i className="text-success fas fa-map-marker-alt"></i>
+          </span>
+          <div className="text">
+            <h6 className="mb-1">Phương thức thanh toán</h6>
+            <p className="mb-1">{order.paymentMethod}</p>
           </div>
         </article>
       </div>

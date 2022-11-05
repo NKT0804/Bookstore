@@ -12,19 +12,19 @@ const ToastObjects = {
   pauseOnFocusLoss: false,
   draggable: false,
   pauseOnHover: false,
-  autoClose: 2000,
+  autoClose: 2000
 };
 const OrderMain = () => {
   const dispatch = useDispatch();
   const orderListAdmin = useSelector((state) => state.orderListAdmin);
   const { loading, error, orders } = orderListAdmin;
 
-  const deleteOrder = useSelector(state => state.orderDeleteAdmin);
+  const deleteOrder = useSelector((state) => state.orderDeleteAdmin);
   const { success: successDelOrder, error: errorDelOrder } = deleteOrder;
 
   useEffect(() => {
     if (successDelOrder) {
-      toast.success("Delete order success!!!", ToastObjects);
+      toast.success("Xóa đơn hàng thành công!", ToastObjects);
     }
     if (errorDelOrder) {
       toast.error(errorDelOrder, ToastObjects);
@@ -33,25 +33,21 @@ const OrderMain = () => {
   }, [dispatch, successDelOrder, errorDelOrder]);
 
   useEffect(() => {
-    dispatch(listOrders())
+    dispatch(listOrders());
   }, [dispatch, successDelOrder]);
 
   return (
     <section className="content-main">
       <Toast />
       <div className="content-header">
-        <h2 className="content-title">Orders</h2>
+        <h2 className="content-title">Đơn hàng</h2>
       </div>
 
       <div className="card mb-4 shadow-sm">
         <header className="card-header bg-white">
           <div className="row gx-3 py-3">
             <div className="col-lg-4 col-md-6 me-auto">
-              <input
-                type="text"
-                placeholder="Search..."
-                className="form-control p-2"
-              />
+              <input type="text" placeholder="Tìm kiếm..." className="form-control p-2" />
             </div>
             <div className="col-lg-2 col-6 col-md-3">
               <select className="form-select">
