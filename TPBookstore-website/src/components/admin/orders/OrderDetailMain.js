@@ -56,7 +56,9 @@ const OrderDetailmain = (props) => {
               <div className="col-lg-6 col-md-6">
                 <span>
                   <i className="far fa-calendar-alt mx-2"></i>
-                  <b className="text-white">{moment(order.createdAt).format("llll")}</b>
+                  <b className="text-white">
+                    Ngày đặt: {moment(order.createdAt).format("LT") + " " + moment(order.createdAt).format("L")}
+                  </b>
                 </span>
                 <br />
                 <small className="text-white mx-3 ">Mã đơn hàng: {order._id}</small>
@@ -90,25 +92,25 @@ const OrderDetailmain = (props) => {
                 <div className="box shadow-sm bg-light">
                   {order?.isDelivered ? (
                     <button className="btn btn-success col-12">
-                      DELIVERED AT ( {moment(order.isDeliveredAt).format("MMM Do YY")})
+                      Đã giao hàng ( {moment(order.isDeliveredAt).format("MMM Do YY")})
                     </button>
                   ) : (
                     <>
                       {loadingDelivered && <Loading />}
                       <button onClick={() => deliverHandler()} className="btn btn-dark col-12 btn-size">
-                        MARK AS DELIVERED
+                        Xác nhận đã giao hàng
                       </button>
                     </>
                   )}
                   {order.isPaid ? (
                     <button className="btn btn-success col-12 mt-2">
-                      IS PAID AT ( {moment(order.isPaidAt).format("MMM Do YY")})
+                      Đã thanh toán ( {moment(order.isPaidAt).format("LT") + " " + moment(order.isPaidAt).format("L")})
                     </button>
                   ) : (
                     <>
                       {loadingIsPaid && <Loading />}
                       <button onClick={isPaidHandler} className="btn btn-dark col-12 btn-size mt-2">
-                        MARK AS IS PAID
+                        Xác nhận đã thanh toán
                       </button>
                     </>
                   )}

@@ -86,7 +86,7 @@ const createProduct = async (req, res) => {
 
 // Non-user, user and admin filter product
 const getProducts = async (req, res) => {
-    const pageSize = Number(req.query.pageSize) || 20; //EDIT HERE
+    const pageSize = Number(req.query.pageSize) || 8; //EDIT HERE
     const page = Number(req.query.pageNumber) || 1;
     const rating = Number(req.query.rating) || 0;
     const maxPrice = Number(req.query.maxPrice) || 0;
