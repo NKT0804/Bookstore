@@ -32,26 +32,6 @@ const Orders = (props) => {
           ) : (
             <div className="shadow-sm table-responsive">
               {orders?.map((order) => (
-<<<<<<< HEAD
-                <div key={order._id} className="order__detail-user mb-3 bg-body rounded shadow">
-                  <div className="d-flex align-items-center justify-content-between mb-1">
-                    <p className="fs-6">
-                      <span className="fw-bold">Mã đơn hàng:</span>&nbsp;
-                      <a href={`/order/${order._id}`} className="">
-                        {order._id}
-                      </a>
-                    </p>
-                  </div>
-                  {order?.orderItems?.map((item) => (
-                    <div key={item._id} className="d-flex align-items-center justify-content-between">
-                      <div className="py-2 w-25" style={{ maxWidth: "100px", backgroundSize: "cover" }}>
-                        <img src={item.image} alt={item.name} />
-                      </div>
-                      <div className="d-flex flex-start flex-column w-50">
-                        <a href={`/order/${order._id}`}>
-                          <p className="order__detail-user-product-name fs-6 text-lowercase">
-                            {item.name.length > 50 ? item.name.slice(0, 50) : item.name}
-=======
                 <div key={order._id} className=" p-3 mb-3 bg-body rounded shadow">
                   <Link to={`/order/${order._id}`}>
                     <div className="d-flex align-items-center justify-content-between mb-1">
@@ -65,87 +45,14 @@ const Orders = (props) => {
                         <div className="p-2" style={{ maxWidth: "100px", backgroundSize: "cover" }}>
                           <img src={item.image} alt={item.name} />
                         </div>
-                        <div className="d-flex flex-start flex-column w-75">
+                        <div className="d-flex flex-start flex-column w-50">
                           <p className="fs-6 text-lowercase">
-                            {item.name.length > 30 ? item.name.slice(0, 30) : item.name}
->>>>>>> 07316d021c8a9f6311e411989e2abce76a53d02a
+                            {item.name.length > 40 ? item.name.slice(0, 40) : item.name}
                           </p>
                           <p className="fw-normal fs-6 text-danger fst-italic">x{item.qty}</p>
                         </div>
                         <div className="fw-bold">{item.price}$</div>
                       </div>
-<<<<<<< HEAD
-                      <div className="fw-bold">{item.price}$</div>
-                    </div>
-                  ))}
-                  {/* PC */}
-                  <div className="pc-order d-flex justify-content-between align-items-center p-3 border-top border-secondary rounded">
-                    <div className="fs-6">
-                      {order.isPaid ? (
-                        <span className="text-success border border-success rounded-pill ps-2 pe-2">
-                          <i className="fas fa-dollar-sign"></i> Paid {moment(order.paidAt).calendar()}
-                        </span>
-                      ) : (
-                        <span className="text-danger border border-danger rounded-pill ps-2 pe-2">
-                          <i className="fas fa-dollar-sign"></i> Not Paid
-                        </span>
-                      )}
-                    </div>
-                    <i className="fas fa-long-arrow-alt-right fs-4 opacity-50"></i>
-                    <div className="fs-6">
-                      {order.isDelivered ? (
-                        <span className="text-success border border-success rounded-pill ps-2 pe-2">
-                          <i className="fas fa-truck"></i> Delivered
-                        </span>
-                      ) : (
-                        <span className="text-danger border border-danger rounded-pill ps-2 pe-2">
-                          <i className="fas fa-truck"></i> Not Delivered
-                        </span>
-                      )}
-                    </div>
-                    <div className="fw-bold">
-                      Tổng:{" "}
-                      <span className="fs-5 text-danger">
-                        {order.totalPrice}
-                        <i className="fas fa-dollar-sign fs-6 align-text-top fw-normal"></i>
-                      </span>
-                    </div>
-                  </div>
-                  {/* mobile */}
-                  <div className="mobile-order d-flex flex-column align-items-center border-top border-secondary rounded">
-                    <div className="d-flex justify-content-between">
-                      <div className="fs-6 py-3">
-                        <div className="fs-6 mb-2">
-                          {order.isPaid ? (
-                            <span className="text-success border border-success rounded-pill ps-2 pe-2">
-                              <i className="fas fa-dollar-sign"></i> Paid {moment(order.paidAt).calendar()}
-                            </span>
-                          ) : (
-                            <span className="text-danger border border-danger rounded-pill ps-2 pe-2">
-                              <i className="fas fa-dollar-sign"></i> Not Paid
-                            </span>
-                          )}
-                        </div>
-                        <div className="fs-6">
-                          <i className="fas fa-long-arrow-alt-right opacity-50 ms-2 me-2"></i>
-                          {order.isDelivered ? (
-                            <span className="text-success border border-success rounded-pill ps-2 pe-2">
-                              <i className="fas fa-truck"></i> Delivered
-                            </span>
-                          ) : (
-                            <span className="text-danger border border-danger rounded-pill ps-2 pe-2">
-                              <i className="fas fa-truck"></i> Not Delivered
-                            </span>
-                          )}
-                        </div>
-                      </div>
-                      <div className="mobile-order__total fw-bold fs-6 py-2">
-                        Tổng:{" "}
-                        <span className="fs-5 text-danger">
-                          {order.totalPrice}
-                          <i className="fas fa-dollar-sign fs-6 align-text-top fw-normal"></i>
-                        </span>
-=======
                     ))}
 
                     {/* PC */}
@@ -173,7 +80,6 @@ const Orders = (props) => {
                             <i className="fas fa-truck"></i> Đơn hàng đang đươc xử lý
                           </span>
                         )}
->>>>>>> 07316d021c8a9f6311e411989e2abce76a53d02a
                       </div>
                       <div className="fw-bold">
                         Tổng:{" "}
@@ -183,14 +89,18 @@ const Orders = (props) => {
                         </span>
                       </div>
                     </div>
-<<<<<<< HEAD
-                  </div>
-=======
 
                     {/* mobile */}
-                    <div className="mobile-order d-flex flex-column align-items-center p-3 border-top border-secondary rounded">
-                      <div className="d-flex">
-                        <div className="fs-6">
+                    <div className="mobile-order d-flex flex-column align-items-center py-3 border-top border-secondary rounded">
+                      <div className="mobile-order__total fw-bold">
+                        Tổng:{" "}
+                        <span className="fs-5 text-danger">
+                          {order.totalPrice}
+                          <i className="fas fa-dollar-sign fs-6 align-text-top fw-normal"></i>
+                        </span>
+                      </div>
+                      <div className="row">
+                        <div className="col-sm-12 p-2 flex justify-content-between">
                           {order.isPaid ? (
                             <span className="text-success border border-success rounded-pill ps-2 pe-2">
                               <i className="fas fa-dollar-sign"></i> Đã thanh toán:{" "}
@@ -202,8 +112,8 @@ const Orders = (props) => {
                             </span>
                           )}
                         </div>
-                        <i className="fas fa-long-arrow-alt-right fs-4 opacity-50 ms-2 me-2"></i>
-                        <div className="fs-6">
+                        <div className="col-sm-12">
+                          <i className="fas fa-long-arrow-alt-right fs-4 opacity-50 ms-2 me-2"></i>
                           {order.isDelivered ? (
                             <span className="text-success border border-success rounded-pill ps-2 pe-2">
                               <i className="fas fa-truck"></i> Đang giao
@@ -215,16 +125,8 @@ const Orders = (props) => {
                           )}
                         </div>
                       </div>
-                      <div className="fw-bold mt-3">
-                        Tổng:{" "}
-                        <span className="fs-5 text-danger">
-                          {order.totalPrice}
-                          <i className="fas fa-dollar-sign fs-6 align-text-top fw-normal"></i>
-                        </span>
-                      </div>
                     </div>
                   </Link>
->>>>>>> 07316d021c8a9f6311e411989e2abce76a53d02a
                 </div>
               ))}
             </div>

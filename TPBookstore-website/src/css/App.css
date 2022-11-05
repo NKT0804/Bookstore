@@ -1026,8 +1026,9 @@ textarea:focus {
 }
 
 .mobile-order__total {
-  align-items: start !important;
-
+  margin-bottom: 8px;
+  justify-content: flex-end;
+  display: flex;
 }
 
 .order__detail-user {
