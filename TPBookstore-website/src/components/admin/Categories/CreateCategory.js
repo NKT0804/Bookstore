@@ -54,7 +54,7 @@ const CreateCategory = () => {
             onChange={(e) => setName(e.target.value)}
           />
         </div>
-        <div className="d-grid w-25">
+        <div className="d-grid">
           <button className="btn btn-size btn-primary">Create category</button>
         </div>
       </form>

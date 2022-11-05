@@ -18,7 +18,7 @@ const TopTotal = (props) => {
   }
   return (
     <div className="row">
-      <div className="col-lg-4">
+      <div className="col-lg-3">
         <div className="card card-body mb-4 shadow-sm">
           <article className="icontext">
             <span className="icon icon-sm rounded-circle alert-primary">
@@ -30,7 +30,7 @@ const TopTotal = (props) => {
           </article>
         </div>
       </div>
-      <div className="col-lg-4">
+      <div className="col-lg-3">
         <div className="card card-body mb-4 shadow-sm">
           <article className="icontext">
             <span className="icon icon-sm rounded-circle alert-success">
@@ -43,7 +43,7 @@ const TopTotal = (props) => {
           </article>
         </div>
       </div>
-      <div className="col-lg-4">
+      <div className="col-lg-3">
         <div className="card card-body mb-4 shadow-sm">
           <article className="icontext">
             <span className="icon icon-sm rounded-circle alert-warning">
@@ -51,6 +51,20 @@ const TopTotal = (props) => {
             </span>
             <div className="text">
               <h6 className="mb-1">Total Products</h6>
+              <span>{products?.total ?? 0}</span>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <div className="col-lg-3">
+        <div className="card card-body mb-4 shadow-sm">
+          <article className="icontext">
+            <span className="icon icon-sm rounded-circle alert-warning">
+              <i className="text-warning fas fa-shopping-basket"></i>
+            </span>
+            <div className="text">
+              <h6 className="mb-1">Total Users</h6>
               <span>{products?.total ?? 0}</span>
             </div>
           </article>

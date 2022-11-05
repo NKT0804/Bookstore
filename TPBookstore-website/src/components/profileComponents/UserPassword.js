@@ -89,7 +89,7 @@ const UserPassword = () => {
         </div>
         <div className="user-password">
           <div className="col-md-12">
-            <div className="form">
+            <div className="form account__user">
               <label htmlFor="account-pass__current">Mật khẩu hiện tại</label>
               <input
                 id="currentPassword"
@@ -106,7 +106,7 @@ const UserPassword = () => {
             {formik.errors.currentPassword && <span className="error-message">{formik.errors.currentPassword}</span>}
           </div>
           <div className="col-md-12">
-            <div className="form">
+            <div className="form account__user">
               <label htmlFor="account-pass__new">Mật khẩu mới</label>
               <input
                 id="newPassword"
@@ -123,7 +123,7 @@ const UserPassword = () => {
             {formik.errors.newPassword && <span className="error-message">{formik.errors.newPassword}</span>}
           </div>
           <div className="col-md-12">
-            <div className="form">
+            <div className="form account__user">
               <label htmlFor="account-confirm-pass">Xác nhận mật khẩu</label>
               <input
                 id="confirmedPassword"

@@ -45,9 +45,9 @@ const Orders = (props) => {
                         <div className="p-2" style={{ maxWidth: "100px", backgroundSize: "cover" }}>
                           <img src={item.image} alt={item.name} />
                         </div>
-                        <div className="d-flex flex-start flex-column w-75">
+                        <div className="d-flex flex-start flex-column w-50">
                           <p className="fs-6 text-lowercase">
-                            {item.name.length > 30 ? item.name.slice(0, 30) : item.name}
+                            {item.name.length > 40 ? item.name.slice(0, 40) : item.name}
                           </p>
                           <p className="fw-normal fs-6 text-danger fst-italic">x{item.qty}</p>
                         </div>
@@ -91,9 +91,16 @@ const Orders = (props) => {
                     </div>
 
                     {/* mobile */}
-                    <div className="mobile-order d-flex flex-column align-items-center p-3 border-top border-secondary rounded">
-                      <div className="d-flex">
-                        <div className="fs-6">
+                    <div className="mobile-order d-flex flex-column align-items-center py-3 border-top border-secondary rounded">
+                      <div className="mobile-order__total fw-bold">
+                        Tổng:{" "}
+                        <span className="fs-5 text-danger">
+                          {order.totalPrice}
+                          <i className="fas fa-dollar-sign fs-6 align-text-top fw-normal"></i>
+                        </span>
+                      </div>
+                      <div className="row">
+                        <div className="col-sm-12 p-2 flex justify-content-between">
                           {order.isPaid ? (
                             <span className="text-success border border-success rounded-pill ps-2 pe-2">
                               <i className="fas fa-dollar-sign"></i> Đã thanh toán:{" "}
@@ -105,8 +112,8 @@ const Orders = (props) => {
                             </span>
                           )}
                         </div>
-                        <i className="fas fa-long-arrow-alt-right fs-4 opacity-50 ms-2 me-2"></i>
-                        <div className="fs-6">
+                        <div className="col-sm-12">
+                          <i className="fas fa-long-arrow-alt-right fs-4 opacity-50 ms-2 me-2"></i>
                           {order.isDelivered ? (
                             <span className="text-success border border-success rounded-pill ps-2 pe-2">
                               <i className="fas fa-truck"></i> Đang giao
@@ -117,13 +124,6 @@ const Orders = (props) => {
                             </span>
                           )}
                         </div>
-                      </div>
-                      <div className="fw-bold mt-3">
-                        Tổng:{" "}
-                        <span className="fs-5 text-danger">
-                          {order.totalPrice}
-                          <i className="fas fa-dollar-sign fs-6 align-text-top fw-normal"></i>
-                        </span>
                       </div>
                     </div>
                   </Link>

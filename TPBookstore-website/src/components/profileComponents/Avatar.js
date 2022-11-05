@@ -61,7 +61,7 @@ const Avatar = () => {
             onChange={handleFileSelect}
             hidden
           />
-          <label for="input-avatar" className="btn ">
+          <label for="input-avatar" className="btn__image btn">
             Thay đổi
           </label>
           {inputImg && <ImageCropper getBlob={getBlob} inputImg={inputImg} />}

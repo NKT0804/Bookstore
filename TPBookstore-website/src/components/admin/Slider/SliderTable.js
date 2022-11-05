@@ -61,24 +61,18 @@ const SliderTable = ({ setIsEditSlider, setCurrentSlider }) => {
                 </td>
                 <td className="fw-bold">{item.linkTo}</td>
                 <td className="text-end">
-                  <div className="dropdown">
+                  <div className="dropdown action__slider">
                     <Link to="#" data-bs-toggle="dropdown">
-                      <i className="fas fa-ellipsis-h"></i>
-                    </Link>
-                    <div className="dropdown-menu">
-                      <button
-                        className="text-warning dropdown-item"
+                      <i
+                        className="fas fa-edit"
                         onClick={() => {
                           setIsEditSlider(true);
                           setCurrentSlider(index);
                         }}
-                      >
-                        Sửa
-                      </button>
-                      <button className="text-danger dropdown-item" onClick={() => sliderDeleteHandler(item._id)}>
-                        Xóa
-                      </button>
-                    </div>
+                      ></i>
+                      <i class="fas fa-trash-alt" onClick={() => sliderDeleteHandler(item._id)}></i>
+                    </Link>
+                    <div className="dropdown-menu"></div>
                   </div>
                 </td>
               </tr>

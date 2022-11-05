@@ -147,6 +147,7 @@
     display: none !important;
   }
   .mobile-order {
+    font-size: 14px;
     display: block !important;
   }
 }
@@ -367,6 +368,10 @@
     overflow-y: auto;
   }
 
+  .dropdown-menu {
+    margin-right: 20px;
+  }
+
   .policy__item {
     width: 240px;
   }
@@ -391,6 +396,11 @@
   /* slide and banner */
   .slide__banner {
     display: none;
+  }
+
+  /* orders */
+  .order__detail-user {
+    padding: 20px 4px;
   }
 
   /* footer */
@@ -421,6 +431,9 @@
 
   .rating span {
     margin-left: 6px;
+}
+  .each-slide img {
+    height: 150px;
 }
 
 }
