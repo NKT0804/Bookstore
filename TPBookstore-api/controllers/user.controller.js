@@ -183,6 +183,35 @@ const updateProfile = async (req, res) => {
     });
 };
 
+// update password
+const updatePassword = async (req, res) => {
+    const userId = req.params.userId;
+    const currentPassword = req.currentPassword;
+    const newPassword = req.newPassword;
+
+    const user = await User.findById(userId);
+    if (!user) {
+        res.status(404);
+        throw new Error("User not found");
+    }
+    if (currentPassword !== user.password) {
+        res.status(401);
+        throw new Error("Password is not correct");
+    }
+    user.password = newPassword;
+
+    const updatePassword = await user.save();
+    if (updatePassword) {
+        res.status(200);
+        res.json({
+            _id: updatedPassword._id,
+            updatePasswordState: true
+        });
+    }
+    res.status(500);
+    throw new Error("Update password failed");
+};
+
 //Admin get users
 const getUsers = async (req, res) => {
     const dateOrderFilter = validateConstants(userQueryParams, "date", req.query.dateOrder);
@@ -339,7 +368,8 @@ const UserController = {
     uploadAvatar,
     disableUser,
     restoreUser,
-    deleteUser
+    deleteUser,
+    updatePassword
 };
 
 export default UserController;

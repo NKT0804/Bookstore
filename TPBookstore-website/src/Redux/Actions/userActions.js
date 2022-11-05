@@ -21,7 +21,10 @@ import {
   USER_UPDATE_PROFILE_SUCCESS,
   USER_GET_ADDRESS_DATA_REQUEST,
   USER_GET_ADDRESS_DATA_SUCCESS,
-  USER_GET_ADDRESS_DATA_FAIL
+  USER_GET_ADDRESS_DATA_FAIL,
+  USER_UPDATE_PASSWORD_REQUEST,
+  USER_UPDATE_PASSWORD_SUCCESS,
+  USER_UPDATE_PASSWORD_FAIL
 } from "../Constants/userConstants";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -134,6 +137,41 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
     }
     dispatch({
       type: USER_UPDATE_PROFILE_FAIL,
+      payload: message
+    });
+  }
+};
+
+// UPDATE PASSWORD
+export const userUpdatePasswordReducer = (currentPassword, newPassword) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: USER_UPDATE_PASSWORD_REQUEST });
+
+    const {
+      userLogin: { userInfo }
+    } = getState();
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${userInfo.token}`
+      }
+    };
+
+    const { data } = await axios.put(
+      `/api/v1/user/${userInfo.id}/updatePassword`,
+      currentPassword,
+      newPassword,
+      config
+    );
+    dispatch({ type: USER_UPDATE_PASSWORD_SUCCESS, payload: data });
+  } catch (error) {
+    const message = error.response && error.response.data.message ? error.response.data.message : error.message;
+    if (message === "Not authorized, token failed") {
+      dispatch(logout());
+    }
+    dispatch({
+      type: USER_UPDATE_PASSWORD_FAIL,
       payload: message
     });
   }

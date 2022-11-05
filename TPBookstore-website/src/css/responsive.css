@@ -249,9 +249,6 @@
   .each-slide > img{
     height : 150px;
   }
-  .slide__banner {
-    display: none;
-  }
 
   /* find product */
   .find-product {
@@ -389,6 +386,11 @@
 
   .tradermark__item {
     flex-basis: 40%;
+  }
+
+  /* slide and banner */
+  .slide__banner {
+    display: none;
   }
 
   /* footer */
