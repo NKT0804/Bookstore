@@ -11,16 +11,16 @@ const MainCategories = () => {
 
   const handleCurrentCategory = (cate) => {
     setCurrentCategory(cate);
-  }
+  };
   return (
     <>
-      <section className="content-main">
+      <section className="content-main mt-4">
         <div className="content-header">
           <h2 className="content-title">Categories</h2>
         </div>
 
-        <div className="shadow-sm">
-          <div className="card shadow-sm p-3 pb-3 mb-3">
+        <div className="row shadow-sm">
+          <div className="card shadow-sm p-2 pb-3 col-lg-3 col-md-12">
             {/* Create category or Update category*/}
             {isEditCategory ? (
               <UpdateCategory currentCategory={currentCategory} setIsEditCategory={setIsEditCategory} />
@@ -29,7 +29,7 @@ const MainCategories = () => {
             )}
           </div>
           {/* Categories table */}
-          <div className="card p-3">
+          <div className="card p-3 col-lg-9 col-md-12">
             <CategoriesTable
               setIsEditCategory={setIsEditCategory}
               handleEditCategory={handleEditCategory}

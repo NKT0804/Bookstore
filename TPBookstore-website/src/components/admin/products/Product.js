@@ -9,7 +9,7 @@ const ToastObjects = {
   pauseOnFocusLoss: false,
   draggable: false,
   pauseOnHover: false,
-  autoClose: 2000,
+  autoClose: 2000
 };
 const Product = (props) => {
   const { product, index } = props;
@@ -18,7 +18,7 @@ const Product = (props) => {
   const deletehandler = (id) => {
     if (window.confirm("Are you sure to delete this product???")) {
       dispatch(deleteProductAdmin(id));
-      toast.success("Delete product success!!!", ToastObjects)
+      toast.success("Delete product success!!!", ToastObjects);
     }
   };
 
@@ -34,10 +34,7 @@ const Product = (props) => {
               {product.name}
             </Link>
             <div className="price mb-2">${product.price}</div>
-            <Rating
-              value={product.rating}
-              text={`(${product.numReviews})`}
-            />
+            <Rating value={product.rating} text={`(${product.numReviews})`} />
             <div className="row">
               <Link
                 to={`/admin/product/${product._id}/edit`}
@@ -62,13 +59,12 @@ const Product = (props) => {
           <img style={{ width: "70px" }} src={product?.image} alt={product?.name} />
         </td>
         <td>
-          <b alt={product?.name}>{`${product?.name.lenght}>=25` ? `${product?.name.slice(0, 25)}...` : `${product?.name}`}</b>
+          <b alt={product?.name}>
+            {`${product?.name.lenght}>=25` ? `${product?.name.slice(0, 25)}...` : `${product?.name}`}
+          </b>
         </td>
         <td>
-          <Rating
-            value={product.rating}
-            text={`(${product.numReviews})`}
-          />
+          <Rating value={product.rating} text={`(${product.numReviews})`} />
         </td>
         <td>
           <b>{product?.category.name}</b>
@@ -84,25 +80,15 @@ const Product = (props) => {
         </td>
         <td className="text-end">
           <div className="dropdown">
-            <Link
-              to="#"
-              data-bs-toggle="dropdown"
-              className="btn btn-light"
-            >
-              <i className="fas fa-ellipsis-h"></i>
+            {/* <i className="fas fa-ellipsis-h"></i> */}
+            <Link className="p-md-2" to={`/admin/product/${product._id}/edit`}>
+              <i className="fas fa-edit"></i>
             </Link>
-            <div className="dropdown-menu">
-              <Link className="dropdown-item" to={`/admin/product/${product._id}/edit`}>
-                Edit info
-              </Link>
-              <Link
-                to="#"
-                className="dropdown-item text-danger"
-                onClick={() => deletehandler(product._id)}
-              >
-                Delete
-              </Link>
-            </div>
+            <Link to="#" className="edit__products text-danger" onClick={() => deletehandler(product._id)}>
+              <i class="fas fa-trash-alt"></i>
+            </Link>
+
+            <div className="dropdown-menu"></div>
           </div>
         </td>
       </tr>

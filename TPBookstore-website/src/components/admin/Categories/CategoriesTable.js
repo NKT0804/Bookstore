@@ -87,24 +87,17 @@ const CategoriesTable = ({ setIsEditCategory, handleEditCategory, handleCurrentC
                 <th>{index + 1}</th>
                 <td className="fw-bold">{item.name}</td>
                 <td className="text-end">
-                  <div className="dropdown">
+                  <div className="dropdown action__categories">
                     <Link to="#" data-bs-toggle="dropdown">
-                      <i className="fas fa-ellipsis-h"></i>
-                    </Link>
-                    <div className="dropdown-menu">
-                      <button
-                        className="text-warning dropdown-item"
+                      <i
+                        className="fas fa-edit"
                         onClick={() => {
                           handleEditCategory();
                           handleCurrentCategory(index);
                         }}
-                      >
-                        Edit info
-                      </button>
-                      <button className="text-danger dropdown-item" onClick={() => categoryDeleteHandeler(item._id)}>
-                        Delete
-                      </button>
-                    </div>
+                      ></i>
+                      <i class="fas fa-trash-alt" onClick={() => categoryDeleteHandeler(item._id)}></i>
+                    </Link>
                   </div>
                 </td>
               </tr>

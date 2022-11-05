@@ -68,7 +68,7 @@ const UserPassword = () => {
         </div>
         <div className="user-password">
           <div className="col-md-12">
-            <div className="form">
+            <div className="form account__user">
               <label htmlFor="account-pass__current">Mật khẩu hiện tại</label>
               <input
                 className="form-control"
@@ -81,7 +81,7 @@ const UserPassword = () => {
           </div>
 
           <div className="col-md-12">
-            <div className="form">
+            <div className="form account__user">
               <label htmlFor="account-pass__new">Mật khẩu mới</label>
               <input
                 className="form-control"
@@ -94,7 +94,7 @@ const UserPassword = () => {
           </div>
 
           <div className="col-md-12">
-            <div className="form">
+            <div className="form account__user">
               <label htmlFor="account-confirm-pass">Xác nhận mật khẩu</label>
               <input
                 className="form-control"

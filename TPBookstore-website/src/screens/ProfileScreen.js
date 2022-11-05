@@ -36,7 +36,7 @@ const ProfileScreen = () => {
       <div className="container user__profile mt-lg-5 mt-3">
         <div className="row align-items-start">
           <div className="col-lg-3 p-0 shadow ">
-            <div className="author-card pb-0 pb-md-3">
+            <div className="author-card pb-0">
               <div className="author-card-cover">
                 <div className="author-card-details col-md-7">
                   <h5 className="author-card-name mb-2">
@@ -54,7 +54,7 @@ const ProfileScreen = () => {
                 <Avatar />
               </div>
             </div>
-            <div className="wizard pt-3 ">
+            <div className="wizard ">
               <div className="d-flex align-items-start">
                 <div
                   className="nav align-items-start flex-column col-12 nav-pills me-3 "

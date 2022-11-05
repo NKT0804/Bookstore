@@ -144,7 +144,7 @@ const ProfileTabs = () => {
         <div className="user-information">
           {/* User name */}
           <div className="col-md-12">
-            <div className="form">
+            <div className="form account__user">
               <label htmlFor="account-fn">Tên người dùng</label>
               <input
                 className="form-control"
@@ -158,7 +158,7 @@ const ProfileTabs = () => {
 
           {/* Phone number */}
           <div className="col-md-12">
-            <div className="form">
+            <div className="form account__user">
               <label htmlFor="account-phone">Số điện thoại</label>
               <input className="form-control" type="text" value={phone} onChange={(e) => setPhone(e.target.value)} />
             </div>
@@ -166,15 +166,49 @@ const ProfileTabs = () => {
 
           {/* Email */}
           <div className="col-md-12">
-            <div className="form">
+            <div className="form account__user">
               <label htmlFor="account-email">Địa chỉ e-mail</label>
               <input className="form-control disabled-email" type="email" value={email} disabled />
             </div>
           </div>
 
+          {/* Sex */}
+          <div className="col-md-6">
+            <div className="form account__user account-sex">
+              <label htmlFor="account-sex">Giới tính</label>
+              <p>
+                <input type="radio" name="gender" id="male" value="nam" class="information_input-sex--item" />
+                <label for="male">Nam</label>
+              </p>
+
+              <p>
+                <input type="radio" name="gender" id="female" value="nữ" class="information_input-sex--item" />
+                <label for="female">Nữ</label>
+              </p>
+
+              <p>
+                <input type="radio" name="gender" value="khác" id="another" class="information_input-sex--item" />
+                <label for="another">Khác</label>
+              </p>
+            </div>
+          </div>
+
+          {/*Birthday*/}
+          <div className="form account__user">
+            <label htmlFor="account-birthday">Ngày sinh</label>
+
+            <input
+              className="input__birthday"
+              type="date"
+              name="birthday"
+              value={birthday}
+              onChange={(e) => setBirthday(e.target.value)}
+            ></input>
+          </div>
+
           {/* ADDRESS */}
           <div className="col-md-12">
-            <div className="form">
+            <div className="form account__user_address">
               <label htmlFor="account-address">Địa chỉ</label>
               <div className="account-address__select">
                 <select
@@ -220,32 +254,6 @@ const ProfileTabs = () => {
             </div>
           </div>
 
-          {/* Sex */}
-          <div className="col-md-6">
-            <div className="form account-sex">
-              <label htmlFor="account-sex">Giới tính</label>
-              <p>
-                <input type="radio" name="gender" id="male" value="nam" class="information_input-sex--item" />
-                <label for="male">Nam</label>
-              </p>
-
-              <p>
-                <input type="radio" name="gender" id="female" value="nữ" class="information_input-sex--item" />
-                <label for="female">Nữ</label>
-              </p>
-
-              <p>
-                <input type="radio" name="gender" value="khác" id="another" class="information_input-sex--item" />
-                <label for="another">Khác</label>
-              </p>
-            </div>
-          </div>
-          {/*Birthday*/}
-          <div>
-            <label htmlFor="account-birthday">Ngày sinh</label>
-
-            <input type="date" name="birthday" value={birthday} onChange={(e) => setBirthday(e.target.value)}></input>
-          </div>
           <button type="submit">Cập nhật</button>
         </div>
       </form>

@@ -81,7 +81,7 @@ const ShippingScreen = ({ history }) => {
       <Header />
       <div className="container d-flex justify-content-center align-items-center login-center">
         <form className="Login col-md-8 col-lg-4 col-11" onSubmit={submitHandler}>
-          <h6>ĐỊA CHỈ GIAO HÀNG</h6>
+          <h6 className="filter-menu-item">ĐỊA CHỈ GIAO HÀNG</h6>
 
           <div className="filter-menu-item">
             <select

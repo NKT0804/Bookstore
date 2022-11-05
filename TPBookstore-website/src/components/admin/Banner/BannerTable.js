@@ -49,19 +49,14 @@ const BannerTable = ({ setIsEditBanner, setCurrentBanner }) => {
                 <td className="text-end">
                   <div className="dropdown">
                     <Link to="#" data-bs-toggle="dropdown">
-                      <i className="fas fa-ellipsis-h"></i>
-                    </Link>
-                    <div className="dropdown-menu">
-                      <button
-                        className="text-warning dropdown-item"
+                      <i
+                        className="fas fa-edit"
                         onClick={() => {
                           setIsEditBanner(true);
                           setCurrentBanner(index);
                         }}
-                      >
-                        Sửa
-                      </button>
-                    </div>
+                      ></i>
+                    </Link>
                   </div>
                 </td>
               </tr>

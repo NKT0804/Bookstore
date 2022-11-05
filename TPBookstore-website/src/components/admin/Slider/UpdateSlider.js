@@ -48,8 +48,8 @@ const UpdateSlider = ({ currentSlider, setIsEditSlider }) => {
       <div className="">
         <div>
           {loading && <Loading />}
-          <div className="d-flex justify-content-between">
-            <div className="mb-4 w-50">
+          <div className="d-flex justify-content-between admin__sliders-banner-update-input">
+            <div className="">
               <label htmlFor="slider_name" className="form-label">
                 Tên Slider
               </label>
@@ -62,7 +62,7 @@ const UpdateSlider = ({ currentSlider, setIsEditSlider }) => {
                 onChange={(e) => setName(e.target.value)}
               />
             </div>
-            <div className="mb-4 w-50">
+            <div className="">
               <label htmlFor="slider_image" className="form-label">
                 Hình ảnh
               </label>
@@ -75,7 +75,7 @@ const UpdateSlider = ({ currentSlider, setIsEditSlider }) => {
                 onChange={(e) => setImage(e.target.value)}
               />
             </div>
-            <div className="mb-4 w-50">
+            <div className="">
               <label htmlFor="slider_linkTo" className="form-label">
                 Liên kết đến
               </label>

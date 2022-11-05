@@ -39,7 +39,7 @@ const UpdateCategory = ({ currentCategory, setIsEditCategory }) => {
         <div>
           {loading && <Loading />}
           <div className="d-flex justify-content-between">
-            <div className="mb-3 w-50">
+            <div className="mb-3 w-100">
               <label htmlFor="category_name" className="form-label">
                 Name
               </label>
