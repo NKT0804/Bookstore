@@ -9,7 +9,7 @@ const userRouter = express.Router();
 userRouter.post("/login", expressAsyncHandler(UserController.login));
 userRouter.get("/profile", protect, expressAsyncHandler(UserController.getProfile));
 userRouter.put("/profile", protect, expressAsyncHandler(UserController.updateProfile));
-userRouter.post(":userId/updatePassword", protect, expressAsyncHandler(UserController.updatePassword));
+userRouter.post("/:userId/updatePassword", protect, expressAsyncHandler(UserController.updatePassword));
 userRouter.patch("/:id/disable", protect, admin, expressAsyncHandler(UserController.disableUser));
 userRouter.patch("/:id/restore", protect, admin, expressAsyncHandler(UserController.restoreUser));
 userRouter.delete("/:id", protect, admin, expressAsyncHandler(UserController.deleteUser));

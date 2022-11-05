@@ -186,16 +186,14 @@ const updateProfile = async (req, res) => {
 // update password
 const updatePassword = async (req, res) => {
     const userId = req.params.userId;
-    const currentPassword = req.currentPassword;
-    const newPassword = req.newPassword;
-
+    const { currentPassword, newPassword } = req.body;
     const user = await User.findById(userId);
     if (!user) {
         res.status(404);
         throw new Error("User not found");
     }
-    if (currentPassword !== user.password) {
-        res.status(401);
+    if (!(await user.matchPassword(currentPassword))) {
+        res.status(400);
         throw new Error("Password is not correct");
     }
     user.password = newPassword;
@@ -204,12 +202,10 @@ const updatePassword = async (req, res) => {
     if (updatePassword) {
         res.status(200);
         res.json({
-            _id: updatedPassword._id,
-            updatePasswordState: true
+            _id: updatePassword._id,
+            statusUpdate: "success"
         });
     }
-    res.status(500);
-    throw new Error("Update password failed");
 };
 
 //Admin get users
@@ -224,16 +220,13 @@ const getUsers = async (req, res) => {
 //User upload avatar
 const uploadAvatar = async (req, res) => {
     // const userId = req.user._id ? req.user._id : null;
-    console.log(req.user._id.toString(), req.params.userId);
     let user = await User.findOne({
         _id: req.user._id,
         isDisabled: false
     });
-    console.log("userLog", mongoose.isValidObjectId(req.params.userId));
     if (user.isAdmin && mongoose.isValidObjectId(req.params.userId)) {
         user = await User.findById(req.params.userId);
     }
-    console.log("userLog2", user);
     if (!user) {
         res.status(400);
         throw new Error("User not Found");

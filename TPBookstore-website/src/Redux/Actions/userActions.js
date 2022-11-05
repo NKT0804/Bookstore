@@ -143,7 +143,7 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
 };
 
 // UPDATE PASSWORD
-export const userUpdatePasswordReducer = (currentPassword, newPassword) => async (dispatch, getState) => {
+export const updatePassword = (user) => async (dispatch, getState) => {
   try {
     dispatch({ type: USER_UPDATE_PASSWORD_REQUEST });
 
@@ -158,12 +158,7 @@ export const userUpdatePasswordReducer = (currentPassword, newPassword) => async
       }
     };
 
-    const { data } = await axios.put(
-      `/api/v1/user/${userInfo.id}/updatePassword`,
-      currentPassword,
-      newPassword,
-      config
-    );
+    const { data } = await axios.post(`/api/v1/user/${user.userId}/updatePassword`, user, config);
     dispatch({ type: USER_UPDATE_PASSWORD_SUCCESS, payload: data });
   } catch (error) {
     const message = error.response && error.response.data.message ? error.response.data.message : error.message;
