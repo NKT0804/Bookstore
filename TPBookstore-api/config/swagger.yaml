@@ -666,6 +666,50 @@ paths:
                         application/json:
                             schema:
                                 $ref: "#/components/schemas/Error"
+    # /api/v1/user/{userId}/updatePassword:
+    #     post:
+    #         summary: Upload/Update Password for User
+    #         description: Upload/Update Password for User
+    #         tags:
+    #             - User
+    #         parameters:
+    #             - name: userId
+    #               in: path
+    #               description: _id of the user that needs to update the Password, if you is admin
+    #               required: false
+    #               schema:
+    #                   type: string
+    #         requestBody:
+    #             content:
+    #                 multipart/form-data:
+    #                     schema:
+    #                         type: object
+    #                         properties:
+    #                             file:
+    #                                 type: string
+    #                                 format: binary
+    #                     encoding:
+    #                         file:
+    #                             style: form
+    #         responses:
+    #             "200":
+    #                 description: Success
+    #                 content:
+    #                     application/json:
+    #                         schema:
+    #                             $ref: "#/components/schemas/updatePassword"
+    #             "401":
+    #                 description: Unauthorized
+    #                 content:
+    #                     application/json:
+    #                         schema:
+    #                             $ref: "#/components/schemas/Error"
+    #             "404":
+    #                 description: Not Found
+    #                 content:
+    #                     application/json:
+    #                         schema:
+    #                             $ref: "#/components/schemas/Error"
     /api/v1/user/CreateOrUpdateAvatar/{userId}:
         post:
             summary: Upload/Update Avater for User
