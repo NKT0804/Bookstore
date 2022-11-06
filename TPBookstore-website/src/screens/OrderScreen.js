@@ -70,86 +70,86 @@ const OrderScreen = ({ match }) => {
           <Message variant="alert-danger">{error}</Message>
         ) : (
           <>
-            <div className="row  order-detail">
-              <div className="col-lg-4 col-sm-4 mb-lg-4 mb-5 mb-sm-0">
-                <div className="row">
-                  <div className="col-md-4 center">
+            <div className="row order-detail">
+              <div className="order-detail-item col-lg-3 col-md-6 col-6">
+                <div className="row order-detail-item-content">
+                  <div className="col-md-3 center">
                     <div className="alert-success order-box">
                       <i className="fas fa-user"></i>
                     </div>
                   </div>
-                  <div className="col-md-8 center">
-                    <h5>
+                  <div className="col-md-9 center">
+                    <h7>
                       <strong>Khách hàng</strong>
-                    </h5>
-                    <p>Tên: {order.user.name}</p>
-                    <p>SĐT: {order.user.phone}</p>
+                    </h7>
+                    <p className="order-detail-text">Tên: {order.user.name}</p>
+                    <p className="order-detail-text">SĐT: {order.user.phone}</p>
                   </div>
                 </div>
               </div>
               {/* 2 */}
-              <div className="col-lg-4 col-sm-4 mb-lg-4 mb-5 mb-sm-0">
-                <div className="row">
-                  <div className="col-md-4 center">
+              <div className="order-detail-item col-lg-3 col-md-6 col-6">
+                <div className="row order-detail-item-content">
+                  <div className="col-md-3 center">
                     <div className="alert-success order-box">
                       <i className="fas fa-truck-moving"></i>
                     </div>
                   </div>
-                  <div className="col-md-8 center">
-                    <h5>
+                  <div className="col-md-9 center">
+                    <h7>
                       <strong>Thông tin vận chuyển</strong>
-                    </h5>
-                    <p>Đơn vị vận chuyển: GHTK</p>
-                    <p>Hình thức vận chuyển: Nhanh</p>
+                    </h7>
+                    <p className="order-detail-text">Đơn vị vận chuyển: GHTK</p>
+                    <p className="order-detail-text">Hình thức vận chuyển: Nhanh</p>
                   </div>
                 </div>
               </div>
               {/* 3 */}
-              <div className="col-lg-4 col-sm-4 mb-lg-4 mb-5 mb-sm-0">
-                <div className="row">
-                  <div className="col-md-4 center">
+              <div className="order-detail-item col-lg-3 col-md-6 col-6">
+                <div className="row order-detail-item-content">
+                  <div className="col-md-3 center">
                     <div className="alert-success order-box">
                       <i className="fas fa-map-marker-alt"></i>
                     </div>
                   </div>
-                  <div className="col-md-8 center">
-                    <h5>
+                  <div className="col-md-9 center">
+                    <h7>
                       <strong>Địa chỉ giao hàng</strong>
-                      <p>{order.shippingAddress}</p>
-                    </h5>
+                    </h7>
+                    <p className="order-detail-text">{order.shippingAddress}</p>
                   </div>
                 </div>
               </div>
               {/* 4 */}
-              <div className="col-lg-4 col-sm-4 mb-lg-4 mb-5 mb-sm-0">
-                <div className="row">
-                  <div className="col-md-4 center">
+              <div className="order-detail-item col-lg-3 col-md-6 col-6">
+                <div className="row order-detail-item-content">
+                  <div className="col-md-3 center">
                     <div className="alert-success order-box">
                       <i className="fas fa-map-marker-alt"></i>
                     </div>
                   </div>
                   <div className="col-md-8 center">
-                    <h5>
+                    <h7>
                       <strong>Trạng thái đơn hàng</strong>
-                    </h5>
+                    </h7>
                     {order.isPaid ? (
-                      <div className="bg-info p-2 col-12">
-                        <p className="text-white text-center text-sm-start">
+                      <div className="bg-info mb-1 p-1 col-12">
+                        <p className="order-detail-text text-white text-center text-sm-start">
                           Đã thanh toán: {moment(order.paidAt).format("LT") + " " + moment(order.paidAt).format("L")}
                         </p>
                       </div>
                     ) : (
-                      <div className="bg-danger p-2 col-12">
-                        <p className="text-white text-center text-sm-start">Chưa thanh toán</p>
+                      <div className="bg-danger mb-1 p-1 col-12">
+                        <p className="order-detail-text text-white text-center text-sm-start">Chưa thanh toán</p>
                       </div>
                     )}
                     {order.isDelivered ? (
-                      <div className="bg-info p-2 col-12">
-                        <p className="text-white text-center text-sm-start">Đang giao</p>
+                      <div className="bg-info mb-1 p-1 col-12">
+                        <p className="order-detail-text text-white text-center text-sm-start">Đang giao</p>
                       </div>
                     ) : (
-                      <div className="bg-danger p-2 col-12">
-                        <p className="text-white text-center text-sm-start">Đang xử lý</p>
+                      <div className="bg-danger mb-1 p-1 col-12">
+                        <p className="order-detail-text text-white text-center text-sm-start">Đang xử lý</p>
                       </div>
                     )}
                   </div>
@@ -164,28 +164,28 @@ const OrderScreen = ({ match }) => {
                 ) : (
                   <>
                     {order?.orderItems.map((item, index) => (
-                      <div className="order-product row" key={index}>
-                        <div className="col-md-3 col-6">
+                      <div className="order-products-item row" key={index}>
+                        <div className="col-md-2 col-4">
                           <Link to={`/product/${item.product}`}>
                             <img src={item.image} alt={item.name} />
                           </Link>
                         </div>
-                        <div className="col-md-5 col-6 d-flex align-items-center">
+                        <div className="col-md-4 col-5 d-flex align-items-center">
                           <Link to={`/product/${item.product}`}>
-                            <h6>{item.name}</h6>
+                            <h6>{item.name.length >= 60 ? `${item.name.slice(0, 60)}...` : ` ${item.name}`}</h6>
                           </Link>
                         </div>
-                        <div className="mt-3 mt-md-0 col-md-2 col-6  d-flex align-items-center flex-column justify-content-center ">
+                        <div className="mt-3 mt-md-0 col-md-2 col-3  d-flex align-items-center flex-column justify-content-center ">
                           <h4>Số lượng</h4>
                           <h6>{item.qty}</h6>
                         </div>
-                        <div className="mt-3 mt-md-0 col-md-2 col-6  d-flex align-items-center flex-column justify-content-center ">
+                        <div className="unit__price mt-3 mt-md-0 col-md-2 col-9  d-flex align-items-center flex-column justify-content-center ">
                           <h4>Đơn giá</h4>
                           <h6>{formatPrice(item.price)}</h6>
                         </div>
-                        <div className="mt-3 mt-md-0 col-md-2 col-6 align-items-end  d-flex flex-column justify-content-center ">
+                        <div className="mt-3 mt-md-0 col-md-2 col-3 align-items-end  d-flex flex-column justify-content-center ">
                           <h4>Thành tiền</h4>
-                          <h6>{formatPrice(item.qty * item.price)}</h6>
+                          <h6 className="text-danger fw-bold">{formatPrice(item.qty * item.price)}</h6>
                         </div>
                       </div>
                     ))}
@@ -193,7 +193,7 @@ const OrderScreen = ({ match }) => {
                 )}
               </div>
               {/* total */}
-              <div className="col-lg-3 d-flex align-items-end flex-column mt-5 subtotal-order">
+              <div className="col-lg-4 d-flex align-items-end flex-column mt-5 subtotal-order">
                 <table className="table table-bordered">
                   <tbody>
                     <tr>

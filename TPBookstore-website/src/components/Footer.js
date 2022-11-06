@@ -55,7 +55,7 @@ const Footer = () => {
                   </ul>
                 </div>
               </div>
-              <div className="col l-2-4 m-6 c-12">
+              <div className="col l-2-4 m-6 col-6">
                 <div className="footer__infomation-content">
                   <h3 className="footer__infomation--heading">SALES CHANNEL</h3>
                   <ul className="footer__infomation--list">
@@ -87,7 +87,7 @@ const Footer = () => {
                   </ul>
                 </div>
               </div>
-              <div className="col l-2-4 m-6 c-12">
+              <div className="col l-2-4 m-6 col-6">
                 <div className="footer__infomation-content">
                   <h3 className="footer__infomation--heading">MORE INFORMATION</h3>
                   <ul className="footer__infomation--list">
@@ -114,7 +114,7 @@ const Footer = () => {
                   </ul>
                 </div>
               </div>
-              <div className="col l-2-4 m-6 c-12">
+              <div className="col l-2-4 m-6 col-6">
                 <div className="footer__infomation-content">
                   <h3 className="footer__infomation--heading">POLICY ONLY</h3>
                   <ul className="footer__infomation--list">
@@ -146,7 +146,7 @@ const Footer = () => {
                   </ul>
                 </div>
               </div>
-              <div className="col l-2-4 m-6 c-12">
+              <div className="col l-2-4 m-6 col-6">
                 <div className="footer__infomation-content">
                   <h3 className="footer__infomation--heading">PRODUCT</h3>
                   <ul className="footer__infomation--list">

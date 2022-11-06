@@ -76,14 +76,13 @@ const Header = () => {
                 <div className="col-6 d-flex align-items-center justify-content-end Login-Register">
                   {userInfo ? (
                     <div className="btn-group">
-                      <button
-                        type="button"
-                        className="name-button dropdown-toggle"
+                      <i
+                        className="fa fa-user name-button"
                         data-toggle="dropdown"
                         aria-haspopup="true"
                         aria-expanded="false"
-                      ></button>
-                      <i class="fa fa-user" aria-hidden="true"></i>
+                        aria-hidden="true"
+                      ></i>
                       <div className="dropdown-menu">
                         <Link className="dropdown-item" to="/profile">
                           Tài khoản
@@ -178,7 +177,7 @@ const Header = () => {
                     </Link>
                     <button
                       type="button"
-                      className="name-button dropdown-toggle"
+                      className="name-button"
                       data-toggle="dropdown"
                       aria-haspopup="true"
                       aria-expanded="false"

@@ -19,10 +19,10 @@ const BestSellerProduct = () => {
 
   const settings = {
     dots: false,
-    infinite: false,
+    infinite: true,
     speed: 500,
     slidesToShow: 5,
-    slidesToScroll: 4,
+    slidesToScroll: 5,
     initialSlide: 0,
     responsive: [
       {
@@ -53,6 +53,7 @@ const BestSellerProduct = () => {
       }
     ]
   };
+
   return (
     <>
       <div className="row best-seller">

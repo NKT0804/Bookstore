@@ -108,7 +108,7 @@ const ProfileScreen = () => {
           </div>
 
           {/* panels */}
-          <div className="tab-content col-lg-9 pb-5 pt-lg-0 pt-3" id="v-pills-tabContent">
+          <div className="tab-content px-0 col-lg-9 pb-5 pt-lg-0 pt-3" id="v-pills-tabContent">
             <div
               className="tab-pane fade show active"
               id="v-pills-home"
