@@ -63,7 +63,7 @@ const ProfileScreen = () => {
                   aria-orientation="vertical"
                 >
                   <button
-                    className="nav-link active"
+                    className="col-4 nav-link active"
                     id="v-pills-home-tab"
                     data-bs-toggle="pill"
                     data-bs-target="#v-pills-home"
@@ -76,7 +76,7 @@ const ProfileScreen = () => {
                   </button>
 
                   <button
-                    className="nav-link"
+                    className="col-4 nav-link"
                     id="v-pills-password-tab"
                     data-bs-toggle="pill"
                     data-bs-target="#v-pills-password"
@@ -89,7 +89,7 @@ const ProfileScreen = () => {
                   </button>
 
                   <button
-                    className="nav-link d-flex justify-content-between"
+                    className="col-4 nav-link d-flex justify-content-between"
                     id="v-pills-profile-tab"
                     data-bs-toggle="pill"
                     data-bs-target="#v-pills-profile"

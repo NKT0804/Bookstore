@@ -176,7 +176,7 @@ const Header = () => {
                     </Link>
                     <button
                       type="button"
-                      className="name-button"
+                      className="name-button dropdown-toggle"
                       data-toggle="dropdown"
                       aria-haspopup="true"
                       aria-expanded="false"

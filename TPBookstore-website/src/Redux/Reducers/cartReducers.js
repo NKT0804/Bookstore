@@ -53,7 +53,34 @@ import {
 //   return state;
 // }
 // }
+<<<<<<< HEAD
+// SAVE SHIPPING ADDRESS
+export const saveShippingAddressReducers = (state = { shippingAddress: {} }, action) => {
+  switch (action.type) {
+    case CART_SAVE_SHIPPING_ADDRESS:
+      return {
+        ...state,
+        shippingAddress: action.payload
+      };
+    default:
+      return state;
+  }
+};
+// PAYMENT METHOD
+export const savePaymentMethodReducers = (state = { paymentMethod: {} }, action) => {
+  switch (action.type) {
+    case CART_SAVE_PAYMENT_METHOD:
+      return {
+        ...state,
+        paymentMethod: action.payload
+      };
+    default:
+      return state;
+  }
+};
+=======
 
+>>>>>>> fa0acf306b167a889898ea6ff4381033fdfb562b
 // CART LIST ITEM
 export const cartListItemReducers = (state = { cartItems: [], shippingAddress: {} }, action) => {
   switch (action.type) {
@@ -67,6 +94,7 @@ export const cartListItemReducers = (state = { cartItems: [], shippingAddress: {
       return state;
   }
 };
+
 // ADD TO CART
 export const addToCartReducer = (state = {}, action) => {
   switch (action.type) {
@@ -82,6 +110,7 @@ export const addToCartReducer = (state = {}, action) => {
       return state;
   }
 };
+
 // REMOVE CART
 export const cartRemoveReducer = (state = {}, action) => {
   switch (action.type) {
@@ -97,6 +126,7 @@ export const cartRemoveReducer = (state = {}, action) => {
       return state;
   }
 };
+
 // UPDATE CART
 export const cartUpdateReducer = (state = {}, action) => {
   switch (action.type) {

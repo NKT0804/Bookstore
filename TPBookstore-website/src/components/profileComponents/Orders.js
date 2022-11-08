@@ -9,7 +9,7 @@ const Orders = (props) => {
   const { loading, error, orders } = props;
 
   return (
-    <div className=" d-flex justify-content-center align-items-center flex-column">
+    <div className="profile__order d-flex justify-content-center align-items-center  flex-column">
       <p className="d-flex flex-end fw-bold border-bottom border-secondary rounded">Tổng đơn hàng: {orders?.length}</p>
       {loading ? (
         <Loading />
