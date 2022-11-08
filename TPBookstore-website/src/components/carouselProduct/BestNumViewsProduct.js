@@ -7,6 +7,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Rating from "../homeComponents/Rating";
 import CardProductLoading from "../base/LoadingError/CardProductLoading";
+import formatCash from "../../utils/formatCash";
 
 const BestNumViewsProduct = () => {
   const dispatch = useDispatch();
@@ -18,9 +19,6 @@ const BestNumViewsProduct = () => {
   useEffect(() => {
     dispatch(listProductsBestNumView());
   }, [dispatch]);
-  const formatPrice = (price) => {
-    return (price / 1000).toFixed(3) + " ₫";
-  };
 
   const settings = {
     dots: false,
@@ -84,7 +82,7 @@ const BestNumViewsProduct = () => {
                           <div className="shopBack main-effect">
                             <img className="main-scale" src={product.image} alt={product.name} />
                             <span className="label-product_discount">
-                              {Math.round(100 - (product.priceSale / product.price) * 100)}%
+                              -{Math.round(100 - (product.priceSale / product.price) * 100)}%
                             </span>
                           </div>
                         </Link>
@@ -98,10 +96,10 @@ const BestNumViewsProduct = () => {
                           <Rating value={product.rating} numRating={product.rating} />
                           <div className="shoptext__price">
                             <p className="shoptext__price-special">
-                              <span className="shoptext__price-special-new">{formatPrice(product.priceSale)}</span>
+                              <span className="shoptext__price-special-new">{formatCash(product.priceSale)}</span>
                             </p>
                             {product.priceSale < product.price ? (
-                              <p className="shoptext__price-old">{formatPrice(product.price)}</p>
+                              <p className="shoptext__price-old">{formatCash(product.price)}</p>
                             ) : (
                               <></>
                             )}

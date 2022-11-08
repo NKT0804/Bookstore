@@ -9,6 +9,7 @@ import Filter from "../../screens/Filter";
 import { listCategory } from "../../Redux/Actions/categoryActions";
 import CardProductLoading from "../base/LoadingError/CardProductLoading";
 import SortBy from "./SortBy";
+import formatCash from "../../utils/formatCash";
 
 const ShopSection = (props) => {
   const { keyword, pageNumber, isFilter, setIsFilter } = props;
@@ -41,10 +42,6 @@ const ShopSection = (props) => {
     dispatch(listProducts(keyword, pageNumber, categoryFilter, ratingFilter, minPrice, maxPrice, sortBy));
     dispatch(listCategory());
   }, [dispatch, keyword, pageNumber, categoryFilter, ratingFilter, minPrice, maxPrice, , sortBy]);
-
-  const formatPrice = (price) => {
-    return (price / 1000).toFixed(3) + " ₫";
-  };
 
   useEffect(() => {
     loadData();
@@ -109,11 +106,7 @@ const ShopSection = (props) => {
                               <Rating value={product.rating} numRating={product.rating} />
                               <div className="shoptext__price">
                                 <p className="shoptext__price-special">
-<<<<<<< HEAD
-                                  <span className="shoptext__price-special-new">{product.priceSale}đ</span>
-=======
-                                  <span className="shoptext__price-special-new">{formatPrice(product.priceSale)}</span>
->>>>>>> fa0acf306b167a889898ea6ff4381033fdfb562b
+                                  <span className="shoptext__price-special-new">{formatCash(product.priceSale)}</span>
                                   {product.priceSale < product.price ? (
                                     <span className="shoptext__price-special-discount">
                                       -{Math.round(100 - (product.priceSale / product.price) * 100)}%
@@ -123,11 +116,7 @@ const ShopSection = (props) => {
                                   )}
                                 </p>
                                 {product.priceSale < product.price ? (
-<<<<<<< HEAD
-                                  <p className="shoptext__price-old">{product.price}đ</p>
-=======
-                                  <p className="shoptext__price-old">{formatPrice(product.price)}</p>
->>>>>>> fa0acf306b167a889898ea6ff4381033fdfb562b
+                                  <p className="shoptext__price-old">{formatCash(product.price)}</p>
                                 ) : (
                                   <></>
                                 )}
