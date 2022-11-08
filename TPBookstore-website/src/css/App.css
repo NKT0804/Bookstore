@@ -165,6 +165,7 @@ textarea:focus {
   margin: 0 15px;
 }
 
+
 .fa.fa-user {
   margin-top:4px;
 }
@@ -617,7 +618,7 @@ textarea:focus {
 }
 
 .product-view-info_detail-title {
-  width: 340px;
+  width: 200px;
   box-sizing: border-box;
   line-height: 2;
   color : #777777;
@@ -979,7 +980,7 @@ textarea:focus {
   display: flex;
 }
 
-.account-sex p label{
+.account-sex-item label{
   color: #000 !important;
   font-size: 15px;
 }
@@ -991,6 +992,10 @@ textarea:focus {
 
 }
 
+.account-sex-item {
+  display: flex;
+}
+
 .user-password__input {
   display: grid;
   grid-template-columns: 130px 1fr;
@@ -998,6 +1003,50 @@ textarea:focus {
   padding: 0 20px;
   align-items: center;
 }
+
+/* Profile order */
+.profile__order-product {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.profile__order-product-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.profile__order-product-id {
+  display: flex;
+  justify-content:center;
+  padding-bottom: 6px;
+  border-bottom : 1px solid #999999;
+}
+
+.profile__order-product-name {
+  font-weight : 400;
+
+}
+
+.profile__order-product-price {
+  font-weight : 600;
+
+}
+
+.profile__order-product-qty {
+  color: #DC354B;
+
+}
+
+.profile__order-product-total {
+  display: flex;
+  justify-content: end;
+  padding : 0 32px;
+  color: #DC354B;
+}
+
 
 
 /* orders */
@@ -1176,6 +1225,11 @@ textarea:focus {
   background-color: #e5fee9;
 }
 
+.order-detail-item {
+  padding: 12px 6px 12px 10px;
+}
+
+
 .order-detail h5 {
   margin-bottom: 6px;
 }
@@ -1189,19 +1243,26 @@ textarea:focus {
   align-items: center;
   font-size: 25px;
 }
+.order-products {
+  background-color: var(--white-color);
+  margin: 40px 0 60px 0;
+  padding : 20px 0;
+}
 
-.order-product {
-  margin: 40px 0;
+.order-products-item {
+  padding : 12px 12px 12px 0;
+  border-right: 2px solid #f3f3f3;
   border-bottom: 2px solid #f3f3f3;
+  border-top: 2px solid #f3f3f3;
   position: relative;
 }
 
-.order-product h4 {
+.order-products-item h4 {
   font-size: 13px;
   margin-bottom: 10px;
 }
 
-.order-product img {
+.order-products-item img {
   width: 100%;
   height: 100px;
   object-fit: contain;

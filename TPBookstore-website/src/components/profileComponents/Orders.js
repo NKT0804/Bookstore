@@ -35,24 +35,28 @@ const Orders = (props) => {
               {orders?.map((order) => (
                 <div key={order._id} className=" p-3 mb-3 bg-body rounded shadow">
                   <Link to={`/order/${order._id}`}>
-                    <div className="d-flex align-items-center justify-content-between mb-1">
-                      <p className="fs-6">
+                    <div className="profile__order-product-title row">
+                      <p className="profile__order-product-id col-lg-12">
                         <span className="fw-bold">Mã đơn hàng:</span>&nbsp;
                         {order._id}
                       </p>
                     </div>
+
                     {order?.orderItems?.map((item) => (
-                      <div key={item._id} className="d-flex align-items-center justify-content-between">
-                        <div className="p-2" style={{ maxWidth: "100px", backgroundSize: "cover" }}>
+                      <div key={item._id} className="row d-flex profile__order-product">
+                        <div className="col-lg-2 col-md-2 col-4 py-2" style={{ backgroundSize: "cover" }}>
                           <img src={item.image} alt={item.name} />
                         </div>
-                        <div className="d-flex flex-start flex-column w-50">
-                          <p className="fs-6 text-lowercase">
-                            {item.name.length > 40 ? item.name.slice(0, 40) : item.name}
-                          </p>
-                          <p className="fw-normal fs-6 text-danger fst-italic">x{item.qty}</p>
+                        <div className="profile__order-product-name col-lg-4 col-md-4 col-8">
+                          <p className="text-upercase">{item.name.length > 80 ? item.name.slice(0, 80) : item.name}</p>
                         </div>
-                        <div className="fw-bold">{formatCash(item.price)}</div>
+                        <div className="profile__order-product-price col-lg-1 col-md-1 col-6">
+                          {formatCash(item.price)}
+                        </div>
+                        <p className="profile__order-product-qty col-lg-1 col-md-1 col-2 fst-italic">x{item.qty}</p>
+                        <div className="profile__order-product-total col-lg-2 col-md-2 col-4 fw-bold">
+                          {formatCash(item.price * item.qty)}
+                        </div>
                       </div>
                     ))}
 
@@ -89,8 +93,8 @@ const Orders = (props) => {
 
                     {/* mobile */}
                     <div className="mobile-order d-flex flex-column align-items-center py-3 border-top border-secondary rounded">
-                      <div className="mobile-order__total fw-bold">
-                        Tổng: <span className="fs-5 text-danger">{formatCash(order.totalPrice)}</span>
+                      <div className="mobile-order__total fs-5 fw-bold">
+                        Tổng: <span className="text-danger">{formatCash(order.totalPrice)}</span>
                       </div>
                       <div className="row">
                         <div className="col-sm-12 p-2 flex justify-content-between">
