@@ -3,6 +3,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Message from "../base/LoadingError/Error";
 import Loading from "../base/LoadingError/Loading";
+import formatCash from "../../utils/formatCash";
 
 const Orders = (props) => {
   const { loading, error, orders } = props;
@@ -49,10 +50,12 @@ const Orders = (props) => {
                         <div className="profile__order-product-name col-lg-4 col-md-4 col-8">
                           <p className="text-upercase">{item.name.length > 80 ? item.name.slice(0, 80) : item.name}</p>
                         </div>
-                        <div className="profile__order-product-price col-lg-1 col-md-1 col-6">{item.price}đ</div>
+                        <div className="profile__order-product-price col-lg-1 col-md-1 col-6">
+                          {formatCash(item.price)}
+                        </div>
                         <p className="profile__order-product-qty col-lg-1 col-md-1 col-2 fst-italic">x{item.qty}</p>
                         <div className="profile__order-product-total col-lg-2 col-md-2 col-4 fw-bold">
-                          {item.price * item.qty}đ
+                          {formatCash(item.price * item.qty)}
                         </div>
                       </div>
                     ))}
@@ -84,14 +87,14 @@ const Orders = (props) => {
                         )}
                       </div>
                       <div className="fw-bold">
-                        Tổng: <span className="fs-5 text-danger">{order.totalPrice}đ</span>
+                        Tổng: <span className="fs-5 text-danger">{formatCash(order.totalPrice)}</span>
                       </div>
                     </div>
 
                     {/* mobile */}
                     <div className="mobile-order d-flex flex-column align-items-center py-3 border-top border-secondary rounded">
                       <div className="mobile-order__total fs-5 fw-bold">
-                        Tổng: <span className="text-danger">{order.totalPrice}đ</span>
+                        Tổng: <span className="text-danger">{formatCash(order.totalPrice)}</span>
                       </div>
                       <div className="row">
                         <div className="col-sm-12 p-2 flex justify-content-between">

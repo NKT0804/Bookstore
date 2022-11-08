@@ -1012,7 +1012,7 @@ textarea:focus {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid #999999;
+  border-bottom: 2px solid #F3F3F3;
 }
 
 .profile__order-product-title {

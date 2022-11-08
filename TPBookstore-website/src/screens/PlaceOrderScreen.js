@@ -7,6 +7,7 @@ import Header from "../components/Header";
 import { createOrder } from "../Redux/Actions/orderActions";
 import { ORDER_CREATE_RESET } from "../Redux/Constants/orderConstants";
 import Toast from "../components/base/LoadingError/Toast";
+import formatCash from "../utils/formatCash";
 
 const ToastObjects = {
   pauseOnFocusLoss: false,
@@ -18,7 +19,10 @@ const PlaceOrderScreen = ({ history }) => {
   window.scrollTo(0, 0);
 
   const dispatch = useDispatch();
+
   const [shippingAddress, setShippingAddress] = useState("");
+  const [paymentMethod, setPaymentMethod] = useState("Thanh toán khi nhận hàng");
+
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
   const cart = useSelector((state) => {
@@ -37,20 +41,13 @@ const PlaceOrderScreen = ({ history }) => {
     return arrayCartCurrent;
   }, []);
 
-  const getPaymentMethod = useSelector((state) => state.savePaymentMethod);
-  const { paymentMethod } = getPaymentMethod;
-
-  cart.itemsPrice = cart.cartItems.reduce((acc, item) => acc + item.product.price * item.qty, 0);
+  cart.itemsPrice = Number(cart.cartItems.reduce((acc, item) => acc + item.product.price * item.qty, 0));
   cart.shippingPrice = 15000;
   cart.taxPrice = Math.round(Number(0.05 * cart.itemsPrice));
   cart.totalPrice = Number(cart.itemsPrice) + Number(cart.shippingPrice) + Number(cart.taxPrice);
 
   const orderCreate = useSelector((state) => state.orderCreate);
   const { order, success, error } = orderCreate;
-
-  const formatPrice = (price) => {
-    return (price / 1000).toFixed(3) + " ₫";
-  };
 
   useEffect(() => {
     if (userInfo) {
@@ -173,11 +170,11 @@ const PlaceOrderScreen = ({ history }) => {
                     </div>
                     <div className="mt-3 mt-md-0 col-md-2 col-6  d-flex align-items-center flex-column justify-content-center ">
                       <h4>Đơn giá</h4>
-                      <h6>{formatPrice(item.product.price)}</h6>
+                      <h6>{formatCash(item.product.price)}</h6>
                     </div>
                     <div className="mt-3 mt-md-0 col-md-2 col-6 align-items-end  d-flex flex-column justify-content-center ">
                       <h4>Thành tiền</h4>
-                      <h6>{formatPrice(item.qty * item.product.price)}</h6>
+                      <h6>{formatCash(item.qty * item.product.price)}</h6>
                     </div>
                   </div>
                 ))}
@@ -192,31 +189,37 @@ const PlaceOrderScreen = ({ history }) => {
                   <td>
                     <strong>Tổng tiền sách</strong>
                   </td>
-                  <td>{formatPrice(cart.itemsPrice)}</td>
+                  <td>{formatCash(cart.itemsPrice)}</td>
                 </tr>
                 <tr>
                   <td>
                     <strong>Phí vận chuyển</strong>
                   </td>
-                  <td>{formatPrice(cart.shippingPrice)}</td>
+                  <td>{formatCash(cart.shippingPrice)}</td>
                 </tr>
                 <tr>
                   <td>
                     <strong>Thuế VAT (5%)</strong>
                   </td>
-                  <td>{formatPrice(cart.taxPrice)}</td>
+                  <td>{formatCash(cart.taxPrice)}</td>
                 </tr>
                 <tr>
                   <td>
                     <strong>Tổng số tiền</strong>
                   </td>
-                  <td>{formatPrice(cart.totalPrice)}</td>
+                  <td>{formatCash(cart.totalPrice)}</td>
                 </tr>
                 <tr>
                   <td>
                     <strong>Phương thức thanh toán</strong>
                   </td>
-                  <td>{paymentMethod}</td>
+                  <td>
+                    {/* <select value={paymentMethod} onChange={(e) => setPaymentMethod(e.target.value)}>
+                      <option key={"thanh-toan-khi-nhan-hang"} value={"Thanh toán khi nhận hàng"}> */}
+                    Thanh toán khi nhận hàng
+                    {/* </option>
+                    </select> */}
+                  </td>
                 </tr>
               </tbody>
             </table>

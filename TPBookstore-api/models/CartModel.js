@@ -17,12 +17,12 @@ const cartSchema = mongoose.Schema({
                 type: Number,
                 required: true,
                 default: 1
+            },
+            isBuy: {
+                type: Boolean,
+                require: true,
+                default: false
             }
-            // isBuy: {
-            //     type: Boolean,
-            //     require: true,
-            //     default: false
-            // }
         }
     ]
 });

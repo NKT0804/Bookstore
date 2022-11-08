@@ -6,7 +6,7 @@ import { logout } from "../Redux/Actions/userActions";
 import { listBanner } from "../Redux/Actions/bannerActions";
 
 const Header = () => {
-  const [keyword, setKeyword] = useState();
+  const [keyword, setKeyword] = useState("");
   const dispatch = useDispatch();
   let history = useHistory();
 
@@ -131,7 +131,6 @@ const Header = () => {
                       type="search"
                       className="form-control rounded search"
                       placeholder="Tìm kiếm"
-                      // value={keyword}
                       onChange={(e) => setKeyword(e.target.value)}
                     />
                     <button type="submit" className="search-button">

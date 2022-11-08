@@ -12,7 +12,6 @@ import Register from "./screens/Register";
 import CartScreen from "./screens/CartScreen";
 import ShippingScreen from "./screens/ShippingScreen";
 import ProfileScreen from "./screens/ProfileScreen";
-import PaymentScreen from "./screens/PaymentScreen";
 import PlaceOrderScreen from "./screens/PlaceOrderScreen";
 import OrderScreen from "./screens/OrderScreen";
 import NotFound from "./screens/NotFound";
@@ -61,7 +60,6 @@ const App = () => {
         <PrivateRouter path="/profile" component={ProfileScreen} />
         <Route path="/cart/:id?" component={CartScreen} />
         <PrivateRouter path="/shipping" component={ShippingScreen} />
-        <PrivateRouter path="/payment" component={PaymentScreen} />
         <PrivateRouter path="/placeorder" component={PlaceOrderScreen} />
         <PrivateRouter path="/order/:id" component={OrderScreen} />
 

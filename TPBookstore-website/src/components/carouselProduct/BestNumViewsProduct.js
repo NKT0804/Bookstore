@@ -18,6 +18,9 @@ const BestNumViewsProduct = () => {
   useEffect(() => {
     dispatch(listProductsBestNumView());
   }, [dispatch]);
+  const formatPrice = (price) => {
+    return (price / 1000).toFixed(3) + " ₫";
+  };
 
   const settings = {
     dots: false,
@@ -59,7 +62,7 @@ const BestNumViewsProduct = () => {
     <>
       <div className="row best-number-view">
         <div className="title-section">
-          <h2 className="heading-section main-effect">Most viewed products</h2>
+          <h2 className="heading-section main-effect">Sản phẩm được xem nhiều nhất</h2>
         </div>
         <div className="best-seller-container">
           <Slider {...settings}>
@@ -80,7 +83,9 @@ const BestNumViewsProduct = () => {
                         <Link to={`/product/${product._id}`}>
                           <div className="shopBack main-effect">
                             <img className="main-scale" src={product.image} alt={product.name} />
-                            <span className="label-product_discount">30%</span>
+                            <span className="label-product_discount">
+                              {Math.round(100 - (product.priceSale / product.price) * 100)}%
+                            </span>
                           </div>
                         </Link>
 
@@ -90,9 +95,19 @@ const BestNumViewsProduct = () => {
                               {product.name.length >= 55 ? `${product.name.slice(0, 55)}...` : ` ${product.name}`}
                             </Link>
                           </p>
-                          <Rating value={product.rating} text={`${product.numReviews} reviews`} />
+                          <Rating value={product.rating} numRating={product.rating} />
+                          <div className="shoptext__price">
+                            <p className="shoptext__price-special">
+                              <span className="shoptext__price-special-new">{formatPrice(product.priceSale)}</span>
+                            </p>
+                            {product.priceSale < product.price ? (
+                              <p className="shoptext__price-old">{formatPrice(product.price)}</p>
+                            ) : (
+                              <></>
+                            )}
+                          </div>
                           <p>
-                            Total views <b>{product.numViews}</b>
+                            Lượt xem: <b>{product.numViews}</b>
                           </p>
                         </div>
                       </div>

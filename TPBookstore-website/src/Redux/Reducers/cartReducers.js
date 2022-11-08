@@ -10,8 +10,6 @@ import {
   CART_LIST_MY_REQUEST,
   CART_LIST_MY_SUCCESS,
   // CART_ADD_ITEM,
-  CART_SAVE_PAYMENT_METHOD,
-  CART_SAVE_SHIPPING_ADDRESS,
   CART_CLEAR_SUCCESS,
   CART_UPDATE_REQUEST,
   CART_UPDATE_SUCCESS,
@@ -55,6 +53,7 @@ import {
 //   return state;
 // }
 // }
+<<<<<<< HEAD
 // SAVE SHIPPING ADDRESS
 export const saveShippingAddressReducers = (state = { shippingAddress: {} }, action) => {
   switch (action.type) {
@@ -79,6 +78,9 @@ export const savePaymentMethodReducers = (state = { paymentMethod: {} }, action)
       return state;
   }
 };
+=======
+
+>>>>>>> fa0acf306b167a889898ea6ff4381033fdfb562b
 // CART LIST ITEM
 export const cartListItemReducers = (state = { cartItems: [], shippingAddress: {} }, action) => {
   switch (action.type) {

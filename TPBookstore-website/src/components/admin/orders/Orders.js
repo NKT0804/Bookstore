@@ -3,13 +3,12 @@ import { Link } from "react-router-dom";
 import moment from "moment";
 import { useDispatch } from "react-redux";
 import { deleteOrderAdmin } from "../../../Redux/Actions/orderActions";
+import formatCash from "../../../utils/formatCash";
 
 const Orders = (props) => {
   const dispatch = useDispatch();
   const { orders } = props;
-  const formatPrice = (price) => {
-    return (price / 1000).toFixed(3) + " ₫";
-  };
+
   const handleDeleteOrder = (id) => {
     if (window.confirm("Are you sure delete order???")) {
       dispatch(deleteOrderAdmin(id));
@@ -43,7 +42,7 @@ const Orders = (props) => {
               <td>
                 <b>{order.user.name.lenght >= 15 ? `${order.user.name.slice(0, 15)}...` : `${order.user.name}`}</b>
               </td>
-              <td>{formatPrice(order.totalPrice)}</td>
+              <td>{formatCash(order.totalPrice)}</td>
               <td>
                 {order.isPaid ? (
                   <span className="badge3 rounded-pill alert-success fw-bold">
