@@ -3,6 +3,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Message from "../base/LoadingError/Error";
 import Loading from "../base/LoadingError/Loading";
+import formatCash from "../../utils/formatCash";
 
 const Orders = (props) => {
   const { loading, error, orders } = props;
@@ -51,7 +52,7 @@ const Orders = (props) => {
                           </p>
                           <p className="fw-normal fs-6 text-danger fst-italic">x{item.qty}</p>
                         </div>
-                        <div className="fw-bold">{item.price}$</div>
+                        <div className="fw-bold">{formatCash(item.price)}</div>
                       </div>
                     ))}
 
@@ -82,22 +83,14 @@ const Orders = (props) => {
                         )}
                       </div>
                       <div className="fw-bold">
-                        Tổng:{" "}
-                        <span className="fs-5 text-danger">
-                          {order.totalPrice}
-                          <i className="fas fa-dollar-sign fs-6 align-text-top fw-normal"></i>
-                        </span>
+                        Tổng: <span className="fs-5 text-danger">{formatCash(order.totalPrice)}</span>
                       </div>
                     </div>
 
                     {/* mobile */}
                     <div className="mobile-order d-flex flex-column align-items-center py-3 border-top border-secondary rounded">
                       <div className="mobile-order__total fw-bold">
-                        Tổng:{" "}
-                        <span className="fs-5 text-danger">
-                          {order.totalPrice}
-                          <i className="fas fa-dollar-sign fs-6 align-text-top fw-normal"></i>
-                        </span>
+                        Tổng: <span className="fs-5 text-danger">{formatCash(order.totalPrice)}</span>
                       </div>
                       <div className="row">
                         <div className="col-sm-12 p-2 flex justify-content-between">

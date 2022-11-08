@@ -187,24 +187,24 @@ const getDetailOrderById = async (req, res) => {
  * Update: ORDER IS PAID
  * for test + demo
  */
-const payOrderByApi = async (req, res) => {
-    const orderId = req.params.id || null;
-    const order = await Order.findOne({ _id: orderId, isDisabled: false });
-    if (!order) {
-        res.status(404);
-        throw new Error("Order Not Found");
-    }
-    order.isPaid = true;
-    order.paidAt = Date.now();
-    order.paymentResult = {
-        id: req.body.id,
-        status: req.body.status,
-        update_time: req.body.update_time,
-        email_address: req.body.email_address
-    };
-    const updateOrder = await order.save();
-    res.json(updateOrder);
-};
+// const payOrderByApi = async (req, res) => {
+//     const orderId = req.params.id || null;
+//     const order = await Order.findOne({ _id: orderId, isDisabled: false });
+//     if (!order) {
+//         res.status(404);
+//         throw new Error("Order Not Found");
+//     }
+//     order.isPaid = true;
+//     order.paidAt = Date.now();
+//     order.paymentResult = {
+//         id: req.body.id,
+//         status: req.body.status,
+//         update_time: req.body.update_time,
+//         email_address: req.body.email_address
+//     };
+//     const updateOrder = await order.save();
+//     res.json(updateOrder);
+// };
 
 /**
  * Update: ORDER IS DELIVERED
@@ -223,6 +223,37 @@ const confirmDelivered = async (req, res) => {
     res.json(updateOrder);
 };
 
+/**
+ * Update: CONFIRM ORDER
+ */
+const confirmOrder = async (req, res) => {
+    const orderId = req.params.id || null;
+    const order = await Order.findOne({ _id: orderId, isDisabled: false });
+    if (!order) {
+        res.status(404);
+        throw new Error("Order Not Found");
+    }
+    order.confirmed = true;
+    const updateOrder = await order.save();
+    res.status(200);
+    res.json(updateOrder);
+};
+
+/**
+ * Update: ORDER IS RECEIVED
+ */
+const Received = async (req, res) => {
+    const orderId = req.params.id || null;
+    const order = await Order.findOne({ _id: orderId, isDisabled: false });
+    if (!order) {
+        res.status(404);
+        throw new Error("Order Not Found");
+    }
+    order.received = true;
+    const updateOrder = await order.save();
+    res.status(200);
+    res.json(updateOrder);
+};
 //Admin disable order
 const disableOrder = async (req, res) => {
     const order = await Order.findById(req.params.id);
@@ -251,7 +282,7 @@ const restoreOrder = async (req, res) => {
 };
 
 //Admin delete order
-const deteleOrder = async (req, res) => {
+const deleteOrder = async (req, res) => {
     const order = await Order.findById(req.params.id);
     if (!order) {
         res.status(404);
@@ -267,11 +298,13 @@ const OrderController = {
     getOrderAdmin,
     getOrder,
     getDetailOrderById,
-    payOrderByApi,
+    // payOrderByApi,
     confirmDelivered,
+    confirmOrder,
+    Received,
     disableOrder,
     restoreOrder,
-    deteleOrder
+    deleteOrder
 };
 
 export default OrderController;

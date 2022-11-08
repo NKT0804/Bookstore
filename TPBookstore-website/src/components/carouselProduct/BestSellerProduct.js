@@ -17,6 +17,9 @@ const BestSellerProduct = () => {
     dispatch(listProductsBestSeller());
   }, [dispatch]);
 
+  const formatPrice = (price) => {
+    return (price / 1000).toFixed(3) + " ₫";
+  };
   const settings = {
     dots: false,
     infinite: false,
@@ -87,22 +90,22 @@ const BestSellerProduct = () => {
                         <div className="shoptext">
                           <p className="shoptext__name">
                             <Link to={`/product/${product._id}`}>
-                              {product.name.length >= 55 ? `${product.name.slice(0, 25)}...` : ` ${product.name}`}
+                              {product.name.length >= 55 ? `${product.name.slice(0, 55)}...` : ` ${product.name}`}
                             </Link>
                           </p>
-                          <Rating value={product.rating} text={`${product.numReviews} reviews`} />
+                          <Rating value={product.rating} numRating={product.rating} />
                           <div className="shoptext__price">
                             <p className="shoptext__price-special">
-                              <span className="shoptext__price-special-new">${product.priceSale}</span>
+                              <span className="shoptext__price-special-new">{formatPrice(product.priceSale)}</span>
                             </p>
                             {product.priceSale < product.price ? (
-                              <p className="shoptext__price-old">${product.price}</p>
+                              <p className="shoptext__price-old">{formatPrice(product.price)}</p>
                             ) : (
                               <></>
                             )}
                           </div>
                           <p>
-                            Total Sales <b>{product.totalSales}</b>
+                            Đã bán: <b>{product.totalSales}</b>
                           </p>
                         </div>
                       </div>

@@ -39,7 +39,7 @@ const CartScreen = ({ history }) => {
 
   // checkout handler
   const checkOutHandler = () => {
-    history.push("/login?redirect=shipping");
+    history.push("/placeorder");
   };
 
   // remove product from cart handler

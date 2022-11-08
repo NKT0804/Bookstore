@@ -7,33 +7,13 @@ const orderSchema = mongoose.Schema(
             required: true,
             ref: "User"
         },
-        orderItems: [
-            {
-                name: { type: String, required: true },
-                qty: { type: Number, required: true }, //What is qty?
-                image: { type: String, required: true },
-                price: { type: Number, required: true },
-                product: {
-                    type: mongoose.Schema.Types.ObjectId,
-                    required: true,
-                    ref: "Product"
-                }
-            }
-        ],
+        phone: {
+            type: String,
+            require: true
+        },
         shippingAddress: {
             type: String,
             required: true
-        },
-        paymentMethod: {
-            type: String,
-            required: true,
-            default: "Paypal"
-        },
-        paymentResult: {
-            id: { type: String },
-            status: { type: String },
-            update_time: { type: String },
-            email_address: { type: String }
         },
         taxPrice: {
             type: Number,
@@ -50,9 +30,15 @@ const orderSchema = mongoose.Schema(
             required: true,
             default: 0.0
         },
-        phone: {
+        confirmed: {
+            type: Boolean,
+            required: true,
+            default: false
+        },
+        paymentMethod: {
             type: String,
-            require: true
+            required: true,
+            default: "Thanh toán khi nhận hàng"
         },
         isPaid: {
             type: Boolean,
@@ -62,7 +48,7 @@ const orderSchema = mongoose.Schema(
         paidAt: {
             type: Date
         },
-        isDelivered: {
+        delivered: {
             type: Boolean,
             required: true,
             default: false
@@ -75,11 +61,20 @@ const orderSchema = mongoose.Schema(
             required: true,
             default: false
         },
-        confirmed: {
-            type: Boolean,
-            required: true,
-            default: false
-        },
+        orderItems: [
+            {
+                name: { type: String, required: true },
+                qty: { type: Number, required: true },
+                image: { type: String, required: true },
+                price: { type: Number, required: true },
+                product: {
+                    type: mongoose.Schema.Types.ObjectId,
+                    required: true,
+                    ref: "Product"
+                }
+            }
+        ],
+
         isDisabled: {
             type: Boolean,
             required: false,

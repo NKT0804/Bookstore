@@ -5,60 +5,26 @@ import { PayPalButton } from "react-paypal-button-v2";
 import { useDispatch, useSelector } from "react-redux";
 import { getOrderDetails, payOrder } from "../Redux/Actions/orderActions";
 import moment from "moment";
-import axios from "axios";
 import { ORDER_PAY_RESET } from "../Redux/Constants/orderConstants";
 import Loading from "../components/base/LoadingError/Loading";
 import Message from "../components/base/LoadingError/Error";
+import formatCash from "../utils/formatCash";
 
 const OrderScreen = ({ match }) => {
   window.scrollTo(0, 0);
-  const [sdkReady, setSdkReady] = useState(false);
   const orderId = match.params.id;
   const dispatch = useDispatch();
 
   const orderDetails = useSelector((state) => state.orderDetails);
   const { order, loading, error } = orderDetails;
-  const orderPay = useSelector((state) => state.orderPay);
-  const { loading: loadingPay, success: successPay } = orderPay;
 
   if (!loading) {
-    const addDecimals = (num) => {
-      return (Math.round(num * 100) / 100).toFixed(2);
-    };
-
-    order.itemsPrice = addDecimals(order.orderItems.reduce((acc, item) => acc + item.price * item.qty, 0));
+    order.itemsPrice = order.orderItems.reduce((accumulate, item) => accumulate + item.price * item.qty, 0);
   }
-  const formatPrice = (price) => {
-    return (price / 1000).toFixed(3) + " ₫";
-  };
 
   useEffect(() => {
-    const addPayPalScript = async () => {
-      const { data: clientId } = await axios.get("/api/v1/config/paypal");
-      const script = document.createElement("script");
-      script.type = "text/javascript";
-      script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}`;
-      script.async = true;
-      script.onload = () => {
-        setSdkReady(true);
-      };
-      document.body.appendChild(script);
-    };
-    if (!order || successPay) {
-      dispatch({ type: ORDER_PAY_RESET });
-      dispatch(getOrderDetails(orderId));
-    } else if (!order.isPaid) {
-      if (!window.paypal) {
-        addPayPalScript();
-      } else {
-        setSdkReady(true);
-      }
-    }
-  }, [dispatch, orderId, successPay, order]);
-
-  const successPaymentHandler = (paymentResult) => {
-    dispatch(payOrder(orderId, paymentResult));
-  };
+    dispatch(getOrderDetails(orderId));
+  }, [dispatch, orderId]);
 
   return (
     <>
@@ -181,11 +147,11 @@ const OrderScreen = ({ match }) => {
                         </div>
                         <div className="mt-3 mt-md-0 col-md-2 col-6  d-flex align-items-center flex-column justify-content-center ">
                           <h4>Đơn giá</h4>
-                          <h6>{formatPrice(item.price)}</h6>
+                          <h6>{formatCash(item.price)}</h6>
                         </div>
                         <div className="mt-3 mt-md-0 col-md-2 col-6 align-items-end  d-flex flex-column justify-content-center ">
                           <h4>Thành tiền</h4>
-                          <h6>{formatPrice(item.qty * item.price)}</h6>
+                          <h6>{formatCash(item.qty * item.price)}</h6>
                         </div>
                       </div>
                     ))}
@@ -200,25 +166,25 @@ const OrderScreen = ({ match }) => {
                       <td>
                         <strong>Tổng tiền sản phẩm</strong>
                       </td>
-                      <td>{formatPrice(order.itemsPrice)}</td>
+                      <td>{formatCash(order.itemsPrice)}</td>
                     </tr>
                     <tr>
                       <td>
                         <strong>Phí vận chuyển</strong>
                       </td>
-                      <td>{formatPrice(order.shippingPrice)}</td>
+                      <td>{formatCash(order.shippingPrice)}</td>
                     </tr>
                     <tr>
                       <td>
                         <strong>Thuế VAT (5%)</strong>
                       </td>
-                      <td>{formatPrice(order.taxPrice)}</td>
+                      <td>{formatCash(order.taxPrice)}</td>
                     </tr>
                     <tr>
                       <td>
                         <strong>Tổng cộng</strong>
                       </td>
-                      <td>{formatPrice(order.totalPrice)}</td>
+                      <td>{formatCash(order.totalPrice)}</td>
                     </tr>
                     <tr>
                       <td>
@@ -228,16 +194,7 @@ const OrderScreen = ({ match }) => {
                     </tr>
                   </tbody>
                 </table>
-                {!order.isPaid && (
-                  <div className="col-12">
-                    {loadingPay && <Loading />}
-                    {!sdkReady ? (
-                      <Loading />
-                    ) : (
-                      <PayPalButton amount={order.totalPrice} onSuccess={successPaymentHandler} />
-                    )}
-                  </div>
-                )}
+                <button>Đã nhận hàng</button>
               </div>
             </div>
           </>
