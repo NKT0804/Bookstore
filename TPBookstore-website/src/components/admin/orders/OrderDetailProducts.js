@@ -1,13 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
+import formatCash from "../../../utils/formatCash";
 const OrderDetailProducts = (props) => {
   const { order, loading } = props;
-
-  const formatPrice = (price) => {
-    return (price / 1000).toFixed(3) + " ₫";
-  };
-
+  if (!loading) {
+    order.itemsPrice = order.orderItems.reduce((accumulate, item) => accumulate + item.price * item.qty, 0);
+  }
   return (
     <table className="table border table-lg">
       <thead>
@@ -32,8 +30,8 @@ const OrderDetailProducts = (props) => {
               </Link>
             </td>
             <td>{item.qty} </td>
-            <td>{formatPrice(item.price)} </td>
-            <td className="text-end"> {formatPrice(item.qty * item.price)}</td>
+            <td>{formatCash(item.price)} </td>
+            <td className="text-end"> {formatCash(item.qty * item.price)}</td>
           </tr>
         ))}
 
@@ -41,18 +39,18 @@ const OrderDetailProducts = (props) => {
           <td colSpan="4">
             <article className="float-end">
               <dl className="dlist">
-                <dt>Tổng tiền sản phẩm:</dt> <dd>{formatPrice(order.itemsPrice)}</dd>
+                <dt>Tổng tiền sản phẩm:</dt> <dd>{formatCash(order.itemsPrice)}</dd>
               </dl>
               <dl className="dlist">
-                <dt>Phí vận chuyển: </dt> <dd>{formatPrice(order.shippingPrice)}</dd>
+                <dt>Phí vận chuyển: </dt> <dd>{formatCash(order.shippingPrice)}</dd>
               </dl>
               <dl className="dlist">
-                <dt>Thuế VAT(5%):</dt> <dd>{formatPrice(order.taxPrice)}</dd>
+                <dt>Thuế VAT(5%):</dt> <dd>{formatCash(order.taxPrice)}</dd>
               </dl>
               <dl className="dlist">
                 <dt>Tổng cộng:</dt>
                 <dd>
-                  <b className="h5">{formatPrice(order.totalPrice)}</b>
+                  <b className="h5">{formatCash(order.totalPrice)}</b>
                 </dd>
               </dl>
               <dl className="dlist">

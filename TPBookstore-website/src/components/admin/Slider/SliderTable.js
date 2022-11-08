@@ -38,7 +38,7 @@ const SliderTable = ({ setIsEditSlider, setCurrentSlider }) => {
             <th className="admin__sliders-banner-table-name">Tên Slider</th>
             <th className="admin__sliders-banner-table-img">Hình ảnh</th>
             <th className="admin__sliders-banner-table-link">Liên kết đến</th>
-            <th className="admin__sliders-banner-table-action text-end">Action</th>
+            <th className="admin__sliders-banner-table-action text-end">Thao tác</th>
           </tr>
         </thead>
         {/* Table Data */}

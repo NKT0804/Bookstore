@@ -90,7 +90,7 @@ const UpdateBanner = ({ isEditBanner, currentBanner, setIsEditBanner, setCurrent
                   Liên kết đến
                 </label>
                 <input
-                  type="url"
+                  type="text"
                   placeholder="Nhập liên kết"
                   className="form-control"
                   id="banner_linkTo"
@@ -100,11 +100,11 @@ const UpdateBanner = ({ isEditBanner, currentBanner, setIsEditBanner, setCurrent
               </div>
             </div>
             <div className="d-flex justify-content-between">
-              <button disabled={!isEditBanner} className="btn btn-primary p-2" onClick={() => cancelHandler()}>
-                Cancel update
+              <button disabled={!isEditBanner} className="btn btn-danger p-2" onClick={() => cancelHandler()}>
+                Hủy
               </button>
               <button disabled={!isEditBanner} className="btn btn-warning p-2" onClick={() => submitHandler()}>
-                Update category
+                Cập nhật
               </button>
             </div>
           </div>

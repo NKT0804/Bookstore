@@ -61,6 +61,11 @@ const orderSchema = mongoose.Schema(
             required: true,
             default: false
         },
+        cancelled: {
+            type: Boolean,
+            required: true,
+            default: false
+        },
         orderItems: [
             {
                 name: { type: String, required: true },

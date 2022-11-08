@@ -181,17 +181,17 @@ const ProfileTabs = () => {
             <div className="form account__user account-sex">
               <label htmlFor="account-sex-title">Giới tính</label>
               <p className="account-sex-item">
-                <input type="radio" name="gender" id="male" value="nam" class="information_input-sex--item" />
+                <input type="radio" name="gender" id="male" value="nam" className="information_input-sex--item" />
                 <label for="male">Nam</label>
               </p>
 
               <p className="account-sex-item">
-                <input type="radio" name="gender" id="female" value="nữ" class="information_input-sex--item" />
+                <input type="radio" name="gender" id="female" value="nữ" className="information_input-sex--item" />
                 <label for="female">Nữ</label>
               </p>
 
               <p className="account-sex-item">
-                <input type="radio" name="gender" value="khác" id="another" class="information_input-sex--item" />
+                <input type="radio" name="gender" value="khác" id="another" className="information_input-sex--item" />
                 <label for="another">Khác</label>
               </p>
             </div>
