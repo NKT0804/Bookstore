@@ -17,7 +17,7 @@ import {
   CART_UPDATE_SUCCESS,
   CART_UPDATE_FAIL,
   CART_UPDATE_RESET
-} from './../Constants/cartConstants';
+} from "./../Constants/cartConstants";
 
 // export const cartReducers = (
 // state = { cartItems: [], shippingAddress: {} }, action) => {
@@ -62,11 +62,11 @@ export const saveShippingAddressReducers = (state = { shippingAddress: {} }, act
       return {
         ...state,
         shippingAddress: action.payload
-      }
+      };
     default:
       return state;
   }
-}
+};
 // PAYMENT METHOD
 export const savePaymentMethodReducers = (state = { paymentMethod: {} }, action) => {
   switch (action.type) {
@@ -74,16 +74,13 @@ export const savePaymentMethodReducers = (state = { paymentMethod: {} }, action)
       return {
         ...state,
         paymentMethod: action.payload
-      }
+      };
     default:
       return state;
   }
-}
+};
 // CART LIST ITEM
-export const cartListItemReducers = (
-  state = { cartItems: [], shippingAddress: {} },
-  action
-) => {
+export const cartListItemReducers = (state = { cartItems: [], shippingAddress: {} }, action) => {
   switch (action.type) {
     case CART_LIST_MY_REQUEST:
       return { ...state, loading: true };
@@ -95,6 +92,7 @@ export const cartListItemReducers = (
       return state;
   }
 };
+
 // ADD TO CART
 export const addToCartReducer = (state = {}, action) => {
   switch (action.type) {
@@ -110,6 +108,7 @@ export const addToCartReducer = (state = {}, action) => {
       return state;
   }
 };
+
 // REMOVE CART
 export const cartRemoveReducer = (state = {}, action) => {
   switch (action.type) {
@@ -125,6 +124,7 @@ export const cartRemoveReducer = (state = {}, action) => {
       return state;
   }
 };
+
 // UPDATE CART
 export const cartUpdateReducer = (state = {}, action) => {
   switch (action.type) {

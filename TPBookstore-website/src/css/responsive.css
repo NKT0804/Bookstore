@@ -205,6 +205,14 @@
   }
 }
 
+/* PC */
+@media (min-width: 1024px) {
+  .cart-item .cart-itemMobile  {
+    display : none;
+  }
+}
+
+
 /* tablet */
 @media (min-width: 740px) and (max-width: 1023px) {
   /* header */
@@ -347,6 +355,11 @@
     grid-template-columns: 100%;
   }
 
+  #v-pills-password {
+    margin-left: -24px;
+    margin-right: 10px;
+  }
+
   .account__user_address {
     padding-left: 2px;
     padding-right: 4px;
@@ -364,6 +377,17 @@
 
   .input__address {
     margin-top: 12px;
+  }
+
+  /* cart */
+
+
+  .container .cart-title {
+    display: none;
+  }
+
+  .container .cart-itemPC {
+    display: none;
   }
 
   /* footer */
@@ -463,8 +487,10 @@
 
   /* homepage */
   .label-product_discount {
-    right: 0;
+    right: 2px;
+    top: 10px;
     padding: 1px;
+    font-size: 14px;
   }
 
   /* Account */
@@ -483,6 +509,26 @@
   }
   .account-sex-item label {
     min-width: 70px;
+  }
+
+  /* cart mobile */
+  .cart-itemMobile-text p {
+    font-size: 15px;
+  }
+
+  .cart-itemMobile-price {
+    font-size: 17px;
+    margin-top: 14px;
+  }
+
+  .cart-itemMobile-qty {
+    margin-top: 12px;
+  }
+
+  .cart-itemMobile-remove {
+    padding : 4px;
+    font-size: 18px;
+    margin-top: 4px !important;
   }
 
 
