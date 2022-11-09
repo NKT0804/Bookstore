@@ -67,8 +67,8 @@ const CategoriesTable = ({ setIsEditCategory, handleEditCategory, handleCurrentC
         <thead>
           <tr>
             <th>STT</th>
-            <th>Name</th>
-            <th className="text-end">Action</th>
+            <th>Tên danh mục</th>
+            <th className="text-end">Thao tác</th>
           </tr>
         </thead>
         {/* Table Data */}

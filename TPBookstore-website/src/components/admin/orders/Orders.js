@@ -54,10 +54,14 @@ const Orders = (props) => {
               </td>
               <td>{moment(order.createdAt).format("L")}</td>
               <td>
-                {order.isDelivered ? (
-                  <span className="badge3 btn-success">Đang giao</span>
+                {order.cancelled ? (
+                  <span className="badge3 btn-danger">Đã hủy</span>
+                ) : order.delivered ? (
+                  <span className="badge3 btn-success">Đã giao</span>
+                ) : order.confirmed ? (
+                  <span className="badge3 btn-warning">Đang giao</span>
                 ) : (
-                  <span className="badge3 btn-dark">Đang xử lý</span>
+                  <span className="badge3 btn-primary">Đang chờ xác nhận</span>
                 )}
               </td>
               <td className="d-flex justify-content-end align-item-center">

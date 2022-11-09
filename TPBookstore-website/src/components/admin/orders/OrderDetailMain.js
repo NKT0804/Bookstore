@@ -3,7 +3,13 @@ import OrderDetailProducts from "./OrderDetailProducts";
 import OrderDetailInfo from "./OrderDetailInfo";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { deliverOrder, getOrderDetails, isPaidOrder } from "./../../../Redux/Actions/orderActions";
+import {
+  deliverOrder,
+  getOrderDetails,
+  isPaidOrder,
+  confirmOrder,
+  cancelOrderAdmin
+} from "./../../../Redux/Actions/orderActions";
 import Loading from "./../../base/LoadingError/Loading";
 import Message from "./../../base/LoadingError/Error";
 import moment from "moment";
@@ -18,25 +24,39 @@ const OrderDetailmain = (props) => {
   const orderDeliver = useSelector((state) => state.orderDeliver);
   const { loading: loadingDelivered, success: successDelivered } = orderDeliver;
 
+  const orderConfirm = useSelector((state) => state.orderConfirm);
+  const { loading: loadingConfirm, success: successConfirm } = orderConfirm;
+
   const orderIsPaid = useSelector((state) => state.orderIsPaidAdmin);
   const { loading: loadingIsPaid, success: successIsPaid } = orderIsPaid;
 
+  const orderCancelAdmin = useSelector((state) => state.orderCancelAdmin);
+  const { loading: loadingCancel, success: successCancel } = orderCancelAdmin;
+
   useEffect(() => {
     dispatch(getOrderDetails(orderId));
-  }, [dispatch, orderId, successDelivered, successIsPaid]);
+  }, [dispatch, orderId, successDelivered, successIsPaid, successConfirm, successCancel]);
 
   const deliverHandler = () => {
-    if (window.confirm("Are you sure?")) {
+    if (window.confirm("Bạn có chắc chắn không?")) {
       dispatch(deliverOrder(order));
     }
   };
-
+  const confirmHandler = () => {
+    if (window.confirm("Bạn có chắc chắn không?")) {
+      dispatch(confirmOrder(order));
+    }
+  };
   const isPaidHandler = () => {
-    if (window.confirm("Are you sure?")) {
+    if (window.confirm("Bạn có chắc chắn không?")) {
       dispatch(isPaidOrder(order));
     }
   };
-
+  const cancelHandler = () => {
+    if (window.confirm("Bạn có chắc chắn không?")) {
+      dispatch(cancelOrderAdmin(order));
+    }
+  };
   return (
     <section className="content-main">
       <div className="content-header">
@@ -54,23 +74,18 @@ const OrderDetailmain = (props) => {
           <header className="card-header p-3 Header-green">
             <div className="row align-items-center ">
               <div className="col-lg-6 col-md-6">
-                <span>
-                  <i className="far fa-calendar-alt mx-2"></i>
-                  <b className="text-white">
-                    Ngày đặt: {moment(order.createdAt).format("LT") + " " + moment(order.createdAt).format("L")}
-                  </b>
-                </span>
+                <b className="text-white mx-3 ">Mã đơn hàng:</b>
+                <span className="text-white mx-3 ">{order._id}</span>
                 <br />
-                <small className="text-white mx-3 ">Mã đơn hàng: {order._id}</small>
+                <span>
+                  <i className="far fa-calendar-alt"></i>
+                  <b className="text-white"> Ngày đặt:</b>
+                  <span className="text-white mx-3 ">
+                    {moment(order.createdAt).format("LT") + " " + moment(order.createdAt).format("L")}
+                  </span>
+                </span>
               </div>
               <div className="col-lg-6 col-md-6 ms-auto d-flex justify-content-end align-items-center">
-                <select className="form-select d-inline-block" style={{ maxWidth: "200px" }}>
-                  <option>Change status</option>
-                  <option>Awaiting payment</option>
-                  <option>Confirmed</option>
-                  <option>Shipped</option>
-                  <option>Delivered</option>
-                </select>
                 <Link className="btn btn-success ms-2" to="#">
                   <i className="fas fa-print"></i>
                 </Link>
@@ -90,14 +105,21 @@ const OrderDetailmain = (props) => {
               {/* Payment Info */}
               <div className="col-lg-3">
                 <div className="box shadow-sm bg-light">
-                  {order?.isDelivered ? (
+                  {order?.delivered ? (
                     <button className="btn btn-success col-12">
                       Đã giao hàng ( {moment(order.isDeliveredAt).format("MMM Do YY")})
                     </button>
+                  ) : !order?.confirmed ? (
+                    <>
+                      {loadingConfirm && <Loading />}
+                      <button onClick={() => confirmHandler()} className="btn btn-primary col-12 btn-size">
+                        Xác nhận đơn hàng
+                      </button>
+                    </>
                   ) : (
                     <>
                       {loadingDelivered && <Loading />}
-                      <button onClick={() => deliverHandler()} className="btn btn-dark col-12 btn-size">
+                      <button onClick={() => deliverHandler()} className="btn btn-primary col-12 btn-size">
                         Xác nhận đã giao hàng
                       </button>
                     </>
@@ -109,10 +131,20 @@ const OrderDetailmain = (props) => {
                   ) : (
                     <>
                       {loadingIsPaid && <Loading />}
-                      <button onClick={isPaidHandler} className="btn btn-dark col-12 btn-size mt-2">
+                      <button onClick={isPaidHandler} className="btn btn-warning col-12 btn-size mt-2">
                         Xác nhận đã thanh toán
                       </button>
                     </>
+                  )}
+                  {!order.cancelled ? (
+                    <>
+                      {loadingCancel && <Loading />}
+                      <button onClick={cancelHandler} className="btn btn-danger col-12 btn-size mt-2">
+                        Hủy đơn hàng
+                      </button>
+                    </>
+                  ) : (
+                    <button className="btn-danger">Đơn hàng đã hủy</button>
                   )}
                 </div>
               </div>

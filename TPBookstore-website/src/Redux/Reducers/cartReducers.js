@@ -17,6 +17,7 @@ import {
   CART_UPDATE_RESET
 } from "./../Constants/cartConstants";
 
+<<<<<<< HEAD
 // export const cartReducers = (
 // state = { cartItems: [], shippingAddress: {} }, action) => {
 // switch (action.type) {
@@ -53,6 +54,8 @@ import {
 //   return state;
 // }
 // }
+=======
+>>>>>>> 43897214a505e9743e806d5aa9f66dc03fec442b
 // CART LIST ITEM
 export const cartListItemReducers = (state = { cartItems: [], shippingAddress: {} }, action) => {
   switch (action.type) {

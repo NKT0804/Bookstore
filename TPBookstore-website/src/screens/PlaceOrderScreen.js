@@ -139,10 +139,10 @@ const PlaceOrderScreen = ({ history }) => {
               <div className="col-md-8 center">
                 <h7 className="center order-detail-title">
                   <strong>Địa chỉ giao hàng</strong>
-                  <p className="order-detail-address">{shippingAddress}</p>
+                  <p>{shippingAddress}</p>
                 </h7>
-                <Link to={"/shipping"}>
-                  <u>Thay đổi</u>
+                <Link className="btn-link" to={"/shipping"}>
+                  Thay đổi
                 </Link>
               </div>
             </div>

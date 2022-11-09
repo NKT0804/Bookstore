@@ -64,7 +64,7 @@ const CreateSlider = () => {
                 Hình ảnh
               </label>
               <input
-                type="url"
+                type="text"
                 placeholder="Nhập url hình ảnh"
                 className="form-control"
                 id="slider_image"

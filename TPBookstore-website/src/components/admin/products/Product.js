@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { deleteProductAdmin } from "../../../Redux/Actions/productActions";
 import { toast } from "react-toastify";
 import Rating from "../../homeComponents/Rating";
+import formatCash from "../../../utils/formatCash";
 
 const ToastObjects = {
   pauseOnFocusLoss: false,
@@ -75,7 +76,7 @@ const Product = (props) => {
           <b>{product?.category.name}</b>
         </td>
         <td>
-          <b>{product?.price}$</b>
+          <b>{formatCash(product?.price)}</b>
         </td>
         <td>
           <b>{product?.countInStock}</b>

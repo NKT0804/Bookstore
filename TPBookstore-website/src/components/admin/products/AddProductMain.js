@@ -110,7 +110,7 @@ const AddProductMain = () => {
       <section className="content-main" style={{ maxWidth: "1200px" }}>
         <form onSubmit={submitHandler}>
           <div className="content-header">
-            <Link to="/admin/products" className="btn btn-danger text-white btn-size">
+            <Link to="/admin/products" className="btn btn-primary text-white btn-size">
               Quản lý sản phẩm
             </Link>
             <h2 className="content-title">Sản phẩm mới</h2>

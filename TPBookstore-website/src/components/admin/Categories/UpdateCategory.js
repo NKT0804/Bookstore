@@ -41,7 +41,7 @@ const UpdateCategory = ({ currentCategory, setIsEditCategory }) => {
           <div className="d-flex justify-content-between">
             <div className="mb-3 w-100">
               <label htmlFor="category_name" className="form-label">
-                Name
+                Tên danh mục
               </label>
               <input
                 type="text"
@@ -54,11 +54,11 @@ const UpdateCategory = ({ currentCategory, setIsEditCategory }) => {
             </div>
           </div>
           <div className="d-flex justify-content-between">
-            <button className="btn btn-primary p-2" onClick={() => setIsEditCategory(false)}>
-              Cancel update
+            <button className="btn btn-danger p-2" onClick={() => setIsEditCategory(false)}>
+              Hủy
             </button>
             <button className="btn btn-warning p-2" onClick={() => submitHandler()}>
-              Update category
+              Cập nhật
             </button>
           </div>
         </div>

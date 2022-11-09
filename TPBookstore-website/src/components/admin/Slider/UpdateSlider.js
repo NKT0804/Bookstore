@@ -80,7 +80,7 @@ const UpdateSlider = ({ currentSlider, setIsEditSlider }) => {
                 Liên kết đến
               </label>
               <input
-                type="url"
+                type="text"
                 placeholder="Nhập liên kết"
                 className="form-control"
                 id="slider_linkTo"
@@ -90,11 +90,11 @@ const UpdateSlider = ({ currentSlider, setIsEditSlider }) => {
             </div>
           </div>
           <div className="d-flex justify-content-between">
-            <button className="btn btn-primary p-2" onClick={() => setIsEditSlider(false)}>
-              Cancel update
+            <button className="btn btn-danger p-2" onClick={() => setIsEditSlider(false)}>
+              Hủy
             </button>
             <button className="btn btn-warning p-2" onClick={() => submitHandler()}>
-              Update category
+              Cập nhật
             </button>
           </div>
         </div>

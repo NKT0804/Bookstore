@@ -25,6 +25,18 @@ import {
   ORDER_PAY_REQUEST,
   ORDER_PAY_RESET,
   ORDER_PAY_SUCCESS,
+  ORDER_CONFIRM_REQUEST,
+  ORDER_CONFIRM_SUCCESS,
+  ORDER_CONFIRM_FAIL,
+  ORDER_CONFIRM_RESET,
+  ORDER_ADMIN_CANCEL_REQUEST,
+  ORDER_ADMIN_CANCEL_SUCCESS,
+  ORDER_ADMIN_CANCEL_FAIL,
+  ORDER_ADMIN_CANCEL_RESET,
+  ORDER_USER_CANCEL_REQUEST,
+  ORDER_USER_CANCEL_SUCCESS,
+  ORDER_USER_CANCEL_FAIL,
+  ORDER_USER_CANCEL_RESET
 } from "../Constants/orderConstants";
 
 /**
@@ -47,10 +59,7 @@ export const orderCreateReducer = (state = {}, action) => {
 };
 
 // ORDER DETAILS
-export const orderDetailsReducer = (
-  state = { loading: true, orderItems: [], shippingAddress: {} },
-  action
-) => {
+export const orderDetailsReducer = (state = { loading: true, orderItems: [], shippingAddress: {} }, action) => {
   switch (action.type) {
     case ORDER_DETAILS_REQUEST:
       return { ...state, loading: true };
@@ -95,7 +104,6 @@ export const orderListMyReducer = (state = { orders: [] }, action) => {
   }
 };
 
-
 /**
  * Admin front-end
  */
@@ -113,7 +121,6 @@ export const orderListReducerAdmin = (state = { orders: [] }, action) => {
   }
 };
 
-
 // ORDER DELIVERED
 export const orderDeliveredReducer = (state = {}, action) => {
   switch (action.type) {
@@ -124,6 +131,54 @@ export const orderDeliveredReducer = (state = {}, action) => {
     case ORDER_DELIVERED_FAIL:
       return { loading: false, error: action.payload };
     case ORDER_DELIVERED_RESET:
+      return {};
+    default:
+      return state;
+  }
+};
+
+//CONFIRM ORDER
+export const orderConfirmReducer = (state = {}, action) => {
+  switch (action.type) {
+    case ORDER_CONFIRM_REQUEST:
+      return { loading: true };
+    case ORDER_CONFIRM_SUCCESS:
+      return { loading: false, success: true };
+    case ORDER_CONFIRM_FAIL:
+      return { loading: false, error: action.payload };
+    case ORDER_CONFIRM_RESET:
+      return {};
+    default:
+      return state;
+  }
+};
+
+//ADMIN CANCEL ORDER
+export const orderCancelAdminReducer = (state = {}, action) => {
+  switch (action.type) {
+    case ORDER_ADMIN_CANCEL_REQUEST:
+      return { loading: true };
+    case ORDER_ADMIN_CANCEL_SUCCESS:
+      return { loading: false, success: true };
+    case ORDER_ADMIN_CANCEL_FAIL:
+      return { loading: false, error: action.payload };
+    case ORDER_ADMIN_CANCEL_RESET:
+      return {};
+    default:
+      return state;
+  }
+};
+
+//USER CANCEL ORDER
+export const orderCancelUserReducer = (state = {}, action) => {
+  switch (action.type) {
+    case ORDER_USER_CANCEL_REQUEST:
+      return { loading: true };
+    case ORDER_USER_CANCEL_SUCCESS:
+      return { loading: false, success: true };
+    case ORDER_USER_CANCEL_FAIL:
+      return { loading: false, error: action.payload };
+    case ORDER_USER_CANCEL_RESET:
       return {};
     default:
       return state;

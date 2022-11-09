@@ -84,6 +84,13 @@ const OrderScreen = ({ match }) => {
                       <strong>Địa chỉ giao hàng</strong>
                     </h7>
                     <p className="order-detail-text">{order.shippingAddress}</p>
+                    {!order.confirmed ? (
+                      <Link className="btn-link" to={"/shipping"}>
+                        Thay đổi
+                      </Link>
+                    ) : (
+                      <></>
+                    )}
                   </div>
                 </div>
               </div>
@@ -116,7 +123,7 @@ const OrderScreen = ({ match }) => {
                       </div>
                     ) : (
                       <div className="bg-danger mb-1 p-1 col-12">
-                        <p className="order-detail-text text-white text-center text-sm-start">Đang xử lý</p>
+                        <p className="order-detail-text text-white text-center text-sm-start">Đang chờ xác nhận</p>
                       </div>
                     )}
                   </div>
@@ -195,7 +202,8 @@ const OrderScreen = ({ match }) => {
                     </tr>
                   </tbody>
                 </table>
-                <button>Đã nhận hàng</button>
+                {order.confirmed ? <button>Đã nhận hàng</button> : <span>Đang chờ xác nhận</span>}
+                {!order.confirmed ? <button>Hủy đơn hàng</button> : <></>}
               </div>
             </div>
           </>

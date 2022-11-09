@@ -16,7 +16,7 @@ const MainCategories = () => {
     <>
       <section className="content-main mt-4">
         <div className="content-header">
-          <h2 className="content-title">Categories</h2>
+          <h2 className="content-title">DANH MỤC</h2>
         </div>
 
         <div className="row shadow-sm">

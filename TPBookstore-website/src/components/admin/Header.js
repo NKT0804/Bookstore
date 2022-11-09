@@ -25,7 +25,11 @@ const Header = () => {
     });
 
     $(".btn-aside-minimize").on("click", function () {
+<<<<<<< HEAD
       if (window.innerWidth < 1024) {
+=======
+      if (window.innerWidth < 768) {
+>>>>>>> 43897214a505e9743e806d5aa9f66dc03fec442b
         $("body").removeClass("aside-mini");
         $(".navbar-aside").removeClass("show");
       } else {
@@ -38,7 +42,11 @@ const Header = () => {
   const submitHandler = (e) => {
     e.preventDefault();
     if (keyword.trim()) {
+<<<<<<< HEAD
       history.push(`/admin/search/${keyword}`);
+=======
+      // history.push(`/admin/search/${keyword}`);
+>>>>>>> 43897214a505e9743e806d5aa9f66dc03fec442b
     } else {
       history.push(`/admin`);
     }
@@ -57,14 +65,32 @@ const Header = () => {
               list="search_terms"
               type="text"
               className="form-control input-search-admin"
+<<<<<<< HEAD
               placeholder="Search term"
+=======
+              placeholder="Tìm kiếm"
+>>>>>>> 43897214a505e9743e806d5aa9f66dc03fec442b
               onChange={(e) => setKeyword(e.target.value)}
             />
             <button className="btn btn-light bg btn-search-admin" type="submit">
               <i className="far fa-search icon-search-admin"></i>
             </button>
           </div>
+<<<<<<< HEAD
           <datalist id="search_terms"></datalist>
+=======
+          <datalist id="search_terms">
+            <option value="Bảng điều khiển" />
+            <option value="Sản phẩm" />
+            <option value="Thêm sản phẩm" />
+            <option value="Danh mục" />
+            <option value="Đơn hàng" />
+            <option value="Tài khoản" />
+            <option value="Bình luận" />
+            <option value="Slider" />
+            <option value="Banner" />
+          </datalist>
+>>>>>>> 43897214a505e9743e806d5aa9f66dc03fec442b
         </form>
       </div>
       <div className="col-nav">
@@ -83,9 +109,16 @@ const Header = () => {
             </Link>
           </li>
           <li className="nav-item">
+<<<<<<< HEAD
             <Link className="nav-link" to="#">
               English
             </Link>
+=======
+            <select className="border border-white">
+              <option>Tiếng việt</option>
+              <option>Tiếng anh</option>
+            </select>
+>>>>>>> 43897214a505e9743e806d5aa9f66dc03fec442b
           </li>
           <li className="dropdown nav-item">
             <Link className="dropdown-toggle" data-bs-toggle="dropdown" to="#">
@@ -93,6 +126,7 @@ const Header = () => {
             </Link>
             <div className="dropdown-menu dropdown-menu-end">
               <Link className="dropdown-item" to="/profile">
+<<<<<<< HEAD
                 My profile
               </Link>
               <Link className="dropdown-item" to="#">
@@ -100,6 +134,15 @@ const Header = () => {
               </Link>
               <Link onClick={logoutHandler} className="dropdown-item text-danger" to="#">
                 Exit
+=======
+                Tài khoản
+              </Link>
+              <Link className="dropdown-item" to="#">
+                Cài đặt
+              </Link>
+              <Link onClick={logoutHandler} className="dropdown-item text-danger" to="#">
+                Đăng xuất
+>>>>>>> 43897214a505e9743e806d5aa9f66dc03fec442b
               </Link>
             </div>
           </li>

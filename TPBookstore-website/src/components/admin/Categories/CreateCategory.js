@@ -42,12 +42,12 @@ const CreateCategory = () => {
         {loading && <Loading />}
         <div className="mb-4">
           <label htmlFor="category_name" className="form-label">
-            Name
+            Tên danh mục
           </label>
           <input
             required
             type="text"
-            placeholder="Type here"
+            placeholder="Nhập danh mục"
             className="form-control"
             id="category_name"
             value={name}
@@ -55,7 +55,7 @@ const CreateCategory = () => {
           />
         </div>
         <div className="d-grid">
-          <button className="btn btn-size btn-primary">Create category</button>
+          <button className="btn btn-size btn-primary">Thêm danh mục</button>
         </div>
       </form>
     </>

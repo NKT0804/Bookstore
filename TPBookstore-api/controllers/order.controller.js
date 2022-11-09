@@ -185,26 +185,19 @@ const getDetailOrderById = async (req, res) => {
 
 /**
  * Update: ORDER IS PAID
- * for test + demo
  */
-// const payOrderByApi = async (req, res) => {
-//     const orderId = req.params.id || null;
-//     const order = await Order.findOne({ _id: orderId, isDisabled: false });
-//     if (!order) {
-//         res.status(404);
-//         throw new Error("Order Not Found");
-//     }
-//     order.isPaid = true;
-//     order.paidAt = Date.now();
-//     order.paymentResult = {
-//         id: req.body.id,
-//         status: req.body.status,
-//         update_time: req.body.update_time,
-//         email_address: req.body.email_address
-//     };
-//     const updateOrder = await order.save();
-//     res.json(updateOrder);
-// };
+const orderPayment = async (req, res) => {
+    const orderId = req.params.id || null;
+    const order = await Order.findOne({ _id: orderId, isDisabled: false });
+    if (!order) {
+        res.status(404);
+        throw new Error("Order Not Found");
+    }
+    order.isPaid = true;
+    order.paidAt = Date.now();
+    const updateOrder = await order.save();
+    res.json(updateOrder);
+};
 
 /**
  * Update: ORDER IS DELIVERED
@@ -216,7 +209,7 @@ const confirmDelivered = async (req, res) => {
         res.status(404);
         throw new Error("Order Not Found");
     }
-    order.isDelivered = true;
+    order.delivered = true;
     order.deliveredAt = Date.now();
     const updateOrder = await order.save();
     res.status(200);
@@ -234,6 +227,39 @@ const confirmOrder = async (req, res) => {
         throw new Error("Order Not Found");
     }
     order.confirmed = true;
+    const updateOrder = await order.save();
+    res.status(200);
+    res.json(updateOrder);
+};
+
+/**
+ * Update: CANCEL ORDER ADMIN
+ */
+const cancelOrderAdmin = async (req, res) => {
+    const orderId = req.params.id || null;
+    const order = await Order.findOne({ _id: orderId, isDisabled: false });
+    if (!order) {
+        res.status(404);
+        throw new Error("Order Not Found");
+    }
+    order.cancelled = true;
+    const updateOrder = await order.save();
+    res.status(200);
+    res.json(updateOrder);
+};
+
+/**
+ * Update: CANCEL ORDER USER
+ */
+const cancelOrderUser = async (req, res) => {
+    const orderId = req.params.id || null;
+    const user = req.body.user || null;
+    const order = await Order.findOne({ _id: orderId, user: user._id, isDisabled: false });
+    if (!order) {
+        res.status(404);
+        throw new Error("Order Not Found");
+    }
+    order.cancelled = true;
     const updateOrder = await order.save();
     res.status(200);
     res.json(updateOrder);
@@ -298,9 +324,11 @@ const OrderController = {
     getOrderAdmin,
     getOrder,
     getDetailOrderById,
-    // payOrderByApi,
+    orderPayment,
     confirmDelivered,
     confirmOrder,
+    cancelOrderAdmin,
+    cancelOrderUser,
     Received,
     disableOrder,
     restoreOrder,

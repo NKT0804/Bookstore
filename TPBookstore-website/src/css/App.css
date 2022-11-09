@@ -165,9 +165,8 @@ textarea:focus {
   margin: 0 15px;
 }
 
-
 .fa.fa-user {
-  margin-top:4px;
+  margin-top: 4px;
 }
 
 .dropdown-menu {
@@ -176,7 +175,7 @@ textarea:focus {
   padding: 0 !important;
   overflow: hidden;
   display: none;
-  box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
 }
 
 .dropdown-menu a {
@@ -261,18 +260,17 @@ textarea:focus {
 }
 
 .ralated-product-list {
-  margin-bottom : 20px;
+  margin-bottom: 20px;
 }
 
 .title-section {
-  padding : 16px 0;
+  padding: 16px 0;
   border-bottom: 2px solid #f5f5f59b;
-
 }
 
 .find-product {
   border-right: 2px solid #f5f5f59b;
-  margin-left: 2px ;
+  margin-left: 2px;
 }
 
 .shopBack {
@@ -331,7 +329,7 @@ textarea:focus {
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
-  text-transform:capitalize;
+  text-transform: capitalize;
 }
 
 .shoptext__price-special {
@@ -340,10 +338,9 @@ textarea:focus {
 
 .shoptext__price-special-new,
 .product-count__new-price {
-  font-size : 17px;
-  font-weight : 600;
-  color : var(--primary-color)
-
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--primary-color);
 }
 
 .shoptext__price-special-discount {
@@ -358,7 +355,7 @@ textarea:focus {
 
 .shoptext__price-old,
 .product-count__old-price {
-  height : 20px;
+  height: 20px;
   margin-top: 4px;
   color: #888888;
   text-decoration: line-through;
@@ -380,7 +377,7 @@ textarea:focus {
   font-size: 17px;
 }
 .distance-price__submit:hover {
-  opacity: 0.9
+  opacity: 0.9;
 }
 
 .distance-price__input {
@@ -549,7 +546,6 @@ textarea:focus {
 .product-manuafactures {
   margin-top: 20px;
   font-size: 14px;
-
 }
 
 .product-manuafactures__item {
@@ -557,7 +553,6 @@ textarea:focus {
   justify-content: space-between;
   margin-bottom: 12px;
 }
-
 
 .product-count {
   border: 2px solid #f3f3f3;
@@ -574,7 +569,7 @@ textarea:focus {
   font-size: 16px;
 }
 
-.product-count__new-price{
+.product-count__new-price {
   margin-right: 6px;
 }
 
@@ -612,7 +607,7 @@ textarea:focus {
 }
 
 .btn-submit {
-  background-color : var(--primary-color);
+  background-color: var(--primary-color);
   font-weight: 500;
 }
 
@@ -626,7 +621,7 @@ textarea:focus {
 }
 
 .product-view-info_detail {
-  padding-bottom:  20px;
+  padding-bottom: 20px;
   border-bottom: 2px solid #f5f5f59b;
 }
 
@@ -638,15 +633,14 @@ textarea:focus {
   width: 200px;
   box-sizing: border-box;
   line-height: 2;
-  color : #777777;
+  color: #777777;
   font-style: italic;
 }
 
 .product-description_content {
   padding-top: 12px;
-  text-align:justify;
+  text-align: justify;
 }
-
 
 /* REGISTER */
 .login-center {
@@ -702,8 +696,6 @@ textarea:focus {
 .Login p a {
   color: #7a7a7a;
 }
-
-
 
 /* PROFILE */
 .user__profile {
@@ -767,8 +759,6 @@ textarea:focus {
   margin-top: -80%;
   box-shadow: 0px 0px 27px 0px rgba(0, 0, 0, 0.377);
 }
-
-
 
 /* .author-change-avt {
 }
@@ -869,7 +859,7 @@ textarea:focus {
 }
 
 .wizard .nav button:hover {
-  color: #FA5130;
+  color: #fa5130;
 }
 
 .wizard .nav .active {
@@ -908,7 +898,6 @@ textarea:focus {
 .row.form-container {
   background-color: var(--white-color);
   padding-bottom: 12px;
-  
 }
 
 .form-container button {
@@ -926,15 +915,15 @@ textarea:focus {
 }
 
 .row .profile-title {
-  padding-top : 20px;
-  font-size:20px;
+  padding-top: 20px;
+  font-size: 20px;
   border-bottom: 2px solid #e2d4d4;
   padding-bottom: 8px;
 }
 
 .user-information,
 .user-password {
-  margin-top : 16px;
+  margin-top: 16px;
 }
 
 .user-information {
@@ -961,18 +950,18 @@ textarea:focus {
 .account__user label {
   min-width: 160px;
   display: flex;
-  padding-right : 20px;
+  padding-right: 20px;
 }
 
 .account__user input:disabled {
   border: none;
   background-color: var(--white-color);
-  cursor : default;
+  cursor: default;
   font-size: 18px;
 }
 
 .input__birthday {
-  padding : 4px 10px !important;
+  padding: 4px 10px !important;
   width: 30%;
 }
 
@@ -983,7 +972,7 @@ textarea:focus {
 }
 
 .acount-address__item {
-  width : 30%;
+  width: 30%;
   padding: 7px 5px;
 }
 
@@ -993,21 +982,19 @@ textarea:focus {
   margin-top: 12px;
 }
 
-.account-sex p  {
+.account-sex p {
   display: flex;
 }
 
-.account-sex-item label{
+.account-sex-item label {
   color: #000 !important;
   font-size: 15px;
   text-transform: none;
 }
 
-
 .account-sex input {
   margin-right: 6px;
-  display : flex;
-
+  display: flex;
 }
 
 .account-sex-item {
@@ -1042,34 +1029,29 @@ textarea:focus {
 
 .profile__order-product-id {
   display: flex;
-  justify-content:center;
+  justify-content: center;
   padding-bottom: 6px;
-  border-bottom : 1px solid #999999;
+  border-bottom: 1px solid #999999;
 }
 
 .profile__order-product-name {
-  font-weight : 400;
-
+  font-weight: 400;
 }
 
 .profile__order-product-price {
-  font-weight : 600;
-
+  font-weight: 600;
 }
 
 .profile__order-product-qty {
-  color: #DC354B;
-
+  color: #dc354b;
 }
 
 .profile__order-product-total {
   display: flex;
   justify-content: end;
-  padding : 0 32px;
-  color: #DC354B;
+  padding: 0 32px;
+  color: #dc354b;
 }
-
-
 
 /* orders */
 .link {
@@ -1105,8 +1087,6 @@ textarea:focus {
 .order__detail-user {
   padding: 20px;
 }
-
-
 
 /* CART */
 .cart-title {
@@ -1324,7 +1304,6 @@ textarea:focus {
   padding: 12px 6px 12px 10px;
 }
 
-
 .order-detail h5 {
   margin-bottom: 6px;
 }
@@ -1341,11 +1320,11 @@ textarea:focus {
 .order-products {
   background-color: var(--white-color);
   margin: 40px 0 60px 0;
-  padding : 20px 0;
+  padding: 20px 0;
 }
 
 .order-products-item {
-  padding : 12px 12px 12px 0;
+  padding: 12px 12px 12px 0;
   border-right: 2px solid #f3f3f3;
   border-bottom: 2px solid #f3f3f3;
   border-top: 2px solid #f3f3f3;
@@ -1384,19 +1363,19 @@ textarea:focus {
 }
 
 .page-item.active .page-link {
-  background-color: black;
-  border: 1px solid black;
+  background-color: var(--primary-color);
+  border: 1px solid var(--primary-color);
 }
 
 /* slideshow */
 @import "react-slideshow-image/dist/styles.css";
 
 .slide-container {
-  margin: 32px 0 16px 0;;
+  margin: 32px 0 16px 0;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  padding : 0 !important;
+  padding: 0 !important;
   max-height: 336px;
 }
 
@@ -1407,23 +1386,21 @@ textarea:focus {
 .each-slide img {
   width: 100%;
   height: 336px;
-  max-height : 336px;
+  max-height: 336px;
   border-radius: 4px;
 }
 
 .slide__banner {
   width: 31.5%;
-  height : 100%;
-  display :flex;
+  height: 100%;
+  display: flex;
   flex-direction: column;
   justify-content: space-between;
-
 }
 
 .slide__banner-img {
-  height : 100% ;
+  height: 100%;
   border-radius: 4px;
-
 }
 
 /* Policy */
@@ -1436,8 +1413,8 @@ textarea:focus {
   justify-content: space-between;
   align-items: center;
   overflow-x: auto;
-  background-color:var(--white-color);
-  border-radius:2px;
+  background-color: var(--white-color);
+  border-radius: 2px;
 }
 
 .policy__list::-webkit-scrollbar {
@@ -1764,14 +1741,14 @@ a.popu-cate__item {
   display: none;
 }
 .btn__image {
-  border : 1px solid var(--primary-color);
-  padding : 8px 8px !important;
+  border: 1px solid var(--primary-color);
+  padding: 8px 8px !important;
   margin-left: 8px;
-  background-color:var(--white-color)
+  background-color: var(--white-color);
 }
 
 .btn__image:hover {
-  background : rgba(0,0,0,.02);
+  background: rgba(0, 0, 0, 0.02);
 }
 
 /* trademark */
@@ -1986,7 +1963,7 @@ a.popu-cate__item {
 
 /* best seller */
 .slick-prev {
-  left : -14px !important;
+  left: -14px !important;
 }
 
 .slick-prev:before {
@@ -1995,7 +1972,7 @@ a.popu-cate__item {
 }
 
 .slick-next {
-  right : -14px !important;
+  right: -14px !important;
 }
 
 .slick-next:before {
@@ -2030,6 +2007,5 @@ a.popu-cate__item {
   padding: 8px;
   cursor: pointer;
 }
-
 
 /* TEST CSS*/

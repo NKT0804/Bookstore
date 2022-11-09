@@ -21,7 +21,7 @@ const Sidebar = () => {
             <li className="menu-item">
               <NavLink activeClassName="active" className="menu-link" to="/admin" exact={true}>
                 <i className="icon fas fa-home"></i>
-                <span className="text">Dashboard</span>
+                <span className="text">Bảng điều khiển</span>
               </NavLink>
             </li>
             <li className="menu-item">
@@ -51,7 +51,11 @@ const Sidebar = () => {
             <li className="menu-item">
               <NavLink activeClassName="active" className="menu-link" to="/admin/users">
                 <i className="icon fas fa-user"></i>
+<<<<<<< HEAD
                 <span className="text">Tài khoản users</span>
+=======
+                <span className="text">Tài khoản</span>
+>>>>>>> 43897214a505e9743e806d5aa9f66dc03fec442b
               </NavLink>
             </li>
             <li className="menu-item">

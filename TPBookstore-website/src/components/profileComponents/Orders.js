@@ -82,7 +82,7 @@ const Orders = (props) => {
                           </span>
                         ) : (
                           <span className="text-danger border border-danger rounded-pill ps-2 pe-2">
-                            <i className="fas fa-truck"></i> Đơn hàng đang đươc xử lý
+                            <i className="fas fa-truck"></i> Đang chờ xác nhận
                           </span>
                         )}
                       </div>
@@ -117,7 +117,7 @@ const Orders = (props) => {
                             </span>
                           ) : (
                             <span className="text-danger border border-danger rounded-pill ps-2 pe-2">
-                              <i className="fas fa-truck"></i> Đơn hàng đang được xử lý
+                              <i className="fas fa-truck"></i> Đang chờ xác nhận
                             </span>
                           )}
                         </div>

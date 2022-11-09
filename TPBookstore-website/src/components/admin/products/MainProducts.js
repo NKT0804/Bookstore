@@ -14,12 +14,12 @@ const MainProducts = (props) => {
   const { keyword, pageNumber } = props;
   const dispatch = useDispatch();
 
-  const [categoryFilterAdmin, setCategoryFilterAdmin] = useState('');
+  const [categoryFilterAdmin, setCategoryFilterAdmin] = useState("");
 
-  const productListAdmin = useSelector(state => state.productListAdmin);
+  const productListAdmin = useSelector((state) => state.productListAdmin);
   const { loading, error, products, page, pages } = productListAdmin;
 
-  const categoryListAdmin = useSelector(state => state.categoryListAdmin);
+  const categoryListAdmin = useSelector((state) => state.categoryListAdmin);
   const { category } = categoryListAdmin;
 
   const productDeleteAdmin = useSelector((state) => state.productDeleteAdmin);
@@ -28,12 +28,14 @@ const MainProducts = (props) => {
   let productsFilterCategory = [];
 
   const handleCategoryFilterAdmin = () => {
-    if (categoryFilterAdmin !== '') {
-      productsFilterCategory = products ? products.filter((itemCate) => itemCate.category._id === categoryFilterAdmin) : []
+    if (categoryFilterAdmin !== "") {
+      productsFilterCategory = products
+        ? products.filter((itemCate) => itemCate.category._id === categoryFilterAdmin)
+        : [];
     } else {
       productsFilterCategory = products;
     }
-  }
+  };
   handleCategoryFilterAdmin();
 
   useEffect(() => {
@@ -45,15 +47,10 @@ const MainProducts = (props) => {
     <section className="content-main">
       <Toast />
       <div className="content-header">
-        <div>
-          <Link to="/admin/products" className="btn btn-danger btn-size">
-            Back
-          </Link>
-        </div>
-        <h2 className="content-title">Products</h2>
+        <h2 className="content-title">Sản phẩm</h2>
         <div>
           <Link to="/admin/addproduct" className="btn btn-primary btn-size">
-            Create new
+            Thêm sản phẩm
           </Link>
         </div>
       </div>
@@ -62,11 +59,7 @@ const MainProducts = (props) => {
         <header className="card-header bg-white ">
           <div className="row">
             <div className="col-lg-4 col-md-6 me-auto ">
-              <input
-                type="search"
-                placeholder="Search..."
-                className="form-control p-2"
-              />
+              <input type="search" placeholder="Tìm kiếm" className="form-control p-2" />
             </div>
             <CategoryFilterAdmin
               category={category}
@@ -75,61 +68,47 @@ const MainProducts = (props) => {
             />
             <div className="col-lg-2 col-6 col-md-3">
               <select className="form-select">
-                <option>Expensive first</option>
-                <option>Cheap first</option>
-                <option>Latest added</option>
-                <option>Most viewed</option>
+                <option>Mới nhất</option>
+                <option>Cũ nhất</option>
+                <option>Giá tăng dần</option>
+                <option>Giá giảm dần</option>
               </select>
             </div>
           </div>
         </header>
 
         <div className="card-body">
-          {errorDelete && (
-            <Message variant="alert-danger">{errorDelete}</Message>
-          )}
+          {errorDelete && <Message variant="alert-danger">{errorDelete}</Message>}
           {loading ? (
             <Loading />
           ) : error ? (
             <Message variant="alert-danger">{error}</Message>
-            ) : (
-                <>
-
-                  <table className="table">
-                    <thead className="pc-header">
-                      <tr>
-                        <th>STT</th>
-                        <th>Image</th>
-                        <th>Name</th>
-                        <th>Rating&Reviews</th>
-                        <th>Category</th>
-                        <th>Price</th>
-                        <th>CountInStock</th>
-                        <th>Total Sales</th>
-                        <th className="text-end">Action</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {
-                        productsFilterCategory?.map((product, index) => (
-                          <Product
-                            product={product}
-                            index={index}
-                            key={product._id}
-                            successDelete={successDelete}
-                          />
-                        ))
-                      }
-                    </tbody>
-                  </table>
-                </>
+          ) : (
+            <>
+              <table className="table">
+                <thead className="pc-header">
+                  <tr>
+                    <th>Stt</th>
+                    <th>Hình ảnh</th>
+                    <th>Tên sản phẩm</th>
+                    <th>Đánh giá</th>
+                    <th>Thể loại</th>
+                    <th>Đơn giá</th>
+                    <th>Kho</th>
+                    <th>Đã bán</th>
+                    <th className="text-end">Thao tác</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {productsFilterCategory?.map((product, index) => (
+                    <Product product={product} index={index} key={product._id} successDelete={successDelete} />
+                  ))}
+                </tbody>
+              </table>
+            </>
           )}
           {/* PaginationAdmin */}
-          <PaginationAdmin
-            page={page}
-            pages={pages}
-            keyword={keyword ? keyword : ""}
-          />
+          <PaginationAdmin page={page} pages={pages} keyword={keyword ? keyword : ""} />
         </div>
       </div>
     </section>
