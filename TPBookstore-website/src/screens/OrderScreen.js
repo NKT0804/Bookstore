@@ -37,6 +37,7 @@ const OrderScreen = ({ match }) => {
         ) : (
           <>
             <div className="row order-detail">
+              {/*  */}
               <div className="order-detail-item col-lg-3 col-md-6 col-6">
                 <div className="row order-detail-item-content">
                   <div className="col-md-3 center">
@@ -45,7 +46,7 @@ const OrderScreen = ({ match }) => {
                     </div>
                   </div>
                   <div className="col-md-9 center">
-                    <h7>
+                    <h7 className="order-detail-title">
                       <strong>Khách hàng</strong>
                     </h7>
                     <p className="order-detail-text">Tên: {order.user.name}</p>
@@ -62,7 +63,7 @@ const OrderScreen = ({ match }) => {
                     </div>
                   </div>
                   <div className="col-md-9 center">
-                    <h7>
+                    <h7 className="order-detail-title">
                       <strong>Thông tin vận chuyển</strong>
                     </h7>
                     <p className="order-detail-text">Đơn vị vận chuyển: GHTK</p>
@@ -79,7 +80,7 @@ const OrderScreen = ({ match }) => {
                     </div>
                   </div>
                   <div className="col-md-9 center">
-                    <h7>
+                    <h7 className="order-detail-title">
                       <strong>Địa chỉ giao hàng</strong>
                     </h7>
                     <p className="order-detail-text">{order.shippingAddress}</p>
@@ -95,7 +96,7 @@ const OrderScreen = ({ match }) => {
                     </div>
                   </div>
                   <div className="col-md-8 center">
-                    <h7>
+                    <h7 className="order-detail-title">
                       <strong>Trạng thái đơn hàng</strong>
                     </h7>
                     {order.isPaid ? (
@@ -131,25 +132,25 @@ const OrderScreen = ({ match }) => {
                   <>
                     {order?.orderItems.map((item, index) => (
                       <div className="order-products-item row" key={index}>
-                        <div className="col-md-2 col-4">
+                        <div className="col-lg-2 col-md-2 col-3">
                           <Link to={`/product/${item.product}`}>
                             <img src={item.image} alt={item.name} />
                           </Link>
                         </div>
-                        <div className="col-md-4 col-5 d-flex align-items-center">
+                        <div className="col-lg-4 px-2 col-md-4 col-6 d-flex align-items-center">
                           <Link to={`/product/${item.product}`}>
-                            <h6>{item.name.length >= 60 ? `${item.name.slice(0, 60)}...` : ` ${item.name}`}</h6>
+                            <h6>{item.name.length >= 50 ? `${item.name.slice(0, 50)}...` : ` ${item.name}`}</h6>
                           </Link>
                         </div>
-                        <div className="mt-3 mt-md-0 col-md-2 col-3  d-flex align-items-center flex-column justify-content-center ">
+                        <div className="order-products-item-qty mt-3 mt-md-0  col-lg-2 col-md-2 col-3  d-flex align-items-center flex-column justify-content-center ">
                           <h4>Số lượng</h4>
                           <h6>{item.qty}</h6>
                         </div>
-                        <div className="unit__price mt-3 mt-md-0 col-md-2 col-9  d-flex align-items-center flex-column justify-content-center ">
+                        <div className="unit__price mt-3 mt-md-0 col-lg-2 col-md-2 col-9  d-flex align-items-center flex-column justify-content-center ">
                           <h4>Đơn giá</h4>
                           <h6>{formatCash(item.price)}</h6>
                         </div>
-                        <div className="mt-3 mt-md-0 col-md-2 col-3 align-items-end  d-flex flex-column justify-content-center ">
+                        <div className="order-products-item-total mt-3 mt-md-0 col-lg-2 col-md-2 col-3 align-items-end  d-flex flex-column justify-content-center ">
                           <h4>Thành tiền</h4>
                           <h6 className="text-danger fw-bold">{formatCash(item.qty * item.price)}</h6>
                         </div>

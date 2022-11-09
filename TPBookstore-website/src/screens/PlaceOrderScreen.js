@@ -94,53 +94,56 @@ const PlaceOrderScreen = ({ history }) => {
       <Header />
       <div className="container">
         <div className="row  order-detail">
-          <div className="col-lg-4 col-sm-4 mb-lg-4 mb-5 mb-sm-0">
+          {/* 1 */}
+          <div className="order-detail-item col-lg-4 col-md-4 col-5 mb-lg-4 mb-5 mb-sm-0">
             <div className="row ">
-              <div className="col-md-4 center">
+              <div className="col-md-3 center">
                 <div className="alert-success order-box">
                   <i className="fas fa-user"></i>
                 </div>
               </div>
               <div className="col-md-8 center">
-                <h5>
+                <h7 className="order-detail-title">
                   <strong>Khách hàng</strong>
-                </h5>
+                </h7>
                 <p>Tên: {userInfo?.name}</p>
                 <p>SĐT: {userInfo?.phone}</p>
               </div>
             </div>
           </div>
           {/* 2 */}
-          <div className="col-lg-4 col-sm-4 mb-lg-4 mb-5 mb-sm-0">
+          <div className="order-detail-item col-lg-4 col-md-4 col-7 mb-lg-4 mb-5 mb-sm-0">
             <div className="row">
-              <div className="col-md-4 center">
+              <div className="col-md-3 center">
                 <div className="alert-success order-box">
                   <i className="fas fa-truck-moving"></i>
                 </div>
               </div>
               <div className="col-md-8 center">
-                <h5>
+                <h7 className="order-detail-title">
                   <strong>Thông tin vận chuyển</strong>
-                </h5>
+                </h7>
                 <p>Đơn vị vận chuyển: GHTK</p>
                 <p>Hình thức vận chuyển: Nhanh</p>
               </div>
             </div>
           </div>
           {/* 3 */}
-          <div className="col-lg-4 col-sm-4 mb-lg-4 mb-5 mb-sm-0">
+          <div className="order-detail-item col-lg-4 col-md-4 col-12 mb-lg-4 mb-5 mb-sm-0">
             <div className="row">
-              <div className="col-md-4 center">
+              <div className="col-md-3 center">
                 <div className="alert-success order-box">
                   <i className="fas fa-map-marker-alt"></i>
                 </div>
               </div>
               <div className="col-md-8 center">
-                <h5>
+                <h7 className="center order-detail-title">
                   <strong>Địa chỉ giao hàng</strong>
-                  <p>{shippingAddress}</p>
-                </h5>
-                <Link to={"/shipping"}>Thay đổi</Link>
+                  <p className="order-detail-address">{shippingAddress}</p>
+                </h7>
+                <Link to={"/shipping"}>
+                  <u>Thay đổi</u>
+                </Link>
               </div>
             </div>
           </div>
@@ -149,32 +152,36 @@ const PlaceOrderScreen = ({ history }) => {
         <div className="row order-products justify-content-between">
           <div className="col-lg-8">
             {cartItems?.length === 0 ? (
-              <Message variant="alert-info mt-5">Your cart is empty</Message>
+              <Message variant="alert-info mt-5">Bạn chưa có đơn hàng nào</Message>
             ) : (
               <>
                 {cartItems?.map((item, index) => (
-                  <div className="order-product row" key={index}>
-                    <div className="col-md-3 col-6">
+                  <div className="order-products-item row" key={index}>
+                    <div className="col-lg-2 col-md-2 col-3">
                       <Link to={`/product/${item.product}`}>
                         <img src={item.product.image} alt={item.name} />
                       </Link>
                     </div>
-                    <div className="col-md-5 col-6 d-flex align-items-center">
+                    <div className="col-lg-4 px-2 col-md-4 col-6 d-flex align-items-center">
                       <Link to={`/product/${item.product}`}>
-                        <h6>{item.product.name}</h6>
+                        <h6>
+                          {item.product.name.length >= 50
+                            ? `${item.product.name.slice(0, 50)}...`
+                            : ` ${item.product.name}`}
+                        </h6>
                       </Link>
                     </div>
-                    <div className="mt-3 mt-md-0 col-md-2 col-6  d-flex align-items-center flex-column justify-content-center ">
+                    <div className="mt-3 mt-md-0 col-lg-2 col-md-2 col-3 d-flex align-items-center flex-column justify-content-center ">
                       <h4>Số lượng</h4>
                       <h6>{item.qty}</h6>
                     </div>
-                    <div className="mt-3 mt-md-0 col-md-2 col-6  d-flex align-items-center flex-column justify-content-center ">
+                    <div className="unit__price mt-3 mt-md-0 col-lg-2 col-md-2 col-9  d-flex align-items-center flex-column justify-content-center ">
                       <h4>Đơn giá</h4>
                       <h6>{formatCash(item.product.price)}</h6>
                     </div>
-                    <div className="mt-3 mt-md-0 col-md-2 col-6 align-items-end  d-flex flex-column justify-content-center ">
+                    <div className="mt-3 mt-md-0 col-lg-2 col-md-2 col-3 align-items-end  d-flex flex-column justify-content-center ">
                       <h4>Thành tiền</h4>
-                      <h6>{formatCash(item.qty * item.product.price)}</h6>
+                      <h6 className="text-danger fw-bold">{formatCash(item.qty * item.product.price)}</h6>
                     </div>
                   </div>
                 ))}
@@ -182,7 +189,7 @@ const PlaceOrderScreen = ({ history }) => {
             )}
           </div>
           {/* total */}
-          <div className="col-lg-3 d-flex align-items-end flex-column mt-5 subtotal-order">
+          <div className="col-lg-4 d-flex align-items-end flex-column mt-5 subtotal-order">
             <table className="table table-bordered">
               <tbody>
                 <tr>
