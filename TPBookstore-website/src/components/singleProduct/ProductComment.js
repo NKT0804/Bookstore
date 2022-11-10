@@ -142,7 +142,7 @@ const ProductComment = (props) => {
   useEffect(() => loadNotifiCreateProductComment(), [loadNotifiCreateProductComment]);
   return (
     <div className="wrap-comment">
-      <h3>Product comment</h3>
+      <h3>Bình luận sản phẩm</h3>
       {userInfo ? (
         <form className="mt-3 mb-3 nav justify-content-end" onSubmit={submitHandler}>
           <textarea
@@ -154,7 +154,7 @@ const ProductComment = (props) => {
             onChange={(e) => setContent(e.target.value)}
           ></textarea>
           <button type="submit" className="btn btn-submit mt-3 btn-size p-2">
-            SEND COMMENT
+            Đăng bình luận
           </button>
         </form>
       ) : (

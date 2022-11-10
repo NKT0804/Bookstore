@@ -404,6 +404,21 @@
     display: none;
   }
 
+  /* single product */
+  .product-manuafactures__item {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0;
+  }
+
+  .product-manuafactures__item span {
+    margin-bottom : 12px;
+  }
+
+  .product-manuafactures__item span label {
+   min-width: 100px;
+  }
+
   /* footer */
   .icon__footer {
     display: none;
