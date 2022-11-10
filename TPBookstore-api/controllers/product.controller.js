@@ -19,6 +19,7 @@ const createProduct = async (req, res) => {
         res.status(400);
         throw new Error("Product name already exist");
     }
+
     // Tạo slug
     let slug = createSlug(name);
     const isExistSlug = await Product.findOne({ slug: slug });

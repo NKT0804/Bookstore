@@ -14,6 +14,9 @@ import mongoose from "mongoose";
 import RefreshToken from "../models/RefreshTokenModel.js";
 import { userQueryParams, validateConstants } from "../constants/searchConstants.js";
 import uploadImage from "../utils/uploadImage.js";
+import { sendMail } from "../utils/nodemailler.js";
+import crypto from "crypto";
+import schedule, { scheduleJob } from "node-schedule";
 
 const __dirname = path.resolve();
 
@@ -21,6 +24,10 @@ const __dirname = path.resolve();
 const login = async (req, res) => {
     const { email, password } = req.body;
     const user = await User.findOne({ email: email, isDisabled: false });
+    if (!user.isVerified) {
+        res.status(401);
+        throw new Error("Tài khoản chưa được xác minh");
+    }
     if (user && (await user.matchPassword(password))) {
         //delete old refresh token if existed
         await RefreshToken.deleteMany({ user: user._id });
@@ -58,84 +65,101 @@ const login = async (req, res) => {
 
 //Non-user register new account
 const register = async (req, res, next) => {
-    const { name, email, password } = req.body;
+    const { name, email, phone, password } = req.body;
     const isExistingUser = await User.findOne({
         email: email
     });
     if (isExistingUser) {
-        res.status(400);
+        res.status(409);
         throw new Error("Email of user already exists");
     }
-    //else
-    const session = await mongoose.startSession();
-    const transactionOptions = {
-        readPreference: "primary",
-        readConcern: { level: "local" },
-        writeConcern: { w: "majority" }
-    };
+
     try {
-        await session.withTransaction(async () => {
-            let newUser = await User.create(
-                [
-                    {
-                        name,
-                        email,
-                        password
-                    }
-                ],
-                session
-            );
-            if (!newUser) {
-                res.status(400);
-                await session.abortTransaction();
-                throw new Error("Invalid user data");
+        const newUser = await User.create({
+            name,
+            email,
+            phone,
+            password
+        });
+        if (!newUser) {
+            res.status(400);
+            throw new Error("Invalid user data");
+        }
+
+        const newCart = await Cart.create({
+            user: newUser._id,
+            cartItems: []
+        });
+        if (!newCart) {
+            res.status(500);
+            throw new Error("Failed to create user cart");
+        }
+
+        const emailVerificationToken = newUser.getEmailVerificationToken();
+        await newUser.save();
+        const url = `${process.env.WEB_CLIENT_URL}/register/verify/${newUser.email}/${emailVerificationToken}`;
+        const html = `<a href="${url}" target="_blank"><button>Xác thực tài khoản</button></a>`;
+        //start cron-job
+        let scheduledJob = schedule.scheduleJob(
+            `*/${process.env.EMAIL_VERIFY_EXPIED_TIME_IN_MINUTE} * * * *`,
+            async () => {
+                console.log("Job run");
+                const deleteUser = await User.findOneAndDelete({ _id: newUser._id, isVerified: false });
+                const deleteCart = await Cart.findOneAndDelete({ _id: newCart._id });
+                console.log("deleteUser:   " + deleteUser + "    deleteCart:  " + deleteCart);
+                scheduledJob.cancel();
             }
-            newUser = newUser[0];
-            //create new refresh token
-            const tokenValue = generateToken(
-                newUser._id,
-                process.env.REFRESH_TOKEN_SECRET,
-                process.env.REFRESH_TOKEN_EXPIRESIN
-            );
-            const newRefreshToken = await new RefreshToken({
-                user: newUser._id,
-                tokenValue: tokenValue,
-                refreshTokenItems: [tokenValue]
-            }).save();
-            const newCart = await Cart.create(
-                [
-                    {
-                        user: newUser._id,
-                        cartItems: []
-                    }
-                ],
-                session
-            );
-            if (!newCart) {
-                res.status(500);
-                await session.abortTransaction();
-                throw new Error("Failed to create user cart");
-            }
-            res.status(201).json({
-                _id: newUser._id,
-                name: newUser.name,
-                phone: newUser.phone,
-                email: newUser.email,
-                avatarUrl: newUser.avatarUrl || "./images/avatar/default.png",
-                sex: newUser.sex,
-                birthday: newUser.birthday,
-                address: newUser.address,
-                isAdmin: newUser.isAdmin,
-                isDisabled: newUser.isDisabled,
-                token: generateToken(newUser._id, process.env.ACCESS_TOKEN_SECRET, process.env.ACCESS_TOKEN_EXPIRESIN),
-                refreshToken: newRefreshToken.tokenValue
-            });
-        }, transactionOptions);
+        );
+        //set up message options
+        const messageOptions = {
+            recipient: newUser.email,
+            subject: "Xác thực tài khoản TP Bookstore",
+            html: html
+        };
+
+        //send verify email
+        await sendMail(messageOptions);
+        res.status(200);
+        res.json({ message: "Sending verification mail successfully" });
     } catch (error) {
         next(error);
-    } finally {
-        await session.endSession();
     }
+};
+
+// verify email
+const verifyEmail = async (req, res) => {
+    const { email, verificationToken } = req.body || null;
+    const hashedToken = crypto.createHash("sha256").update(verificationToken).digest("hex");
+    const user = await User.findOne({ email: email, emailVerificationToken: hashedToken, isVerified: false });
+    if (!user) {
+        res.status(400);
+        throw new Error("Email verification token is not valid");
+    }
+    user.isVerified = true;
+    user.emailVerificationToken = null;
+    await user.save();
+    //create new refresh token
+    const tokenValue = generateToken(user._id, process.env.REFRESH_TOKEN_SECRET, process.env.REFRESH_TOKEN_EXPIRESIN);
+    const newRefreshToken = await new RefreshToken({
+        user: user._id,
+        tokenValue: tokenValue,
+        refreshTokenItems: [tokenValue]
+    }).save();
+    res.status(200).json({
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        phone: user.phone,
+        avatarUrl: user.avatarUrl || "./images/avatar/default.png",
+        sex: user.sex,
+        birthday: user.birthday,
+        address: user.address,
+        isAdmin: user.isAdmin,
+        token: generateToken(user._id, process.env.ACCESS_TOKEN_SECRET, process.env.ACCESS_TOKEN_EXPIRESIN),
+        refreshToken: newRefreshToken.tokenValue,
+        createdAt: user.createdAt,
+        isDisabled: user.isDisabled
+    });
 };
 
 //User get profile
@@ -208,6 +232,36 @@ const updatePassword = async (req, res) => {
     }
 };
 
+//  user Forgot password
+const forgotPassword = async (req, res) => {
+    const email = req.body.email || null;
+    const user = await User.findOne({ email: email });
+    if (!user) {
+        res.status(404);
+        throw new Error("Tài khoản không tồn tại");
+    }
+    //reset password
+    const resetPasswordToken = user.getResetPasswordToken();
+    await user.save();
+    //send reset password email
+    const url = `${process.env.WEB_CLIENT_URL}/reset-password/?resetPasswordToken=${resetPasswordToken}`;
+    const html = `<a href="${url}" target="_blank"><button>Đặt lại mật khẩu</button></a>`;
+    //set up message options
+    const messageOptions = {
+        recipient: user.email,
+        subject: "Đặt lại mật khẩu",
+        html: html
+    };
+    //send verify email
+    try {
+        await sendMail(messageOptions);
+        res.status(200);
+        res.json("Gửi email thành công");
+    } catch (error) {
+        next(error);
+    }
+};
+
 //Admin get users
 const getUsers = async (req, res) => {
     const dateOrderFilter = validateConstants(userQueryParams, "date", req.query.dateOrder);
@@ -237,6 +291,7 @@ const uploadAvatar = async (req, res) => {
         res.status(400);
         throw new Error("No provide an image");
     }
+
     //else
     const filename = await resize.save(avatarPath, req.file.buffer);
     // res.json(filename);
@@ -355,6 +410,7 @@ const deleteUser = async (req, res, next) => {
 const UserController = {
     login,
     register,
+    verifyEmail,
     getProfile,
     updateProfile,
     getUsers,
@@ -362,7 +418,8 @@ const UserController = {
     disableUser,
     restoreUser,
     deleteUser,
-    updatePassword
+    updatePassword,
+    forgotPassword
 };
 
 export default UserController;

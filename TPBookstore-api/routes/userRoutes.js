@@ -9,12 +9,14 @@ const userRouter = express.Router();
 userRouter.post("/login", expressAsyncHandler(UserController.login));
 userRouter.get("/profile", protect, expressAsyncHandler(UserController.getProfile));
 userRouter.put("/profile", protect, expressAsyncHandler(UserController.updateProfile));
-userRouter.post("/:userId/updatePassword", protect, expressAsyncHandler(UserController.updatePassword));
+userRouter.post("/:userId/update-password", protect, expressAsyncHandler(UserController.updatePassword));
+userRouter.patch("/forgot-password", expressAsyncHandler(UserController.forgotPassword));
 userRouter.patch("/:id/disable", protect, admin, expressAsyncHandler(UserController.disableUser));
 userRouter.patch("/:id/restore", protect, admin, expressAsyncHandler(UserController.restoreUser));
 userRouter.delete("/:id", protect, admin, expressAsyncHandler(UserController.deleteUser));
 userRouter.get("/", protect, admin, expressAsyncHandler(UserController.getUsers));
 userRouter.post("/", expressAsyncHandler(UserController.register));
+userRouter.patch("/verify-email", expressAsyncHandler(UserController.verifyEmail));
 userRouter.post(
     "/CreateOrUpdateAvatar/:userId",
     protect,

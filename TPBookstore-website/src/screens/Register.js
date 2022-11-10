@@ -1,13 +1,12 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import Header from "../components/Header";
-import { userRegisterAction } from "../Redux/Actions/userActions";
-
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import Message from "../components/base/LoadingError/Error";
 import Loading from "../components/base/LoadingError/Loading";
+import Header from "../components/Header";
+import { userRegisterAction } from "../Redux/Actions/userActions";
 
 const Register = ({ location, history }) => {
   window.scrollTo(0, 0);
@@ -37,6 +36,13 @@ const Register = ({ location, history }) => {
       email: Yup.string()
         .required("Giá trị bắt buộc*")
         .matches(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/, "Vui lòng nhập một địa chỉ email hợp lệ"),
+      phone: Yup.string()
+        .required("Giá trị bắt buộc*")
+        .matches(
+          /^\+?\d{1,3}?[- .]?\(?(?:\d{2,3})\)?[- .]?\d\d\d[- .]?\d\d\d\d$/,
+          "Vui lòng nhập một số điện thoại hợp lệ"
+        ),
+
       password: Yup.string()
         .required("Giá trị bắt buộc*")
         .matches(
@@ -48,7 +54,7 @@ const Register = ({ location, history }) => {
         .oneOf([Yup.ref("password"), null], "Mật khẩu không khớp")
     }),
     onSubmit: (value) => {
-      dispatch(userRegisterAction(value.name, value.email, value.password));
+      dispatch(userRegisterAction(history, value.name, value.email, value.phone, value.password));
     }
   });
 
@@ -59,6 +65,7 @@ const Register = ({ location, history }) => {
         {loading && <Loading />}
         <form className="Login col-md-8 col-lg-4 col-11" onSubmit={formik.handleSubmit}>
           <h5 className="form-title">Đăng ký</h5>
+          <div className="frame-error">{error && <Message variant="alert-danger">{error}</Message>}</div>
           <input
             type="text"
             id="name"
@@ -81,6 +88,17 @@ const Register = ({ location, history }) => {
           <div className="frame-error">
             {error && <Message variant="alert-danger">{error}</Message>}
             {formik.errors.email && <span className="error-message">{formik.errors.email}</span>}
+          </div>
+          <input
+            type="text"
+            id="phone"
+            name="phone"
+            placeholder="Số điện thoại"
+            value={formik.values.phone}
+            onChange={formik.handleChange}
+          />
+          <div className="frame-error">
+            {formik.errors.phone && <span className="error-message">{formik.errors.phone}</span>}
           </div>
           <input
             type="password"
@@ -106,8 +124,9 @@ const Register = ({ location, history }) => {
               <span className="error-message">{formik.errors.confirmedPassword}</span>
             )}
           </div>
-
-          <button type="submit"> Đăng ký </button>
+          <button type="submit" className="btn">
+            Đăng ký
+          </button>
           <p>
             <Link to={redirect ? `/login?redirect=${redirect}` : "/login"}>
               Tôi đã có tài khoản? <strong>Đăng nhập</strong>

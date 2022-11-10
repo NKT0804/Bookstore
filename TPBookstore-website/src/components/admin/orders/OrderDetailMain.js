@@ -144,7 +144,7 @@ const OrderDetailmain = (props) => {
                       </button>
                     </>
                   ) : (
-                    <button className="btn-danger">Đơn hàng đã hủy</button>
+                    <button className="btn btn-danger col-12 btn-size mt-2">Đơn hàng đã hủy</button>
                   )}
                 </div>
               </div>
