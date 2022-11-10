@@ -1,5 +1,7 @@
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
+import crypto from "crypto";
+import dotenv from "dotenv";
 
 const userSchema = mongoose.Schema(
     {
@@ -56,6 +58,19 @@ const userSchema = mongoose.Schema(
                 default: ""
             }
         },
+        isVerified: {
+            type: Boolean,
+            required: false,
+            default: false
+        },
+        emailVerificationToken: {
+            type: String,
+            required: false
+        },
+        resetPasswordToken: {
+            token: { type: String, required: false },
+            expiryTime: { type: Number, required: false }
+        },
         isDisabled: {
             type: Boolean,
             required: true,
@@ -81,6 +96,20 @@ userSchema.pre("save", async function (next) {
     this.password = await bcrypt.hash(this.password, salt);
 });
 
+//reset password
+userSchema.methods.getResetPasswordToken = function () {
+    const resetPasswordToken = crypto.randomBytes(32).toString("hex");
+    this.resetPasswordToken.token = crypto.createHash("sha256").update(resetPasswordToken).digest("hex");
+    this.resetPasswordToken.expiryTime = Date.now() + process.env.RESET_PASSWORD_EXPIRY_TIME_IN_MINUTE * 60 * 1000;
+    return resetPasswordToken;
+};
+
+//Verification email
+userSchema.methods.getEmailVerificationToken = function () {
+    const emailVerificationToken = crypto.randomBytes(32).toString("hex");
+    this.emailVerificationToken = crypto.createHash("sha256").update(emailVerificationToken).digest("hex");
+    return emailVerificationToken;
+};
 const User = mongoose.model("User", userSchema);
 
 export default User;

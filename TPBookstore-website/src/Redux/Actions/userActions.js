@@ -13,6 +13,7 @@ import {
   USER_REGISTER_FAIL,
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
+  USER_REGISTER_VERIFY,
   USER_UPDATE_AVATAR_FAIL,
   USER_UPDATE_AVATAR_REQUEST,
   USER_UPDATE_AVATAR_SUCCESS,
@@ -24,7 +25,10 @@ import {
   USER_GET_ADDRESS_DATA_FAIL,
   USER_UPDATE_PASSWORD_REQUEST,
   USER_UPDATE_PASSWORD_SUCCESS,
-  USER_UPDATE_PASSWORD_FAIL
+  USER_UPDATE_PASSWORD_FAIL,
+  USER_FORGOT_PASSWORD_REQUEST,
+  USER_FORGOT_PASSWORD_SUCCESS,
+  USER_FORGOT_PASSWORD_FAIL
 } from "../Constants/userConstants";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -61,7 +65,7 @@ export const logout = () => (dispatch) => {
 };
 
 // REGISTER
-export const userRegisterAction = (name, email, password) => async (dispatch) => {
+export const userRegisterAction = (history, name, email, phone, password) => async (dispatch) => {
   try {
     dispatch({ type: USER_REGISTER_REQUEST });
 
@@ -70,10 +74,13 @@ export const userRegisterAction = (name, email, password) => async (dispatch) =>
         "Content-type": "application/json"
       }
     };
-    const { data } = await axios.post(`/api/v1/user`, { name, email, password }, config);
-    dispatch({ type: USER_REGISTER_SUCCESS, payload: { userId: data._id } });
-    dispatch({ type: USER_LOGIN_SUCCESS, payload: data });
-    localStorage.setItem("userInfo", JSON.stringify(data));
+    const { data } = await axios.post(`/api/v1/user`, { name, email, phone, password }, config);
+
+    dispatch({ type: USER_REGISTER_VERIFY });
+    history.push(`/register/verify/${email}`);
+    // dispatch({ type: USER_REGISTER_SUCCESS, payload: { userId: data._id } });
+    // dispatch({ type: USER_LOGIN_SUCCESS, payload: data });
+    // localStorage.setItem("userInfo", JSON.stringify(data));
   } catch (error) {
     dispatch({
       type: USER_REGISTER_FAIL,
@@ -81,6 +88,30 @@ export const userRegisterAction = (name, email, password) => async (dispatch) =>
     });
   }
 };
+
+export const verifyEmail = (email, verificationToken) => async (dispatch) => {
+  try {
+    dispatch({ type: USER_REGISTER_VERIFY });
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json"
+      }
+    };
+
+    const { data } = await axios.patch(`/api/v1/user/verify-email`, { email, verificationToken }, config);
+    dispatch({ type: USER_REGISTER_SUCCESS, payload: data });
+    dispatch({ type: USER_LOGIN_SUCCESS, payload: data });
+    localStorage.setItem("userInfo", JSON.stringify(data));
+  } catch (error) {
+    const message = error.response && error.response.data.message ? error.response.data.message : error.message;
+    dispatch({
+      type: USER_REGISTER_FAIL,
+      payload: message
+    });
+  }
+};
+
 // SHOW USER DETAILS SCREEN
 export const getUserDetails = (id) => async (dispatch, getState) => {
   try {
@@ -158,7 +189,7 @@ export const updatePassword = (user) => async (dispatch, getState) => {
       }
     };
 
-    const { data } = await axios.post(`/api/v1/user/${user.userId}/updatePassword`, user, config);
+    const { data } = await axios.post(`/api/v1/user/${user.userId}/update-password`, user, config);
     dispatch({ type: USER_UPDATE_PASSWORD_SUCCESS, payload: data });
   } catch (error) {
     const message = error.response && error.response.data.message ? error.response.data.message : error.message;
@@ -167,6 +198,27 @@ export const updatePassword = (user) => async (dispatch, getState) => {
     }
     dispatch({
       type: USER_UPDATE_PASSWORD_FAIL,
+      payload: message
+    });
+  }
+};
+
+// FORGOT PASSWORD
+export const forGotPassWord = (email) => async (dispatch) => {
+  try {
+    dispatch({ type: USER_FORGOT_PASSWORD_REQUEST });
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json"
+      }
+    };
+    const data = await axios.patch(`/api/v1/user/forgot-password`, { email }, config);
+    dispatch({ type: USER_FORGOT_PASSWORD_SUCCESS, payload: data });
+  } catch (error) {
+    const message = error.response && error.response.data.message ? error.response.data.message : error.message;
+    dispatch({
+      type: USER_FORGOT_PASSWORD_FAIL,
       payload: message
     });
   }

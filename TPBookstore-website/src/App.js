@@ -9,6 +9,9 @@ import HomeScreen from "./screens/HomeScreen";
 import SingleProduct from "./screens/SingleProduct";
 import Login from "./screens/Login";
 import Register from "./screens/Register";
+import RegisterVerify from "./screens/RegisterVerify";
+import ForgotPassword from "./screens/ForgotPassword";
+import ResetPassword from "./screens/ResetPassword";
 import CartScreen from "./screens/CartScreen";
 import ShippingScreen from "./screens/ShippingScreen";
 import ProfileScreen from "./screens/ProfileScreen";
@@ -56,7 +59,11 @@ const App = () => {
         {/* <Route path="/products/:slug" component={SingleProduct} /> */}
         <Route path="/product/:id" component={SingleProduct} />
         <Route path="/login" component={Login} />
-        <Route path="/register" component={Register} />
+        <Route path="/register" component={Register} exact />
+        <Route path="/register/verify/:email" component={RegisterVerify} exact />
+        <Route path="/register/verify/:email/:verificationToken" component={RegisterVerify} exact />
+        <Route path="/forgot-password" component={ForgotPassword} />
+        <Route path="/reset-password" component={ResetPassword} />
         <PrivateRouter path="/profile" component={ProfileScreen} />
         <Route path="/cart/:id?" component={CartScreen} />
         <PrivateRouter path="/shipping" component={ShippingScreen} />

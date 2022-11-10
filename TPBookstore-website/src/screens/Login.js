@@ -43,6 +43,11 @@ const Login = ({ location, history }) => {
           />
           <button type="submit">Đăng nhập</button>
           <p>
+            <Link to="/forgot-password">
+              <strong>Quên mật khẩu?</strong>
+            </Link>
+          </p>
+          <p>
             <Link to={redirect ? `/register?redirect=${redirect}` : "/register"}>
               Bạn chưa có tài khoản? <strong>Đăng ký</strong>
             </Link>

@@ -407,7 +407,6 @@ export const createProductAdmin =
   async (dispatch, getState) => {
     try {
       dispatch({ type: PRODUCT_CREATE_REQUEST });
-
       const {
         userLogin: { userInfo }
       } = getState();

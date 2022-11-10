@@ -36,16 +36,13 @@ const createNewCart = async (req, res) => {
 //User add to cart
 const userAddToCart = async (req, res) => {
     const userId = req.user._id || null;
-    console.log("User: " + userId);
     const { productId, qty } = req.body;
-    console.log("Product" + productId + "," + qty);
     const cart = await Cart.findOne({ user: userId });
     if (!cart) {
         res.status(404);
         throw new Error("Cart not found");
     }
     // const { productId, qty } = req.body;
-    console.log("Product" + productId + "," + qty);
     if (qty <= 0) {
         res.status(400);
         throw new Error("Quantity must be greater than 0");
