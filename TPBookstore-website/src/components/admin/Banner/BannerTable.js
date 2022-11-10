@@ -50,7 +50,7 @@ const BannerTable = ({ setIsEditBanner, setCurrentBanner }) => {
                   <div className="dropdown">
                     <Link to="#" data-bs-toggle="dropdown">
                       <i
-                        className="fas fa-edit"
+                        className="text-warning fas fa-edit"
                         onClick={() => {
                           setIsEditBanner(true);
                           setCurrentBanner(index);

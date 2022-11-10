@@ -64,13 +64,13 @@ const SliderTable = ({ setIsEditSlider, setCurrentSlider }) => {
                   <div className="dropdown action__slider">
                     <Link to="#" data-bs-toggle="dropdown">
                       <i
-                        className="fas fa-edit"
+                        className="text-warning fas fa-edit"
                         onClick={() => {
                           setIsEditSlider(true);
                           setCurrentSlider(index);
                         }}
                       ></i>
-                      <i class="fas fa-trash-alt" onClick={() => sliderDeleteHandler(item._id)}></i>
+                      <i class="text-danger fas fa-trash-alt" onClick={() => sliderDeleteHandler(item._id)}></i>
                     </Link>
                     <div className="dropdown-menu"></div>
                   </div>

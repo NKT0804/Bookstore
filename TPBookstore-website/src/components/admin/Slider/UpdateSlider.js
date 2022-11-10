@@ -45,7 +45,7 @@ const UpdateSlider = ({ currentSlider, setIsEditSlider }) => {
 
   return (
     <>
-      <div className="">
+      <div className="admin__sliders-banner-update">
         <div>
           {loading && <Loading />}
           <div className="d-flex justify-content-between admin__sliders-banner-update-input">

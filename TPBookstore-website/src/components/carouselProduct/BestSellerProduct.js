@@ -92,22 +92,14 @@ const BestSellerProduct = () => {
                               {product.name.length >= 55 ? `${product.name.slice(0, 55)}...` : ` ${product.name}`}
                             </Link>
                           </p>
-<<<<<<< HEAD
                           <div className="shoptext__price-selling">
-=======
-                          <Rating value={product.rating} numRating={product.rating} />
-                          <div className="shoptext__price">
-                            <p className="shoptext__price-special">
-                              <span className="shoptext__price-special-new">{formatCash(product.priceSale)}</span>
-                            </p>
->>>>>>> 43897214a505e9743e806d5aa9f66dc03fec442b
                             {product.priceSale < product.price ? (
                               <p className="shoptext__price-old">{formatCash(product.price)}</p>
                             ) : (
                               <></>
                             )}
                             <p className="shoptext__price-special">
-                              <span className="shoptext__price-special-new">{formatPrice(product.priceSale)}</span>
+                              <span className="shoptext__price-special-new">{formatCash(product.priceSale)}</span>
                             </p>
                           </div>
                           <div className="shoptext__rating">

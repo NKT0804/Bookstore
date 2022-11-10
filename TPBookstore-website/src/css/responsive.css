@@ -380,6 +380,17 @@
     margin-top: 12px;
   }
 
+  .wizard .user__profile-btn {
+    display: flex;
+    flex-direction: row !important;
+  }
+
+  .wizard .user__profile-btn button {
+    width: 33.3333% !important;
+    height : 50px;
+    border-left: 2px solid var(--primary-color);
+  }
+
   /* cart */
   .profile__order {
     margin-left: 0px;
@@ -500,6 +511,10 @@
 
   .mobile-order__total {
     font-size: 16px;
+  }
+
+  .wizard .user__profile-btn button {
+    font-size: 12px;
   }
 
   /* homepage */
