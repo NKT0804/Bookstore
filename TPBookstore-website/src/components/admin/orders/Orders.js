@@ -69,7 +69,7 @@ const Orders = (props) => {
                   <i className="fas fa-eye"></i>
                 </Link>
                 <Link to="#" className="text-danger ms-3" onClick={() => handleDeleteOrder(order._id)}>
-                  <i className="fas fa-trash"></i>
+                  <i class="text-danger fas fa-trash-alt"></i>
                 </Link>
               </td>
             </tr>

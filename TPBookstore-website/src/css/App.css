@@ -190,7 +190,7 @@ textarea:focus {
 }
 
 .mobile-header {
-  display: none;
+  display: none !important;
 }
 
 /* SHOP */
@@ -299,6 +299,23 @@ textarea:focus {
   font-weight: 500;
 }
 
+
+/* bestSeller and most product */
+.shoptext__price-selling {
+  display: flex;
+}
+
+.shoptext__price-selling .shoptext__price-old {
+  margin-right : 12px;
+}
+
+.shoptext__rating {
+  display : flex;
+  justify-content: space-between; 
+  align-items: center;
+}
+
+
 /* ALL PRODUCT */
 .sort-product {
   margin-left: 2px;
@@ -379,7 +396,7 @@ textarea:focus {
 
 .rating i {
   font-size: 12px;
-  color: #ebb450;
+  color: #FFCE3D;
   cursor: pointer;
 }
 
@@ -972,6 +989,7 @@ textarea:focus {
 .account-sex-item label {
   color: #000 !important;
   font-size: 15px;
+  text-transform: none;
 }
 
 .account-sex input {
@@ -1581,6 +1599,11 @@ a.popu-cate__item {
 
 .distance-price__p {
   height: 24px;
+}
+
+.page-item.active .page-link {
+  background-color: var(--primary-color);
+  border: 1px solid var(--primary-color);
 }
 
 /* prominent */

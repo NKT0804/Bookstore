@@ -25,36 +25,41 @@ const Product = (props) => {
 
   return (
     <>
-      <div className="mobile-header col-md-6 col-sm-6 col-lg-3 mb-3">
-        <div className="card card-product-grid shadow-sm">
-          <Link to="#" className="img-wrap">
-            <img src={product.image} alt="Product" />
-          </Link>
-          <div className="info-wrap">
-            <Link to="#" className="title text-truncate">
-              {product.name}
+      <div className="mobile-header row col-md-12 col-sm-6 col-lg-3 mb-3">
+        <div className="row col-md-6 d-flex">
+          <div className="card card-product-grid shadow-sm">
+            <Link to="#" className="img-wrap">
+              <img src={product.image} alt="Product" />
             </Link>
-            <div className="price mb-2">${product.price}</div>
-            <Rating value={product.rating} text={`(${product.numReviews})`} />
-            <div className="row">
-              <Link
-                to={`/admin/product/${product._id}/edit`}
-                className="btn btn-sm btn-outline-success p-2 pb-3 col-md-6 btn-item-product"
-              >
-                <i className="fas fa-pen"></i>
-              </Link>
-              <Link
-                to="#"
-                onClick={() => deletehandler(product._id)}
-                className="btn btn-sm btn-outline-danger p-2 pb-3 col-md-6 btn-item-product"
-              >
-                <i className="fas fa-trash-alt"></i>
-              </Link>
+            <div className="row col-12 info-wrap">
+              <div className="col-9">
+                <Link to="#" className="title text-truncate">
+                  {product.name}
+                </Link>
+                <div className="price mb-2">${product.price}</div>
+                <Rating value={product.rating} text={`(${product.numReviews})`} />
+              </div>
+              <div className="row col-2">
+                <Link
+                  to={`/admin/product/${product._id}/edit`}
+                  className="col-12 btn btn-sm btn-outline-success p-2 pb-3 col-md-6 btn-item-product"
+                >
+                  <i className="fas fa-pen"></i>
+                </Link>
+                <Link
+                  to="#"
+                  onClick={() => deletehandler(product._id)}
+                  className="col-12 btn btn-sm btn-outline-danger p-2 pb-3 col-md-6 btn-item-product"
+                >
+                  <i className="fas fa-trash-alt"></i>
+                </Link>
+              </div>
             </div>
           </div>
         </div>
       </div>
-      <tr className="pc-header">
+
+      <tr className="pc-header ">
         <td>{index + 1}</td>
         <td>
           <img style={{ width: "70px" }} src={product?.image} alt={product?.name} />
@@ -82,7 +87,7 @@ const Product = (props) => {
         <td className="text-end">
           <div className="dropdown">
             {/* <i className="fas fa-ellipsis-h"></i> */}
-            <Link className="p-md-2" to={`/admin/product/${product._id}/edit`}>
+            <Link className="text-warning p-md-2" to={`/admin/product/${product._id}/edit`}>
               <i className="fas fa-edit"></i>
             </Link>
             <Link to="#" className="edit__products text-danger" onClick={() => deletehandler(product._id)}>

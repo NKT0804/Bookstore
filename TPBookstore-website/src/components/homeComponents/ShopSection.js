@@ -60,8 +60,8 @@ const ShopSection = (props) => {
 
                 <SortBy sortBy={sortBy} setSortBy={setSortBy} />
 
-                <div className="row">
-                  <div className="find-product col-2 pc-header">
+                <div className="row col-lg-12 col-md-12 col-12">
+                  <div className="find-product col-lg-2 col-md-4 col-3 pc-header">
                     <Filter
                       category={category}
                       categoryFilter={categoryFilter}
@@ -73,7 +73,7 @@ const ShopSection = (props) => {
                     />
                   </div>
 
-                  <div className="col-8 row product-container ">
+                  <div className="col-lg-10 col-md-8 col-9 row product-container ">
                     {loading ? (
                       products?.map((product) => {
                         return (

@@ -272,6 +272,7 @@ body.offcanvas-active {
 body.aside-mini .main-wrap {
   margin-left: 70px;
 }
+
 body.aside-mini .navbar-aside {
   max-width: 70px;
   overflow: visible;
@@ -396,7 +397,7 @@ body.aside-mini .menu-aside .menu-item.has-submenu .menu-link:after {
 }
 .nav-pills .nav-link:hover {
   color: #141432;
-  background-color: rgba(236, 240, 245, 0.15);
+  opacity: 0.9;
 }
 
 /* --------------------- titles ---------------------- */
@@ -998,6 +999,10 @@ button.btn.btn-success.col-12 {
   display: flex;
   flex-direction: column;
   margin-bottom : 20px;
+}
+
+.admin__sliders-banner-update button {
+  min-width: 80px;
 }
 
 

@@ -25,7 +25,7 @@ const Header = () => {
     });
 
     $(".btn-aside-minimize").on("click", function () {
-      if (window.innerWidth < 768) {
+      if (window.innerWidth < 1024) {
         $("body").removeClass("aside-mini");
         $(".navbar-aside").removeClass("show");
       } else {
@@ -94,8 +94,8 @@ const Header = () => {
           </li>
           <li className="nav-item">
             <select className="border border-white">
-              <option>Tiếng việt</option>
-              <option>Tiếng anh</option>
+              <option className="mx-3">Tiếng Việt</option>
+              <option className="mx-3">Tiếng Anh</option>
             </select>
           </li>
           <li className="dropdown nav-item">
