@@ -28,7 +28,10 @@ import {
   USER_UPDATE_PASSWORD_FAIL,
   USER_FORGOT_PASSWORD_REQUEST,
   USER_FORGOT_PASSWORD_SUCCESS,
-  USER_FORGOT_PASSWORD_FAIL
+  USER_FORGOT_PASSWORD_FAIL,
+  USER_RESET_PASSWORD_REQUEST,
+  USER_RESET_PASSWORD_SUCCESS,
+  USER_RESET_PASSWORD_FAIL
 } from "../Constants/userConstants";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -89,7 +92,7 @@ export const userRegisterAction = (history, name, email, phone, password) => asy
   }
 };
 
-export const verifyEmail = (email, verificationToken) => async (dispatch) => {
+export const verifyEmail = (verificationToken) => async (dispatch) => {
   try {
     dispatch({ type: USER_REGISTER_VERIFY });
 
@@ -99,7 +102,7 @@ export const verifyEmail = (email, verificationToken) => async (dispatch) => {
       }
     };
 
-    const { data } = await axios.patch(`/api/v1/user/verify-email`, { email, verificationToken }, config);
+    const { data } = await axios.patch(`/api/v1/user/verify-email`, { verificationToken }, config);
     dispatch({ type: USER_REGISTER_SUCCESS, payload: data });
     dispatch({ type: USER_LOGIN_SUCCESS, payload: data });
     localStorage.setItem("userInfo", JSON.stringify(data));
@@ -219,6 +222,28 @@ export const forGotPassWord = (email) => async (dispatch) => {
     const message = error.response && error.response.data.message ? error.response.data.message : error.message;
     dispatch({
       type: USER_FORGOT_PASSWORD_FAIL,
+      payload: message
+    });
+  }
+};
+
+//Reset password
+export const userResetPassword = (resetPasswordToken, newPassword) => async (dispatch) => {
+  try {
+    dispatch({ type: USER_RESET_PASSWORD_REQUEST });
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json"
+      }
+    };
+
+    const { data } = await axios.patch(`/api/v1/user/reset-password`, { resetPasswordToken, newPassword }, config);
+    dispatch({ type: USER_RESET_PASSWORD_SUCCESS, payload: data });
+  } catch (error) {
+    const message = error.response && error.response.data.message ? error.response.data.message : error.message;
+    dispatch({
+      type: USER_RESET_PASSWORD_FAIL,
       payload: message
     });
   }

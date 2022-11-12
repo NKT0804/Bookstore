@@ -9,27 +9,29 @@ import { toast } from "react-toastify";
 import Toast from "../components/base/LoadingError/Toast";
 import { verifyEmail } from "../Redux/Actions/userActions";
 
-const RegisterVerify = ({ history, match }) => {
+const RegisterVerify = ({ history, location, match }) => {
   window.scrollTo(0, 0);
+  const redirect = location.search ? location.search.split("=")[1] : "/";
+
   const { email, verificationToken } = match.params;
   const dispatch = useDispatch();
 
   const userRegister = useSelector((state) => state.userRegister);
-  const { loading, error, success, userInfo } = userRegister;
+  const { loading, error, userInfo } = userRegister;
   useEffect(() => {
     if (userInfo) {
-      history.push("/");
+      history.push(redirect);
     }
-  }, [history, userInfo]);
+  }, [history, userInfo, redirect]);
   const submitHandler = () => {
-    dispatch(verifyEmail(email, verificationToken));
+    dispatch(verifyEmail(verificationToken));
   };
   return (
     <>
-      <Toast />
       <div className="container d-flex flex-column justify-content-center align-items-center login-center">
-        {/* {loading && <Loading />}
-        <form className="Login col-md-8 col-lg-4 col-11"> */}
+        {loading && <Loading />}
+        {error && <Message variant="alert-danger">{error}</Message>}
+        {/* <form className="Login col-md-8 col-lg-4 col-11">  */}
         <div>
           <Link to="/login">
             <i class="fa fa-arrow-left" aria-hidden="true"></i>
@@ -49,7 +51,11 @@ const RegisterVerify = ({ history, match }) => {
           </>
         ) : (
           <div>
-            Thư xác thực tài khoản đã được gửi đến email <b>{email?.toString()}</b>, hãy kiểm tra hộp thư của bạn.
+            Thư xác thực tài khoản đã được gửi đến email{" "}
+            <a href="https://mail.google.com/">
+              <b>{email?.toString()}</b>
+            </a>
+            , hãy kiểm tra hộp thư của bạn.
           </div>
         )}
         {/* </form> */}

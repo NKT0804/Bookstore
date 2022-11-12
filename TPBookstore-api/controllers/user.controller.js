@@ -24,11 +24,13 @@ const __dirname = path.resolve();
 const login = async (req, res) => {
     const { email, password } = req.body;
     const user = await User.findOne({ email: email, isDisabled: false });
-    if (!user.isVerified) {
-        res.status(401);
-        throw new Error("Tài khoản chưa được xác minh");
-    }
+
     if (user && (await user.matchPassword(password))) {
+        //check verify account
+        if (!user.isVerified) {
+            res.status(401);
+            throw new Error("Tài khoản chưa được xác minh");
+        }
         //delete old refresh token if existed
         await RefreshToken.deleteMany({ user: user._id });
         //create new refresh token
@@ -101,12 +103,12 @@ const register = async (req, res, next) => {
         const html = `<a href="${url}" target="_blank"><button>Xác thực tài khoản</button></a>`;
         //start cron-job
         let scheduledJob = schedule.scheduleJob(
-            `*/${process.env.EMAIL_VERIFY_EXPIED_TIME_IN_MINUTE} * * * *`,
+            Date.now() + process.env.EMAIL_VERIFY_EXPIED_TIME_IN_MINUTE * 60 * 1000,
             async () => {
-                console.log("Job run");
                 const deleteUser = await User.findOneAndDelete({ _id: newUser._id, isVerified: false });
-                const deleteCart = await Cart.findOneAndDelete({ _id: newCart._id });
-                console.log("deleteUser:   " + deleteUser + "    deleteCart:  " + deleteCart);
+                if (deleteUser) {
+                    const deleteCart = await Cart.findOneAndDelete({ _id: newCart._id });
+                }
                 scheduledJob.cancel();
             }
         );
@@ -128,9 +130,11 @@ const register = async (req, res, next) => {
 
 // verify email
 const verifyEmail = async (req, res) => {
-    const { email, verificationToken } = req.body || null;
+    const { verificationToken } = req.body || null;
+    console.log(verificationToken);
     const hashedToken = crypto.createHash("sha256").update(verificationToken).digest("hex");
-    const user = await User.findOne({ email: email, emailVerificationToken: hashedToken, isVerified: false });
+    console.log("================" + hashedToken);
+    const user = await User.findOne({ emailVerificationToken: hashedToken });
     if (!user) {
         res.status(400);
         throw new Error("Email verification token is not valid");
@@ -244,7 +248,7 @@ const forgotPassword = async (req, res) => {
     const resetPasswordToken = user.getResetPasswordToken();
     await user.save();
     //send reset password email
-    const url = `${process.env.WEB_CLIENT_URL}/reset-password/?resetPasswordToken=${resetPasswordToken}`;
+    const url = `${process.env.WEB_CLIENT_URL}/reset-password/${resetPasswordToken}`;
     const html = `<a href="${url}" target="_blank"><button>Đặt lại mật khẩu</button></a>`;
     //set up message options
     const messageOptions = {
@@ -260,6 +264,33 @@ const forgotPassword = async (req, res) => {
     } catch (error) {
         next(error);
     }
+};
+
+const resetPassword = async (req, res) => {
+    const { resetPasswordToken, newPassword } = req.body || null;
+    if (!newPassword) {
+        res.status(400);
+        throw new Error("Your new password is not valid");
+    }
+    const hashedToken = crypto.createHash("sha256").update(resetPasswordToken).digest("hex");
+    const user = await User.findOne({
+        resetPasswordToken: hashedToken
+    });
+    if (!user) {
+        res.status(400);
+        throw new Error("Reset password token is not valid");
+    }
+    if (user.resetPasswordTokenExpiryTime < Date.now()) {
+        res.status(400);
+        throw new Error("Yêu cầu đặt lại mật khẩu đã hết hạn");
+    }
+
+    user.password = newPassword;
+    user.resetPasswordToken = null;
+    user.resetPasswordTokenExpiryTime = null;
+    await user.save();
+    res.status(200);
+    res.json("Your password has been reset");
 };
 
 //Admin get users
@@ -419,7 +450,8 @@ const UserController = {
     restoreUser,
     deleteUser,
     updatePassword,
-    forgotPassword
+    forgotPassword,
+    resetPassword
 };
 
 export default UserController;

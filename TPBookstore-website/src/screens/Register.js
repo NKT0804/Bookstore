@@ -25,6 +25,7 @@ const Register = ({ location, history }) => {
     initialValues: {
       name: "",
       email: "",
+      phone: "",
       password: "",
       confirmedPassword: ""
     },
@@ -33,9 +34,7 @@ const Register = ({ location, history }) => {
         .required("Giá trị bắt buộc*")
         .min(4, "Họ tên phải dài hơn 3 ký tụ")
         .max(250, "Họ tên phải ngắn hơn 250 ký tự"),
-      email: Yup.string()
-        .required("Giá trị bắt buộc*")
-        .matches(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/, "Vui lòng nhập một địa chỉ email hợp lệ"),
+      email: Yup.string().required("Giá trị bắt buộc*").email("Vui lòng nhập một địa chỉ email hợp lệ"),
       phone: Yup.string()
         .required("Giá trị bắt buộc*")
         .matches(
@@ -86,7 +85,6 @@ const Register = ({ location, history }) => {
             onChange={formik.handleChange}
           />
           <div className="frame-error">
-            {error && <Message variant="alert-danger">{error}</Message>}
             {formik.errors.email && <span className="error-message">{formik.errors.email}</span>}
           </div>
           <input

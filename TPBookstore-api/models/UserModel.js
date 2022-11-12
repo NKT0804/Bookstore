@@ -68,8 +68,12 @@ const userSchema = mongoose.Schema(
             required: false
         },
         resetPasswordToken: {
-            token: { type: String, required: false },
-            expiryTime: { type: Number, required: false }
+            type: String,
+            required: false
+        },
+        resetPasswordTokenExpiryTime: {
+            type: Number,
+            required: false
         },
         isDisabled: {
             type: Boolean,
@@ -99,8 +103,8 @@ userSchema.pre("save", async function (next) {
 //reset password
 userSchema.methods.getResetPasswordToken = function () {
     const resetPasswordToken = crypto.randomBytes(32).toString("hex");
-    this.resetPasswordToken.token = crypto.createHash("sha256").update(resetPasswordToken).digest("hex");
-    this.resetPasswordToken.expiryTime = Date.now() + process.env.RESET_PASSWORD_EXPIRY_TIME_IN_MINUTE * 60 * 1000;
+    this.resetPasswordToken = crypto.createHash("sha256").update(resetPasswordToken).digest("hex");
+    this.resetPasswordTokenExpiryTime = Date.now() + process.env.RESET_PASSWORD_EXPIRY_TIME_IN_MINUTE * 60 * 1000;
     return resetPasswordToken;
 };
 

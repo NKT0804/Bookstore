@@ -62,8 +62,8 @@ const App = () => {
         <Route path="/register" component={Register} exact />
         <Route path="/register/verify/:email" component={RegisterVerify} exact />
         <Route path="/register/verify/:email/:verificationToken" component={RegisterVerify} exact />
-        <Route path="/forgot-password" component={ForgotPassword} />
-        <Route path="/reset-password" component={ResetPassword} />
+        <Route path="/forgot-password" component={ForgotPassword} exact />
+        <Route path="/reset-password/:resetPasswordToken" component={ResetPassword} exact />
         <PrivateRouter path="/profile" component={ProfileScreen} />
         <Route path="/cart/:id?" component={CartScreen} />
         <PrivateRouter path="/shipping" component={ShippingScreen} />

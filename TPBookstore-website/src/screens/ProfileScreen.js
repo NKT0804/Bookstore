@@ -29,7 +29,6 @@ const ProfileScreen = () => {
     e.currentTarget.onerror = null; // prevents looping
     e.currentTarget.src = `${window.location.origin}/images/avatar/default.png`;
   };
-
   return (
     <>
       <Header />
@@ -132,7 +131,6 @@ const ProfileScreen = () => {
           </div>
         </div>
       </div>
-      <Footer />
     </>
   );
 };

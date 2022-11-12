@@ -11,6 +11,7 @@ userRouter.get("/profile", protect, expressAsyncHandler(UserController.getProfil
 userRouter.put("/profile", protect, expressAsyncHandler(UserController.updateProfile));
 userRouter.post("/:userId/update-password", protect, expressAsyncHandler(UserController.updatePassword));
 userRouter.patch("/forgot-password", expressAsyncHandler(UserController.forgotPassword));
+userRouter.patch("/reset-password", expressAsyncHandler(UserController.resetPassword));
 userRouter.patch("/:id/disable", protect, admin, expressAsyncHandler(UserController.disableUser));
 userRouter.patch("/:id/restore", protect, admin, expressAsyncHandler(UserController.restoreUser));
 userRouter.delete("/:id", protect, admin, expressAsyncHandler(UserController.deleteUser));

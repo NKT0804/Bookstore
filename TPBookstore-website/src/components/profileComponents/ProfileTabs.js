@@ -6,6 +6,7 @@ import Message from "./../base/LoadingError/Error";
 import { toast } from "react-toastify";
 import { updateUserProfile } from "../../Redux/Actions/userActions";
 import { getAddressData } from "../../Redux/Actions/userActions";
+import isEmpty from "validator/lib/isEmpty";
 
 const ProfileTabs = () => {
   const toastObjects = {
@@ -17,18 +18,24 @@ const ProfileTabs = () => {
     draggable: true,
     progress: undefined
   };
+  const toastId = React.useRef(null);
+
   const dispatch = useDispatch();
 
+  const userDetails = useSelector((state) => state.userDetails);
+  const { user, loading, error } = userDetails;
+  const userUpdateProfile = useSelector((state) => state.userUpdateProfile);
+  const { loading: updateLoading } = userUpdateProfile;
+  //get and set address data
   const getListAddressData = useSelector((state) => state.addressData);
   const { addressData } = getListAddressData;
   const [districtList, setDistrictList] = useState([]);
   const [wardList, setWardList] = useState([]);
-
   const [province, setProvince] = useState("");
   const [district, setDistrict] = useState("");
   const [ward, setWard] = useState("");
   const [specificAddress, setSpecificAddress] = useState("");
-
+  //profile data
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -50,14 +57,8 @@ const ProfileTabs = () => {
     }
   };
 
-  const toastId = React.useRef(null);
-
-  const userDetails = useSelector((state) => state.userDetails);
-  const { user, loading, error } = userDetails;
-
-  const userUpdateProfile = useSelector((state) => state.userUpdateProfile);
-  const { loading: updateLoading } = userUpdateProfile;
-
+  // message error
+  const [messageError, setMessageError] = useState({});
   //get list district and list ward
   const getArrayAddress = (inputArray, value) => {
     const outputArray = inputArray?.find((item) => {
@@ -107,8 +108,42 @@ const ProfileTabs = () => {
     }
   }, [dispatch, addressData, province, districtList, district]);
 
+  //validate data
+  const validation = () => {
+    const messageError = {};
+    let regexPhone = /^\+?\d{1,3}?[- .]?\(?(?:\d{2,3})\)?[- .]?\d\d\d[- .]?\d\d\d\d$/;
+    if (isEmpty(name)) {
+      messageError.name = "Giá trị bắt buộc*";
+    } else {
+      if (name.length < 4) messageError.name = "Họ tên phải dài hơn 3 ký tự";
+      if (name.length >= 250) messageError.name = "Họ tên phải ngắn hơn 250 ký tự";
+    }
+    if (isEmpty(phone)) {
+      messageError.phone = "Giá trị bắt buộc*";
+    } else {
+      if (!phone.match(regexPhone)) messageError.phone = "Vui lòng nhập một số điện thoại hợp lệ";
+    }
+    if (!getSexValue()) {
+      messageError.sex = "Giá trị bắt buộc*";
+    }
+    if (isEmpty(birthday)) {
+      messageError.birthday = "Giá trị bắt buộc*";
+    } else {
+      if (birthday > Date.now()) messageError.birthday = "Vui lòng nhập ngày sinh hợp lệ";
+    }
+    if (!province || !district || !ward || isEmpty(specificAddress))
+      messageError.address = "Vui lòng nhập đầy đủ địa chỉ";
+
+    setMessageError(messageError);
+    if (Object.keys(messageError).length > 0) {
+      return false;
+    }
+    return true;
+  };
+
   const submitHandler = (e) => {
     e.preventDefault();
+    if (!validation()) return;
     const sex = getSexValue();
     const address = { province, district, ward, specificAddress };
     dispatch(
@@ -159,6 +194,9 @@ const ProfileTabs = () => {
               />
             </div>
           </div>
+          <div className="frame-error">
+            {messageError.name && <Message variant="alert-danger">{messageError.name}</Message>}
+          </div>
 
           {/* Phone number */}
           <div className="col-md-12">
@@ -167,7 +205,9 @@ const ProfileTabs = () => {
               <input className="form-control" type="text" value={phone} onChange={(e) => setPhone(e.target.value)} />
             </div>
           </div>
-
+          <div className="frame-error">
+            {messageError.phone && <Message variant="alert-danger">{messageError.phone}</Message>}
+          </div>
           {/* Email */}
           <div className="col-md-12">
             <div className="form account__user">
@@ -180,6 +220,7 @@ const ProfileTabs = () => {
           <div className="col-md-6">
             <div className="form account__user account-sex">
               <label htmlFor="account-sex-title">Giới tính</label>
+
               <p className="account-sex-item">
                 <input type="radio" name="gender" id="male" value="nam" className="information_input-sex--item" />
                 <label for="male">Nam</label>
@@ -195,8 +236,10 @@ const ProfileTabs = () => {
                 <label for="another">Khác</label>
               </p>
             </div>
+            <div className="frame-error">
+              {messageError.sex && <Message variant="alert-danger">{messageError.sex}</Message>}
+            </div>
           </div>
-
           {/*Birthday*/}
           <div className="form account__user">
             <label htmlFor="account-birthday">Ngày sinh</label>
@@ -209,11 +252,16 @@ const ProfileTabs = () => {
               onChange={(e) => setBirthday(e.target.value)}
             ></input>
           </div>
-
+          <div className="frame-error">
+            {messageError.birthday && <Message variant="alert-danger">{messageError.birthday}</Message>}
+          </div>
           {/* ADDRESS */}
           <div className="col-md-12">
             <div className="form account__user_address">
               <label htmlFor="account-address">Địa chỉ</label>
+              <div className="frame-error">
+                {messageError.address && <Message variant="alert-danger">{messageError.address}</Message>}
+              </div>
               <div className="account-address__select">
                 <select
                   className="acount-address__item"
@@ -257,7 +305,6 @@ const ProfileTabs = () => {
               />
             </div>
           </div>
-
           <button type="submit">Cập nhật</button>
         </div>
       </form>

@@ -33,13 +33,14 @@ const ForgotPassword = () => {
         .matches(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/, "Vui lòng nhập một địa chỉ email hợp lệ")
     }),
     onSubmit: (value) => {
-      dispatch(forGotPassWord(formik.values.email));
+      dispatch(forGotPassWord(value.email));
     }
   });
   useEffect(() => {
     if (successForgot) {
       toast.success("Yêu cầu đã được gửi đi, hãy kiểm tra hộp thư email của bạn!", ToastObjects);
       dispatch({ type: USER_FORGOT_PASSWORD_RESET });
+      formik.values.email = "";
     }
     if (errorForgot) {
       toast.error(errorForgot, ToastObjects);
