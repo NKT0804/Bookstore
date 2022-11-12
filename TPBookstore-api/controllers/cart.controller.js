@@ -60,7 +60,7 @@ const userAddToCart = async (req, res) => {
             product: productId,
             qty: qty
         };
-        addedItemIndex = cart.cartItems.push(cartItem) - 1;
+        cart.cartItems.unshift(cartItem);
     }
     const updatedCart = await cart.save();
     const returnCart = await Cart.findById(updatedCart._id).populate("cartItems.product");
@@ -71,17 +71,31 @@ const userAddToCart = async (req, res) => {
 //User update existed cart item
 const updateExisedtCart = async (req, res) => {
     const userId = req.user._id || null;
+    const { productId, qty, isBuy } = req.body;
     const cart = await Cart.findOne({ user: userId });
     if (!cart) {
         res.status(404);
         throw new Error("Cart not found");
     }
-    const { productId, qty } = req.body;
     const addedItemIndex = cart.cartItems.findIndex((item) => item.product.toString() === productId.toString());
     if (addedItemIndex == -1) {
         throw new Error("Product isn't in cart");
     }
-    cart.cartItems[addedItemIndex].qty = qty;
+    // const productCart = await Product.findById({
+    //     _id: productId.toString(),
+    //     isDisabled: false
+    // });
+    // if (!productCart.countInStock > 0) {
+    //     cart.cartItems[addedItemIndex].isBuy = false;
+    //     res.status(400);
+    //     throw new Error("Sản phẩm đã hết hàng");
+    // }
+    let quantity = qty;
+    // if (productCart < qty) {
+    //     quantity = cart.cartItem[addedItemIndex].product.countInStock;
+    // }
+    cart.cartItems[addedItemIndex].qty = quantity;
+    cart.cartItems[addedItemIndex].isBuy = isBuy;
     if (cart.cartItems[addedItemIndex].qty <= 0) {
         cart.cartItems.splice(addedItemIndex, 1);
         await cart.save();
