@@ -217,25 +217,26 @@ const SingleProduct = ({ history, match }) => {
                   <div className="product-manuafactures">
                     <div className="product-manuafactures__item">
                       <span>
-                        <i>Nhà cung cấp : </i> <b>Minh Long</b>
+                        <label>Nhà cung cấp : </label> <b>{product.supplier}</b>
                       </span>
                       <span>
-                        <i>Tác giả : </i> <b>Robin Sharma</b>
+                        <label>Tác giả : </label> <b>{product.author}</b>
                       </span>
                     </div>
                     <div className="product-manuafactures__item">
                       <span>
-                        <i>Nhà xuất bản: </i> <b>Kim Đồng</b>
+                        <label>Nhà xuất bản: </label>
+                        <b>{product.publisher}</b>
                       </span>
                       <span>
-                        <i>Hình thức bìa : </i> <b>Bìa mềm</b>
+                        <label>Hình thức bìa : </label> <b>Bìa mềm</b>
                       </span>
                     </div>
                   </div>
 
                   <div className="product-count col-lg-7 ">
                     <div className="flex-box d-flex justify-content-between align-items-center">
-                      <h6>Price</h6>
+                      <h6>Đơn giá</h6>
                       <div>
                         <span className="product-count__new-price">${product.price}</span>
                         <span className="product-count__old-price">7000</span>
@@ -243,8 +244,8 @@ const SingleProduct = ({ history, match }) => {
                       </div>
                     </div>
                     <div className="flex-box d-flex justify-content-between align-items-center">
-                      <h6>Status</h6>
-                      {product.countInStock > 0 ? <span>In Stock</span> : <span>unavailable</span>}
+                      <h6>Trạng thái</h6>
+                      {product.countInStock > 0 ? <span>Còn hàng</span> : <span>unavailable</span>}
                     </div>
                     <div className="flex-box d-flex justify-content-between align-items-center">
                       <h6>Reviews</h6>
@@ -253,7 +254,7 @@ const SingleProduct = ({ history, match }) => {
                     {product && product.countInStock > 0 ? (
                       <>
                         <div className="flex-box d-flex justify-content-between align-items-center">
-                          <h6>Quantity</h6>
+                          <h6>Số lượng</h6>
                           <select value={qty} onChange={(e) => setQty(e.target.value)}>
                             {[...Array(product.countInStock).keys()].map((x) => (
                               <option key={x + 1} value={x + 1}>
@@ -263,7 +264,7 @@ const SingleProduct = ({ history, match }) => {
                           </select>
                         </div>
                         <button onClick={handleAddToCart} className="round-black-btn">
-                          Add To Cart
+                          Thêm vào giỏ hàng
                         </button>
                       </>
                     ) : null}
@@ -280,28 +281,28 @@ const SingleProduct = ({ history, match }) => {
               <div className="product-view-info_detail">
                 <div className="product-view-info_detail-row">
                   <label className="product-view-info_detail-title">Tên nhà cung cấp</label>
-                  <div>NXB Kim Đồng</div>
+                  <div>{product.supplier}</div>
                 </div>
                 <div className="product-view-info_detail-row">
                   <label className="product-view-info_detail-title">Tác giả</label>
-                  <div>Robin Sharma</div>
+                  <div>{product.author}</div>
                 </div>
-                <div className="product-view-info_detail-row">
+                {/* <div className="product-view-info_detail-row">
                   <label className="product-view-info_detail-title">Năm xuất bản</label>
                   <div>2022</div>
-                </div>
+                </div> */}
                 <div className="product-view-info_detail-row">
                   <label className="product-view-info_detail-title">Nhà xuất bản</label>
-                  <div>NXB Kim Đồng</div>
+                  <div>{product.publisher}</div>
                 </div>
                 <div className="product-view-info_detail-row">
                   <label className="product-view-info_detail-title">Ngôn ngữ</label>
                   <div>Tiếng Việt</div>
                 </div>
-                <div className="product-view-info_detail-row">
+                {/* <div className="product-view-info_detail-row">
                   <label className="product-view-info_detail-title">Số trang</label>
                   <div>100</div>
-                </div>
+                </div> */}
                 <div className="product-view-info_detail-row">
                   <label className="product-view-info_detail-title">Hình thức</label>
                   <div>Bìa mềm</div>
@@ -319,7 +320,7 @@ const SingleProduct = ({ history, match }) => {
             {/* RATING */}
             <div className="row my-5 bg-w pd-y">
               <div className="col-md-6">
-                <h6 className="mb-3">REVIEWS</h6>
+                <h6 className="mb-3">ĐÁNH GIÁ</h6>
                 {product.reviews.length === 0 && <Message variant={"alert-info mt-3"}>No Reviews</Message>}
                 {product.reviews &&
                   product.reviews.map((review) => (
@@ -341,7 +342,7 @@ const SingleProduct = ({ history, match }) => {
                   ))}
               </div>
               <div className="col-md-6">
-                <h6>WRITE A CUSTOMER REVIEW</h6>
+                <h6>ĐÁNH GIÁ SẢN PHẨM</h6>
                 <div className="my-4">
                   {loadingCreateReview && <Loading />}
                   {errorCreateReview && <Message variant="alert-danger">{errorCreateReview}</Message>}
@@ -378,7 +379,7 @@ const SingleProduct = ({ history, match }) => {
                         disabled={loadingCreateReview}
                         className="btn-submit btn-primary col-12 border-1 p-3 rounded text-white"
                       >
-                        SUBMIT
+                        Đăng
                       </button>
                     </div>
                   </form>
@@ -397,7 +398,7 @@ const SingleProduct = ({ history, match }) => {
             </div>
             {/* Related products */}
             <div className="ralated-product-list pd-y">
-              {relatedProducts?.length > 0 && <h3 className="mb-3">Related products category</h3>}
+              {relatedProducts?.length > 0 && <h3 className="mb-3">Danh mục sản phẩm liên quan</h3>}
               <div className="col-8 row related-product-container">
                 {loading ? (
                   <div className="mb-5 mt-5">
