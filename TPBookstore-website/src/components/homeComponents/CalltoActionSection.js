@@ -7,11 +7,11 @@ const CalltoActionSection = () => {
         <div className="row">
           <div className="col-xs-12">
             <div className="subscribe-head">
-              <h2>Do you need more tips?</h2>
-              <p>Sign up free and get the latest tips.</p>
+              <h2>Đăng ký và nhận bản tin</h2>
+              <p>Đăng ký nhận thông tin sách mới, sách bán</p>
               <form className="form-section">
                 <input placeholder="Your Email..." name="email" type="email" />
-                <input value="Yes. I want!" name="subscribe" type="submit" />
+                <input value="Đăng ký" name="subscribe" type="submit" />
               </form>
             </div>
           </div>
