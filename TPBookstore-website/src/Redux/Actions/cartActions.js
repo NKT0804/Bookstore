@@ -129,7 +129,7 @@ export const removeFromCartItem = (productIds) => async (dispatch, getState) => 
   }
 };
 // UPDATE CART
-export const updateCart = (productId, qty) => async (dispatch, getState) => {
+export const updateCart = (productId, qty, isBuy) => async (dispatch, getState) => {
   try {
     dispatch({ type: CART_UPDATE_REQUEST });
 
@@ -143,7 +143,7 @@ export const updateCart = (productId, qty) => async (dispatch, getState) => {
       }
     };
 
-    const { data } = await axios.patch(`/api/v1/cart/update`, { productId, qty }, config);
+    const { data } = await axios.patch(`/api/v1/cart/update`, { productId, qty, isBuy }, config);
 
     dispatch({ type: CART_UPDATE_SUCCESS, payload: data });
   } catch (error) {

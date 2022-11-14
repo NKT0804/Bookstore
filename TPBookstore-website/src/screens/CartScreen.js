@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCartListItem, removeFromCartItem, updateCart } from "./../Redux/Actions/cartActions";
 import { toast } from "react-toastify";
 import Toast from "../components/base/LoadingError/Toast";
-
+import formatCash from "../utils/formatCash";
 const ToastObjects = {
   pauseOnFocusLoss: false,
   draggable: false,
@@ -14,7 +14,6 @@ const ToastObjects = {
   autoClose: 2000
 };
 const CartScreen = ({ history }) => {
-  window.scrollTo(0, 0);
   const dispatch = useDispatch();
   const cart = useSelector((state) => {
     return state.cartListItem.cartUser ?? state.cartListItem;
@@ -22,7 +21,8 @@ const CartScreen = ({ history }) => {
   const { cartItems } = cart;
 
   // product total handler
-  const totalHandler = cartItems?.reduce((pro, item) => pro + item.qty * item?.product.price, 0); /*.toFixed(2);*/
+  const itemChecked = cartItems?.filter((item) => item.isBuy === true);
+  const totalHandler = itemChecked?.reduce((pro, item) => pro + item.qty * item?.product.price, 0); /*.toFixed(2);*/
 
   const addToCart = useSelector((state) => state.addToCart);
   const { success } = addToCart;
@@ -42,7 +42,16 @@ const CartScreen = ({ history }) => {
     history.push("/placeorder");
   };
 
-  // remove product from cart handler
+  // checkbox handler  all items from the cart
+  const checkboxAllHandler = (e) => {
+    const listItemCheckbox = document.getElementsByName("checkboxBuy");
+    for (let i = 0; i < listItemCheckbox.length; i++) {
+      if (listItemCheckbox[i].type === "checkbox" && !listItemCheckbox[i].disabled) {
+        if (!listItemCheckbox[i].checked === e) listItemCheckbox[i].click();
+      }
+    }
+  };
+  // handler remove the product from the cart
   const removeFromCartHandler = (id) => {
     if (window.confirm("Are you sure remove cart item???")) {
       dispatch(removeFromCartItem([id]));
@@ -54,12 +63,10 @@ const CartScreen = ({ history }) => {
     }
   };
 
-  // update product from cart handler
-  const updateFromCartHandler = (productId, qty) => {
-    dispatch(updateCart(productId, qty));
-    if (updateCartSuccess) {
-      toast.success("Update cart item success", ToastObjects);
-    } else if (updateCartError) {
+  //handler updates the product from the cart
+  const updateFromCartHandler = (productId, qty, isBuy) => {
+    dispatch(updateCart(productId, qty, isBuy));
+    if (updateCartError) {
       toast.error(updateCartError, ToastObjects);
     }
   };
@@ -85,18 +92,10 @@ const CartScreen = ({ history }) => {
           </div>
         ) : (
           <>
-            {/* <div className=" alert alert-info text-center mt-1">
-              Total Cart Products
-              <Link className="text-success mx-2" to="/cart">
-                ({cartItems?.length})
-              </Link>
-            </div> */}
-
             {/* PC */}
+
             <div className="cart-title row">
-              <div className="cart-title-item col-lg-1"></div>
-              <div className="cart-title-item col-lg-2">Sản phẩm</div>
-              <div className="cart-title-item col-lg-3">Tên sách</div>
+              <div className="cart-title-item col-lg-6">Sản phẩm</div>
               <div className="cart-title-item col-lg-2">Đơn giá</div>
               <div className="cart-title-item col-lg-1">Số lượng</div>
               <div className="cart-title-item col-lg-2">Thành tiền</div>
@@ -109,38 +108,55 @@ const CartScreen = ({ history }) => {
                 {/* checkbox */}
                 <div className="cart-itemPC row">
                   <div className="cart-itemPC-checkbox col-lg-1">
-                    <input className="cart-itemPC-checkbox-input" type="checkbox" id="" name="" />
+                    <input
+                      className="cart-itemPC-checkbox-input"
+                      type="checkbox"
+                      name="checkboxBuy"
+                      id={item.product._id}
+                      checked={item.isBuy}
+                      hidden={item.product?.countInStock <= 0}
+                      disabled={item.product?.countInStock <= 0}
+                      onChange={(e) => updateFromCartHandler(item.product._id, item.qty, e.target.checked)}
+                    />
                   </div>
                   {/* Image */}
                   <div className="cart-itemPC-image col-lg-2">
-                    <img src={item.product.image} alt={item.product.name} />
+                    <Link to={`/product/${item.product._id}`}>
+                      <img src={item.product.image} alt={item.product.name} />
+                    </Link>
                   </div>
                   {/* Name */}
                   <div className="cart-itemPC-text col-lg-3 col-md-5">
-                    <Link to={`/products/${item.product._id}`}>
+                    <Link to={`/product/${item.product._id}`}>
                       <p>{item.product.name}</p>
                     </Link>
                   </div>
                   {/* Price */}
                   <div className="cart-itemPC-price col-lg-2">
-                    <b>{item.product.price}đ</b>
+                    <b>{formatCash(item.product.price)}</b>
                   </div>
                   {/* Quantity */}
                   <div className="cart-itemPC-qty col-lg-1 mt-3">
-                    <select
-                      value={item.qty}
-                      onChange={(e) => updateFromCartHandler(item.product._id, Number(e.target.value))}
-                    >
-                      {[...Array(item.product.countInStock).keys()].map((x, index) => (
-                        <option key={index} value={x + 1}>
-                          {x + 1}
-                        </option>
-                      ))}
-                    </select>
+                    {item.product.countInStock > 0 ? (
+                      <select
+                        value={item.qty}
+                        onChange={(e) => updateFromCartHandler(item.product._id, Number(e.target.value), item.isBuy)}
+                      >
+                        {[...Array(item.product.countInStock).keys()].map((x, index) => (
+                          <option key={index} value={x + 1}>
+                            {x + 1}
+                          </option>
+                        ))}
+                      </select>
+                    ) : (
+                      <div>
+                        <span>Hết hàng</span>
+                      </div>
+                    )}
                   </div>
                   {/* Total a product */}
                   <div className="cart-itemPC-total col-lg-2">
-                    <b>{item.product.price * item.qty}đ</b>
+                    <b>{formatCash(item.product.price * item.qty)}</b>
                   </div>
                   {/* Remove product */}
                   <div
@@ -156,37 +172,54 @@ const CartScreen = ({ history }) => {
                   <div className="row col-md-5 col-5">
                     {/* checkbox */}
                     <div className="cart-itemMobile-checkbox col-md-4 col-3">
-                      <input className="cart-itemMobile-checkbox-input" type="checkbox" id="" name="" />
+                      <input
+                        className="cart-itemMobile-checkbox-input"
+                        type="checkbox"
+                        name="checkboxBuy"
+                        id={item.product._id}
+                        checked={item.isBuy}
+                        hidden={item.product?.countInStock <= 0}
+                        disabled={item.product?.countInStock <= 0}
+                        onChange={(e) => updateFromCartHandler(item.product._id, item.qty, e.target.checked)}
+                      />
                     </div>
                     {/* Image */}
                     <div className="cart-itemMobile-image col-md-8 col-9">
-                      <img src={item.product.image} alt={item.product.name} />
+                      <Link to={`/product/${item.product._id}`}>
+                        <img src={item.product.image} alt={item.product.name} />
+                      </Link>
                     </div>
                   </div>
 
                   {/* Name */}
                   <div className="row col-md-7 col-7">
                     <div className="cart-itemMobile-text col-md-12 col-12">
-                      <Link to={`/products/${item.product._id}`}>
+                      <Link to={`/product/${item.product._id}`}>
                         <p>{item.product.name}</p>
                       </Link>
                     </div>
                     {/* Price */}
                     <div className="cart-itemMobile-price col-md-4 col-7">
-                      <b>{item.product.price}đ</b>
+                      <b>{formatCash(item.product.price)}</b>
                     </div>
                     {/* Quantity */}
                     <div className="cart-itemMobile-qty col-md-4 col-5">
-                      <select
-                        value={item.qty}
-                        onChange={(e) => updateFromCartHandler(item.product._id, Number(e.target.value))}
-                      >
-                        {[...Array(item.product.countInStock).keys()].map((x, index) => (
-                          <option key={index} value={x + 1}>
-                            {x + 1}
-                          </option>
-                        ))}
-                      </select>
+                      {item.product.countInStock > 0 ? (
+                        <select
+                          value={item.qty}
+                          onChange={(e) => updateFromCartHandler(item.product._id, Number(e.target.value), item.isBuy)}
+                        >
+                          {[...Array(item.product.countInStock).keys()].map((x, index) => (
+                            <option key={index} value={x + 1}>
+                              {x + 1}
+                            </option>
+                          ))}
+                        </select>
+                      ) : (
+                        <div>
+                          <span>Hết hàng</span>
+                        </div>
+                      )}
                     </div>
                     {/* Total a product */}
                     {/* <div className="cart-itemMobile-total col-lg-2 col-md-2 col-sm-7">
@@ -206,24 +239,24 @@ const CartScreen = ({ history }) => {
 
             {/* End of cart iterms */}
             <div className="total">
-              <span className="total__text">Tổng thanh toán ({cartItems?.length} sản phẩm): </span>
-              <span className="total__price">{totalHandler}đ</span>
-            </div>
-            <hr />
-            {totalHandler > 0 && (
-              <div className="cart-buttons d-flex align-items-center row">
-                <Link to="/" className="col-md-6 ">
-                  <button>
-                    <b>Chọn thêm sản phẩm</b>
-                  </button>
-                </Link>
-                <div className="col-md-6 d-flex justify-content-md-end mt-3 mt-md-0">
-                  <button onClick={checkOutHandler}>
-                    <b>Thanh toán</b>
-                  </button>
-                </div>
+              <div className="cart-title-item col-lg-1">
+                <input
+                  className="cart-itemPC-checkbox-input"
+                  type="checkbox"
+                  onChange={(e) => checkboxAllHandler(e.target.checked)}
+                />
+                Tất cả
               </div>
-            )}
+              <span className="total__text ">Tổng thanh toán ({itemChecked?.length} sản phẩm): </span>
+              <span className="total__price">{formatCash(totalHandler)}</span>
+            </div>
+            <div className="cart-buttons d-flex align-items-center row">
+              <div className="col-md-6 d-flex justify-content-md-end mt-3 mt-md-0">
+                <button onClick={checkOutHandler} disabled={!itemChecked?.length > 0}>
+                  <b>Thanh toán</b>
+                </button>
+              </div>
+            </div>
           </>
         )}
       </div>

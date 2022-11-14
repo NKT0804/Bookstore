@@ -29,8 +29,9 @@ const PlaceOrderScreen = ({ history }) => {
     return state.cartListItem.cartUser ?? state.cartListItem;
   });
   const { cartItems } = cart;
-
-  let newCartOrder = cartItems.reduce((arrayCartCurrent, item) => {
+  let placeOrder = {};
+  const orderItems = cartItems.filter((item) => item.isBuy === true);
+  placeOrder.orderItems = orderItems.reduce((arrayCartCurrent, item) => {
     arrayCartCurrent.push({
       name: item.product.name,
       qty: item.qty,
@@ -40,11 +41,13 @@ const PlaceOrderScreen = ({ history }) => {
     });
     return arrayCartCurrent;
   }, []);
-
-  cart.itemsPrice = Number(cart.cartItems.reduce((acc, item) => acc + item.product.price * item.qty, 0));
-  cart.shippingPrice = 15000;
-  cart.taxPrice = Math.round(Number(0.05 * cart.itemsPrice));
-  cart.totalPrice = Number(cart.itemsPrice) + Number(cart.shippingPrice) + Number(cart.taxPrice);
+  placeOrder.itemsPrice = Number(
+    orderItems.length > 0 ? orderItems.reduce((acc, item) => acc + item.product.price * item.qty, 0) : 0
+  );
+  placeOrder.shippingPrice = 15000;
+  placeOrder.taxPrice = Math.round(Number(0.05 * placeOrder.itemsPrice));
+  placeOrder.totalPrice =
+    Number(placeOrder.itemsPrice) + Number(placeOrder.shippingPrice) + Number(placeOrder.taxPrice);
 
   const orderCreate = useSelector((state) => state.orderCreate);
   const { order, success, error } = orderCreate;
@@ -77,13 +80,13 @@ const PlaceOrderScreen = ({ history }) => {
   const placeOrderHandler = () => {
     dispatch(
       createOrder({
-        orderItems: newCartOrder,
+        orderItems: placeOrder.orderItems,
         shippingAddress: shippingAddress,
         paymentMethod: paymentMethod,
-        itemsPrice: cart.itemsPrice,
-        shippingPrice: cart.shippingPrice,
-        taxPrice: cart.taxPrice,
-        totalPrice: cart.totalPrice
+        itemsPrice: placeOrder.itemsPrice,
+        shippingPrice: placeOrder.shippingPrice,
+        taxPrice: placeOrder.taxPrice,
+        totalPrice: placeOrder.totalPrice
       })
     );
   };
@@ -151,11 +154,11 @@ const PlaceOrderScreen = ({ history }) => {
 
         <div className="row order-products justify-content-between">
           <div className="col-lg-8">
-            {cartItems?.length === 0 ? (
+            {orderItems?.length === 0 ? (
               <Message variant="alert-info mt-5">Bạn chưa có đơn hàng nào</Message>
             ) : (
               <>
-                {cartItems?.map((item, index) => (
+                {orderItems?.map((item, index) => (
                   <div className="order-products-item row" key={index}>
                     <div className="col-lg-2 col-md-2 col-3">
                       <Link to={`/product/${item.product}`}>
@@ -196,25 +199,25 @@ const PlaceOrderScreen = ({ history }) => {
                   <td>
                     <strong>Tổng tiền sách</strong>
                   </td>
-                  <td>{formatCash(cart.itemsPrice)}</td>
+                  <td>{formatCash(placeOrder.itemsPrice)}</td>
                 </tr>
                 <tr>
                   <td>
                     <strong>Phí vận chuyển</strong>
                   </td>
-                  <td>{formatCash(cart.shippingPrice)}</td>
+                  <td>{formatCash(placeOrder.shippingPrice)}</td>
                 </tr>
                 <tr>
                   <td>
                     <strong>Thuế VAT (5%)</strong>
                   </td>
-                  <td>{formatCash(cart.taxPrice)}</td>
+                  <td>{formatCash(placeOrder.taxPrice)}</td>
                 </tr>
                 <tr>
                   <td>
                     <strong>Tổng số tiền</strong>
                   </td>
-                  <td>{formatCash(cart.totalPrice)}</td>
+                  <td>{formatCash(placeOrder.totalPrice)}</td>
                 </tr>
                 <tr>
                   <td>
@@ -222,10 +225,9 @@ const PlaceOrderScreen = ({ history }) => {
                   </td>
                   <td>
                     {/* <select value={paymentMethod} onChange={(e) => setPaymentMethod(e.target.value)}>
-                      <option key={"thanh-toan-khi-nhan-hang"} value={"Thanh toán khi nhận hàng"}> */}
-                    Thanh toán khi nhận hàng
-                    {/* </option>
+                      <option key={"thanh-toan-khi-nhan-hang"} value={"Thanh toán khi nhận hàng"}></option>
                     </select> */}
+                    Thanh toán khi nhận hàng
                   </td>
                 </tr>
               </tbody>
