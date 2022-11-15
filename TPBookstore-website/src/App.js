@@ -74,8 +74,13 @@ const App = () => {
         <AdminPrivateRouter path="/admin" component={HomeScreenAdmin} exact />
         <AdminPrivateRouter path="/admin/products" component={ProductScreenAdmin} exact />
         <AdminPrivateRouter path="/admin/search/:keyword" component={ProductScreenAdmin} exact />
-        <AdminPrivateRouter path="/admin/products/page/:pagenumber" component={ProductScreenAdmin} exact />
-        <AdminPrivateRouter path="/admin/search/:keyword/page/:pageNumber" component={ProductScreenAdmin} exact />
+        <AdminPrivateRouter path="/admin/products/page/:pageNumber" component={ProductScreenAdmin} exact />
+        <AdminPrivateRouter path="/admin/products/search/:keyword" component={ProductScreenAdmin} exact />
+        <AdminPrivateRouter
+          path="/admin/products/search/:keyword/page/:pageNumber"
+          component={ProductScreenAdmin}
+          exact
+        />
         <AdminPrivateRouter path="/admin/product/:id/edit" component={ProductEditScreenAdmin} />
         <AdminPrivateRouter path="/admin/addproduct" component={AddProductAdmin} />
         <AdminPrivateRouter path="/admin/category" component={CategoriesScreenAdmin} />

@@ -107,7 +107,8 @@ const OrderDetailmain = (props) => {
                 <div className="box shadow-sm bg-light">
                   {order?.delivered ? (
                     <button className="btn btn-success col-12">
-                      Đã giao hàng ( {moment(order.isDeliveredAt).format("MMM Do YY")})
+                      Đã giao hàng ({" "}
+                      {moment(order.isDeliveredAt).format("LT") + " " + moment(order.isDeliveredAt).format("L")})
                     </button>
                   ) : !order?.confirmed ? (
                     <>

@@ -76,7 +76,7 @@ const Product = (props) => {
           <b>{product?.category.name}</b>
         </td>
         <td>
-          <b>{formatCash(product?.price)}</b>
+          <b>{formatCash(product?.priceSale)}</b>
         </td>
         <td>
           <b>{product?.countInStock}</b>

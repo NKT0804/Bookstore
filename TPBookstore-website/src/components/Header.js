@@ -131,6 +131,7 @@ const Header = () => {
                       type="search"
                       className="form-control rounded search"
                       placeholder="Tìm kiếm"
+                      value={keyword}
                       onChange={(e) => setKeyword(e.target.value)}
                     />
                     <button type="submit" className="search-button">

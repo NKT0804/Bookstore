@@ -26,7 +26,6 @@ NODE_ENV=<development||production>
 REFRESH_TOKEN_SECRET=<refresh_secret_key>
 ACCESS_TOKEN_EXPIRESIN=1h
 REFRESH_TOKEN_EXPIRESIN=1.5h
-PAYPAL_CLIENT_ID=<bảo cute vl>
 MONGO_URL=<mongo_uri_here>
 ```
 

@@ -3,11 +3,12 @@ import Toast from "../../base/LoadingError/Toast";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { editProductAdmin, updateProductAdmin } from "./../../../Redux/Actions/productActions";
-import { PRODUCT_CREATE_FAIL, PRODUCT_UPDATE_RESET } from "../../../Redux/Constants/productConstants";
+import { PRODUCT_UPDATE_FAIL, PRODUCT_UPDATE_RESET } from "../../../Redux/Constants/productConstants";
 import { toast } from "react-toastify";
 import Message from "../../base/LoadingError/Error";
 import Loading from "../../base/LoadingError/Loading";
 import { listCategoryAdmin } from "../../../Redux/Actions/categoryActions";
+import ReactQuill from "react-quill";
 
 const ToastObjects = {
   pauseOnFocusLoss: false,
@@ -15,7 +16,33 @@ const ToastObjects = {
   pauseOnHover: false,
   autoClose: 2000
 };
-
+const moudules = {
+  toolbar: [
+    [{ header: "1" }, { header: "2" }, { header: [3, 4, 5, 6] }, { font: [] }],
+    [{ size: [] }],
+    ["bold", "italic", "underline", "strike", "blockquote"],
+    [{ list: "ordered" }, { list: "bullet" }],
+    ["link", "image", "video"],
+    ["clean"],
+    ["code-block"]
+  ]
+};
+const formats = [
+  "header",
+  "font",
+  "size",
+  "bold",
+  "italic",
+  "underline",
+  "strike",
+  "blockquote",
+  "list",
+  "bullet",
+  "link",
+  "image",
+  "video",
+  "code-block"
+];
 const EditProductMain = (props) => {
   const { productId } = props;
 
@@ -28,6 +55,9 @@ const EditProductMain = (props) => {
   const [description, setDescription] = useState("");
   const [publisher, setPublisher] = useState("");
   const [supplier, setSupplier] = useState("");
+  const [publishingYear, setPublishingYear] = useState("");
+  const [language, setLanguage] = useState("");
+  const [numberOfPages, setNumberOfPages] = useState("");
 
   const dispatch = useDispatch();
 
@@ -70,6 +100,9 @@ const EditProductMain = (props) => {
         setAuthor(product.author);
         setPublisher(product.publisher);
         setSupplier(product.supplier);
+        setPublishingYear(product.publishingYear);
+        setLanguage(product.language);
+        setNumberOfPages(product.numberOfPages);
       }
     }
   }, [product, dispatch, productId, successUpdate, category]);
@@ -89,11 +122,14 @@ const EditProductMain = (props) => {
           countInStock,
           category,
           publisher,
-          supplier
+          supplier,
+          publishingYear,
+          language,
+          numberOfPages
         })
       );
     } else {
-      dispatch({ type: PRODUCT_CREATE_FAIL });
+      dispatch({ type: PRODUCT_UPDATE_FAIL });
       toast.error("Cập nhật sản phẩm không thành công!!!", ToastObjects);
     }
   };
@@ -134,7 +170,7 @@ const EditProductMain = (props) => {
                           </label>
                           <input
                             type="text"
-                            placeholder="Type here"
+                            placeholder="Nhập tiêu đề"
                             className="form-control"
                             id="product_title"
                             required
@@ -191,19 +227,50 @@ const EditProductMain = (props) => {
 
                       <div className="row mb-4">
                         <div className="col-lg-6 col-md-6 mb-2">
+                          <label htmlFor="product_price" className="form-label">
+                            Năm xuất bản
+                          </label>
+                          <input
+                            type="number"
+                            placeholder="Nhập năm xuất bản"
+                            className="form-control"
+                            id="product_price"
+                            required
+                            value={publishingYear}
+                            onChange={(e) => setPublishingYear(e.target.value)}
+                          />
+                        </div>
+                        <div className="col-lg-6 col-md-6 mb-2">
+                          <label htmlFor="product_price_sale" className="form-label">
+                            Số trang
+                          </label>
+                          <input
+                            type="number"
+                            placeholder="Nhập số trang"
+                            className="form-control"
+                            id="product_price_sale"
+                            required
+                            value={numberOfPages}
+                            onChange={(e) => setNumberOfPages(e.target.value)}
+                          />
+                        </div>
+                      </div>
+
+                      <div className="row mb-4">
+                        <div className="col-lg-6 col-md-6 mb-2">
                           <label htmlFor="category_title" className="form-label">
                             Danh mục
                           </label>
                           <select
                             id="category_title"
                             className="form-select"
-                            value={category}
                             onChange={(e) => setCategory(e.target.value)}
                           >
+                            <option value="">Chọn danh mục</option>
                             {categoryEditProduct &&
-                              categoryEditProduct.map((categoryItem, index) => (
-                                <option key={index} value={categoryItem?._id}>
-                                  {categoryItem?.name}
+                              categoryEditProduct.map((category, index) => (
+                                <option key={index} value={category._id}>
+                                  {category.name}
                                 </option>
                               ))}
                           </select>
@@ -241,7 +308,7 @@ const EditProductMain = (props) => {
                         </div>
                         <div className="col-lg-6 col-md-6 mb-2">
                           <label htmlFor="product_price_sale" className="form-label">
-                            Giá bán
+                            Giá đã giảm
                           </label>
                           <input
                             type="number"
@@ -255,33 +322,44 @@ const EditProductMain = (props) => {
                         </div>
                       </div>
 
+                      {/*image */}
                       <div className="row mb-4">
-                        <label className="form-label">Mô tả</label>
-                        <textarea
-                          placeholder="Nhập mô tả sản phẩm"
-                          className="form-control text-align-content"
-                          rows="7"
-                          required
-                          value={description}
-                          onChange={(e) => setDescription(e.target.value)}
-                        ></textarea>
-                      </div>
-
-                      <div className="row mb-4">
-                        <div className="col-lg-6 col-md-6 mb-2 col-md-7">
+                        <div className="col-lg-6 col-md-7 mb-2">
                           <label className="form-label">Hình ảnh sản phẩm</label>
                           <input
                             className="form-control"
-                            type="text"
+                            type="url"
                             placeholder="Nhập URL hình ảnh"
                             value={image}
                             required
                             onChange={(e) => setImage(e.target.value)}
                           />
                         </div>
-                        <div className="col-lg-3 col-md-5 mb-2 add-product__img">
-                          <input className="form-control mt-3" type="file" />
+
+                        <div className="col-lg-6 col-md-6 mb-2">
+                          <label htmlFor="product_author" className="form-label">
+                            Ngôn ngữ
+                          </label>
+                          <input
+                            type="text"
+                            placeholder="Nhập ngôn ngữ"
+                            className="form-control"
+                            id="product_author"
+                            required
+                            value={language}
+                            onChange={(e) => setLanguage(e.target.value)}
+                          />
                         </div>
+                        <label className="form-label">Mô tả</label>
+                        <ReactQuill
+                          placeholder="Nhập mô tả sản phẩm"
+                          className="form-control text-align-content input-description"
+                          moudules={moudules}
+                          formats={formats}
+                          required
+                          value={description}
+                          onChange={(value) => setDescription(value)}
+                        />
                       </div>
                     </>
                   )}

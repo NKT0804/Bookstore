@@ -59,7 +59,7 @@ const BestSellerProduct = () => {
     <>
       <div className="row best-seller">
         <div className="title-section">
-          <h2 className="heading-section main-effect">Sách bán chạy</h2>
+          <h2 className="heading-section main-effect">Sản phẩm bán chạy</h2>
         </div>
         <div className="best-seller-container">
           <Slider {...settings}>
@@ -105,7 +105,7 @@ const BestSellerProduct = () => {
                           <div className="shoptext__rating">
                             <Rating value={product.rating} numRating={product.rating} />
                             <p>
-                              Lượt xem: <b>{product.numViews}</b>
+                              Đã bán: <b>{product.totalSales}</b>
                             </p>
                           </div>
                         </div>
