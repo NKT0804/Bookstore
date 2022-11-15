@@ -799,6 +799,35 @@ ul.row-sm {
   max-width: 100%;
 }
 
+/* FORGOT PASSWORD */
+.forgot-password-header {
+  background-color: var(--white-color);
+  padding: 0 260px;
+  display:  flex;
+  justify-content:space-between;
+  height : 100px;
+  box-shadow: 0 6px 6px rgb(0 0 0 / 6%);
+}
+
+.forgot-password-header img {
+  width: 300px;
+}
+
+.forgot-password-header h6{
+  color : var(--primary-color);
+  cursor: pointer;
+}
+
+.forgot-password-title  {
+  display: flex;
+  align-items : center;
+}
+
+.forgot-password-title a {
+  width : 20px;
+  height : 20px;
+} 
+
 /* ================= RATINGS ============== */
 .label-rating {
   margin-left: 7px;

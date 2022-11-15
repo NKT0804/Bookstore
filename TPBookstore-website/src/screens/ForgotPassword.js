@@ -49,19 +49,25 @@ const ForgotPassword = () => {
   return (
     <>
       <Toast />
+      <div className="forgot-password-header col-12 d-flex align-items-center">
+        <Link className="navbar-brand" to="/">
+          <img alt="logo" src="/images/logo.png" />
+        </Link>
+        <h6>Bạn cần giúp đỡ ?</h6>
+      </div>
       <div className="container d-flex flex-column justify-content-center align-items-center login-center">
         {loadingForgot && <Loading />}
         <form className="Login col-md-8 col-lg-4 col-11" onSubmit={formik.handleSubmit}>
-          <div>
-            <Link to="/login">
+          <div className="row forgot-password-title">
+            <Link className="col-2" to="/login">
               <i class="fa fa-arrow-left" aria-hidden="true"></i>
             </Link>
-            <div className="col-6 d-flex align-items-center">
+            <h5 className="col-10 form-title">Đặt lại mật khẩu</h5>
+            {/* <div className="col-6 d-flex align-items-center">
               <img alt="logo" src="/images/logo.png" />
-            </div>
+            </div> */}
           </div>
 
-          <h5 className="form-title">Đặt lại mật khẩu</h5>
           <input
             type="email"
             id="email"
