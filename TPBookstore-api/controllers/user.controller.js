@@ -213,7 +213,7 @@ const updateProfile = async (req, res) => {
 
 // update password
 const updatePassword = async (req, res) => {
-    const userId = req.params.userId;
+    const userId = req.params.id;
     const { currentPassword, newPassword } = req.body;
     const user = await User.findById(userId);
     if (!user) {
@@ -248,7 +248,7 @@ const forgotPassword = async (req, res) => {
     const resetPasswordToken = user.getResetPasswordToken();
     await user.save();
     //send reset password email
-    const url = `${process.env.WEB_CLIENT_URL}/reset-password/${resetPasswordToken}`;
+    const url = `${process.env.WEB_CLIENT_URL}/resetPassword/${resetPasswordToken}`;
     const html = `<a href="${url}" target="_blank"><button>Đặt lại mật khẩu</button></a>`;
     //set up message options
     const messageOptions = {
@@ -304,13 +304,12 @@ const getUsers = async (req, res) => {
 
 //User upload avatar
 const uploadAvatar = async (req, res) => {
-    // const userId = req.user._id ? req.user._id : null;
     let user = await User.findOne({
         _id: req.user._id,
         isDisabled: false
     });
-    if (user.isAdmin && mongoose.isValidObjectId(req.params.userId)) {
-        user = await User.findById(req.params.userId);
+    if (user.isAdmin && mongoose.isValidObjectId(req.params.id)) {
+        user = await User.findById(req.params.id);
     }
     if (!user) {
         res.status(400);

@@ -1,4 +1,4 @@
-import { checkProduct, checkUser } from "./basic.js";
+import { checkProduct, checkUser as checkLogin } from "./basic.js";
 
 test("test api product", () => {
   async () => {
@@ -10,7 +10,7 @@ test("test api product", () => {
 
 test("test api user", () => {
   async () => {
-    return await checkUser("tpbookstore2022@gmail.com", "admintpbookstore1").then((data) => {
+    return await checkLogin("tpbookstore2022@gmail.com", "admintpbookstore1").then((data) => {
       expect(JSON.parse(data).status).toBe(200);
     });
   };

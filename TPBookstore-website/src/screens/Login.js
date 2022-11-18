@@ -65,7 +65,7 @@ const Login = ({ location, history }) => {
             {formik.errors.password && <span className="error-message">{formik.errors.password}</span>}
           </div>
           <p>
-            <Link to="/forgot-password">
+            <Link to="/forgotPassword">
               <strong>Quên mật khẩu?</strong>
             </Link>
           </p>

@@ -46,17 +46,17 @@ const formats = [
 const AddProductMain = () => {
   const [name, setName] = useState("");
   const [category, setCategory] = useState("");
-  const [price, setPrice] = useState();
-  const [priceSale, setPriceSale] = useState("");
+  const [price, setPrice] = useState(null);
+  const [priceSale, setPriceSale] = useState(null);
   const [author, setAuthor] = useState("");
   const [image, setImage] = useState("");
-  const [countInStock, setCountInStock] = useState();
+  const [countInStock, setCountInStock] = useState(null);
   const [description, setDescription] = useState("");
   const [publisher, setPublisher] = useState("");
   const [supplier, setSupplier] = useState("");
-  const [publishingYear, setPublishingYear] = useState("");
+  const [publishingYear, setPublishingYear] = useState(null);
   const [language, setLanguage] = useState("");
-  const [numberOfPages, setNumberOfPages] = useState("");
+  const [numberOfPages, setNumberOfPages] = useState(null);
 
   const dispatch = useDispatch();
 
@@ -73,16 +73,16 @@ const AddProductMain = () => {
       dispatch({ type: PRODUCT_CREATE_RESET });
       setName("");
       setDescription("");
-      setCountInStock();
+      setCountInStock(null);
       setImage("");
       setAuthor("");
-      setPrice();
-      setPriceSale();
+      setPrice(null);
+      setPriceSale(null);
       setPublisher("");
       setSupplier("");
-      setPublishingYear();
+      setPublishingYear(null);
       setLanguage("");
-      setNumberOfPages();
+      setNumberOfPages(null);
     }
   }, [product, dispatch]);
 

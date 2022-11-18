@@ -41,7 +41,7 @@ const SingleProduct = ({ history, match }) => {
   const [rating, setRating] = useState(5);
   const [reviewContent, setReviewContent] = useState("");
 
-  const productId = match.params.id;
+  const productSlug = match.params.id;
   const dispatch = useDispatch();
 
   const productList = useSelector((state) => state.productList);
@@ -71,8 +71,10 @@ const SingleProduct = ({ history, match }) => {
   const { success: successUpdateComment, error: errorUpdateComment } = notifiUpdateProductComment;
 
   const loadListCommentProduct = useCallback(() => {
-    dispatch(listCommentProduct(productId));
-  }, [dispatch, productId]);
+    if (product) {
+      dispatch(listCommentProduct(product._id));
+    }
+  }, [dispatch, product]);
 
   // handle get single products
   useEffect(() => {
@@ -80,9 +82,9 @@ const SingleProduct = ({ history, match }) => {
       setReviewContent("");
       dispatch({ type: PRODUCT_CREATE_REVIEW_RESET });
     }
-    dispatch(detailsProduct(productId));
+    dispatch(detailsProduct(productSlug));
     dispatch(listProducts());
-  }, [dispatch, productId, successCreateReview]);
+  }, [dispatch, productSlug, successCreateReview]);
 
   // handle show noti create comment
   useEffect(() => {
@@ -130,8 +132,8 @@ const SingleProduct = ({ history, match }) => {
     e.preventDefault();
     if (userInfo) {
       if (qty > 0) {
-        dispatch(addToCartItems(productId, qty));
-        history.push(`/cart/${productId}?qty=${qty}`);
+        dispatch(addToCartItems(product._id, qty));
+        history.push(`/cart/${product._id}?qty=${qty}`);
       } else {
         dispatch({ type: ADD_TO_CART_FAIL });
       }
@@ -143,7 +145,7 @@ const SingleProduct = ({ history, match }) => {
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(
-      createProductReview(productId, {
+      createProductReview(product._id, {
         rating,
         reviewContent
       })
@@ -429,7 +431,7 @@ const SingleProduct = ({ history, match }) => {
                     {relatedProducts?.map((product) => (
                       <div className="shop col-lg-3 " key={product._id}>
                         <div className="border-product me-3 border border-1">
-                          <Link to={`/product/${product._id}`}>
+                          <Link to={`/product/${product.slug}`}>
                             <div className="shopBack main-effect">
                               <img className="main-scale" src={product.image} alt={product.name} />
                             </div>
@@ -464,7 +466,7 @@ const SingleProduct = ({ history, match }) => {
             </div>
             {/* Product comment */}
 
-            <ProductComment userInfo={userInfo} match={match} />
+            <ProductComment userInfo={userInfo} match={match} productId={product._id} />
           </>
         )}
       </div>

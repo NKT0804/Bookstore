@@ -98,10 +98,10 @@ export const listProductsBestNumView = () => async (dispatch) => {
   }
 };
 // action details product
-export const detailsProduct = (id) => async (dispatch) => {
+export const detailsProduct = (productSlug) => async (dispatch) => {
   try {
     dispatch({ type: PRODUCT_DETAILS_REQUEST });
-    const { data } = await axios.get(`/api/v1/product/${id}`);
+    const { data } = await axios.get(`/api/v1/product/slug/${productSlug}`);
     dispatch({ type: PRODUCT_DETAILS_SUCCESS, payload: data });
   } catch (error) {
     dispatch({

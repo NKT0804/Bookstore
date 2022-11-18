@@ -78,7 +78,7 @@ const BestNumViewsProduct = () => {
                   return (
                     <div className="mb-4 col-lg-3" key={index}>
                       <div className="shadow p-3 mb-4 me-2 border border-1 rounded">
-                        <Link to={`/product/${product._id}`}>
+                        <Link to={`/product/${product.slug}`}>
                           <div className="shopBack main-effect">
                             <img className="main-scale" src={product.image} alt={product.name} />
                             <span className="label-product_discount">
@@ -89,7 +89,7 @@ const BestNumViewsProduct = () => {
 
                         <div className="shoptext">
                           <p className="shoptext__name">
-                            <Link to={`/product/${product._id}`}>
+                            <Link to={`/product/${product.slug}`}>
                               {product.name.length >= 55 ? `${product.name.slice(0, 55)}...` : ` ${product.name}`}
                             </Link>
                           </p>

@@ -169,24 +169,24 @@ const getProducts = async (req, res) => {
 // );
 
 //Non-user, user get product by slug
-// const getDetailProductBySlug = async (req, res) => {
-//     const productSlug = req.params.slug || null;
-//     const product = await Product.findOne({ slug: productSlug, isDisabled: false }).populate(
-//         "reviews.user",
-//         "name avatarUrl"
-//     );
-//     if (!product) {
-//         res.status(404);
-//         throw new Error("Product not Found");
-//     }
+const getDetailProductBySlug = async (req, res) => {
+    const productSlug = req.params.slug || null;
+    const product = await Product.findOne({ slug: productSlug, isDisabled: false }).populate(
+        "reviews.user",
+        "name avatarUrl"
+    );
+    if (!product) {
+        res.status(404);
+        throw new Error("Product not Found");
+    }
 
-//     // increment Product View counter
-//     product.numViews = product.numViews + 1;
-//     await product.save();
+    // increment Product View counter
+    product.numViews = product.numViews + 1;
+    await product.save();
 
-//     res.status(200);
-//     res.json(product);
-// };
+    res.status(200);
+    res.json(product);
+};
 
 // Non-user, user, admin get detail product by id
 const getDetailProductById = async (req, res) => {
@@ -404,7 +404,7 @@ const deleteProduct = async (req, res) => {
 const ProductController = {
     createProduct,
     getProducts,
-    // getDetailProductBySlug,
+    getDetailProductBySlug,
     getDetailProductById,
     getProductComments,
     reviewProduct,

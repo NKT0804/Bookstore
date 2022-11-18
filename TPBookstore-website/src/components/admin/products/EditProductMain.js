@@ -63,7 +63,7 @@ const EditProductMain = (props) => {
 
   const productEditAdmin = useSelector((state) => state.productEditAdmin);
   const { loading, error, product } = productEditAdmin;
-  const [category, setCategory] = useState(product.category);
+  const [category, setCategory] = useState(product.category || "");
   useEffect(() => {
     setCategory(product.category);
     return () => {
@@ -90,19 +90,19 @@ const EditProductMain = (props) => {
       if (!product.name || product._id !== productId) {
         dispatch(editProductAdmin(productId));
       } else {
-        setName(product.name);
+        setName(product.name || "");
         // setCategory(category);
-        setDescription(product.description);
-        setCountInStock(product.countInStock);
-        setImage(product.image);
-        setPrice(product.price);
-        setPriceSale(product.priceSale);
-        setAuthor(product.author);
-        setPublisher(product.publisher);
-        setSupplier(product.supplier);
-        setPublishingYear(product.publishingYear);
-        setLanguage(product.language);
-        setNumberOfPages(product.numberOfPages);
+        setDescription(product.description || "");
+        setCountInStock(product.countInStock || 0);
+        setImage(product.image || "");
+        setPrice(product.price || 0);
+        setPriceSale(product.priceSale || 0);
+        setAuthor(product.author || "");
+        setPublisher(product.publisher || "");
+        setSupplier(product.supplier || "");
+        setPublishingYear(product.publishingYear || "");
+        setLanguage(product.language || "");
+        setNumberOfPages(product.numberOfPages || 0);
       }
     }
   }, [product, dispatch, productId, successUpdate, category]);
