@@ -34,7 +34,6 @@ import {
   USER_RESET_PASSWORD_FAIL
 } from "../Constants/userConstants";
 import axios from "axios";
-import { toast } from "react-toastify";
 
 // USER LOGIN
 export const userLoginAction = (email, password) => async (dispatch) => {

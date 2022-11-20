@@ -21,7 +21,7 @@ const CreateCategory = () => {
 
   useEffect(() => {
     if (success) {
-      toast.success("Category Added", ToastObjects);
+      toast.success("Thêm danh mục thành công!", ToastObjects);
       dispatch({ type: CATEGORY_CREATE_RESET });
       setName("");
     }

@@ -37,11 +37,11 @@ const Header = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    // if (keyword.trim()) {
-    //   history.push(`/admin/search/${keyword}`);
-    // } else {
-    //   history.push(`/admin`);
-    // }
+    if (keyword.trim()) {
+      // history.push(`/admin/search/${keyword}`);
+    } else {
+      history.push(`/admin`);
+    }
   };
 
   const logoutHandler = () => {

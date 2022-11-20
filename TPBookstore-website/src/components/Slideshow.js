@@ -4,6 +4,7 @@ import "react-slideshow-image/dist/styles.css";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { listSlider, listBanner } from "../Redux/Actions/bannerActions";
+import Loading from "./base/LoadingError/Loading";
 const Slideshow = () => {
   const dispatch = useDispatch();
 
@@ -21,6 +22,7 @@ const Slideshow = () => {
       <div className="row">
         <div className="slide-container">
           <div className="slide__img">
+            {loading && <Loading />}
             <Fade>
               {sliders?.map((item, index) => (
                 <div className="slide-container__img">
@@ -35,6 +37,7 @@ const Slideshow = () => {
           </div>
           <div className="slide__banner">
             <div>
+              {loading && <Loading />}
               {banners?.length > 0 ? (
                 <Link to={banners[1].linkTo}>
                   <img src={banners[1].image} alt={banners[1].name} className="slide__banner-img" />
@@ -44,6 +47,7 @@ const Slideshow = () => {
               )}
             </div>
             <div>
+              {loading && <Loading />}
               {banners?.length > 0 ? (
                 <Link to={banners[2].linkTo}>
                   <img src={banners[2].image} alt={banners[2].name} className="slide__banner-img" />

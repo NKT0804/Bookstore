@@ -5,7 +5,7 @@ const productQueryParams = {
         newest: { createdAt: "desc" },
         latest: { createdAt: "asc" },
         total_sales: { totalSales: "desc" },
-        default: { createdAt: "desc" }
+        default: { totalSales: "desc" }
     },
     status: {
         disabled: { isDisabled: true },

@@ -13,8 +13,6 @@ const Avatar = () => {
   const [inputImg, setInputImg] = useState("");
   const [blob, setBlob] = useState(null);
 
-  const inputAvatarElement = document.getElementsByName("input-avatar");
-
   const getBlob = (blob) => {
     // pass blob up from the ImageCropper component
     setBlob(blob);
@@ -67,10 +65,10 @@ const Avatar = () => {
           {inputImg && <ImageCropper getBlob={getBlob} inputImg={inputImg} />}
           <span className="btn-group-avt">
             <button className={`${inputImg}` ? `enableCancel` : "btn-cancel-change-avt"} onClick={onCancelAvt}>
-              Cancel
+              Hủy
             </button>
             <button className={`${inputImg}` ? `enable` : "btn-submit-change-avt"} onClick={onSubmitAvt}>
-              Submit
+              Thay đổi
             </button>
           </span>
         </div>

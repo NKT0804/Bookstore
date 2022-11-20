@@ -18,7 +18,7 @@ const MainProducts = React.memo((props) => {
 
   const [keywordSearch, setKeywordSearch] = useState("");
   const [categoryFilterAdmin, setCategoryFilterAdmin] = useState("");
-  const [sortBy, setSortBy] = useState("");
+  const [sortBy, setSortBy] = useState("newest");
 
   const productListAdmin = useSelector((state) => state.productListAdmin);
   const { loading, error, products, page, pages } = productListAdmin;
@@ -49,7 +49,7 @@ const MainProducts = React.memo((props) => {
       <div className="content-header">
         <h2 className="content-title">Sản phẩm</h2>
         <div>
-          <Link to="/admin/addproduct" className="btn btn-primary btn-size">
+          <Link to="/admin/addProduct" className="btn btn-primary btn-size">
             Thêm sản phẩm
           </Link>
         </div>

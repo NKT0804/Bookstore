@@ -13,12 +13,12 @@ const createNewOrder = async (req, res, next) => {
     const orderItemsId = orderItems.map((orderItem) => orderItem.product);
     if (orderItems && orderItems.length === 0) {
         res.status(400);
-        throw new Error("No order items");
+        throw new Error("Đơn hàng không có sản phẩm nào!");
     }
     const cart = await Cart.findOne({ user: req.user._id });
     if (!cart) {
         res.status(404);
-        throw new Error("Cart not found");
+        throw new Error("Giỏ hàng không tồn tại!");
     }
     const session = await mongoose.startSession();
     const transactionOptions = {
@@ -47,7 +47,7 @@ const createNewOrder = async (req, res, next) => {
                 if (!orderedProduct) {
                     await session.abortTransaction();
                     res.status(400);
-                    throw new Error("One or more product order quantity exceed available quantity");
+                    throw new Error("Đơn hàng có sản phẩm đã vượt số lượng sản phẩm trong kho!");
                 }
                 /* let cartItemIndex = cart.cartItems.findIndex(
                         (cartItem) => cartItem.product.toString() == orderItem.product.toString()
@@ -63,7 +63,7 @@ const createNewOrder = async (req, res, next) => {
             if (!updatedCart) {
                 await session.abortTransaction();
                 res.status(500);
-                throw new Error("Removing ordered items from cart failed");
+                throw new Error("Xóa sản phẩm trong giỏ hàng không thành công!");
             }
             const createdOrder = await order.save();
             res.status(201);
@@ -123,7 +123,7 @@ const getOrderAdmin = async (req, res) => {
  */
 const getOrder = async (req, res) => {
     const dateOrderFilter = validateConstants(orderQueryParams, "date", req.query.dateOrder);
-    const orders = await Order.find({ user: req.user._id, isDisabled: false })
+    const orders = await Order.find({ user: req.params.user, isDisabled: false })
         .sort({ ...dateOrderFilter })
         .populate("user", "-password");
     res.json(orders);
@@ -137,7 +137,7 @@ const getDetailOrderById = async (req, res) => {
     const order = await Order.findOne({ _id: orderId, isDisabled: false }).populate("user", "-password");
     if (!order) {
         res.status(404);
-        throw new Error("Order Not Found");
+        throw new Error("Đơn hàng không tồn tại!");
     }
     res.status(200);
     res.json(order);
@@ -151,7 +151,7 @@ const orderPayment = async (req, res) => {
     const order = await Order.findOne({ _id: orderId, isDisabled: false });
     if (!order) {
         res.status(404);
-        throw new Error("Order Not Found");
+        throw new Error("Đơn hàng không tồn tại!");
     }
     order.isPaid = true;
     order.paidAt = Date.now();
@@ -167,7 +167,7 @@ const confirmDelivered = async (req, res) => {
     const order = await Order.findOne({ _id: orderId, isDisabled: false });
     if (!order) {
         res.status(404);
-        throw new Error("Order Not Found");
+        throw new Error("Đơn hàng không tồn tại!");
     }
     order.delivered = true;
     order.deliveredAt = Date.now();
@@ -184,7 +184,7 @@ const confirmOrder = async (req, res) => {
     const order = await Order.findOne({ _id: orderId, isDisabled: false });
     if (!order) {
         res.status(404);
-        throw new Error("Order Not Found");
+        throw new Error("Đơn hàng không tồn tại!");
     }
     order.confirmed = true;
     const updateOrder = await order.save();
@@ -200,7 +200,7 @@ const cancelOrderAdmin = async (req, res) => {
     const order = await Order.findOne({ _id: orderId, isDisabled: false });
     if (!order) {
         res.status(404);
-        throw new Error("Order Not Found");
+        throw new Error("Đơn hàng không tồn tại!");
     }
     order.cancelled = true;
     const updateOrder = await order.save();
@@ -217,7 +217,7 @@ const cancelOrderUser = async (req, res) => {
     const order = await Order.findOne({ _id: orderId, user: user._id, isDisabled: false });
     if (!order) {
         res.status(404);
-        throw new Error("Order Not Found");
+        throw new Error("Đơn hàng không tồn tại!");
     }
     order.cancelled = true;
     const updateOrder = await order.save();
@@ -233,7 +233,7 @@ const Received = async (req, res) => {
     const order = await Order.findOne({ _id: orderId, isDisabled: false });
     if (!order) {
         res.status(404);
-        throw new Error("Order Not Found");
+        throw new Error("Đơn hàng không tồn tại!");
     }
     order.received = true;
     const updateOrder = await order.save();
@@ -245,12 +245,12 @@ const disableOrder = async (req, res) => {
     const order = await Order.findById(req.params.id);
     if (!order) {
         res.status(404);
-        throw new Error("Order not found");
+        throw new Error("Đơn hàng không tồn tại!");
     }
     order.isDisabled = true;
     await order.save();
     res.status(200);
-    res.json({ message: "Order has been disabled" });
+    res.json({ message: "Đơn hàng đã bị vô hiệu hóa!" });
 };
 
 //Admin restore disabled order
@@ -259,7 +259,7 @@ const restoreOrder = async (req, res) => {
     const order = await Order.findOne({ _id: orderId, isDisabled: true });
     if (!order) {
         res.status(404);
-        throw new Error("Order not found");
+        throw new Error("Đơn hàng không tồn tại!");
     }
     order.isDisabled = save;
     const updateOrder = await order.save();
@@ -272,11 +272,11 @@ const deleteOrder = async (req, res) => {
     const order = await Order.findById(req.params.id);
     if (!order) {
         res.status(404);
-        throw new Error("Order not found");
+        throw new Error("Đơn hàng không tồn tại!");
     }
     await order.remove();
     res.status(200);
-    res.json({ message: "Order has been deleted" });
+    res.json({ message: "Đơn hàng đã được xóa!" });
 };
 
 const OrderController = {

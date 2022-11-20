@@ -109,7 +109,7 @@ export const listMyOrders = () => async (dispatch, getState) => {
       }
     };
 
-    const { data } = await axios.get(`/api/v1/order/ordered`, config);
+    const { data } = await axios.get(`/api/v1/order/ordered/${userInfo._id}`, config);
     dispatch({ type: ORDER_LIST_MY_SUCCESS, payload: data });
   } catch (error) {
     const message = error.response && error.response.data.message ? error.response.data.message : error.message;

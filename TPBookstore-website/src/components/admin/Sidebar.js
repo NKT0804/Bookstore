@@ -31,7 +31,7 @@ const Sidebar = () => {
               </NavLink>
             </li>
             <li className="menu-item">
-              <NavLink activeClassName="active" className="menu-link" to="/admin/addproduct">
+              <NavLink activeClassName="active" className="menu-link" to="/admin/addProduct">
                 <i className="icon fas fa-cart-plus"></i>
                 <span className="text">Thêm sản phẩm</span>
               </NavLink>

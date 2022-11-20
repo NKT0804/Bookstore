@@ -10,7 +10,7 @@ const Orders = (props) => {
   const { orders } = props;
 
   const handleDeleteOrder = (id) => {
-    if (window.confirm("Are you sure delete order???")) {
+    if (window.confirm("Xác nhận xóa đơn hàng?")) {
       dispatch(deleteOrderAdmin(id));
     }
   };

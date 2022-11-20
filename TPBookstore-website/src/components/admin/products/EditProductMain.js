@@ -170,7 +170,7 @@ const EditProductMain = (props) => {
                           </label>
                           <input
                             type="text"
-                            placeholder="Nhập tiêu đề"
+                            placeholder="Nhập tên sách"
                             className="form-control"
                             id="product_title"
                             required

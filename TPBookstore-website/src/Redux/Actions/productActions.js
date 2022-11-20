@@ -56,12 +56,21 @@ import { PRODUCT_CREATE_REVIEW_REQUEST } from "./../Constants/productConstants";
  */
 // product list action
 export const listProducts =
-  (keyword = "", pageNumber = "", categoryFilter = "", ratingFilter = "", minPrice = "", maxPrice = "", sortBy = "") =>
+  (
+    keyword = "",
+    pageNumber = "",
+    categoryFilter = "",
+    ratingFilter = "",
+    minPrice = "",
+    maxPrice = "",
+    sortBy = "",
+    limit = 12
+  ) =>
   async (dispatch) => {
     try {
       dispatch({ type: PRODUCT_LIST_REQUEST });
       const { data } = await axios.get(
-        `/api/v1/product?&category=${categoryFilter}&keyword=${keyword}&rating=${ratingFilter}&minPrice=${minPrice}&maxPrice=${maxPrice}&sortBy=${sortBy}&pageNumber=${pageNumber}&pageSize=8`
+        `/api/v1/product?&category=${categoryFilter}&keyword=${keyword}&rating=${ratingFilter}&minPrice=${minPrice}&maxPrice=${maxPrice}&sortBy=${sortBy}&pageNumber=${pageNumber}&pageSize=${limit}`
       );
       dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
     } catch (error) {
@@ -308,7 +317,7 @@ export const createProductReview = (productId, review) => async (dispatch, getSt
 
 //  GET LIST PRODUCT HAVE BAGINATION
 export const listProductsAdmin =
-  (keyword = "", pageNumber = "", categoryFilterAdmin = "", sortBy = "") =>
+  (keyword = "", pageNumber = "", categoryFilterAdmin = "", sortBy = "newest") =>
   async (dispatch, getState) => {
     try {
       dispatch({ type: PRODUCT_LIST_REQUEST });
