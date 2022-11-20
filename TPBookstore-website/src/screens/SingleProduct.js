@@ -27,6 +27,7 @@ import ProductComment from "../components/singleProduct/ProductComment";
 import { toast } from "react-toastify";
 import Toast from "../components/base/LoadingError/Toast";
 import Slider from "react-slick";
+import formatCash from "../utils/formatCash";
 
 const ToastObjects = {
   pauseOnFocusLoss: false,
@@ -238,9 +239,15 @@ const SingleProduct = ({ history, match }) => {
                     <div className="flex-box d-flex justify-content-between align-items-center">
                       <h6>Đơn giá</h6>
                       <div>
-                        <span className="product-count__new-price">${product.price}</span>
-                        <span className="product-count__old-price">7000</span>
-                        <span class="shoptext__price-special-discount">-30%</span>
+                        <span className="product-count__new-price">{formatCash(product.priceSale)}</span>
+                        <span className="product-count__old-price">{formatCash(product.price)}</span>
+                        {product.priceSale < product.price ? (
+                          <span className="shoptext__price-special-discount">
+                            -{Math.round(100 - (product.priceSale / product.price) * 100)}%
+                          </span>
+                        ) : (
+                          <></>
+                        )}
                       </div>
                     </div>
                     <div className="flex-box d-flex justify-content-between align-items-center">
@@ -398,7 +405,7 @@ const SingleProduct = ({ history, match }) => {
             </div>
             {/* Related products */}
             <div className="ralated-product-list pd-y">
-              {relatedProducts?.length > 0 && <h3 className="mb-3">Danh mục sản phẩm liên quan</h3>}
+              {relatedProducts?.length > 0 && <h3 className="mb-3 px-3">Danh mục sản phẩm liên quan</h3>}
               <div className="col-8 row related-product-container">
                 {loading ? (
                   <div className="mb-5 mt-5">

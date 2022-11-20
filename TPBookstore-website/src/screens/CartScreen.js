@@ -238,20 +238,29 @@ const CartScreen = ({ history }) => {
             ))}
 
             {/* End of cart iterms */}
-            <div className="total">
-              <div className="cart-title-item col-lg-1">
+            <div className="total row ">
+              <div className="total-checkbox col-lg-1 col-md-2">
                 <input
-                  className="cart-itemPC-checkbox-input"
+                  className="total-checkbox-check"
                   type="checkbox"
                   onChange={(e) => checkboxAllHandler(e.target.checked)}
                 />
-                Tất cả
+                <span>Tất cả</span>
               </div>
-              <span className="total__text ">Tổng thanh toán ({itemChecked?.length} sản phẩm): </span>
-              <span className="total__price">{formatCash(totalHandler)}</span>
+              <div className="col-lg-11 col-md-10">
+                <span className="total__text ">Tổng thanh toán ({itemChecked?.length} sản phẩm): </span>
+                <span className="total__price">{formatCash(totalHandler)}</span>
+              </div>
             </div>
-            <div className="cart-buttons d-flex align-items-center row">
-              <div className="col-md-6 d-flex justify-content-md-end mt-3 mt-md-0">
+            <div className="cart-buttons d-flex align-items-center mt-3 mb-5 mt-md-0 row">
+              <div className="col-lg-6 col-md-6 col-6 d-flex justify-content-md-start">
+                <a className="" href="/">
+                  <button>
+                    <b>Tiếp tục chọn</b>
+                  </button>
+                </a>
+              </div>
+              <div className="col-lg-6 col-md-6 col-6 d-flex justify-content-md-end">
                 <button onClick={checkOutHandler} disabled={!itemChecked?.length > 0}>
                   <b>Thanh toán</b>
                 </button>

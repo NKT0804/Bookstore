@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import Message from "../../base/LoadingError/Error";
 import Loading from "../../base/LoadingError/Loading";
 import { listCategoryAdmin } from "../../../Redux/Actions/categoryActions";
+import ReactQuill from "react-quill";
 
 const ToastObjects = {
   pauseOnFocusLoss: false,
@@ -97,6 +98,34 @@ const EditProductMain = (props) => {
       toast.error("Cập nhật sản phẩm không thành công!!!", ToastObjects);
     }
   };
+
+  const moudules = {
+    toolbar: [
+      [{ header: "1" }, { header: "2" }, { header: [3, 4, 5, 6] }, { font: [] }],
+      [{ size: [] }],
+      ["bold", "italic", "underline", "strike", "blockquote"],
+      [{ list: "ordered" }, { list: "bullet" }],
+      ["link", "image", "video"],
+      ["clean"],
+      ["code-block"]
+    ]
+  };
+  const formats = [
+    "header",
+    "font",
+    "size",
+    "bold",
+    "italic",
+    "underline",
+    "strike",
+    "blockquote",
+    "list",
+    "bullet",
+    "link",
+    "image",
+    "video",
+    "code-block"
+  ];
 
   return (
     <>
@@ -257,14 +286,23 @@ const EditProductMain = (props) => {
 
                       <div className="row mb-4">
                         <label className="form-label">Mô tả</label>
-                        <textarea
+                        <ReactQuill
+                          placeholder="Nhập mô tả sản phẩm"
+                          className="form-control text-align-content input-description"
+                          moudules={moudules}
+                          formats={formats}
+                          required
+                          value={description}
+                          onChange={(value) => setDescription(value)}
+                        />
+                        {/* <textarea
                           placeholder="Nhập mô tả sản phẩm"
                           className="form-control text-align-content"
                           rows="7"
                           required
                           value={description}
                           onChange={(e) => setDescription(e.target.value)}
-                        ></textarea>
+                        ></textarea> */}
                       </div>
 
                       <div className="row mb-4">
@@ -278,9 +316,6 @@ const EditProductMain = (props) => {
                             required
                             onChange={(e) => setImage(e.target.value)}
                           />
-                        </div>
-                        <div className="col-lg-3 col-md-5 mb-2 add-product__img">
-                          <input className="form-control mt-3" type="file" />
                         </div>
                       </div>
                     </>

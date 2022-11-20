@@ -113,12 +113,16 @@
   .contactInfo {
     padding: 20px 0;
   }
+
+  /* Cart */
+
   .cart-buttons {
     margin: 40px 0;
   }
-  .cart-buttons a button,
-  .cart-buttons .d-flex button {
-    width: 100%;
+
+  .cart-buttons a ,
+  .cart-buttons div button {
+    width: 90%;
   }
   .total .sub,
   .total .total-price {

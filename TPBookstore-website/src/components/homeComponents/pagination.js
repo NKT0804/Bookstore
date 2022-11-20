@@ -9,9 +9,7 @@ const Pagination = (props) => {
         <div className="icon-left">
           <Link
             to={
-              keyword
-                ? `/search/${keyword}/page/${page > 1 ? page - 1 : page}`
-                : `/page/${page > 1 ? page - 1 : page}`
+              keyword ? `/search/${keyword}/page/${page > 1 ? page - 1 : page}` : `/page/${page > 1 ? page - 1 : page}`
             }
           >
             <i className="fas fa-chevron-left"></i>
@@ -19,18 +17,8 @@ const Pagination = (props) => {
         </div>
         <ul className="pagination justify-content-center">
           {[...Array(pages).keys()].map((x) => (
-            <li
-              className={`page-item ${x + 1 === page ? "active" : ""}`}
-              key={x + 1}
-            >
-              <Link
-                className="page-link"
-                to={
-                  keyword
-                    ? `/search/${keyword}/page/${x + 1}`
-                    : `/page/${x + 1}`
-                }
-              >
+            <li className={`page-item ${x + 1 === page ? "active" : ""}`} key={x + 1}>
+              <Link className="page-link" to={keyword ? `/search/${keyword}/page/${x + 1}` : `/page/${x + 1}`}>
                 {x + 1}
               </Link>
             </li>

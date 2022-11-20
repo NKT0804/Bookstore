@@ -254,23 +254,23 @@ const AddProductMain = () => {
 
                   <div className="mb-4">
                     <label className="form-label">Mô tả</label>
-                    {/* <ReactQuill
+                    <ReactQuill
                       placeholder="Nhập mô tả sản phẩm"
                       className="form-control text-align-content input-description"
                       moudules={moudules}
                       formats={formats}
                       required
-                      value={ReactQuill.description}
-                      onChange={(e) => setDescription(e.target.value)}
-                    /> */}
-                    <textarea
+                      value={description}
+                      onChange={(value) => setDescription(value)}
+                    />
+                    {/* <textarea
                       placeholder="Nhập mô tả sản phẩm"
                       className="form-control"
                       rows="7"
                       required
                       value={description}
                       onChange={(e) => setDescription(e.target.value)}
-                    ></textarea>
+                    ></textarea> */}
                   </div>
 
                   {/* choose images */}

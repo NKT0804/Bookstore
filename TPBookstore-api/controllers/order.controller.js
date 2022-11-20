@@ -162,6 +162,7 @@ const getOrderAdmin = async (req, res) => {
  * Read: USER LOGIN ORDERS
  */
 const getOrder = async (req, res) => {
+    console.log(req.user);
     const dateOrderFilter = validateConstants(orderQueryParams, "date", req.query.dateOrder);
     const orders = await Order.find({ user: req.user._id, isDisabled: false })
         .sort({ ...dateOrderFilter })

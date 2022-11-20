@@ -71,6 +71,10 @@ html {
   background-color: var(--primary-color);
 }
 
+.btn--primary-color:hover {
+  opacity: 0.9;
+}
+
 .btn-color {
   color: var(--primary-color);
 }
@@ -365,3 +369,4 @@ html {
 .text-bold {
   font-weight: bold;
 }
+

@@ -23,7 +23,7 @@ const CommentComponent = () => {
   useEffect(() => loadDataComment(), [loadDataComment]);
 
   return (
-    <div className="wrap-comment p-3">
+    <div className="wrap-comment wrap-comment-admin mt-4 p-3">
       <h3>BÌNH LUẬN KHÁCH HÀNG</h3>
       <div className="list-comment rounded mt-3">
         <Table striped bordered hover>

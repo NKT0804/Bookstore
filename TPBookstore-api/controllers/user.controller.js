@@ -17,7 +17,6 @@ import uploadImage from "../utils/uploadImage.js";
 import { sendMail } from "../utils/nodemailler.js";
 import crypto from "crypto";
 import schedule, { scheduleJob } from "node-schedule";
-
 const __dirname = path.resolve();
 
 //User login
@@ -249,7 +248,22 @@ const forgotPassword = async (req, res) => {
     await user.save();
     //send reset password email
     const url = `${process.env.WEB_CLIENT_URL}/reset-password/${resetPasswordToken}`;
-    const html = `<a href="${url}" target="_blank"><button>Đặt lại mật khẩu</button></a>`;
+    const html = `
+    <div className = "forgot-password__email">
+        <span className = "forgot-password__emai-title">
+            Thiết lập lại mật khẩu đăng nhập TBBookSTore
+        </span>
+        <div className = "forgot-password__email-content">
+            <p>Đặt lại mật khẩu</p>
+            <p>Xin chào ${user.name}</p>
+            <p>Chúng tôi nhận được yêu cầu thiết lập lại mật khẩu cho tài khoản TPBookSTore của bạn. Vui lòng sử dụng nút sau để đặt lại  mật khẩu của bạn </p>
+            <a href="${url}" target="_blank"><button>Đặt lại mật khẩu</button></a>
+            <p>Nếu bạn không sử dụng liên kết này trong vòng 1 giờ, liên kết này sẽ hết hạn.</p>
+            <p>Trân trọng</p>
+            <p>TPBookStore</p>
+        </div>
+    </div>
+    `;
     //set up message options
     const messageOptions = {
         recipient: user.email,

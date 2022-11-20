@@ -9,12 +9,12 @@ const NotFoundAdmin = () => {
           <h4 className="text-center mb-2 mb-sm-5">Page Not Found</h4>
           <img
             style={{ width: "100%", height: "300px", objectFit: "contain" }}
-            src="/images/not-found.png"
+            src="/images/bank/notFound.png"
             alt="Not-found"
           />
-          <button className="col-md-3 col-sm-6 col-12 btn btn-success mt-5">
+          <button className="col-md-3 col-sm-6 col-12 btn btn--primary-color mt-5">
             <Link to="/admin" className="text-white text-decoration-none">
-              Home page
+              Trở về trang chủ
             </Link>
           </button>
         </div>
