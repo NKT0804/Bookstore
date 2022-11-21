@@ -7,46 +7,6 @@ import Product from "../models/ProductModel.js";
 import Cart from "../models/CartModel.js";
 import { orderQueryParams, validateConstants } from "../constants/searchConstants.js";
 
-// CRUD
-/**
- * Create: CREATE ORDER
- */
-/* orderRouter.post(
-  "/",
-  protect,
-  expressAsyncHandler(async (req, res) => {
-    const {
-      orderItems,
-      shippingAddress,
-      paymentMethod,
-      itemsPrice,
-      taxPrice,
-      shippingPrice,
-      totalPrice,
-    } = req.body;
-
-    if (orderItems && orderItems.length === 0) {
-      res.status(400);
-      throw new Error("No order items");
-      return;
-    } else {
-      const order = new Order({
-        orderItems,
-        user: req.user._id,
-        shippingAddress,
-        paymentMethod,
-        itemsPrice,
-        taxPrice,
-        shippingPrice,
-        totalPrice,
-      });
-
-      const createOrder = await order.save();
-      res.status(201).json(createOrder);
-    }
-  })
-); */
-
 //User place new order
 const createNewOrder = async (req, res, next) => {
     const { orderItems, shippingAddress, paymentMethod, itemsPrice, taxPrice, shippingPrice, totalPrice } = req.body;

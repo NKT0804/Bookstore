@@ -26,7 +26,7 @@ const createBanner = async (req, res) => {
 };
 
 const getBanner = async (req, res) => {
-    const { role } = req.query;
+    const { role = "banner" } = req.query;
     const banner = await Banner.find({ role: role }).sort({ _id: 1 });
     res.status(200).json(banner);
 };

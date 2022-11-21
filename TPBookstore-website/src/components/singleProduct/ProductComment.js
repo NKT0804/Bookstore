@@ -18,8 +18,7 @@ import {
 } from "../../Redux/Constants/productConstants";
 
 const ProductComment = (props) => {
-  const { userInfo, match } = props;
-  const productId = match.params.id;
+  const { userInfo, match, productId } = props;
   const dispatch = useDispatch();
 
   const [content, setContent] = useState("");
@@ -131,7 +130,7 @@ const ProductComment = (props) => {
 
   const onDeleteCommentHandler = useCallback(
     (id) => {
-      if (window.confirm("Are you sure delete comment?")) {
+      if (window.confirm("Xóa bình luận?")) {
         dispatch(deleteProductComment(id));
       }
     },
@@ -147,7 +146,7 @@ const ProductComment = (props) => {
         <form className="mt-3 mb-3 nav justify-content-end" onSubmit={submitHandler}>
           <textarea
             required
-            placeholder="Enter your comment"
+            placeholder="Nhập bình luận"
             className="content-comment form-control"
             id="contentComment"
             value={content}
@@ -160,11 +159,11 @@ const ProductComment = (props) => {
       ) : (
         <div className="my-3">
           <Message variant={"alert-warning"}>
-            Please{" "}
-            <Link to={`/login?redirect=products/${productId}`}>
-              " <strong>Login</strong> "
+            Vui lòng{" "}
+            <Link to={`/login?redirect=product/${productId}`}>
+              " <strong>Đăng nhập</strong> "
             </Link>{" "}
-            to write a comment{" "}
+            để bình luận{" "}
           </Message>
         </div>
       )}
@@ -182,7 +181,9 @@ const ProductComment = (props) => {
                     alt="User avatar"
                   />
                   <strong className="ms-2">{item.user.name}</strong>
-                  <p className="fs-6 fst-italic">Question: {moment(item.createdAt).calendar()}</p>
+                  <p className="fs-6 fst-italic">
+                    Thời gian: {moment(item.createdAt).format("LT") + "  " + moment(item.createdAt).format("L")}
+                  </p>
                   <div className="alert alert-info p-2">{item.content}</div>
 
                   <div className="action-user">
@@ -191,7 +192,7 @@ const ProductComment = (props) => {
                         <form className="mb-3" onSubmit={submitReplyFirstLevelHandler}>
                           <textarea
                             required
-                            placeholder="Enter your reply"
+                            placeholder="Nhập nội dung trả lời"
                             className="content-comment form-control"
                             value={contentFirstReply}
                             onChange={(e) => setContentFirstReply(e.target.value)}
@@ -201,15 +202,15 @@ const ProductComment = (props) => {
                               className="mt-2 p-1 btn btn-danger btn-size cursor-pointer"
                               onClick={onCancelReplyHandler}
                             >
-                              Cancel reply
+                              Hủy
                             </b>
                             {isEditComment === true ? (
                               <button type="submit" className="p-1 mt-2 btn btn-warning btn-size">
-                                Update comment
+                                Cập nhật bình luận
                               </button>
                             ) : (
                               <button type="submit" className="p-1 mt-2 btn btn-primary btn-size">
-                                Send reply
+                                Trả lời
                               </button>
                             )}
                           </div>
@@ -217,11 +218,11 @@ const ProductComment = (props) => {
                       ) : (
                         <div className="my-3">
                           <Message variant={"alert-warning"}>
-                            Please{" "}
-                            <Link to={`/login?redirect=products/${productId}`}>
-                              " <strong>Login</strong> "
+                            Vui lòng{" "}
+                            <Link to={`/login?redirect=product/${productId}`}>
+                              " <strong>Đăng nhập</strong> "
                             </Link>{" "}
-                            to write a comment{" "}
+                            để bình luận{" "}
                           </Message>
                         </div>
                       )
@@ -236,7 +237,7 @@ const ProductComment = (props) => {
                             setIsEditComment(false);
                           }}
                         >
-                          Reply
+                          Trả lời
                         </b>
                         <div className="dropdown float-end">
                           <Link to="#" data-bs-toggle="dropdown" className="">
@@ -250,19 +251,19 @@ const ProductComment = (props) => {
                                   className="dropdown-item btn-size"
                                   onClick={() => onEditCommentHandler(item._id)}
                                 >
-                                  Edit info
+                                  Sửa bình luận
                                 </Link>
                                 <Link
                                   to="#"
                                   className="dropdown-item btn-size"
                                   onClick={() => onDeleteCommentHandler(item._id)}
                                 >
-                                  Delete
+                                  Xóa bình luận
                                 </Link>
                               </>
                             )}
                             <Link to="#" className="dropdown-item btn-size">
-                              Report
+                              Báo cáo
                             </Link>
                           </div>
                         </div>
@@ -280,7 +281,9 @@ const ProductComment = (props) => {
                           alt="User avatar"
                         />
                         <strong className="ms-2">{reply.user.name}</strong>
-                        <div className="fs-6 fst-italic">Reply: {moment(reply.createdAt).calendar()}</div>
+                        <div className="fs-6 fst-italic">
+                          Thời gian: {moment(reply.createdAt).format("LT") + "  " + moment(reply.createdAt).format("L")}
+                        </div>
                         <div className="alert alert-info p-2">{reply.content}</div>
                         <div className="action-user">
                           {checkIdReplyComment === reply._id ? (
@@ -288,7 +291,7 @@ const ProductComment = (props) => {
                               <form className="mb-3" onSubmit={submitReplyFirstLevelHandler}>
                                 <textarea
                                   required
-                                  placeholder="Enter your reply"
+                                  placeholder="Nhập nôi dung trả lời"
                                   className="content-comment form-control"
                                   value={contentFirstReply}
                                   onChange={(e) => setContentFirstReply(e.target.value)}
@@ -298,15 +301,15 @@ const ProductComment = (props) => {
                                     className="mt-2 p-1 btn btn-danger btn-size cursor-pointer"
                                     onClick={onCancelReplyHandler}
                                   >
-                                    Cancel reply
+                                    Hủy
                                   </b>
                                   {isEditComment === true ? (
                                     <button type="submit" className="p-1 mt-2 btn btn-warning btn-size">
-                                      Update comment
+                                      Cập nhật bình luận
                                     </button>
                                   ) : (
                                     <button type="submit" className="p-1 mt-2 btn btn-primary btn-size">
-                                      Send reply
+                                      Trả lời
                                     </button>
                                   )}
                                 </div>
@@ -314,11 +317,11 @@ const ProductComment = (props) => {
                             ) : (
                               <div className="my-3">
                                 <Message variant={"alert-warning"}>
-                                  Please{" "}
-                                  <Link to={`/login?redirect=products/${productId}`}>
-                                    " <strong>Login</strong> "
+                                  Vui lòng{" "}
+                                  <Link to={`/login?redirect=product/${productId}`}>
+                                    " <strong>Đăng nhập</strong> "
                                   </Link>{" "}
-                                  to write a comment{" "}
+                                  để bình luận{" "}
                                 </Message>
                               </div>
                             )
@@ -332,7 +335,7 @@ const ProductComment = (props) => {
                                   setCheckIdReplyComment(reply._id);
                                 }}
                               >
-                                Reply
+                                Trả lời
                               </b>
                               <div className="dropdown float-end">
                                 <Link to="#" data-bs-toggle="dropdown" className="">
@@ -346,19 +349,19 @@ const ProductComment = (props) => {
                                         className="dropdown-item btn-size"
                                         onClick={() => onEditCommentReplyHandler(reply)}
                                       >
-                                        Edit info
+                                        Sửa bình luận
                                       </Link>
                                       <Link
                                         to="#"
                                         className="dropdown-item btn-size"
                                         onClick={() => onDeleteCommentHandler(reply._id)}
                                       >
-                                        Delete
+                                        Xóa bình luận
                                       </Link>
                                     </>
                                   )}
                                   <Link to="#" className="dropdown-item btn-size">
-                                    Report
+                                    Báo cáo
                                   </Link>
                                 </div>
                               </div>
@@ -373,7 +376,7 @@ const ProductComment = (props) => {
             );
           })
         ) : (
-          <div className="p-2 bg-light border">There are no comments for this product</div>
+          <div className="p-2 bg-light border">Không có bình luận nào cho sản phẩm này</div>
         )}
       </div>
     </div>

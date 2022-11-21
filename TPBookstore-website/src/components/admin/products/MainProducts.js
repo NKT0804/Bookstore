@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import Product from "./Product";
 import { useDispatch, useSelector } from "react-redux";
 import { listProductsAdmin } from "./../../../Redux/Actions/productActions.js";
@@ -9,12 +9,16 @@ import PaginationAdmin from "../Home/PaginationAdmin";
 import Toast from "../../base/LoadingError/Toast";
 import { listCategoryAdmin } from "../../../Redux/Actions/categoryActions";
 import CategoryFilterAdmin from "../filterAdmin/CategoryFilterAdmin";
+import SortBy from "../filterAdmin/SortBy";
 
-const MainProducts = (props) => {
+const MainProducts = React.memo((props) => {
   const { keyword, pageNumber } = props;
   const dispatch = useDispatch();
+  let history = useHistory();
 
+  const [keywordSearch, setKeywordSearch] = useState("");
   const [categoryFilterAdmin, setCategoryFilterAdmin] = useState("");
+  const [sortBy, setSortBy] = useState("");
 
   const productListAdmin = useSelector((state) => state.productListAdmin);
   const { loading, error, products, page, pages } = productListAdmin;
@@ -25,24 +29,20 @@ const MainProducts = (props) => {
   const productDeleteAdmin = useSelector((state) => state.productDeleteAdmin);
   const { error: errorDelete, success: successDelete } = productDeleteAdmin;
 
-  let productsFilterCategory = [];
+  useEffect(() => {
+    dispatch(listProductsAdmin(keyword, pageNumber, categoryFilterAdmin, sortBy));
+    dispatch(listCategoryAdmin());
+  }, [dispatch, keyword, pageNumber, successDelete, categoryFilterAdmin, sortBy]);
 
-  const handleCategoryFilterAdmin = () => {
-    if (categoryFilterAdmin !== "") {
-      productsFilterCategory = products
-        ? products.filter((itemCate) => itemCate.category._id === categoryFilterAdmin)
-        : [];
+  const submitHandler = (e) => {
+    e.preventDefault();
+    console.log(keywordSearch);
+    if (keywordSearch.trim()) {
+      history.push(`/admin/products/search/${keywordSearch}`);
     } else {
-      productsFilterCategory = products;
+      history.push("/admin/products");
     }
   };
-  handleCategoryFilterAdmin();
-
-  useEffect(() => {
-    dispatch(listProductsAdmin(keyword, pageNumber));
-    dispatch(listCategoryAdmin());
-  }, [dispatch, keyword, pageNumber, successDelete]);
-
   return (
     <section className="content-main">
       <Toast />
@@ -58,22 +58,21 @@ const MainProducts = (props) => {
       <div className="card mb-4 shadow-sm">
         <header className="card-header bg-white ">
           <div className="row">
-            <div className="col-lg-4 col-md-6 me-auto ">
-              <input type="search" placeholder="Tìm kiếm" className="form-control p-2" />
-            </div>
+            <form onSubmit={submitHandler} className="col-lg-4 col-md-6 me-auto ">
+              <input
+                type="search"
+                placeholder="Tìm kiếm"
+                className="form-control p-2"
+                value={keywordSearch}
+                onChange={(e) => setKeywordSearch(e.target.value)}
+              />
+            </form>
             <CategoryFilterAdmin
               category={category}
               categoryFilterAdmin={categoryFilterAdmin}
               setCategoryFilterAdmin={setCategoryFilterAdmin}
             />
-            <div className="col-lg-2 col-6 col-md-3">
-              <select className="form-select">
-                <option>Mới nhất</option>
-                <option>Cũ nhất</option>
-                <option>Giá tăng dần</option>
-                <option>Giá giảm dần</option>
-              </select>
-            </div>
+            <SortBy sortBy={sortBy} setSortBy={setSortBy} />
           </div>
         </header>
 
@@ -100,7 +99,7 @@ const MainProducts = (props) => {
                   </tr>
                 </thead>
                 <tbody>
-                  {productsFilterCategory?.map((product, index) => (
+                  {products?.map((product, index) => (
                     <Product product={product} index={index} key={product._id} successDelete={successDelete} />
                   ))}
                 </tbody>
@@ -113,6 +112,6 @@ const MainProducts = (props) => {
       </div>
     </section>
   );
-};
+});
 
 export default MainProducts;

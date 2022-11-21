@@ -62,8 +62,8 @@ const App = () => {
         <Route path="/register" component={Register} exact />
         <Route path="/register/verify/:email" component={RegisterVerify} exact />
         <Route path="/register/verify/:email/:verificationToken" component={RegisterVerify} exact />
-        <Route path="/forgot-password" component={ForgotPassword} exact />
-        <Route path="/reset-password/:resetPasswordToken" component={ResetPassword} exact />
+        <Route path="/forgotPassword" component={ForgotPassword} exact />
+        <Route path="/resetPassword/:resetPasswordToken" component={ResetPassword} exact />
         <PrivateRouter path="/profile" component={ProfileScreen} />
         <Route path="/cart/:id?" component={CartScreen} />
         <PrivateRouter path="/shipping" component={ShippingScreen} />
@@ -74,8 +74,13 @@ const App = () => {
         <AdminPrivateRouter path="/admin" component={HomeScreenAdmin} exact />
         <AdminPrivateRouter path="/admin/products" component={ProductScreenAdmin} exact />
         <AdminPrivateRouter path="/admin/search/:keyword" component={ProductScreenAdmin} exact />
-        <AdminPrivateRouter path="/admin/products/page/:pagenumber" component={ProductScreenAdmin} exact />
-        <AdminPrivateRouter path="/admin/search/:keyword/page/:pageNumber" component={ProductScreenAdmin} exact />
+        <AdminPrivateRouter path="/admin/products/page/:pageNumber" component={ProductScreenAdmin} exact />
+        <AdminPrivateRouter path="/admin/products/search/:keyword" component={ProductScreenAdmin} exact />
+        <AdminPrivateRouter
+          path="/admin/products/search/:keyword/page/:pageNumber"
+          component={ProductScreenAdmin}
+          exact
+        />
         <AdminPrivateRouter path="/admin/product/:id/edit" component={ProductEditScreenAdmin} />
         <AdminPrivateRouter path="/admin/addproduct" component={AddProductAdmin} />
         <AdminPrivateRouter path="/admin/category" component={CategoriesScreenAdmin} />

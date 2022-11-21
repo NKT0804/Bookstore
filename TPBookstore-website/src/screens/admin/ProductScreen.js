@@ -3,10 +3,10 @@ import Sidebar from "./../../components/admin/Sidebar";
 import Header from "./../../components/admin/Header";
 import MainProducts from "./../../components/admin/products/MainProducts";
 
-const ProductScreen = ({ match }) => {
+const ProductScreen = React.memo(({ match }) => {
   window.scrollTo(0, 0);
   const keyword = match.params.keyword;
-  const pageNumber = match.params.pagenumber ? match.params.pagenumber : match.params.pageNumber;
+  const pageNumber = match.params.pageNumber ? match.params.pageNumber : match.params.pagenumber;
   return (
     <>
       <Sidebar />
@@ -16,6 +16,6 @@ const ProductScreen = ({ match }) => {
       </main>
     </>
   );
-};
+});
 
 export default ProductScreen;

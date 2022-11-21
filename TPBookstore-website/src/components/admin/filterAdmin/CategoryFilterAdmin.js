@@ -10,7 +10,7 @@ const CategoryFilterAdmin = ({ category, categoryFilterAdmin, setCategoryFilterA
       >
         <option value="">Tất cả danh mục</option>
         {category?.map((itemCategory, index) => (
-          <option key={index} value={itemCategory._id}>
+          <option value={itemCategory.name} key={index} id={itemCategory._id}>
             {itemCategory.name}
           </option>
         ))}

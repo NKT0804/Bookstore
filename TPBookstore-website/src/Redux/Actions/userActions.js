@@ -102,7 +102,7 @@ export const verifyEmail = (verificationToken) => async (dispatch) => {
       }
     };
 
-    const { data } = await axios.patch(`/api/v1/user/verify-email`, { verificationToken }, config);
+    const { data } = await axios.patch(`/api/v1/user/verifyEmail`, { verificationToken }, config);
     dispatch({ type: USER_REGISTER_SUCCESS, payload: data });
     dispatch({ type: USER_LOGIN_SUCCESS, payload: data });
     localStorage.setItem("userInfo", JSON.stringify(data));
@@ -192,7 +192,7 @@ export const updatePassword = (user) => async (dispatch, getState) => {
       }
     };
 
-    const { data } = await axios.post(`/api/v1/user/${user.userId}/update-password`, user, config);
+    const { data } = await axios.post(`/api/v1/user/${user.userId}/updatePassword`, user, config);
     dispatch({ type: USER_UPDATE_PASSWORD_SUCCESS, payload: data });
   } catch (error) {
     const message = error.response && error.response.data.message ? error.response.data.message : error.message;
@@ -216,7 +216,7 @@ export const forGotPassWord = (email) => async (dispatch) => {
         "Content-Type": "application/json"
       }
     };
-    const data = await axios.patch(`/api/v1/user/forgot-password`, { email }, config);
+    const data = await axios.patch(`/api/v1/user/forgotPassword`, { email }, config);
     dispatch({ type: USER_FORGOT_PASSWORD_SUCCESS, payload: data });
   } catch (error) {
     const message = error.response && error.response.data.message ? error.response.data.message : error.message;
@@ -238,7 +238,7 @@ export const userResetPassword = (resetPasswordToken, newPassword) => async (dis
       }
     };
 
-    const { data } = await axios.patch(`/api/v1/user/reset-password`, { resetPasswordToken, newPassword }, config);
+    const { data } = await axios.patch(`/api/v1/user/resetPassword`, { resetPasswordToken, newPassword }, config);
     dispatch({ type: USER_RESET_PASSWORD_SUCCESS, payload: data });
   } catch (error) {
     const message = error.response && error.response.data.message ? error.response.data.message : error.message;
@@ -268,7 +268,7 @@ export const updateUserAvatar =
         }
       };
 
-      const { data } = await axios.post(`/api/v1/user/CreateOrUpdateAvatar/${user._id}`, formData, config);
+      const { data } = await axios.post(`/api/v1/user/updateAvatar/${user._id}`, formData, config);
       dispatch({ type: USER_UPDATE_AVATAR_SUCCESS, payload: data });
       dispatch({ type: USER_LOGIN_SUCCESS, payload: data });
 

@@ -18,8 +18,5 @@ const routes = (app) => {
     app.use("/api/v1/comment", commentRouter);
     app.use("/api/v1/banner", bannerRouter);
     app.use("/api/v1/refresh-token", refreshTokenRouter);
-    app.use("/api/v1/config/paypal", (req, res) => {
-        res.send(process.env.PAYPAL_CLIENT_ID);
-    });
 };
 export default routes;

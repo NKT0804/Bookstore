@@ -59,7 +59,7 @@ const BestSellerProduct = () => {
     <>
       <div className="row best-seller">
         <div className="title-section">
-          <h2 className="heading-section main-effect">Sách bán chạy</h2>
+          <h2 className="heading-section main-effect">Sản phẩm bán chạy</h2>
         </div>
         <div className="best-seller-container">
           <Slider {...settings}>
@@ -77,7 +77,7 @@ const BestSellerProduct = () => {
                   return (
                     <div className="mb-5" key={index}>
                       <div className="shadow p-3 mb-4 me-2 border border-1 rounded">
-                        <Link to={`/product/${product._id}`}>
+                        <Link to={`/product/${product.slug}`}>
                           <div className="shopBack main-effect">
                             <img className="main-scale" src={product.image} alt={product.name} />
                             <span className="label-product_discount">
@@ -88,7 +88,7 @@ const BestSellerProduct = () => {
 
                         <div className="shoptext">
                           <p className="shoptext__name">
-                            <Link to={`/product/${product._id}`}>
+                            <Link to={`/product/${product.slug}`}>
                               {product.name.length >= 55 ? `${product.name.slice(0, 55)}...` : ` ${product.name}`}
                             </Link>
                           </p>
@@ -105,7 +105,7 @@ const BestSellerProduct = () => {
                           <div className="shoptext__rating">
                             <Rating value={product.rating} numRating={product.rating} />
                             <p>
-                              Lượt xem: <b>{product.numViews}</b>
+                              Đã bán: <b>{product.totalSales}</b>
                             </p>
                           </div>
                         </div>

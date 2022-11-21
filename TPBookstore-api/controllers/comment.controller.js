@@ -105,7 +105,7 @@ const getCommentByAdmin = async (req, res) => {
 
 //user, admin delete comment
 const deleteComment = async (req, res) => {
-    const commentId = req.params.commentId || null;
+    const commentId = req.params.id || null;
     const comment = await Comment.findOne({
         $or: [
             { $and: [{ _id: commentId }, { isDisabled: false }] },
@@ -146,7 +146,7 @@ const deleteComment = async (req, res) => {
 
 //user, admin change comment content
 const editComment = async (req, res) => {
-    const commentId = req.params.commentId || null;
+    const commentId = req.params.id || null;
     const comment = await Comment.findOne({
         $or: [
             { $and: [{ _id: commentId }, { isDisabled: false }] },
@@ -181,7 +181,7 @@ const editComment = async (req, res) => {
 
 //admin disable comment
 const disableComment = async (req, res) => {
-    const commentId = req.params.commentId || null;
+    const commentId = req.params.id || null;
     let index = -1;
     let productId;
     let userId;
@@ -241,7 +241,7 @@ const disableComment = async (req, res) => {
 
 //admin restore comment
 const restoreComment = async (req, res) => {
-    const commentId = req.params.commentId || null;
+    const commentId = req.params.id || null;
     let index = -1;
     let productId;
     let userId;

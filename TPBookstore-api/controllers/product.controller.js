@@ -12,8 +12,21 @@ import { productQueryParams, validateConstants } from "../constants/searchConsta
 
 //Admin create new product
 const createProduct = async (req, res) => {
-    const { name, price, priceSale, description, author, image, countInStock, category, publisher, supplier } =
-        req.body;
+    const {
+        name,
+        price,
+        priceSale,
+        description,
+        author,
+        image,
+        countInStock,
+        category,
+        publisher,
+        supplier,
+        publishingYear,
+        language,
+        numberOfPages
+    } = req.body;
     const isExist = await Product.findOne({ name: name });
     if (isExist) {
         res.status(400);
@@ -43,7 +56,10 @@ const createProduct = async (req, res) => {
         countInStock,
         category,
         publisher,
-        supplier
+        supplier,
+        publishingYear,
+        language,
+        numberOfPages
     });
     if (!newProduct) {
         res.status(400);
@@ -53,42 +69,10 @@ const createProduct = async (req, res) => {
     res.status(201).json(createdProduct);
 };
 
-/**
- * Read: GET ALL PRODUCTS
- * (have filter)
- * SWAGGER SETUP: ok
- */
-/* productRouter.get(
-  "/",
-  expressAsyncHandler(async (req, res) => {
-    const pageSize = Number(req.query.pageSize) || 9; //EDIT HERE
-    const page = Number(req.query.pageNumber) || 1;
-    const keyword = req.query.keyword
-      ? {
-        name: {
-          $regex: req.query.keyword,
-          $options: "i",
-        },
-      }
-      : {}; // TODO: return cannot find product
-    const count = await Product.countDocuments({ ...keyword });
-    if (count == 0) {
-      res.status(204);
-      throw new Error("No products found for this keyword");
-    }
-    //else
-    const products = await Product.find({ ...keyword })
-      .limit(pageSize)
-      .skip(pageSize * (page - 1))
-      .sort({ _id: -1 });
-    res.json({ products, page, pages: Math.ceil(count / pageSize) });
-  })
-); */
-
 // Non-user, user and admin filter product
 const getProducts = async (req, res) => {
     const pageSize = Number(req.query.pageSize) || 8; //EDIT HERE
-    const page = Number(req.query.pageNumber) || 1;
+    let page = Number(req.query.pageNumber) || 1;
     const rating = Number(req.query.rating) || 0;
     const maxPrice = Number(req.query.maxPrice) || 0;
     const minPrice = Number(req.query.minPrice) || 0;
@@ -150,6 +134,8 @@ const getProducts = async (req, res) => {
         res.status(204);
         throw new Error("No products found for this keyword");
     }
+    const pages = Math.ceil(count / pageSize);
+    page = page <= pages ? page : 1;
     //else
     const products = await Product.find({
         ...keyword,
@@ -162,23 +148,8 @@ const getProducts = async (req, res) => {
         .skip(pageSize * (page - 1))
         .sort(sortBy)
         .populate("category", "name");
-    res.json({ products, page, pages: Math.ceil(count / pageSize), total: count });
+    res.json({ products, page, pages, total: count });
 };
-
-// /**
-//  * Read: ADMIN GET ALL PRODUCTS
-//  * (not search & pegination)
-//  * SWAGGER SETUP: ok
-//  */
-// productRouter.get(
-//     "/all",
-//     protect,
-//     admin,
-//     expressAsyncHandler(async (req, res) => {
-//         const products = await Product.find({ isDisabled: false }).sort({ _id: -1 });
-//         res.json(products);
-//     })
-// );
 
 // //Admin get all disabled products
 // productRouter.get(
@@ -198,24 +169,24 @@ const getProducts = async (req, res) => {
 // );
 
 //Non-user, user get product by slug
-// const getDetailProductBySlug = async (req, res) => {
-//     const productSlug = req.params.slug || null;
-//     const product = await Product.findOne({ slug: productSlug, isDisabled: false }).populate(
-//         "reviews.user",
-//         "name avatarUrl"
-//     );
-//     if (!product) {
-//         res.status(404);
-//         throw new Error("Product not Found");
-//     }
+const getDetailProductBySlug = async (req, res) => {
+    const productSlug = req.params.slug || null;
+    const product = await Product.findOne({ slug: productSlug, isDisabled: false }).populate(
+        "reviews.user",
+        "name avatarUrl"
+    );
+    if (!product) {
+        res.status(404);
+        throw new Error("Product not Found");
+    }
 
-//     // increment Product View counter
-//     product.numViews = product.numViews + 1;
-//     await product.save();
+    // increment Product View counter
+    product.numViews = product.numViews + 1;
+    await product.save();
 
-//     res.status(200);
-//     res.json(product);
-// };
+    res.status(200);
+    res.json(product);
+};
 
 // Non-user, user, admin get detail product by id
 const getDetailProductById = async (req, res) => {
@@ -290,8 +261,21 @@ const reviewProduct = async (req, res, next) => {
 
 //Admin update product
 const updateProduct = async (req, res) => {
-    const { name, price, priceSale, description, author, image, countInStock, category, publisher, supplier } =
-        req.body;
+    const {
+        name,
+        price,
+        priceSale,
+        description,
+        author,
+        image,
+        countInStock,
+        category,
+        publisher,
+        supplier,
+        publishingYear,
+        language,
+        numberOfPages
+    } = req.body;
     const productId = req.params.id || null;
     const product = await Product.findOne({ _id: productId, isDisabled: false });
     if (!product) {
@@ -317,6 +301,9 @@ const updateProduct = async (req, res) => {
     product.countInStock = countInStock || product.countInStock;
     product.publisher = publisher || product.publisher;
     product.supplier = supplier || product.supplier;
+    product.publishingYear = publishingYear || product.publishingYear;
+    product.language = language || product.language;
+    product.numberOfPages = numberOfPages || product.numberOfPages;
     let existedCategory;
     if (category != null) {
         existedCategory = await Category.findOne({ _id: category, isDisabled: false });
@@ -414,14 +401,10 @@ const deleteProduct = async (req, res) => {
     res.json({ message: "Product has been deleted" });
 };
 
-// const updatenewfield = async (req, res) => {
-//     await Product.updateMany({}, { numViews: 0 });
-// };
-
 const ProductController = {
     createProduct,
     getProducts,
-    // getDetailProductBySlug,
+    getDetailProductBySlug,
     getDetailProductById,
     getProductComments,
     reviewProduct,
@@ -429,7 +412,6 @@ const ProductController = {
     disableProduct,
     restoreProduct,
     deleteProduct
-    // updatenewfield
 };
 
 export default ProductController;
