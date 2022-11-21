@@ -253,13 +253,6 @@ const CartScreen = ({ history }) => {
               </div>
             </div>
             <div className="cart-buttons d-flex align-items-center mt-3 mb-5 mt-md-0 row">
-              <div className="col-lg-6 col-md-6 col-6 d-flex justify-content-md-start">
-                <a className="" href="/">
-                  <button>
-                    <b>Tiếp tục chọn</b>
-                  </button>
-                </a>
-              </div>
               <div className="col-lg-6 col-md-6 col-6 d-flex justify-content-md-end">
                 <button onClick={checkOutHandler} disabled={!itemChecked?.length > 0}>
                   <b>Thanh toán</b>
