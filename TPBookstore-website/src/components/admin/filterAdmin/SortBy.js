@@ -5,7 +5,9 @@ const SortBy = (props) => {
   return (
     <div className="col-lg-2 col-6 col-md-3">
       <select className="form-select " aria-label="Sort By" value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
-        <option value="">------</option>
+        <option value="total_sales" id="total_sales">
+          Bán chạy
+        </option>
         <option value="asc" id="asc">
           Giá từ thấp đến cao
         </option>

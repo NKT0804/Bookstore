@@ -38,22 +38,22 @@ const OrderDetailmain = (props) => {
   }, [dispatch, orderId, successDelivered, successIsPaid, successConfirm, successCancel]);
 
   const deliverHandler = () => {
-    if (window.confirm("Bạn có chắc chắn không?")) {
+    if (window.confirm("Xác nhận đã giao hàng?")) {
       dispatch(deliverOrder(order));
     }
   };
   const confirmHandler = () => {
-    if (window.confirm("Bạn có chắc chắn không?")) {
+    if (window.confirm("Xác nhận đơn hàng?")) {
       dispatch(confirmOrder(order));
     }
   };
   const isPaidHandler = () => {
-    if (window.confirm("Bạn có chắc chắn không?")) {
+    if (window.confirm("Xác nhận đã thanh toán?")) {
       dispatch(isPaidOrder(order));
     }
   };
   const cancelHandler = () => {
-    if (window.confirm("Bạn có chắc chắn không?")) {
+    if (window.confirm("Xác nhận hủy đơn hàng?")) {
       dispatch(cancelOrderAdmin(order));
     }
   };

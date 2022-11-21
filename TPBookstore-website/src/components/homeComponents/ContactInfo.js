@@ -9,7 +9,7 @@ const ContactInfo = () => {
             <div className="info-image">
               <i className="fas fa-phone-alt"></i>
             </div>
-            <h5>Call Us 24x7</h5>
+            <h5>Gọi cho chúng tôi 24x7</h5>
             <p>+0909 0009</p>
           </div>
         </div>
@@ -18,7 +18,7 @@ const ContactInfo = () => {
             <div className="info-image">
               <i className="fas fa-map-marker-alt"></i>
             </div>
-            <h5>Headquarter</h5>
+            <h5>Cửa hàng chính</h5>
             <p>Ho Chi Minh</p>
           </div>
         </div>

@@ -38,6 +38,11 @@ import { listProductsAdmin } from "./Redux/Actions/productActions";
 import { listOrders } from "./Redux/Actions/orderActions";
 import SliderBannerScreenAdmin from "./screens/admin/SliderBannerScreen";
 
+import axios from "axios";
+
+//config axios base url default
+// axios.defaults.baseURL = "https://tp-bookstore.herokuapp.com/";
+
 const App = () => {
   const dispatch = useDispatch();
   const userLogin = useSelector((state) => state.userLogin);
@@ -53,11 +58,12 @@ const App = () => {
     <Router>
       <Switch>
         <Route path="/" component={HomeScreen} exact />
+        {/* <Route path="/:category" component={HomeScreen} exact /> */}
         <Route path="/search/:keyword" component={HomeScreen} exact />
-        <Route path="/page/:pagenumber" component={HomeScreen} exact />
+        <Route path="/page/:pageNumber" component={HomeScreen} exact />
         <Route path="/search/:keyword/page/:pageNumber" component={HomeScreen} exact />
-        {/* <Route path="/products/:slug" component={SingleProduct} /> */}
-        <Route path="/product/:id" component={SingleProduct} />
+        <Route path="/product/:slug" component={SingleProduct} />
+        {/* <Route path="/product/:id" component={SingleProduct} /> */}
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} exact />
         <Route path="/register/verify/:email" component={RegisterVerify} exact />
@@ -67,7 +73,7 @@ const App = () => {
         <PrivateRouter path="/profile" component={ProfileScreen} />
         <Route path="/cart/:id?" component={CartScreen} />
         <PrivateRouter path="/shipping" component={ShippingScreen} />
-        <PrivateRouter path="/placeorder" component={PlaceOrderScreen} />
+        <PrivateRouter path="/placeOrder" component={PlaceOrderScreen} />
         <PrivateRouter path="/order/:id" component={OrderScreen} />
 
         {/* ADMIN */}
@@ -82,7 +88,7 @@ const App = () => {
           exact
         />
         <AdminPrivateRouter path="/admin/product/:id/edit" component={ProductEditScreenAdmin} />
-        <AdminPrivateRouter path="/admin/addproduct" component={AddProductAdmin} />
+        <AdminPrivateRouter path="/admin/addProduct" component={AddProductAdmin} />
         <AdminPrivateRouter path="/admin/category" component={CategoriesScreenAdmin} />
         <AdminPrivateRouter path="/admin/orders" component={OrderScreenAdmin} />
         <AdminPrivateRouter path="/admin/order/:id" component={OrderDetailScreenAdmin} />

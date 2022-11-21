@@ -9,6 +9,7 @@ import Filter from "../../screens/Filter";
 import { listCategory } from "../../Redux/Actions/categoryActions";
 import CardProductLoading from "../base/LoadingError/CardProductLoading";
 import SortBy from "./SortBy";
+import Limit from "./Limit";
 import formatCash from "../../utils/formatCash";
 
 const ShopSection = (props) => {
@@ -21,6 +22,7 @@ const ShopSection = (props) => {
   const [maxPrice, setMaxPriceInput] = useState("");
 
   const [sortBy, setSortBy] = useState("");
+  const [limit, setLimit] = useState("");
 
   const productList = useSelector((state) => state.productList);
   const { loading, error, products, page, pages } = productList;
@@ -39,9 +41,9 @@ const ShopSection = (props) => {
   }, [categoryFilter, ratingFilter, maxPrice, isFilter, setIsFilter]);
 
   const loadData = useCallback(() => {
-    dispatch(listProducts(keyword, pageNumber, categoryFilter, ratingFilter, minPrice, maxPrice, sortBy));
+    dispatch(listProducts(keyword, pageNumber, categoryFilter, ratingFilter, minPrice, maxPrice, sortBy, limit));
     dispatch(listCategory());
-  }, [dispatch, keyword, pageNumber, categoryFilter, ratingFilter, minPrice, maxPrice, , sortBy]);
+  }, [dispatch, keyword, pageNumber, categoryFilter, ratingFilter, minPrice, maxPrice, , sortBy, limit]);
 
   useEffect(() => {
     loadData();
@@ -54,12 +56,13 @@ const ShopSection = (props) => {
           <div className="row">
             <div className="col-lg-12 col-md-12  article">
               <div className="shopcontainer row">
-                <div className="title-section">
-                  <h2 className="heading-section main-effect">Tất cả sách</h2>
-                </div>
-
+                {!isFilter && (
+                  <div className="title-section">
+                    <h2 className="heading-section main-effect">Tất cả sản phẩm</h2>
+                  </div>
+                )}
                 <SortBy sortBy={sortBy} setSortBy={setSortBy} />
-
+                <Limit limit={limit} setLimit={setLimit} />
                 <div className="row col-lg-12 col-md-12 col-12">
                   <div className="find-product col-lg-2 col-md-4 col-3 pc-header">
                     <Filter

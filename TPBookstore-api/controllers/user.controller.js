@@ -28,7 +28,7 @@ const login = async (req, res) => {
         //check verify account
         if (!user.isVerified) {
             res.status(401);
-            throw new Error("Tài khoản chưa được xác minh");
+            throw new Error("Tài khoản chưa được xác minh!");
         }
         //delete old refresh token if existed
         await RefreshToken.deleteMany({ user: user._id });
@@ -60,7 +60,7 @@ const login = async (req, res) => {
         });
     } else {
         res.status(401);
-        throw new Error("Invalid Email or Password");
+        throw new Error("Email hoặc mật khẩu sai!");
     }
 };
 
@@ -72,7 +72,7 @@ const register = async (req, res, next) => {
     });
     if (isExistingUser) {
         res.status(409);
-        throw new Error("Email of user already exists");
+        throw new Error("Email đã tồn tại!");
     }
 
     try {
@@ -84,7 +84,7 @@ const register = async (req, res, next) => {
         });
         if (!newUser) {
             res.status(400);
-            throw new Error("Invalid user data");
+            throw new Error("Dữ liệu không hợp lệ!");
         }
 
         const newCart = await Cart.create({
@@ -93,7 +93,7 @@ const register = async (req, res, next) => {
         });
         if (!newCart) {
             res.status(500);
-            throw new Error("Failed to create user cart");
+            throw new Error("Tạo giỏ hàng không thành công!");
         }
 
         const emailVerificationToken = newUser.getEmailVerificationToken();
@@ -121,7 +121,7 @@ const register = async (req, res, next) => {
         //send verify email
         await sendMail(messageOptions);
         res.status(200);
-        res.json({ message: "Sending verification mail successfully" });
+        res.json({ message: "Đăng ký thành công, đã gửi yêu cầu xác minh tài khoản!" });
     } catch (error) {
         next(error);
     }
@@ -130,13 +130,11 @@ const register = async (req, res, next) => {
 // verify email
 const verifyEmail = async (req, res) => {
     const { verificationToken } = req.body || null;
-    console.log(verificationToken);
     const hashedToken = crypto.createHash("sha256").update(verificationToken).digest("hex");
-    console.log("================" + hashedToken);
     const user = await User.findOne({ emailVerificationToken: hashedToken });
     if (!user) {
         res.status(400);
-        throw new Error("Email verification token is not valid");
+        throw new Error("Mã thông báo xác nhận email không tồn tại hoặc đã hết hạn!");
     }
     user.isVerified = true;
     user.emailVerificationToken = null;
@@ -217,11 +215,11 @@ const updatePassword = async (req, res) => {
     const user = await User.findById(userId);
     if (!user) {
         res.status(404);
-        throw new Error("User not found");
+        throw new Error("Tài khoản không tồn tại!");
     }
     if (!(await user.matchPassword(currentPassword))) {
         res.status(400);
-        throw new Error("Password is not correct");
+        throw new Error("Mật khẩu hiện tại không đúng!");
     }
     user.password = newPassword;
 
@@ -284,7 +282,7 @@ const resetPassword = async (req, res) => {
     const { resetPasswordToken, newPassword } = req.body || null;
     if (!newPassword) {
         res.status(400);
-        throw new Error("Your new password is not valid");
+        throw new Error("Mật khẩu mới không hợp lệ!");
     }
     const hashedToken = crypto.createHash("sha256").update(resetPasswordToken).digest("hex");
     const user = await User.findOne({
@@ -292,7 +290,7 @@ const resetPassword = async (req, res) => {
     });
     if (!user) {
         res.status(400);
-        throw new Error("Reset password token is not valid");
+        throw new Error("Mã thông báo đặt lại mật khẩu không tồn tại!");
     }
     if (user.resetPasswordTokenExpiryTime < Date.now()) {
         res.status(400);
@@ -304,7 +302,7 @@ const resetPassword = async (req, res) => {
     user.resetPasswordTokenExpiryTime = null;
     await user.save();
     res.status(200);
-    res.json("Your password has been reset");
+    res.json("Mật khẩu của bạn đã được đặt lại!");
 };
 
 //Admin get users
@@ -327,13 +325,13 @@ const uploadAvatar = async (req, res) => {
     }
     if (!user) {
         res.status(400);
-        throw new Error("User not Found");
+        throw new Error("Tài khoản không tồn tại!");
     }
     //folder path to upload avatar
     const avatarPath = path.join(__dirname, "/public/images/avatar/");
     if (!req.file) {
         res.status(400);
-        throw new Error("No provide an image");
+        throw new Error("Avatar không hợp lệ!");
     }
 
     //else
@@ -347,7 +345,7 @@ const uploadAvatar = async (req, res) => {
     //delete old avatar
     if (oldAvatar != "/images/avatar/default.png") {
         fs.unlink(path.join(__dirname, "public", oldAvatar), (err) => {
-            if (err) console.log("Delete old avatar have err:", err);
+            if (err) console.log("Xóa avatar cũ không thành công:", err);
         });
     }
 
@@ -373,12 +371,12 @@ const disableUser = async (req, res) => {
     const user = await User.findOne({ _id: userId, isDisabled: false });
     if (!user) {
         res.status(404);
-        throw new Error("User not found");
+        throw new Error("Tài khoản không tồn tại!");
     }
     const order = await Order.findOne({ user: user._id, isDisabled: false });
     if (order) {
         res.status(400);
-        throw new Error("Cannot disable user who had ordered");
+        throw new Error("Không thể vô hiệu hóa tài khoản này!");
     }
     res.status(200).json(disabledUser);
 };
@@ -389,7 +387,7 @@ const restoreUser = async (req, res) => {
     const user = await User.findOne({ _id: userId, isDisabled: true });
     if (!user) {
         res.status(404);
-        throw new Error("User not found");
+        throw new Error("Tài khoản không tồn tại!");
     }
     const restoredUser = await User.findOneAndUpdate({ _id: user._id }, { isDisabled: false }, { new: true });
     res.status(200).json(restoredUser);
@@ -400,12 +398,12 @@ const deleteUser = async (req, res, next) => {
     const user = await User.findById(req.params.id);
     if (!user) {
         res.status(404);
-        throw new Error("User not found");
+        throw new Error("Tài khoản không tồn tại!");
     }
     const order = await Order.findOne({ user: user._id, isDisabled: false });
     if (order) {
         res.status(400);
-        throw new Error("Cannot delete user who had ordered");
+        throw new Error("Không thể xóa tài khoản này!");
     }
     const session = await mongoose.startSession();
     const transactionOptions = {
@@ -420,7 +418,7 @@ const deleteUser = async (req, res, next) => {
             }).session(session);
             if (!deletedUser) {
                 await session.abortTransaction();
-                throw new Error("Something wrong while deleting user");
+                throw new Error("Xóa tài khoản không thành công!");
             }
             //delete refresh tokens
             const deletedRefreshToken = await RefreshToken.findOneAndDelete({
@@ -428,7 +426,7 @@ const deleteUser = async (req, res, next) => {
             }).session(session);
             if (!deletedRefreshToken) {
                 await session.abortTransaction();
-                throw new Error("Something wrong while deleting refresh token");
+                throw new Error("Xóa refresh token không thành công!");
             }
             //delete cart
             const deletedCart = await Cart.findOneAndDelete({
@@ -436,13 +434,13 @@ const deleteUser = async (req, res, next) => {
             }).session(session);
             if (!deletedCart) {
                 await session.abortTransaction();
-                throw new Error("Something wrong while deleting user cart");
+                throw new Error("Xóa giỏ hàng không thành công!");
             }
             //delete comments
             const deletedComments = await Comment.deleteMany({
                 user: deletedUser._id
             }).session(session);
-            res.status(200).json({ message: "User has been deleted" });
+            res.status(200).json({ message: "Tài khoản đã xóa thành công!" });
         }, transactionOptions);
     } catch (error) {
         next(error);

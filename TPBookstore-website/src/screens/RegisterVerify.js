@@ -11,7 +11,7 @@ import { verifyEmail } from "../Redux/Actions/userActions";
 
 const RegisterVerify = ({ history, location, match }) => {
   window.scrollTo(0, 0);
-  const redirect = location.search ? location.search.split("=")[1] : "/";
+  const redirect = location.search ? location.search.split("=")[1] : "/profile";
 
   const { email, verificationToken } = match.params;
   const dispatch = useDispatch();

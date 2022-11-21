@@ -30,14 +30,14 @@ const CategoriesTable = ({ setIsEditCategory, handleEditCategory, handleCurrentC
   const { success: successUpdated, error: errorUpdated } = categoryUpdateAdmin;
 
   const categoryDeleteHandeler = (id) => {
-    if (window.confirm("Are you sure delete category???")) {
+    if (window.confirm("Xóa danh mục?")) {
       dispatch(deleteCategoryAdmin(id));
     }
   };
 
   useEffect(() => {
     if (successDel) {
-      toast.success("Deleted success category!!!", ToastObjects);
+      toast.success("Xóa danh mục thành công!", ToastObjects);
     }
     if (errorDel) {
       toast.error(errorDel, ToastObjects);
@@ -47,7 +47,7 @@ const CategoriesTable = ({ setIsEditCategory, handleEditCategory, handleCurrentC
 
   useEffect(() => {
     if (successUpdated) {
-      toast.success("Category Updated", ToastObjects);
+      toast.success("Cập nhật danh mục thành công!", ToastObjects);
       setIsEditCategory(false);
     }
     if (errorUpdated) {

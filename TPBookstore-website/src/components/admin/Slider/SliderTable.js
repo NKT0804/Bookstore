@@ -15,7 +15,7 @@ const SliderTable = ({ setIsEditSlider, setCurrentSlider }) => {
   const { success } = sliderDelete;
 
   const sliderDeleteHandler = (id) => {
-    if (window.confirm("Bạn có chắc chắn muốn xóa slider này?")) {
+    if (window.confirm("Xóa slider?")) {
       dispatch(deleteBannerAdmin(id));
     }
   };

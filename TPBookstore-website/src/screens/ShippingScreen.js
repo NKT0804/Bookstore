@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Header from "../components/Header";
 import { useDispatch, useSelector } from "react-redux";
-import { saveShippingAddress } from "../Redux/Actions/cartActions";
-import { Link } from "react-router-dom";
 import { getAddressData } from "../Redux/Actions/userActions";
 import { updateUserProfile } from "../Redux/Actions/userActions";
+import Loading from "../components/base/LoadingError/Loading";
 
 const ShippingScreen = ({ history }) => {
   window.scrollTo(0, 0);
@@ -82,7 +81,7 @@ const ShippingScreen = ({ history }) => {
       <div className="container d-flex justify-content-center align-items-center login-center">
         <form className="Login col-md-8 col-lg-4 col-11" onSubmit={submitHandler}>
           <h6 className="filter-menu-item">ĐỊA CHỈ GIAO HÀNG</h6>
-
+          {loading && <Loading />}
           <div className="filter-menu-item">
             <select
               className="form-select"

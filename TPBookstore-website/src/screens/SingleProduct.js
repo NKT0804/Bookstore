@@ -41,7 +41,7 @@ const SingleProduct = ({ history, match }) => {
   const [rating, setRating] = useState(5);
   const [reviewContent, setReviewContent] = useState("");
 
-  const productSlug = match.params.id;
+  const productSlug = match.params.slug;
   const dispatch = useDispatch();
 
   const productList = useSelector((state) => state.productList);

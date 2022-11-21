@@ -17,9 +17,9 @@ const Product = (props) => {
   const dispatch = useDispatch();
 
   const deletehandler = (id) => {
-    if (window.confirm("Are you sure to delete this product???")) {
+    if (window.confirm("Xóa sản phẩm?")) {
       dispatch(deleteProductAdmin(id));
-      toast.success("Delete product success!!!", ToastObjects);
+      toast.success("Xóa sản phẩm thành công!", ToastObjects);
     }
   };
 

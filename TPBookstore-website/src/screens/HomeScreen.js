@@ -6,9 +6,7 @@ import CalltoActionSection from "../components/homeComponents/CalltoActionSectio
 import Slideshow from "../components/Slideshow";
 import Footer from "../components/Footer";
 import Policy from "./Policy";
-// import PopularProduct from "./PopularProduct";
 import CustomerReview from "./CustomerReview";
-import Trademark from "./Trademark";
 import BestSellerProduct from "../components/carouselProduct/BestSellerProduct";
 import BestNumViewsProduct from "../components/carouselProduct/BestNumViewsProduct";
 
@@ -39,10 +37,8 @@ const HomeScreen = ({ match }) => {
           <BestNumViewsProduct />
         </div>
       </div>
-      {/* <PopularProduct /> */}
       <ShopSection keyword={keyword} pageNumber={pageNumber} isFilter={isFilter} setIsFilter={setIsFilter} />
       <CustomerReview />
-      {/* <Trademark /> */}
       <CalltoActionSection />
       <ContactInfo />
       <Footer />

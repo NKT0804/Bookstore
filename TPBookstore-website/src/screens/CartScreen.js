@@ -39,7 +39,7 @@ const CartScreen = ({ history }) => {
 
   // checkout handler
   const checkOutHandler = () => {
-    history.push("/placeorder");
+    history.push("/placeOrder");
   };
 
   // checkbox handler  all items from the cart

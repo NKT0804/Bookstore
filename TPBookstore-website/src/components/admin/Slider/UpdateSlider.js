@@ -2,7 +2,14 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Loading from "../../base/LoadingError/Loading";
 import { updateBannerAdmin, listSlider } from "../../../Redux/Actions/bannerActions";
+import { toast } from "react-toastify";
 
+const ToastObjects = {
+  pauseOnFocusLoss: false,
+  draggable: false,
+  pauseOnHover: false,
+  autoClose: 2000
+};
 const UpdateSlider = ({ currentSlider, setIsEditSlider }) => {
   const dispatch = useDispatch();
 
@@ -28,6 +35,7 @@ const UpdateSlider = ({ currentSlider, setIsEditSlider }) => {
 
   useEffect(() => {
     if (success) {
+      toast.success("Cập nhật slider thành công", ToastObjects);
       setIsEditSlider(false);
       dispatch(listSlider());
     }
