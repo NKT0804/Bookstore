@@ -64,15 +64,16 @@ const Login = ({ location, history }) => {
           <div className="frame-error">
             {formik.errors.password && <span className="error-message">{formik.errors.password}</span>}
           </div>
-          <p>
-            <Link to="/forgotPassword">
-              <strong>Quên mật khẩu?</strong>
+          <p className="d-flex justify-content-end mt-2">
+            <Link style={{ fontSize: "14px", color: "#007AC8" }} to="/forgotPassword">
+              <i>Quên mật khẩu?</i>
             </Link>
           </p>
           <button type="submit">Đăng nhập</button>
           <p>
             <Link to={redirect ? `/register?redirect=${redirect}` : "/register"}>
-              Bạn chưa có tài khoản? <strong>Đăng ký</strong>
+              Bạn chưa có tài khoản? &nbsp;
+              <span style={{ color: "#4AC4FA" }}>Đăng ký</span>
             </Link>
           </p>
         </form>

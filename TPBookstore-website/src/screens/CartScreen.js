@@ -51,6 +51,7 @@ const CartScreen = ({ history }) => {
       }
     }
   };
+
   // handler remove the product from the cart
   const removeFromCartHandler = (id) => {
     if (window.confirm("Are you sure remove cart item???")) {
@@ -239,7 +240,7 @@ const CartScreen = ({ history }) => {
 
             {/* End of cart iterms */}
             <div className="total row ">
-              <div className="total-checkbox col-lg-1 col-md-2">
+              <div className="total-checkbox col-lg-1 col-md-2 col-3">
                 <input
                   className="total-checkbox-check"
                   type="checkbox"
@@ -247,18 +248,26 @@ const CartScreen = ({ history }) => {
                 />
                 <span>Tất cả</span>
               </div>
-              <div className="col-lg-11 col-md-10">
-                <span className="total__text ">Tổng thanh toán ({itemChecked?.length} sản phẩm): </span>
+              <div className="col-lg-9 col-md-7 col-6">
+                <span className="total__text">
+                  Tổng thanh toán
+                  <span className="total__qty">({itemChecked?.length} sản phẩm)</span> :
+                </span>
                 <span className="total__price">{formatCash(totalHandler)}</span>
               </div>
-            </div>
-            <div className="cart-buttons d-flex align-items-center mt-3 mb-5 mt-md-0 row">
-              <div className="col-lg-6 col-md-6 col-6 d-flex justify-content-md-end">
+              <div className="cart-buttons col-lg-2 col-md-3 col-3 justify-content-md-end">
                 <button onClick={checkOutHandler} disabled={!itemChecked?.length > 0}>
                   <b>Thanh toán</b>
                 </button>
               </div>
             </div>
+            {/* <div className="cart-buttons d-flex align-items-center mt-3 mb-5 mt-md-0 row">
+              <div className="col-lg-6 col-md-6 col-6 d-flex justify-content-md-end">
+                <button onClick={checkOutHandler} disabled={!itemChecked?.length > 0}>
+                  <b>Thanh toán</b>
+                </button>
+              </div>
+            </div> */}
           </>
         )}
       </div>

@@ -61,8 +61,16 @@ const ShopSection = (props) => {
                     <h2 className="heading-section main-effect">Tất cả sản phẩm</h2>
                   </div>
                 )}
-                <SortBy sortBy={sortBy} setSortBy={setSortBy} />
-                <Limit limit={limit} setLimit={setLimit} />
+                {/* Search and products quantity */}
+                <div className="search__catrgoty row">
+                  <div className="col-lg-6">
+                    <SortBy sortBy={sortBy} setSortBy={setSortBy} />
+                  </div>
+                  <div className="col-lg-6">
+                    <Limit limit={limit} setLimit={setLimit} />
+                  </div>
+                </div>
+                {/* Show products */}
                 <div className="row col-lg-12 col-md-12 col-12">
                   <div className="find-product col-lg-2 col-md-4 col-3 pc-header">
                     <Filter

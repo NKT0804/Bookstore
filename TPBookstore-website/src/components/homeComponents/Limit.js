@@ -3,7 +3,7 @@ import React from "react";
 const Limit = (props) => {
   const { limit, setLimit } = props;
   return (
-    <div className="sort__product">
+    <div className="show__product">
       <select
         className="form-select form-select-sort"
         aria-label="Limit"

@@ -236,9 +236,9 @@ const ProfileTabs = () => {
                 <label for="another">Khác</label>
               </p>
             </div>
-            <div className="frame-error">
-              {messageError.sex && <Message variant="alert-danger">{messageError.sex}</Message>}
-            </div>
+          </div>
+          <div className="frame-error">
+            {messageError.sex && <Message variant="alert-danger">{messageError.sex}</Message>}
           </div>
           {/*Birthday*/}
           <div className="form account__user">

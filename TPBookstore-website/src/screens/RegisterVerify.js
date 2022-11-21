@@ -28,36 +28,41 @@ const RegisterVerify = ({ history, location, match }) => {
   };
   return (
     <>
-      <div className="container d-flex flex-column justify-content-center align-items-center login-center">
+      <div className="row verified__email">
         {loading && <Loading />}
         {error && <Message variant="alert-danger">{error}</Message>}
         {/* <form className="Login col-md-8 col-lg-4 col-11">  */}
-        <div>
-          <Link to="/login">
-            <i class="fa fa-arrow-left" aria-hidden="true"></i>
-          </Link>
-          <div className="col-6 d-flex align-items-center">
-            <img alt="logo" src="/images/logo.png" />
+        <div className="verified__email-logo">
+          <div className="">
+            <Link to="/login">
+              <i class="fa fa-arrow-left" aria-hidden="true"></i>
+            </Link>
+          </div>
+          <div className="">
+            <img className="verified__email-img" alt="logo" src="/images/logo.png" />
           </div>
         </div>
 
-        <h4 className="form-title">Xác thực email</h4>
-        {verificationToken ? (
-          <>
-            <h5>{email?.toString()}</h5>
-            <button className="btn btn--primary-color" onClick={submitHandler}>
-              Xác thực
-            </button>
-          </>
-        ) : (
-          <div>
-            Thư xác thực tài khoản đã được gửi đến email{" "}
-            <a href="https://mail.google.com/">
-              <b>{email?.toString()}</b>
-            </a>
-            , hãy kiểm tra hộp thư của bạn.
-          </div>
-        )}
+        <div className="verified__email-content">
+          <h4 className="form-title verified__email-content-title">Xác thực email</h4>
+          {verificationToken ? (
+            <>
+              <h5 className="toEmail">{email?.toString()}</h5>
+              <button className="btn btn--primary-color mt-3" onClick={submitHandler}>
+                Xác thực
+              </button>
+            </>
+          ) : (
+            <div className=" d-flex justify-content-center mt-2">
+              Thư xác thực tài khoản đã được gửi đến email &nbsp;
+              <a href="https://mail.google.com/">
+                <b>{email?.toString()}</b>
+              </a>
+              , hãy kiểm tra hộp thư của bạn.
+            </div>
+          )}
+        </div>
+
         {/* </form> */}
       </div>
     </>

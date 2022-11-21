@@ -71,6 +71,10 @@ html {
   background-color: var(--primary-color);
 }
 
+.opacity__disabled {
+  opacity: 0.5;
+}
+
 .btn--primary-color:hover {
   opacity: 0.9;
 }

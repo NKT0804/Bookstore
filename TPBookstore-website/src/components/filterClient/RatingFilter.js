@@ -6,7 +6,7 @@ const RatingFilter = ({ ratingFilter, setRatingFilter }) => {
       <div className="ms-1 assess-star">
         <p className="distance-price__p">Đánh giá</p>
         <div className="assess-star__div">
-          <div display={{ display: "flex", alignItems: "center" }}>
+          <div className="" display={{ display: "flex", alignItems: "center" }}>
             <input
               type="radio"
               style={{ display: "none" }}
@@ -22,7 +22,7 @@ const RatingFilter = ({ ratingFilter, setRatingFilter }) => {
               <Rating value="5"></Rating>
             </label>
           </div>
-          <div display={{ display: "flex", alignItems: "center" }}>
+          <div className="" display={{ display: "flex", alignItems: "center" }}>
             <input
               type="radio"
               style={{ display: "none" }}
@@ -38,7 +38,7 @@ const RatingFilter = ({ ratingFilter, setRatingFilter }) => {
               <Rating value="4" text={" trở lên"}></Rating>
             </label>
           </div>
-          <div display={{ display: "flex", alignItems: "center" }}>
+          <div className="" display={{ display: "flex", alignItems: "center" }}>
             <input
               type="radio"
               style={{ display: "none" }}
@@ -54,7 +54,7 @@ const RatingFilter = ({ ratingFilter, setRatingFilter }) => {
               <Rating value="3" text={" trở lên"}></Rating>
             </label>
           </div>
-          <div display={{ display: "flex", alignItems: "center" }}>
+          <div className="" display={{ display: "flex", alignItems: "center" }}>
             <input
               type="radio"
               style={{ display: "none" }}
@@ -70,7 +70,7 @@ const RatingFilter = ({ ratingFilter, setRatingFilter }) => {
               <Rating value="2" text={" trở lên"}></Rating>
             </label>
           </div>
-          <div display={{ display: "flex", alignItems: "center" }}>
+          <div className="" display={{ display: "flex", alignItems: "center" }}>
             <input
               type="radio"
               style={{ display: "none" }}
