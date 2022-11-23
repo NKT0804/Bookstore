@@ -36,6 +36,28 @@ const OrderScreen = ({ match }) => {
           <Message variant="alert-danger">{error}</Message>
         ) : (
           <>
+            <header className="card-header mt-2 p-3 Header-green">
+              <div className="row align-items-center ">
+                <div className="col-lg-6 col-md-8">
+                  <i class="far fa-barcode-alt"></i>
+                  <b className="text-white mx-1">Mã đơn hàng:</b>
+                  <span className="text-white mx-1">{order._id}</span>
+                  <br />
+                  <span>
+                    <i className="far fa-calendar-alt"></i>
+                    <b className="text-white"> Ngày đặt:</b>
+                    <span className="text-white mx-3 ">
+                      {moment(order.createdAt).format("LT") + " " + moment(order.createdAt).format("L")}
+                    </span>
+                  </span>
+                </div>
+                <div className="col-lg-6 col-md-4 ms-auto d-flex justify-content-end align-items-center">
+                  <Link className="btn btn-success ms-2" to="#">
+                    <i className="fas fa-print"></i>
+                  </Link>
+                </div>
+              </div>
+            </header>
             <div className="row order-detail">
               {/*  */}
               <div className="order-detail-item col-lg-3 col-md-6 col-6">

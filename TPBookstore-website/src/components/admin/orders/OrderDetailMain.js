@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import OrderDetailProducts from "./OrderDetailProducts";
 import OrderDetailInfo from "./OrderDetailInfo";
 import { Link } from "react-router-dom";
+import formatCash from "../../../utils/formatCash";
 import { useDispatch, useSelector } from "react-redux";
 import {
   deliverOrder,
@@ -20,6 +21,10 @@ const OrderDetailmain = (props) => {
 
   const orderDetails = useSelector((state) => state.orderDetails);
   const { loading, error, order } = orderDetails;
+
+  if (!loading) {
+    order.itemsPrice = order.orderItems.reduce((accumulate, item) => accumulate + item.price * item.qty, 0);
+  }
 
   const orderDeliver = useSelector((state) => state.orderDeliver);
   const { loading: loadingDelivered, success: successDelivered } = orderDeliver;
@@ -74,8 +79,9 @@ const OrderDetailmain = (props) => {
           <header className="card-header p-3 Header-green">
             <div className="row align-items-center ">
               <div className="col-lg-6 col-md-6">
-                <b className="text-white mx-3 ">Mã đơn hàng:</b>
-                <span className="text-white mx-3 ">{order._id}</span>
+                <i class="far fa-barcode-alt"></i>
+                <b className="text-white mx-1">Mã đơn hàng:</b>
+                <span className="text-white mx-1">{order._id}</span>
                 <br />
                 <span>
                   <i className="far fa-calendar-alt"></i>
@@ -97,14 +103,56 @@ const OrderDetailmain = (props) => {
             <OrderDetailInfo order={order} />
 
             <div className="row">
-              <div className="col-lg-9">
+              <div className="col-lg-9 col-md-12">
                 <div className="table-responsive">
                   <OrderDetailProducts order={order} loading={loading} />
                 </div>
               </div>
               {/* Payment Info */}
-              <div className="col-lg-3">
-                <div className="box shadow-sm bg-light">
+              <div className="col-lg-3 px-0">
+                <div className="">
+                  <table className="table__order-details">
+                    <tr>
+                      <td colSpan="4">
+                        <article className="float-end">
+                          <dl className="dlist">
+                            <dt className="text-start">Tổng tiền sản phẩm:</dt>{" "}
+                            <dd className="mx-0 text-end">{formatCash(order.itemsPrice)}</dd>
+                          </dl>
+                          <dl className="dlist">
+                            <dt className="text-start">Phí vận chuyển: </dt>{" "}
+                            <dd className="mx-0 text-end">{formatCash(order.shippingPrice)}</dd>
+                          </dl>
+                          <dl className="dlist">
+                            <dt className="text-start">Thuế VAT(5%):</dt>{" "}
+                            <dd className="mx-0 text-end">{formatCash(order.taxPrice)}</dd>
+                          </dl>
+                          <dl className="dlist">
+                            <dt className="text-start">Tổng cộng:</dt>
+                            <dd className="mx-0 text-end">
+                              <b>{formatCash(order.totalPrice)}</b>
+                            </dd>
+                          </dl>
+                          <dl className="dlist">
+                            <dt className="text-start fw-bold">Trạng thái thanh toán :</dt>
+                            <dd className="mx-0 text-end">
+                              {order.isPaid ? (
+                                <span className="badge3 rounded-pill alert alert-success text-success fw-bold">
+                                  Thanh toán thành công
+                                </span>
+                              ) : (
+                                <span className="badge3 rounded-pill alert alert-danger text-danger fw-bold">
+                                  Chưa thanh toán
+                                </span>
+                              )}
+                            </dd>
+                          </dl>
+                        </article>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+                <div className=" box shadow-sm bg-light">
                   {order?.delivered ? (
                     <button className="btn btn-success col-12">
                       Đã giao hàng ({" "}
@@ -127,7 +175,8 @@ const OrderDetailmain = (props) => {
                   )}
                   {order.isPaid ? (
                     <button className="btn btn-success col-12 mt-2">
-                      Đã thanh toán ( {moment(order.isPaidAt).format("LT") + " " + moment(order.isPaidAt).format("L")})
+                      <p>Đã thanh toán</p>
+                      <p>( {moment(order.isPaidAt).format("LT") + moment(order.isPaidAt).format("L")})</p>
                     </button>
                   ) : (
                     <>

@@ -1,10 +1,11 @@
 import React from "react";
+import formatCash from "../../../utils/formatCash";
 
 const OrderDetailInfo = (props) => {
   const { order } = props;
   return (
     <div className="row mb-5 order-info-wrap">
-      <div className="col-md-6 col-lg-4">
+      <div className="col-md-6 col-lg-2 col-md-6 col-6">
         <article className="icontext align-items-start">
           <span className="icon icon-sm rounded-circle alert-success">
             <i className="text-success fas fa-user"></i>
@@ -18,7 +19,7 @@ const OrderDetailInfo = (props) => {
           </div>
         </article>
       </div>
-      <div className="col-md-6 col-lg-4">
+      <div className="col-md-6 col-lg-3 col-md-6 col-6">
         <article className="icontext align-items-start">
           <span className="icon icon-sm rounded-circle alert-success">
             <i className="text-success fas fa-truck-moving"></i>
@@ -30,7 +31,7 @@ const OrderDetailInfo = (props) => {
           </div>
         </article>
       </div>
-      <div className="col-md-6 col-lg-4">
+      <div className="col-md-6 col-lg-4 col-md-6 col-6">
         <article className="icontext align-items-start">
           <span className="icon icon-sm rounded-circle alert-success">
             <i className="text-success fas fa-map-marker-alt"></i>
@@ -41,7 +42,7 @@ const OrderDetailInfo = (props) => {
           </div>
         </article>
       </div>
-      <div className="col-md-6 col-lg-4">
+      <div className="col-md-6 col-lg-3 col-md-6 col-6">
         <article className="icontext align-items-start">
           <span className="icon icon-sm rounded-circle alert-success">
             <i className="text-success fas fa-map-marker-alt"></i>

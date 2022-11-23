@@ -134,10 +134,10 @@ const CartScreen = ({ history }) => {
                   </div>
                   {/* Price */}
                   <div className="cart-itemPC-price col-lg-2">
-                    <b>{formatCash(item.product.price)}</b>
+                    <b>{formatCash(item.product.priceSale)}</b>
                   </div>
                   {/* Quantity */}
-                  <div className="cart-itemPC-qty col-lg-1 mt-3">
+                  <div className="cart-itemPC-qty col-lg-1">
                     {item.product.countInStock > 0 ? (
                       <select
                         value={item.qty}
@@ -150,21 +150,16 @@ const CartScreen = ({ history }) => {
                         ))}
                       </select>
                     ) : (
-                      <div>
-                        <span>Hết hàng</span>
-                      </div>
+                      <div className="cart-item-qty-alert">Hết hàng</div>
                     )}
                   </div>
                   {/* Total a product */}
                   <div className="cart-itemPC-total col-lg-2">
-                    <b>{formatCash(item.product.price * item.qty)}</b>
+                    <b>{formatCash(item.product.priceSale * item.qty)}</b>
                   </div>
                   {/* Remove product */}
-                  <div
-                    onClick={() => removeFromCartHandler(item.product._id)}
-                    className="col-lg-1 cart-itemPC-remove text-danger"
-                  >
-                    <i class="fas fa-trash-alt"></i>
+                  <div className="col-lg-1 cart-itemPC-remove text-danger">
+                    <i class="fas fa-trash-alt" onClick={() => removeFromCartHandler(item.product._id)}></i>
                   </div>
                 </div>
 
@@ -201,7 +196,7 @@ const CartScreen = ({ history }) => {
                     </div>
                     {/* Price */}
                     <div className="cart-itemMobile-price col-md-4 col-7">
-                      <b>{formatCash(item.product.price)}</b>
+                      <b>{formatCash(item.product.priceSale)}</b>
                     </div>
                     {/* Quantity */}
                     <div className="cart-itemMobile-qty col-md-4 col-5">
@@ -217,9 +212,7 @@ const CartScreen = ({ history }) => {
                           ))}
                         </select>
                       ) : (
-                        <div>
-                          <span>Hết hàng</span>
-                        </div>
+                        <div className="cart-item-qty-alert">Hết hàng</div>
                       )}
                     </div>
                     {/* Total a product */}
@@ -227,11 +220,8 @@ const CartScreen = ({ history }) => {
                       <b>${item.product.price * item.qty}</b>
                     </div> */}
                     {/* Remove product */}
-                    <div
-                      onClick={() => removeFromCartHandler(item.product._id)}
-                      className="col-md-12 col-12 mt-3 cart-itemMobile-remove text-danger"
-                    >
-                      <i class="fas fa-trash-alt"></i>
+                    <div className="col-md-12 col-12 mt-3 cart-itemMobile-remove text-danger">
+                      <i class="fas fa-trash-alt" onClick={() => removeFromCartHandler(item.product._id)}></i>
                     </div>
                   </div>
                 </div>

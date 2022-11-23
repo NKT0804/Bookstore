@@ -7,7 +7,7 @@ const OrderDetailProducts = (props) => {
     order.itemsPrice = order.orderItems.reduce((accumulate, item) => accumulate + item.price * item.qty, 0);
   }
   return (
-    <table className="table border table-lg">
+    <table className="order-detail__admin table border table-lg">
       <thead>
         <tr>
           <th style={{ width: "40%" }}>Sản phẩm</th>
@@ -34,42 +34,6 @@ const OrderDetailProducts = (props) => {
             <td className="text-end"> {formatCash(item.qty * item.price)}</td>
           </tr>
         ))}
-
-        <tr>
-          <td colSpan="4">
-            <article className="float-end">
-              <dl className="dlist">
-                <dt>Tổng tiền sản phẩm:</dt> <dd>{formatCash(order.itemsPrice)}</dd>
-              </dl>
-              <dl className="dlist">
-                <dt>Phí vận chuyển: </dt> <dd>{formatCash(order.shippingPrice)}</dd>
-              </dl>
-              <dl className="dlist">
-                <dt>Thuế VAT(5%):</dt> <dd>{formatCash(order.taxPrice)}</dd>
-              </dl>
-              <dl className="dlist">
-                <dt>Tổng cộng:</dt>
-                <dd>
-                  <b className="h5">{formatCash(order.totalPrice)}</b>
-                </dd>
-              </dl>
-              <dl className="dlist">
-                <dt className="text-muted fw-bold fs-4">Trạng thái thanh toán:</dt>
-                <dd>
-                  {order.isPaid ? (
-                    <span className="badge3 rounded-pill alert alert-success text-success fw-bold fs-4">
-                      Thanh toán thành công
-                    </span>
-                  ) : (
-                    <span className="badge3 rounded-pill alert alert-danger text-danger fw-bold fs-4">
-                      Chưa thanh toán
-                    </span>
-                  )}
-                </dd>
-              </dl>
-            </article>
-          </td>
-        </tr>
       </tbody>
     </table>
   );
