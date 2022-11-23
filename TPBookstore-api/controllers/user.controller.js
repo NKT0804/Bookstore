@@ -99,7 +99,28 @@ const register = async (req, res, next) => {
         const emailVerificationToken = newUser.getEmailVerificationToken();
         await newUser.save();
         const url = `${process.env.WEB_CLIENT_URL}/register/verify/${newUser.email}/${emailVerificationToken}`;
-        const html = `<a href="${url}" target="_blank"><button>Xác thực tài khoản</button></a>`;
+        const html = `
+        <div style = "margin-left : 23%" >
+            <img src="https://res.cloudinary.com/nkt2001/image/upload/v1664988644/logo/logo_vd616y.png?fbclid=IwAR0hgGY9-hFxr30G2dacxHMczMGUJ6SLjddCZHy8tkqEd4FCmNL--ckVPX8"
+            style ="height: 100px">
+            <div style = "padding: 20px;
+            border: #e1e4e8 solid 1px;
+            width: 500px; font-size : 17px">
+            <span style = "font-size: 24px; font-weight: 600; margin-left: 29%">Xác thực tài khoản</span>
+            <p>Để kích hoạt tài khoản TPBookstore của bạn. Vui lòng xác thực tài khoản email của bạn :</p>
+            <a href="${url}" target="_blank"  style = "text-decoration: none; margin-left : 27%">
+            <button style = "background-color: #4ac4fa;
+            padding: 18px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 20px">
+                Xác thực tài khoản
+            </button>
+            </a>
+            <p>Trân trọng,</p>
+            <p>TPBookStore</p>
+            </div>
+        </div>`;
         //start cron-job
         let scheduledJob = schedule.scheduleJob(
             Date.now() + process.env.EMAIL_VERIFY_EXPIED_TIME_IN_MINUTE * 60 * 1000,
@@ -247,8 +268,10 @@ const forgotPassword = async (req, res) => {
     //send reset password email
     const url = `${process.env.WEB_CLIENT_URL}/resetPassword/${resetPasswordToken}`;
     const html = `
-    <div style = "margin-left: 23%; font-size: 17px">
-        <span style = "font-size: 24px; font-weight: 600; margin-left: 10px">
+    <img src="https://res.cloudinary.com/nkt2001/image/upload/v1664988644/logo/logo_vd616y.png?fbclid=IwAR0hgGY9-hFxr30G2dacxHMczMGUJ6SLjddCZHy8tkqEd4FCmNL--ckVPX8"
+    style ="height: 100px; margin-left: 29.5%; margin-bottom: -20px">
+    <div style = "margin-left: 22.5%; font-size: 17px">
+        <span style = "font-size: 24px; font-weight: 600; margin-left: 35px">
             Thiết lập lại mật khẩu đăng nhập TBBookSTore
         </span>
         <div style = "width: 514px;
@@ -264,12 +287,12 @@ const forgotPassword = async (req, res) => {
             <p>Xin chào ${user.name}</p>
             <p>Chúng tôi nhận được yêu cầu thiết lập lại mật khẩu cho tài khoản TPBookSTore của bạn. Vui lòng sử dụng nút sau để đặt lại  mật khẩu của bạn </p>
             <a href="${url}" target="_blank" 
-                style = "text-decoration: none; margin-left: 33%;">
+                style = "text-decoration: none; margin-left: 32.5%;">
             <button style = "background-color: #4ac4fa;
                 padding: 18px 30px;
                 border: none;
                 border-radius: 8px;
-                font-size: 17px; cursor: pointer">
+                font-size: 17px">
                     Đặt lại mật khẩu
             </button>
             </a>

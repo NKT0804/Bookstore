@@ -31,6 +31,7 @@ tbody tr {
 tbody tr:hover {
   background-color: #ebf0fd !important;
 }
+
 a.disabled {
   pointer-events: none;
 }
@@ -573,6 +574,11 @@ a.itemside:hover .title {
   text-align: center;
 }
 
+.order-info-wrap {
+  background-color: #e5fee9;
+  padding : 20px 4px;
+}
+
 /* --------- description list --------*/
 [class*="dlist"] {
   margin-bottom: 5px;
@@ -1109,4 +1115,17 @@ text-align: center;
 .action__slider i,
 .action__categories i {
   padding: 8px;
+}
+
+/* order details */
+
+.order-detail__admin th, td{
+  text-align: center;
+  vertical-align : middle;
+
+}
+
+.table__order-details {
+  font-size: 14px;
+  margin-bottom: 12px;
 }
