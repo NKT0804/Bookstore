@@ -247,15 +247,32 @@ const forgotPassword = async (req, res) => {
     //send reset password email
     const url = `${process.env.WEB_CLIENT_URL}/resetPassword/${resetPasswordToken}`;
     const html = `
-    <div className = "forgot-password__email">
-        <span className = "forgot-password__emai-title">
+    <div style = "margin-left: 23%; font-size: 17px">
+        <span style = "font-size: 24px; font-weight: 600; margin-left: 10px">
             Thiết lập lại mật khẩu đăng nhập TBBookSTore
         </span>
-        <div className = "forgot-password__email-content">
-            <p>Đặt lại mật khẩu</p>
+        <div style = "width: 514px;
+            padding: 20px;
+            margin: 28px;
+            border: #e1e4e8 solid 1px;
+            border-radius: 8px">
+            <p style = "margin-left : 33%;
+            font-size: 20px;
+            font-weight: 600;">
+            Đặt lại mật khẩu
+            </p>
             <p>Xin chào ${user.name}</p>
             <p>Chúng tôi nhận được yêu cầu thiết lập lại mật khẩu cho tài khoản TPBookSTore của bạn. Vui lòng sử dụng nút sau để đặt lại  mật khẩu của bạn </p>
-            <a href="${url}" target="_blank"><button>Đặt lại mật khẩu</button></a>
+            <a href="${url}" target="_blank" 
+                style = "text-decoration: none; margin-left: 33%;">
+            <button style = "background-color: #4ac4fa;
+                padding: 18px 30px;
+                border: none;
+                border-radius: 8px;
+                font-size: 17px; cursor: pointer">
+                    Đặt lại mật khẩu
+            </button>
+            </a>
             <p>Nếu bạn không sử dụng liên kết này trong vòng 1 giờ, liên kết này sẽ hết hạn.</p>
             <p>Trân trọng</p>
             <p>TPBookStore</p>

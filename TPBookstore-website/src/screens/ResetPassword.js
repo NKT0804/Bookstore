@@ -47,12 +47,13 @@ const ResetPassword = ({ history, location, match }) => {
       <div className="container d-flex flex-column justify-content-center align-items-center login-center">
         {loading && <Loading />}
         <form className="Login col-md-8 col-lg-4 col-11" onSubmit={formik.handleSubmit}>
-          <p>
-            <Link to={redirect ? `/login?redirect=${redirect}` : "/login"}>
+          <div className="row">
+            <Link className="col-2" to={redirect ? `/login?redirect=${redirect}` : "/login"}>
               <i class="fa fa-arrow-left" aria-hidden="true"></i>
             </Link>
-          </p>
-          <h5 className="form-title">Đặt lại mật khẩu</h5>
+            <h5 className="col-10 form-title">Đặt lại mật khẩu</h5>
+          </div>
+
           <div className="frame-error">{error && <Message variant="alert-danger">{error}</Message>}</div>
 
           <input
