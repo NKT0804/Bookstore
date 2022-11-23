@@ -221,19 +221,19 @@ const SingleProduct = ({ history, match }) => {
                   <div className="product-manuafactures">
                     <div className="product-manuafactures__item">
                       <span>
-                        <label>Nhà cung cấp : </label> <b>{product.supplier}</b>
+                        <label>Nhà cung cấp:&nbsp;</label> <b>{product.supplier}</b>
                       </span>
                       <span>
-                        <label>Tác giả : </label> <b>{product.author}</b>
+                        <label>Tác giả:&nbsp;</label> <b>{product.author}</b>
                       </span>
                     </div>
                     <div className="product-manuafactures__item">
                       <span>
-                        <label>Nhà xuất bản: </label>
+                        <label>Nhà xuất bản:&nbsp;</label>
                         <b>{product.publisher}</b>
                       </span>
                       <span>
-                        <label>Hình thức bìa : </label> <b>Bìa mềm</b>
+                        <label>Hình thức bìa:&nbsp;</label> <b>Bìa mềm</b>
                       </span>
                     </div>
                   </div>
@@ -355,7 +355,7 @@ const SingleProduct = ({ history, match }) => {
                       />
                       <strong>{review.user.name}</strong>
                       <Rating value={review.rating} />
-                      <span>{moment(review.createdAt).calendar()}</span>
+                      <span>{moment(review.createdAt).format("DD/MM/yyyy")}</span>
                       {review.reviewContent && (
                         <div className="review-content alert alert-info mt-3">
                           {review.reviewContent}

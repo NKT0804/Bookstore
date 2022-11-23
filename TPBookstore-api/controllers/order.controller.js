@@ -78,13 +78,25 @@ const createNewOrder = async (req, res, next) => {
 
 //Get order
 const getOrderAdmin = async (req, res) => {
-    const dateOrderFilter = validateConstants(orderQueryParams, "date", req.query.dateOrder);
+    let page = Number(req.query.page) || 1;
+    const limit = Number(req.query.limit) || 20;
+    const keyword = req.query.keyword || "";
+
     const statusFilter = validateConstants(orderQueryParams, "status", req.query.status);
+    const count = await Order.countDocuments({ ...statusFilter });
+    if (count == 0) {
+        res.status(204);
+        throw new Error("Không có đơn hàng nào!");
+    }
+    const pages = Math.ceil(count / limit);
+    page = page <= pages ? page : 1;
     const orders = await Order.find({ ...statusFilter })
-        .sort({ ...dateOrderFilter })
+        .limit(limit)
+        .skip(limit * (page - 1))
+        .sort({ createdAt: "desc" })
         .populate("user", "-password");
     res.status(200);
-    res.json(orders);
+    res.json({ orders, page, pages, total: count });
 };
 
 /**
@@ -122,10 +134,8 @@ const getOrderAdmin = async (req, res) => {
  * Read: USER LOGIN ORDERS
  */
 const getOrder = async (req, res) => {
-    console.log(req.user);
-    const dateOrderFilter = validateConstants(orderQueryParams, "date", req.query.dateOrder);
     const orders = await Order.find({ user: req.params.user, isDisabled: false })
-        .sort({ ...dateOrderFilter })
+        .sort({ createdAt: "desc" })
         .populate("user", "-password");
     res.json(orders);
 };
@@ -214,8 +224,8 @@ const cancelOrderAdmin = async (req, res) => {
  */
 const cancelOrderUser = async (req, res) => {
     const orderId = req.params.id || null;
-    const user = req.body.user || null;
-    const order = await Order.findOne({ _id: orderId, user: user._id, isDisabled: false });
+    const userId = req.user._id || null;
+    const order = await Order.findOne({ _id: orderId, user: userId, isDisabled: false });
     if (!order) {
         res.status(404);
         throw new Error("Đơn hàng không tồn tại!");

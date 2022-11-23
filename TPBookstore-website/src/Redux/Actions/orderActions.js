@@ -126,34 +126,39 @@ export const listMyOrders = () => async (dispatch, getState) => {
 /**
  * Admin
  */
-export const listOrders = () => async (dispatch, getState) => {
-  try {
-    dispatch({ type: ORDER_LIST_REQUEST });
+export const listOrders =
+  (keyword = "", status = "", limit = 20, pageNumber = "") =>
+  async (dispatch, getState) => {
+    try {
+      dispatch({ type: ORDER_LIST_REQUEST });
 
-    const {
-      userLogin: { userInfo }
-    } = getState();
+      const {
+        userLogin: { userInfo }
+      } = getState();
 
-    const config = {
-      headers: {
-        Authorization: `Bearer ${userInfo.token}`
+      const config = {
+        headers: {
+          Authorization: `Bearer ${userInfo.token}`
+        }
+      };
+
+      const { data } = await axios.get(
+        `/api/v1/order?&keyword=${keyword}&status=${status}&limit=${limit}&page=${pageNumber}`,
+        config
+      );
+
+      dispatch({ type: ORDER_LIST_SUCCESS, payload: data });
+    } catch (error) {
+      const message = error.response && error.response.data.message ? error.response.data.message : error.message;
+      if (message === "Not authorized, token failed") {
+        dispatch(logout());
       }
-    };
-
-    const { data } = await axios.get(`/api/v1/order`, config);
-
-    dispatch({ type: ORDER_LIST_SUCCESS, payload: data });
-  } catch (error) {
-    const message = error.response && error.response.data.message ? error.response.data.message : error.message;
-    if (message === "Not authorized, token failed") {
-      dispatch(logout());
+      dispatch({
+        type: ORDER_LIST_FAIL,
+        payload: message
+      });
     }
-    dispatch({
-      type: ORDER_LIST_FAIL,
-      payload: message
-    });
-  }
-};
+  };
 
 // ORDER DETAILS
 export const getOrderDetailsAdmin = (id) => async (dispatch, getState) => {
@@ -185,7 +190,7 @@ export const getOrderDetailsAdmin = (id) => async (dispatch, getState) => {
 };
 
 // ORDER DELIVER
-export const deliverOrder = (order) => async (dispatch, getState) => {
+export const deliverOrder = (orderId) => async (dispatch, getState) => {
   try {
     dispatch({ type: ORDER_DELIVERED_REQUEST });
 
@@ -199,7 +204,7 @@ export const deliverOrder = (order) => async (dispatch, getState) => {
       }
     };
 
-    const { data } = await axios.patch(`/api/v1/order/${order._id}/delivered`, {}, config);
+    const { data } = await axios.patch(`/api/v1/order/${orderId}/delivered`, {}, config);
     dispatch({ type: ORDER_DELIVERED_SUCCESS, payload: data });
   } catch (error) {
     const message = error.response && error.response.data.message ? error.response.data.message : error.message;
@@ -214,7 +219,7 @@ export const deliverOrder = (order) => async (dispatch, getState) => {
 };
 
 // Confirm order
-export const confirmOrder = (order) => async (dispatch, getState) => {
+export const confirmOrder = (orderId) => async (dispatch, getState) => {
   try {
     dispatch({ type: ORDER_CONFIRM_REQUEST });
 
@@ -228,7 +233,7 @@ export const confirmOrder = (order) => async (dispatch, getState) => {
       }
     };
 
-    const { data } = await axios.patch(`/api/v1/order/${order._id}/confirm`, {}, config);
+    const { data } = await axios.patch(`/api/v1/order/${orderId}/confirm`, {}, config);
     dispatch({ type: ORDER_CONFIRM_SUCCESS, payload: data });
   } catch (error) {
     const message = error.response && error.response.data.message ? error.response.data.message : error.message;
@@ -243,7 +248,7 @@ export const confirmOrder = (order) => async (dispatch, getState) => {
 };
 
 // Admin cancel order
-export const cancelOrderAdmin = (order) => async (dispatch, getState) => {
+export const cancelOrderAdmin = (orderId) => async (dispatch, getState) => {
   try {
     dispatch({ type: ORDER_ADMIN_CANCEL_REQUEST });
 
@@ -257,7 +262,7 @@ export const cancelOrderAdmin = (order) => async (dispatch, getState) => {
       }
     };
 
-    const { data } = await axios.patch(`/api/v1/order/${order._id}/cancel-admin`, {}, config);
+    const { data } = await axios.patch(`/api/v1/order/${orderId}/cancel-admin`, {}, config);
     dispatch({ type: ORDER_ADMIN_CANCEL_SUCCESS, payload: data });
   } catch (error) {
     const message = error.response && error.response.data.message ? error.response.data.message : error.message;
@@ -272,7 +277,7 @@ export const cancelOrderAdmin = (order) => async (dispatch, getState) => {
 };
 
 // User cancel order
-export const cancelOrderUser = (order) => async (dispatch, getState) => {
+export const cancelOrderUser = (orderId) => async (dispatch, getState) => {
   try {
     dispatch({ type: ORDER_USER_CANCEL_REQUEST });
 
@@ -286,7 +291,7 @@ export const cancelOrderUser = (order) => async (dispatch, getState) => {
       }
     };
 
-    const { data } = await axios.patch(`/api/v1/order/${order._id}/cancel-user`, userInfo, config);
+    const { data } = await axios.patch(`/api/v1/order/${orderId}/cancel-user`, {}, config);
     dispatch({ type: ORDER_USER_CANCEL_SUCCESS, payload: data });
   } catch (error) {
     const message = error.response && error.response.data.message ? error.response.data.message : error.message;
@@ -301,7 +306,7 @@ export const cancelOrderUser = (order) => async (dispatch, getState) => {
 };
 
 // ORDER ORDER IS PAID
-export const isPaidOrder = (order) => async (dispatch, getState) => {
+export const isPaidOrder = (orderId) => async (dispatch, getState) => {
   try {
     dispatch({ type: ORDER_PAY_REQUEST });
 
@@ -315,7 +320,7 @@ export const isPaidOrder = (order) => async (dispatch, getState) => {
       }
     };
 
-    const { data } = await axios.patch(`/api/v1/order/${order._id}/payment`, {}, config);
+    const { data } = await axios.patch(`/api/v1/order/${orderId}/payment`, {}, config);
     dispatch({ type: ORDER_PAY_SUCCESS, payload: data });
   } catch (error) {
     const message = error.response && error.response.data.message ? error.response.data.message : error.message;

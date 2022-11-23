@@ -182,7 +182,8 @@ const ProductComment = (props) => {
                   />
                   <strong className="ms-2">{item.user.name}</strong>
                   <p className="fs-6 fst-italic">
-                    Thời gian: {moment(item.createdAt).format("LT") + "  " + moment(item.createdAt).format("L")}
+                    Thời gian:{" "}
+                    {moment(item.createdAt).format("LT") + "  " + moment(item.createdAt).format("DD/MM/yyyy")}
                   </p>
                   <div className="alert alert-info p-2">{item.content}</div>
 
@@ -282,7 +283,8 @@ const ProductComment = (props) => {
                         />
                         <strong className="ms-2">{reply.user.name}</strong>
                         <div className="fs-6 fst-italic">
-                          Thời gian: {moment(reply.createdAt).format("LT") + "  " + moment(reply.createdAt).format("L")}
+                          Thời gian:{" "}
+                          {moment(reply.createdAt).format("LT") + "  " + moment(reply.createdAt).format("DD/MM/yyyy")}
                         </div>
                         <div className="alert alert-info p-2">{reply.content}</div>
                         <div className="action-user">

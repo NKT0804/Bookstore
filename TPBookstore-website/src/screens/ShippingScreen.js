@@ -70,7 +70,7 @@ const ShippingScreen = ({ history }) => {
     const addressUpdate = { province, district, ward, specificAddress };
     user.address = addressUpdate;
     dispatch(updateUserProfile(user));
-    history.push("/payment");
+    history.push("/placeOrder");
   };
   useEffect(() => {
     dispatch(getAddressData());

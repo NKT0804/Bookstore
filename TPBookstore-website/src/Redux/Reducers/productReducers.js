@@ -229,9 +229,7 @@ export const productListReducerAdmin = (state = { products: [] }, action) => {
     case PRODUCT_LIST_SUCCESS:
       return {
         loading: false,
-        page: action.payload.page,
-        pages: action.payload.pages,
-        products: action.payload.products
+        ...action.payload
       };
     case PRODUCT_LIST_FAIL:
       return { loading: false, error: action.payload };

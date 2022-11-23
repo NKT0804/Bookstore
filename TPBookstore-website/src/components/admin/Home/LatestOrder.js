@@ -45,20 +45,22 @@ const LatestOrder = (props) => {
                   <td>
                     {order.isPaid ? (
                       <span className="badge3 rounded-pill alert-success fw-bold">
-                        Thanh toán lúc {moment(order.paidAt).format("L")}
+                        Thanh toán lúc {moment(order.paidAt).format("DD/MM/yyyy")}
                       </span>
                     ) : (
                       <span className="badge3 rounded-pill alert-danger fw-bold">Chưa thanh toán</span>
                     )}
                   </td>
-                  <td>{moment(order.createdAt).format("L")}</td>
+                  <td>{moment(order.createdAt).format("DD/MM/yyyy")}</td>
                   <td>
-                    {order.delivered ? (
+                    {order.cancelled ? (
+                      <span className="badge3 btn-danger">Đã hủy</span>
+                    ) : order.delivered ? (
                       <span className="badge3 btn-success">Đã giao</span>
                     ) : order.confirmed ? (
-                      <span className="badge3 btn-success">Đang giao</span>
+                      <span className="badge3 btn-warning">Đang giao</span>
                     ) : (
-                      <span className="badge3 btn-dark">Đang chờ xử lý</span>
+                      <span className="badge3 btn-primary">Đang chờ xác nhận</span>
                     )}
                   </td>
                   <td className="d-flex justify-content-end align-item-center">

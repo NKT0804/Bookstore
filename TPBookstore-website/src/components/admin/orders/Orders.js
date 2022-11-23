@@ -40,19 +40,19 @@ const Orders = (props) => {
                 </td>
               </td>
               <td>
-                <b>{order.user.name.lenght >= 15 ? `${order.user.name.slice(0, 15)}...` : `${order.user.name}`}</b>
+                <b>{order.user.name.length >= 15 ? `${order.user.name.slice(0, 15)}...` : `${order.user.name}`}</b>
               </td>
               <td>{formatCash(order.totalPrice)}</td>
               <td>
                 {order.isPaid ? (
                   <span className="badge3 rounded-pill alert-success fw-bold">
-                    Thanh toán lúc {moment(order.paidAt).format("L")}
+                    Thanh toán lúc {moment(order.paidAt).format("DD/MM/yyyy")}
                   </span>
                 ) : (
                   <span className="badge3 rounded-pill alert-danger fw-bold">Chưa thanh toán</span>
                 )}
               </td>
-              <td>{moment(order.createdAt).format("L")}</td>
+              <td>{moment(order.createdAt).format("DD/MM/yyyy")}</td>
               <td>
                 {order.cancelled ? (
                   <span className="badge3 btn-danger">Đã hủy</span>

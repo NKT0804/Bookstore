@@ -72,7 +72,7 @@ const createProduct = async (req, res) => {
 
 // Non-user, user and admin filter product
 const getProducts = async (req, res) => {
-    const pageSize = Number(req.query.pageSize) || 12; //EDIT HERE
+    const limit = Number(req.query.limit) || 12;
     let page = Number(req.query.pageNumber) || 1;
     const rating = Number(req.query.rating) || 0;
     const maxPrice = Number(req.query.maxPrice) || 0;
@@ -135,7 +135,7 @@ const getProducts = async (req, res) => {
         res.status(204);
         throw new Error("Không có sản phẩm nào!");
     }
-    const pages = Math.ceil(count / pageSize);
+    const pages = Math.ceil(count / limit);
     page = page <= pages ? page : 1;
     //else
     const products = await Product.find({
@@ -145,8 +145,8 @@ const getProducts = async (req, res) => {
         ...priceFilter,
         ...statusFilter
     })
-        .limit(pageSize)
-        .skip(pageSize * (page - 1))
+        .limit(limit)
+        .skip(limit * (page - 1))
         .sort(sortBy)
         .populate("category", "name");
     res.json({ products, page, pages, total: count });

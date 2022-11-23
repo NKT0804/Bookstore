@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Header from "../components/Header";
-import { PayPalButton } from "react-paypal-button-v2";
 import { useDispatch, useSelector } from "react-redux";
-import { getOrderDetails, payOrder } from "../Redux/Actions/orderActions";
+import { cancelOrderUser, getOrderDetails, payOrder } from "../Redux/Actions/orderActions";
 import moment from "moment";
-import { ORDER_PAY_RESET } from "../Redux/Constants/orderConstants";
 import Loading from "../components/base/LoadingError/Loading";
 import Message from "../components/base/LoadingError/Error";
 import formatCash from "../utils/formatCash";
@@ -17,6 +15,8 @@ const OrderScreen = ({ match }) => {
 
   const orderDetails = useSelector((state) => state.orderDetails);
   const { order, loading, error } = orderDetails;
+  const orderCancel = useSelector((state) => state.orderCancelUser);
+  const { loading: loadingCancel, success: successCancel } = orderCancel;
 
   if (!loading) {
     order.itemsPrice = order.orderItems.reduce((accumulate, item) => accumulate + item.price * item.qty, 0);
@@ -24,8 +24,12 @@ const OrderScreen = ({ match }) => {
 
   useEffect(() => {
     dispatch(getOrderDetails(orderId));
-  }, [dispatch, orderId]);
-
+  }, [dispatch, orderId, successCancel]);
+  const cancelHandler = () => {
+    if (window.confirm("Xác nhận hủy đơn hàng?")) {
+      dispatch(cancelOrderUser(order._id));
+    }
+  };
   return (
     <>
       <Header />
@@ -109,7 +113,8 @@ const OrderScreen = ({ match }) => {
                     {order.isPaid ? (
                       <div className="bg-info mb-1 p-1 col-12">
                         <p className="order-detail-text text-white text-center text-sm-start">
-                          Đã thanh toán: {moment(order.paidAt).format("LT") + " " + moment(order.paidAt).format("L")}
+                          Đã thanh toán:{" "}
+                          {moment(order.paidAt).format("LT") + " " + moment(order.paidAt).format("DD/MM/yyyy")}
                         </p>
                       </div>
                     ) : (
@@ -117,14 +122,14 @@ const OrderScreen = ({ match }) => {
                         <p className="order-detail-text text-white text-center text-sm-start">Chưa thanh toán</p>
                       </div>
                     )}
-                    {order.isDelivered ? (
-                      <div className="bg-info mb-1 p-1 col-12">
-                        <p className="order-detail-text text-white text-center text-sm-start">Đang giao</p>
-                      </div>
+                    {order.cancelled ? (
+                      <span className="badge3 btn-danger">Đã hủy</span>
+                    ) : order.delivered ? (
+                      <span className="badge3 btn-success">Đã giao</span>
+                    ) : order.confirmed ? (
+                      <span className="badge3 btn-warning">Đang giao</span>
                     ) : (
-                      <div className="bg-danger mb-1 p-1 col-12">
-                        <p className="order-detail-text text-white text-center text-sm-start">Đang chờ xác nhận</p>
-                      </div>
+                      <span className="badge3 btn-primary">Đang chờ xác nhận</span>
                     )}
                   </div>
                 </div>
@@ -202,8 +207,18 @@ const OrderScreen = ({ match }) => {
                     </tr>
                   </tbody>
                 </table>
-                {order.confirmed ? <button>Đã nhận hàng</button> : <span>Đang chờ xác nhận</span>}
-                {!order.confirmed ? <button>Hủy đơn hàng</button> : <></>}
+                {order.confirmed ? (
+                  <button>Đã nhận hàng</button>
+                ) : !order.cancelled ? (
+                  <>
+                    {loadingCancel && <Loading />}
+                    <button onClick={cancelHandler} className="btn btn-danger col-12 btn-size mt-2">
+                      Hủy đơn hàng
+                    </button>
+                  </>
+                ) : (
+                  <button className="btn btn-danger col-12 btn-size mt-2">Đơn hàng đã hủy</button>
+                )}
               </div>
             </div>
           </>

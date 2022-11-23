@@ -30,15 +30,15 @@ const commentQueryParams = {
 };
 
 const orderQueryParams = {
-    date: {
-        newest: { createdAt: "desc" },
-        latest: { createdAt: "asc" },
-        default: { createdAt: "desc" }
-    },
     status: {
+        waiting: { confirmed: false, cancelled: false },
+        delivering: { confirmed: true, delivered: false, cancelled: false },
+        delivered: { delivered: true },
+        paid: { isPaid: true },
+        unpaid: { isPaid: false },
+        cancelled: { cancelled: true },
         disabled: { isDisabled: true },
         notDisabled: { isDisabled: false },
-        all: {},
         default: { isDisabled: false }
     }
 };

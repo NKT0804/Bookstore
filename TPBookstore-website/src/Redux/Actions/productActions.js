@@ -70,7 +70,7 @@ export const listProducts =
     try {
       dispatch({ type: PRODUCT_LIST_REQUEST });
       const { data } = await axios.get(
-        `/api/v1/product?&category=${categoryFilter}&keyword=${keyword}&rating=${ratingFilter}&minPrice=${minPrice}&maxPrice=${maxPrice}&sortBy=${sortBy}&pageNumber=${pageNumber}&pageSize=${limit}`
+        `/api/v1/product?&category=${categoryFilter}&keyword=${keyword}&rating=${ratingFilter}&minPrice=${minPrice}&maxPrice=${maxPrice}&sortBy=${sortBy}&pageNumber=${pageNumber}&limit=${limit}`
       );
       dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
     } catch (error) {
@@ -317,7 +317,7 @@ export const createProductReview = (productId, review) => async (dispatch, getSt
 
 //  GET LIST PRODUCT HAVE BAGINATION
 export const listProductsAdmin =
-  (keyword = "", pageNumber = "", categoryFilterAdmin = "", sortBy = "newest") =>
+  (keyword = "", pageNumber = "", categoryFilterAdmin = "", sortBy = "newest", limit = 10) =>
   async (dispatch, getState) => {
     try {
       dispatch({ type: PRODUCT_LIST_REQUEST });
@@ -333,7 +333,7 @@ export const listProductsAdmin =
       };
 
       const { data } = await axios.get(
-        `/api/v1/product?keyword=${keyword}&pageNumber=${pageNumber}&category=${categoryFilterAdmin}&sortBy=${sortBy}`,
+        `/api/v1/product?keyword=${keyword}&pageNumber=${pageNumber}&category=${categoryFilterAdmin}&sortBy=${sortBy}&limit=${limit}`,
         config
       );
 

@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const PaginationAdmin = (props) => {
-  let { page, pages, keyword = "" } = props;
+  let { page, pages, keyword = "", basePath = "/" } = props;
   if (page > pages) page = pages;
   return (
     pages > 1 && (
@@ -11,8 +11,8 @@ const PaginationAdmin = (props) => {
           <Link
             to={
               keyword
-                ? `/admin/search/${keyword}/page/${page > 1 ? page - 1 : page}`
-                : `/admin/products/page/${page > 1 ? page - 1 : page}`
+                ? `${basePath}?q=${keyword}&p=${page > 1 ? page - 1 : page}`
+                : `${basePath}?p=${page > 1 ? page - 1 : page}`
             }
           >
             <i className="fas fa-chevron-left"></i>
@@ -23,7 +23,7 @@ const PaginationAdmin = (props) => {
             <li className={`page-item ${x + 1 === page ? "active" : ""}`} key={x + 1}>
               <Link
                 className="page-link"
-                to={keyword ? `/admin/search/${keyword}/page/${x + 1}` : `/admin/products/page/${x + 1}`}
+                to={keyword ? `${basePath}?q=${keyword}&p=${x + 1}` : `${basePath}?p=${x + 1}`}
               >
                 {x + 1}
               </Link>
@@ -34,8 +34,8 @@ const PaginationAdmin = (props) => {
           <Link
             to={
               keyword
-                ? `/admin/search/${keyword}/page/${page < pages ? page + 1 : pages}`
-                : `/admin/products/page/${page < pages ? page + 1 : pages}`
+                ? `${basePath}?q=${keyword}&p${page < pages ? page + 1 : pages}`
+                : `${basePath}?p=${page < pages ? page + 1 : pages}`
             }
           >
             <i className="fas fa-chevron-right"></i>

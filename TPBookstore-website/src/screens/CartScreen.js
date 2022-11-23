@@ -54,10 +54,10 @@ const CartScreen = ({ history }) => {
 
   // handler remove the product from the cart
   const removeFromCartHandler = (id) => {
-    if (window.confirm("Are you sure remove cart item???")) {
+    if (window.confirm("Xóa sản phẩm khỏi giỏ hàng?")) {
       dispatch(removeFromCartItem([id]));
       if (removeCartSuccess) {
-        toast.success("Remove cart item success", ToastObjects);
+        toast.success("Sản phẩm đã được xóa khỏi giỏ hàng!", ToastObjects);
       } else if (removeCartError) {
         toast.error(removeCartError, ToastObjects);
       }
@@ -224,7 +224,7 @@ const CartScreen = ({ history }) => {
                     </div>
                     {/* Total a product */}
                     {/* <div className="cart-itemMobile-total col-lg-2 col-md-2 col-sm-7">
-                      <b>${item.product.price * item.qty}</b>
+                      <b>{formatCash(item.product.price * item.qty)}</b>
                     </div> */}
                     {/* Remove product */}
                     <div
@@ -261,13 +261,6 @@ const CartScreen = ({ history }) => {
                 </button>
               </div>
             </div>
-            {/* <div className="cart-buttons d-flex align-items-center mt-3 mb-5 mt-md-0 row">
-              <div className="col-lg-6 col-md-6 col-6 d-flex justify-content-md-end">
-                <button onClick={checkOutHandler} disabled={!itemChecked?.length > 0}>
-                  <b>Thanh toán</b>
-                </button>
-              </div>
-            </div> */}
           </>
         )}
       </div>

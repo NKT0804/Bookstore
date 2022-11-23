@@ -19,6 +19,7 @@ const MainProducts = React.memo((props) => {
   const [keywordSearch, setKeywordSearch] = useState("");
   const [categoryFilterAdmin, setCategoryFilterAdmin] = useState("");
   const [sortBy, setSortBy] = useState("newest");
+  const [limit, setLimit] = useState(10);
 
   const productListAdmin = useSelector((state) => state.productListAdmin);
   const { loading, error, products, page, pages } = productListAdmin;
@@ -30,15 +31,14 @@ const MainProducts = React.memo((props) => {
   const { error: errorDelete, success: successDelete } = productDeleteAdmin;
 
   useEffect(() => {
-    dispatch(listProductsAdmin(keyword, pageNumber, categoryFilterAdmin, sortBy));
+    dispatch(listProductsAdmin(keyword, pageNumber, categoryFilterAdmin, sortBy, limit));
     dispatch(listCategoryAdmin());
-  }, [dispatch, keyword, pageNumber, successDelete, categoryFilterAdmin, sortBy]);
+  }, [dispatch, keyword, pageNumber, successDelete, categoryFilterAdmin, sortBy, limit]);
 
   const submitHandler = (e) => {
     e.preventDefault();
-    console.log(keywordSearch);
     if (keywordSearch.trim()) {
-      history.push(`/admin/products/search/${keywordSearch}`);
+      history.push(`/admin/products?q=${keywordSearch}`);
     } else {
       history.push("/admin/products");
     }
@@ -73,6 +73,14 @@ const MainProducts = React.memo((props) => {
               setCategoryFilterAdmin={setCategoryFilterAdmin}
             />
             <SortBy sortBy={sortBy} setSortBy={setSortBy} />
+            <div className="col-lg-2 col-6 col-md-3">
+              <select className="form-select" value={limit} onChange={(e) => setLimit(e.target.value)}>
+                <option value={"10"}>10 sản phẩm</option>
+                <option value={"20"}>20 sản phẩm</option>
+                <option value={"30"}>30 sản phẩm</option>
+                <option value={"40"}>40 sản phẩm</option>
+              </select>
+            </div>
           </div>
         </header>
 
@@ -107,7 +115,7 @@ const MainProducts = React.memo((props) => {
             </>
           )}
           {/* PaginationAdmin */}
-          <PaginationAdmin page={page} pages={pages} keyword={keyword ? keyword : ""} />
+          <PaginationAdmin page={page} pages={pages} keyword={keyword ? keyword : ""} basePath={"/admin/products"} />
         </div>
       </div>
     </section>

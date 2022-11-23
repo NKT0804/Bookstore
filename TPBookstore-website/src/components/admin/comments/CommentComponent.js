@@ -59,7 +59,7 @@ const CommentComponent = () => {
                       />
                       {item.user.name}
                     </td>
-                    <td>{moment(item.createdAt).format("LT") + ", " + moment(item.createdAt).format("L")}</td>
+                    <td>{moment(item.createdAt).format("LT") + ", " + moment(item.createdAt).format("DD/MM/yyyy")}</td>
                   </tr>
                 );
               })

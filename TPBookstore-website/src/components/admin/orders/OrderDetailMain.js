@@ -39,22 +39,22 @@ const OrderDetailmain = (props) => {
 
   const deliverHandler = () => {
     if (window.confirm("Xác nhận đã giao hàng?")) {
-      dispatch(deliverOrder(order));
+      dispatch(deliverOrder(order._id));
     }
   };
   const confirmHandler = () => {
     if (window.confirm("Xác nhận đơn hàng?")) {
-      dispatch(confirmOrder(order));
+      dispatch(confirmOrder(order._id));
     }
   };
   const isPaidHandler = () => {
     if (window.confirm("Xác nhận đã thanh toán?")) {
-      dispatch(isPaidOrder(order));
+      dispatch(isPaidOrder(order._id));
     }
   };
   const cancelHandler = () => {
     if (window.confirm("Xác nhận hủy đơn hàng?")) {
-      dispatch(cancelOrderAdmin(order));
+      dispatch(cancelOrderAdmin(order._id));
     }
   };
   return (
@@ -81,7 +81,7 @@ const OrderDetailmain = (props) => {
                   <i className="far fa-calendar-alt"></i>
                   <b className="text-white"> Ngày đặt:</b>
                   <span className="text-white mx-3 ">
-                    {moment(order.createdAt).format("LT") + " " + moment(order.createdAt).format("L")}
+                    {moment(order.createdAt).format("LT") + " " + moment(order.createdAt).format("DD/MM/yyyy")}
                   </span>
                 </span>
               </div>
@@ -108,7 +108,10 @@ const OrderDetailmain = (props) => {
                   {order?.delivered ? (
                     <button className="btn btn-success col-12">
                       Đã giao hàng ({" "}
-                      {moment(order.isDeliveredAt).format("LT") + " " + moment(order.isDeliveredAt).format("L")})
+                      {moment(order.isDeliveredAt).format("LT") +
+                        " " +
+                        moment(order.isDeliveredAt).format("DD/MM/yyyy")}
+                      )
                     </button>
                   ) : !order?.confirmed ? (
                     <>
@@ -127,7 +130,8 @@ const OrderDetailmain = (props) => {
                   )}
                   {order.isPaid ? (
                     <button className="btn btn-success col-12 mt-2">
-                      Đã thanh toán ( {moment(order.isPaidAt).format("LT") + " " + moment(order.isPaidAt).format("L")})
+                      Đã thanh toán ({" "}
+                      {moment(order.isPaidAt).format("LT") + " " + moment(order.isPaidAt).format("DD/MM/yyyy")})
                     </button>
                   ) : (
                     <>
