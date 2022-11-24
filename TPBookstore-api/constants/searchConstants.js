@@ -11,7 +11,7 @@ const productQueryParams = {
         disabled: { isDisabled: true },
         notDisabled: { isDisabled: false },
         all: {},
-        default: { isDisabled: false }
+        default: {}
     }
 };
 
@@ -44,14 +44,9 @@ const orderQueryParams = {
 };
 
 const userQueryParams = {
-    date: {
-        newest: { createdAt: "desc" },
-        latest: { createdAt: "asc" },
-        default: { createdAt: "desc" }
-    },
     status: {
-        disabled: { isDisabled: true },
-        notDisabled: { isDisabled: false },
+        locked: { isDisabled: true },
+        is_active: { isDisabled: false },
         all: {},
         default: { isDisabled: false }
     }

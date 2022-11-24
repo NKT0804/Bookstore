@@ -31,7 +31,10 @@ import {
   USER_FORGOT_PASSWORD_FAIL,
   USER_RESET_PASSWORD_REQUEST,
   USER_RESET_PASSWORD_SUCCESS,
-  USER_RESET_PASSWORD_FAIL
+  USER_RESET_PASSWORD_FAIL,
+  ADMIN_GET_USER_DETAILS_REQUEST,
+  ADMIN_GET_USER_DETAILS_SUCCESS,
+  ADMIN_GET_USER_DETAILS_FAIL
 } from "../Constants/userConstants";
 import axios from "axios";
 
@@ -115,7 +118,7 @@ export const verifyEmail = (verificationToken) => async (dispatch) => {
 };
 
 // SHOW USER DETAILS SCREEN
-export const getUserDetails = (id) => async (dispatch, getState) => {
+export const getUserDetails = () => async (dispatch, getState) => {
   try {
     dispatch({ type: USER_DETAILS_REQUEST });
     const {
@@ -128,7 +131,7 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
       }
     };
 
-    const { data } = await axios.get(`/api/v1/user/${id}`, config);
+    const { data } = await axios.get(`/api/v1/user/profile`, config);
     dispatch({ type: USER_DETAILS_SUCCESS, payload: data });
   } catch (error) {
     const message = error.response && error.response.data.message ? error.response.data.message : error.message;
@@ -142,6 +145,32 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
   }
 };
 
+// SHOW USER DETAILS SCREEN BY ADMIN
+export const adminGetUserDetails = (userId) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: ADMIN_GET_USER_DETAILS_REQUEST });
+    const {
+      userLogin: { userInfo }
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`
+      }
+    };
+    const { data } = await axios.get(`/api/v1/user/profile/${userId}`, config);
+    dispatch({ type: ADMIN_GET_USER_DETAILS_SUCCESS, payload: data });
+  } catch (error) {
+    const message = error.response && error.response.data.message ? error.response.data.message : error.message;
+    if (message === "Not authorized, token failed") {
+      dispatch(logout());
+    }
+    dispatch({
+      type: ADMIN_GET_USER_DETAILS_FAIL,
+      payload: message
+    });
+  }
+};
 // UPDATE PROFILE USER
 export const updateUserProfile = (user) => async (dispatch, getState) => {
   try {
@@ -285,34 +314,39 @@ export const updateUserAvatar =
   };
 
 // ALL USER
-export const listUser = () => async (dispatch, getState) => {
-  try {
-    dispatch({ type: USER_LIST_REQUEST });
+export const listUser =
+  (keyword = "", status = "", limit = 8, pageNumber = "") =>
+  async (dispatch, getState) => {
+    try {
+      dispatch({ type: USER_LIST_REQUEST });
 
-    const {
-      userLogin: { userInfo }
-    } = getState();
+      const {
+        userLogin: { userInfo }
+      } = getState();
 
-    const config = {
-      headers: {
-        Authorization: `Bearer ${userInfo.token}`
+      const config = {
+        headers: {
+          Authorization: `Bearer ${userInfo.token}`
+        }
+      };
+
+      const { data } = await axios.get(
+        `/api/v1/user?&keyword=${keyword}&status=${status}&limit=${limit}&page=${pageNumber}`,
+        config
+      );
+
+      dispatch({ type: USER_LIST_SUCCESS, payload: data });
+    } catch (error) {
+      const message = error.response && error.response.data.message ? error.response.data.message : error.message;
+      if (message === "Not authorized, token failed") {
+        dispatch(logout());
       }
-    };
-
-    const { data } = await axios.get(`/api/v1/user`, config);
-
-    dispatch({ type: USER_LIST_SUCCESS, payload: data });
-  } catch (error) {
-    const message = error.response && error.response.data.message ? error.response.data.message : error.message;
-    if (message === "Not authorized, token failed") {
-      dispatch(logout());
+      dispatch({
+        type: USER_LIST_FAIL,
+        payload: message
+      });
     }
-    dispatch({
-      type: USER_LIST_FAIL,
-      payload: message
-    });
-  }
-};
+  };
 
 //Get address data
 export const getAddressData = () => async (dispatch) => {

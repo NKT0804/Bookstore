@@ -64,17 +64,15 @@ const OrderMain = (props) => {
       <div className="card mb-4 shadow-sm">
         <header className="card-header bg-white">
           <div className="row gx-3 py-3">
-            <div className="col-lg-4 col-md-6 me-auto">
-              <form onSubmit={submitHandler} className="col-lg-4 col-md-6 me-auto ">
-                <input
-                  type="text"
-                  placeholder="Tìm kiếm theo mã đơn hàng"
-                  className="form-control p-2"
-                  value={searchById}
-                  onChange={(e) => setSearchById(e.target.value)}
-                />
-              </form>
-            </div>
+            <form onSubmit={submitHandler} className="col-lg-4 col-md-6 me-auto">
+              <input
+                type="search"
+                placeholder="Tìm kiếm theo mã đơn hàng"
+                className="form-control"
+                value={searchById}
+                onChange={(e) => setSearchById(e.target.value)}
+              />
+            </form>
 
             <div className="col-lg-2 col-6 col-md-3">
               <select className="form-select" value={status} onChange={(e) => setStatus(e.target.value)}>

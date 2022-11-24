@@ -72,7 +72,7 @@ const ForgotPassword = () => {
             type="email"
             id="email"
             name="email"
-            placeholder="Email"
+            placeholder="Nhập email của bạn"
             value={formik.values.email}
             onChange={formik.handleChange}
           />

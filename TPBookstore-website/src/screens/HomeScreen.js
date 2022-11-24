@@ -10,10 +10,11 @@ import CustomerReview from "./CustomerReview";
 import BestSellerProduct from "../components/carouselProduct/BestSellerProduct";
 import BestNumViewsProduct from "../components/carouselProduct/BestNumViewsProduct";
 
-const HomeScreen = ({ match }) => {
+const HomeScreen = ({ location }) => {
   window.scrollTo(0, 0);
-  const keyword = match.params.keyword;
-  const pageNumber = match.params.pageNumber !== undefined ? match.params.pageNumber : match.params.pagenumber;
+  const queryParams = new URLSearchParams(location.search);
+  const keyword = queryParams.get("q") || "";
+  const page = queryParams.get("p") || "";
 
   const [isFilter, setIsFilter] = useState(false);
 
@@ -22,10 +23,7 @@ const HomeScreen = ({ match }) => {
       <Header />
       <div
         style={{
-          display:
-            `${keyword}` !== `${undefined}` || `${pageNumber}` !== `${undefined}` || `${isFilter}` === `${true}`
-              ? "none"
-              : "block"
+          display: `${keyword}` || `${page}` || `${isFilter}` === `${true}` ? "none" : "block"
         }}
       >
         <Slideshow />
@@ -37,7 +35,7 @@ const HomeScreen = ({ match }) => {
           <BestNumViewsProduct />
         </div>
       </div>
-      <ShopSection keyword={keyword} pageNumber={pageNumber} isFilter={isFilter} setIsFilter={setIsFilter} />
+      <ShopSection keyword={keyword} pageNumber={page} isFilter={isFilter} setIsFilter={setIsFilter} />
       <CustomerReview />
       <CalltoActionSection />
       <ContactInfo />

@@ -22,7 +22,7 @@ const ProfileScreen = () => {
 
   useEffect(() => {
     dispatch(listMyOrders());
-    dispatch(getUserDetails("profile"));
+    dispatch(getUserDetails());
   }, [dispatch]);
 
   const onAvatarLoadError = (e) => {

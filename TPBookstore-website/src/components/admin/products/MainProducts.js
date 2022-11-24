@@ -16,7 +16,7 @@ const MainProducts = React.memo((props) => {
   const dispatch = useDispatch();
   let history = useHistory();
 
-  const [keywordSearch, setKeywordSearch] = useState("");
+  const [keywordSearch, setKeywordSearch] = useState(keyword);
   const [categoryFilterAdmin, setCategoryFilterAdmin] = useState("");
   const [sortBy, setSortBy] = useState("newest");
   const [limit, setLimit] = useState(10);
@@ -61,8 +61,8 @@ const MainProducts = React.memo((props) => {
             <form onSubmit={submitHandler} className="col-lg-4 col-md-6 me-auto ">
               <input
                 type="search"
-                placeholder="Tìm kiếm"
-                className="form-control p-2"
+                placeholder="Tìm kiếm sản phẩm"
+                className="form-control"
                 value={keywordSearch}
                 onChange={(e) => setKeywordSearch(e.target.value)}
               />
