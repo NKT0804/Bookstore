@@ -35,7 +35,10 @@ import {
   USER_RESET_PASSWORD_REQUEST,
   USER_RESET_PASSWORD_SUCCESS,
   USER_RESET_PASSWORD_FAIL,
-  USER_RESET_PASSWORD_RESET
+  USER_RESET_PASSWORD_RESET,
+  ADMIN_GET_USER_DETAILS_REQUEST,
+  ADMIN_GET_USER_DETAILS_SUCCESS,
+  ADMIN_GET_USER_DETAILS_FAIL
 } from "../Constants/userConstants";
 
 // LOGIN
@@ -82,6 +85,20 @@ export const userDetailsReducer = (state = { user: {} }, action) => {
       return {
         user: {}
       };
+    default:
+      return state;
+  }
+};
+
+// ADMIN GET USER DETAIL
+export const adminGetUserDetailsReducer = (state = { user: {} }, action) => {
+  switch (action.type) {
+    case ADMIN_GET_USER_DETAILS_REQUEST:
+      return { ...state, loading: true };
+    case ADMIN_GET_USER_DETAILS_SUCCESS:
+      return { loading: false, ...action.payload };
+    case ADMIN_GET_USER_DETAILS_FAIL:
+      return { loading: false, error: action.payload };
     default:
       return state;
   }
@@ -166,7 +183,7 @@ export const userListReducer = (state = { users: [] }, action) => {
     case USER_LIST_REQUEST:
       return { loading: true };
     case USER_LIST_SUCCESS:
-      return { loading: false, users: action.payload };
+      return { loading: false, ...action.payload };
     case USER_LIST_FAIL:
       return { loading: false, error: action.payload };
     case USER_LIST_RESET:

@@ -1,15 +1,18 @@
 import React from "react";
 import Sidebar from "./../../components/admin/Sidebar";
 import Header from "./../../components/admin/Header";
-import UserComponent from "./../../components/admin/users/UserComponent";
+import UserListComponent from "../../components/admin/users/UserListComponent";
 
-const UsersScreen = () => {
+const UsersScreen = ({ location }) => {
+  const queryParams = new URLSearchParams(location.search);
+  const keyword = queryParams.get("q") || "";
+  const page = queryParams.get("p") || "";
   return (
     <>
       <Sidebar />
       <main className="main-wrap">
         <Header />
-        <UserComponent />
+        <UserListComponent keyword={keyword} pageNumber={page} />
       </main>
     </>
   );

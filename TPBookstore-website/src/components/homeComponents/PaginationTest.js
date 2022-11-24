@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Pagination = (props) => {
+const PaginationTest = (props) => {
   const { page, pages, keyword = "" } = props;
   return (
     pages > 1 && (
@@ -38,4 +38,4 @@ const Pagination = (props) => {
   );
 };
 
-export default Pagination;
+export default PaginationTest;

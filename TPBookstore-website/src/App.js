@@ -30,6 +30,7 @@ import OrderScreenAdmin from "./screens/admin/OrderScreen";
 import OrderDetailScreenAdmin from "./screens/admin/OrderDetailScreen";
 import AddProductAdmin from "./screens/admin/AddProduct";
 import UsersScreenAdmin from "./screens/admin/UsersScreen";
+import UserDetailsScreenAdmin from "./screens/admin/UserDetailsScreen";
 import CommentScreenAdmin from "./screens/admin/CommentsScreen";
 import ProductEditScreenAdmin from "./screens/admin/ProductEditScreen";
 import { PrivateRouter, AdminPrivateRouter } from "./PrivateRouter";
@@ -58,12 +59,8 @@ const App = () => {
     <Router>
       <Switch>
         <Route path="/" component={HomeScreen} exact />
-        {/* <Route path="/:category" component={HomeScreen} exact /> */}
-        <Route path="/search/:keyword" component={HomeScreen} exact />
-        <Route path="/page/:pageNumber" component={HomeScreen} exact />
-        <Route path="/search/:keyword/page/:pageNumber" component={HomeScreen} exact />
-        <Route path="/product/:slug" component={SingleProduct} />
-        {/* <Route path="/product/:id" component={SingleProduct} /> */}
+        <Route path="/search" component={HomeScreen} exact />
+        <Route path="/product/:slug" component={SingleProduct} exact />
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} exact />
         <Route path="/register/verify/:email" component={RegisterVerify} exact />
@@ -79,20 +76,15 @@ const App = () => {
         {/* ADMIN */}
         <AdminPrivateRouter path="/admin" component={HomeScreenAdmin} exact />
         <AdminPrivateRouter path="/admin/products" component={ProductScreenAdmin} exact />
-        <AdminPrivateRouter path="/admin/search/:keyword" component={ProductScreenAdmin} exact />
-        <AdminPrivateRouter path="/admin/products/page/:pageNumber" component={ProductScreenAdmin} exact />
-        <AdminPrivateRouter path="/admin/products/search/:keyword" component={ProductScreenAdmin} exact />
-        <AdminPrivateRouter
-          path="/admin/products/search/:keyword/page/:pageNumber"
-          component={ProductScreenAdmin}
-          exact
-        />
+        {/* <AdminPrivateRouter path="/admin/search/:keyword" component={ProductScreenAdmin} exact /> */}
+
         <AdminPrivateRouter path="/admin/product/:id/edit" component={ProductEditScreenAdmin} />
         <AdminPrivateRouter path="/admin/addProduct" component={AddProductAdmin} />
         <AdminPrivateRouter path="/admin/category" component={CategoriesScreenAdmin} />
         <AdminPrivateRouter path="/admin/orders" component={OrderScreenAdmin} />
         <AdminPrivateRouter path="/admin/order/:id" component={OrderDetailScreenAdmin} />
         <AdminPrivateRouter path="/admin/users" component={UsersScreenAdmin} />
+        <AdminPrivateRouter path="/admin/user/:id" component={UserDetailsScreenAdmin} />
         <AdminPrivateRouter path="/admin/slider-banner/" component={SliderBannerScreenAdmin} />
         <AdminPrivateRouter path="/admin/comments" component={CommentScreenAdmin} />
         <Route path="*" component={NotFound} />

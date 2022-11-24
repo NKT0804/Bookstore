@@ -201,6 +201,16 @@ const getProfile = async (req, res) => {
     });
 };
 
+const getProfileByAdmin = async (req, res) => {
+    const userId = req.params.id;
+    const user = await User.findById(userId).select("-password");
+    if (!user) {
+        res.status(404);
+        throw new Error("Tài khoản không tồn tại");
+    }
+    res.status(200).json({ success: true, user });
+};
+
 //User update profile
 const updateProfile = async (req, res) => {
     const user = req.user;
@@ -347,11 +357,31 @@ const resetPassword = async (req, res) => {
 
 //Admin get users
 const getUsers = async (req, res) => {
-    const dateOrderFilter = validateConstants(userQueryParams, "date", req.query.dateOrder);
+    const limit = Number(req.query.limit) || 8;
+    let page = Number(req.query.page) || 1;
     const statusFilter = validateConstants(userQueryParams, "status", req.query.status);
-    const users = await User.find({ ...statusFilter }).sort({ ...dateOrderFilter });
-    res.status(200);
-    res.json(users);
+    const keyword = req.query.keyword
+        ? {
+              name: {
+                  $regex: req.query.keyword,
+                  $options: "i"
+              }
+          }
+        : {};
+
+    const count = await User.countDocuments({ ...keyword, ...statusFilter });
+    if (count == 0) {
+        res.status(204);
+        throw new Error("Không có tài khoản nào!");
+    }
+    const pages = Math.ceil(count / limit);
+    page = page <= pages ? page : 1;
+
+    const users = await User.find({ ...keyword, ...statusFilter })
+        .limit(limit)
+        .skip(limit * (page - 1))
+        .sort({ createdAt: "desc" });
+    res.status(200).json({ users, page, pages, total: count });
 };
 
 //User upload avatar
@@ -494,6 +524,7 @@ const UserController = {
     register,
     verifyEmail,
     getProfile,
+    getProfileByAdmin,
     updateProfile,
     getUsers,
     uploadAvatar,

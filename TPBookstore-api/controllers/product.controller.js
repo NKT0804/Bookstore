@@ -149,7 +149,7 @@ const getProducts = async (req, res) => {
         .skip(limit * (page - 1))
         .sort(sortBy)
         .populate("category", "name");
-    res.json({ products, page, pages, total: count });
+    res.status(200).json({ products, page, pages, total: count });
 };
 
 // //Admin get all disabled products

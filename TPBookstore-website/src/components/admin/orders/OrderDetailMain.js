@@ -64,11 +64,9 @@ const OrderDetailmain = (props) => {
   };
   return (
     <section className="content-main">
-      <div className="content-header">
-        <Link to="/admin/orders" className="btn btn-dark text-white btn-size">
-          Back To Orders
-        </Link>
-      </div>
+      <Link to="/admin/orders" className="btn ">
+        <i class="fa fa-arrow-left" aria-hidden="true"></i>
+      </Link>
 
       {loading ? (
         <Loading />
@@ -134,7 +132,7 @@ const OrderDetailmain = (props) => {
                             </dd>
                           </dl>
                           <dl className="dlist">
-                            <dt className="text-start fw-bold">Trạng thái thanh toán :</dt>
+                            <dt className="text-start fw-bold">Trạng thái thanh toán:</dt>
                             <dd className="mx-0 text-end">
                               {order.isPaid ? (
                                 <span className="badge3 rounded-pill alert alert-success text-success fw-bold">
@@ -153,51 +151,69 @@ const OrderDetailmain = (props) => {
                   </table>
                 </div>
                 <div className=" box shadow-sm bg-light">
-                  {order?.delivered ? (
-                    <button className="btn btn-success col-12">
-                      Đã giao hàng ({" "}
-                      {moment(order.isDeliveredAt).format("LT") +
-                        " " +
-                        moment(order.isDeliveredAt).format("DD/MM/yyyy")}
-                      )
-                    </button>
-                  ) : !order?.confirmed ? (
-                    <>
-                      {loadingConfirm && <Loading />}
-                      <button onClick={() => confirmHandler()} className="btn btn-primary col-12 btn-size">
-                        Xác nhận đơn hàng
-                      </button>
-                    </>
-                  ) : (
-                    <>
-                      {loadingDelivered && <Loading />}
-                      <button onClick={() => deliverHandler()} className="btn btn-primary col-12 btn-size">
-                        Xác nhận đã giao hàng
-                      </button>
-                    </>
-                  )}
-                  {order.isPaid ? (
-                    <button className="btn btn-success col-12 mt-2">
-                      <p>Đã thanh toán</p>
-                      <p>({moment(order.isPaidAt).format("LT") + " " + moment(order.isPaidAt).format("DD/MM/yyyy")})</p>
-                    </button>
-                  ) : (
-                    <>
-                      {loadingIsPaid && <Loading />}
-                      <button onClick={isPaidHandler} className="btn btn-warning col-12 btn-size mt-2">
-                        Xác nhận đã thanh toán
-                      </button>
-                    </>
-                  )}
                   {!order.cancelled ? (
+                    <div>
+                      {order?.delivered ? (
+                        <button className="btn btn-success col-12">
+                          <p>Giao hàng thành công&nbsp;</p>
+                          <p>
+                            ({moment(order.deliveredAt).format("LT")}&nbsp;
+                            {moment(order.deliveredAt).format("DD/MM/yyyy")})
+                          </p>
+                        </button>
+                      ) : !order?.confirmed ? (
+                        <>
+                          {loadingConfirm && <Loading />}
+                          <button onClick={() => confirmHandler()} className="btn btn-primary col-12 btn-size">
+                            Xác nhận đơn hàng
+                          </button>
+                        </>
+                      ) : (
+                        <>
+                          {loadingDelivered && <Loading />}
+                          <button onClick={() => deliverHandler()} className="btn btn-primary col-12 btn-size">
+                            Xác nhận đã giao hàng
+                          </button>
+                        </>
+                      )}
+                    </div>
+                  ) : (
+                    <></>
+                  )}
+                  {order.confirmed && order?.delivered ? (
+                    <div>
+                      {order.isPaid ? (
+                        <button className="btn btn-success col-12 mt-2">
+                          <p>Đã thanh toán</p>
+                          <p>({moment(order.paidAt).format("LT") + " " + moment(order.paidAt).format("DD/MM/yyyy")})</p>
+                        </button>
+                      ) : (
+                        <>
+                          {loadingIsPaid && <Loading />}
+                          <button onClick={isPaidHandler} className="btn btn-warning col-12 btn-size mt-2">
+                            Xác nhận đã thanh toán
+                          </button>
+                        </>
+                      )}
+                    </div>
+                  ) : (
+                    <></>
+                  )}
+                  {!order?.delivered ? (
                     <>
-                      {loadingCancel && <Loading />}
-                      <button onClick={cancelHandler} className="btn btn-danger col-12 btn-size mt-2">
-                        Hủy đơn hàng
-                      </button>
+                      {!order.cancelled ? (
+                        <>
+                          {loadingCancel && <Loading />}
+                          <button onClick={cancelHandler} className="btn btn-danger col-12 btn-size mt-2">
+                            Hủy đơn hàng
+                          </button>
+                        </>
+                      ) : (
+                        <button className="btn btn-danger col-12 btn-size mt-2">Đơn hàng đã bị hủy</button>
+                      )}
                     </>
                   ) : (
-                    <button className="btn btn-danger col-12 btn-size mt-2">Đơn hàng đã hủy</button>
+                    <></>
                   )}
                 </div>
               </div>

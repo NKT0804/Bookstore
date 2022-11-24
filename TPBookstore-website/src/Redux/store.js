@@ -13,7 +13,8 @@ import {
   userGetAddressDataReducer,
   userUpdatePasswordReducer,
   userForgotPasswordReducer,
-  userResetPasswordReducer
+  userResetPasswordReducer,
+  adminGetUserDetailsReducer
 } from "./Reducers/userReducers";
 import {
   productListReducer,
@@ -98,6 +99,7 @@ const reducer = combineReducers({
 
   //admin
   userList: userListReducer,
+  adminGetUserDetails: adminGetUserDetailsReducer,
   productListAdmin: productListReducerAdmin,
   productListAdminAll: productListReducerAdminAll,
   productDeleteAdmin: productDeleteReducerAdmin,

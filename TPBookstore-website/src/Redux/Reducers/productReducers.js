@@ -66,9 +66,7 @@ export const productListReducer = (state = { products: [] }, action) => {
     case PRODUCT_LIST_SUCCESS:
       return {
         loading: false,
-        page: action.payload.page,
-        pages: action.payload.pages,
-        products: action.payload.products
+        ...action.payload
       };
     case PRODUCT_LIST_FAIL:
       return { loading: false, error: action.payload };
@@ -84,7 +82,7 @@ export const productListReducerBestSeller = (state = { products: [] }, action) =
     case PRODUCT_BEST_SELLER_SUCCESS:
       return {
         loading: false,
-        products: action.payload.products
+        ...action.payload
       };
     case PRODUCT_BEST_SELLER_FAIL:
       return { loading: false, error: action.payload };
@@ -100,7 +98,7 @@ export const productListReducerBestNumView = (state = { products: [] }, action) 
     case PRODUCT_BEST_NUM_VIEW_SUCCESS:
       return {
         loading: false,
-        products: action.payload.products
+        ...action.payload
       };
     case PRODUCT_BEST_NUM_VIEW_FAIL:
       return { loading: false, error: action.payload };

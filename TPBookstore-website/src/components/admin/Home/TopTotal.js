@@ -1,18 +1,17 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { listProductsAdminAll } from "../../../Redux/Actions/productActions";
+import { listProductsAdmin } from "../../../Redux/Actions/productActions";
 import formatCash from "../../../utils/formatCash";
 import { listUser } from "../../../Redux/Actions/userActions";
 
 const TopTotal = (props) => {
   const dispatch = useDispatch();
-  const productListAdminAll = useSelector((state) => state.productListAdminAll);
-  const { products } = productListAdminAll;
+  const productListAdmin = useSelector((state) => state.productListAdmin);
+  const { total: totalProduct } = productListAdmin;
 
   const userList = useSelector((state) => state.userList);
-  const { users } = userList;
+  const { total: totalUser } = userList;
   useEffect(() => {
-    dispatch(listProductsAdminAll());
     dispatch(listUser());
   }, [dispatch]);
 
@@ -56,7 +55,7 @@ const TopTotal = (props) => {
             </span>
             <div className="text">
               <h6 className="mb-1">Tổng sản phẩm</h6>
-              <span>{products?.total ?? 0}</span>
+              <span>{totalProduct ?? 0}</span>
             </div>
           </article>
         </div>
@@ -70,7 +69,7 @@ const TopTotal = (props) => {
             </span>
             <div className="text">
               <h6 className="mb-1">Tổng tài khoản</h6>
-              <span>{users?.length ?? 0}</span>
+              <span>{totalUser ?? 0}</span>
             </div>
           </article>
         </div>
