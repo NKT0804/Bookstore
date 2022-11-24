@@ -329,6 +329,7 @@ textarea:focus {
 }
 
 .shoptext__price-special {
+  display: flex;
   height: 20px;
 }
 
@@ -417,13 +418,14 @@ textarea:focus {
 
 /* NEWSLATTER */
 .subscribe-section {
-  background: linear-gradient(0deg, rgba(0, 0, 0, 0.226), rgba(0, 0, 0, 0.226)),
-    url("https://wallpaperaccess.com/full/6191149.jpg") no-repeat scroll center / cover;
-  padding: 100px 0 100px;
+  background-color: var(--white-color);
+  padding: 60px 0 60px;
+  margin: 28px -12px 0 -12px;
+  border-radius: 10px;
 }
 
 .subscribe-head h2 {
-  color: #fff;
+  color: black;
   font-size: 30px;
   letter-spacing: 0;
   line-height: 30px;
@@ -432,7 +434,7 @@ textarea:focus {
 }
 
 .subscribe-head p {
-  color: #fff;
+  color: black;
   font-size: 18px;
   line-height: 22px;
   margin: 0 0 39px;
@@ -443,7 +445,7 @@ textarea:focus {
 }
 
 .form-section input[type="email"] {
-  border: 0 none;
+  border: #E8E8E8 solid 1px;
   border-radius: 25px 0 0 25px;
   color: #9b9b9b;
   /* font-size: 16px; */
@@ -469,6 +471,9 @@ textarea:focus {
 /* CONTACT */
 .contactInfo {
   padding: 70px 0;
+  background-color: var(--white-color);
+  margin: 28px -12px;
+  border-radius: 10px;
 }
 
 .contact-Box,
@@ -1390,8 +1395,21 @@ textarea:focus {
   border: 0px;
   text-transform: uppercase;
   font-size: 13px;
-  background-color: var(--primary-color);
   color: #ffffff;
+}
+
+.subtotal-order button:hover {
+  opacity: 0.9;
+}
+
+.subtotal-order .btn-cancel:hover {
+  opacity: 0.7 !important;
+}
+
+.status__order-user {
+  padding : 8px 20px;
+  border-radius: 10px;
+  width: 95%;
 }
 
 /* Pagination */
@@ -1691,12 +1709,14 @@ a.popu-cate__item {
 
 /* evaluete */
 .evaluate {
-  margin-top: 72px;
+  margin-top: 40px;
   position: relative;
-  background-attachment: fixed;
-  background-image: url("https://img.upanh.tv/2022/06/13/ps-testimonialt.jpg");
-  background-size: cover;
-  background-repeat: no-repeat;
+  background-color: #f5f5f5;
+  padding-bottom: 40px;
+  margin-left: -10px;
+  margin-right: -10px;
+  border-radius: 10px;
+  
 }
 
 .evaluate__title {
@@ -1724,16 +1744,22 @@ a.popu-cate__item {
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: var(--white-color);
 }
 
 .evaluate__user {
   position: relative;
   text-align: center;
-  margin-bottom: 48px;
-  padding: 48px 4px 0;
+  padding: 20px 4px 0;
+  margin: 28px 8px 0 8px;
   cursor: pointer;
   z-index: 9;
+  background-color: #f0f0f0;
+  height: 310px;
+  width: 80%;
+  margin-top: 48px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 27px 0px rgb(202, 197, 197);
 }
 
 .evaluate__user::before {
@@ -1774,7 +1800,7 @@ a.popu-cate__item {
 }
 
 .evaluate__content-icon--star {
-  color: yellow;
+  color: 	#FFCE3D;
   margin: 24px 4px 0;
   font-size: 1.5rem;
 }
@@ -1782,6 +1808,7 @@ a.popu-cate__item {
 .evaluate__content--name {
   margin: 24px 0;
   font-size: 18px;
+  color : black;
 }
 
 .evaluate__content--desc {
@@ -1789,6 +1816,7 @@ a.popu-cate__item {
   line-height: 2;
   font-style: italic;
   padding: 10px 0;
+  color : black;
 }
 /*User avatar*/
 .change-avatar {

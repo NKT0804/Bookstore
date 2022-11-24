@@ -22,7 +22,7 @@ const CartScreen = ({ history }) => {
 
   // product total handler
   const itemChecked = cartItems?.filter((item) => item.isBuy === true);
-  const totalHandler = itemChecked?.reduce((pro, item) => pro + item.qty * item?.product.price, 0); /*.toFixed(2);*/
+  const totalHandler = itemChecked?.reduce((pro, item) => pro + item.qty * item?.product.priceSale, 0); /*.toFixed(2);*/
 
   const addToCart = useSelector((state) => state.addToCart);
   const { success } = addToCart;
@@ -82,10 +82,10 @@ const CartScreen = ({ history }) => {
           <div className=" alert alert-info text-center mt-3">
             Giỏ hàng của bạn còn trống{" "}
             <Link
-              className="btn btn-success mx-5 px-5 py-3"
+              className="btn btn--primary-color mx-5 px-5 py-3"
               to="/"
               style={{
-                fontSize: "12px"
+                fontSize: "17px"
               }}
             >
               MUA NGAY
@@ -150,7 +150,7 @@ const CartScreen = ({ history }) => {
                         ))}
                       </select>
                     ) : (
-                      <div className="cart-item-qty-alert">Hết hàng</div>
+                      <div className="cart-item-qty-alert text-danger fw-bold">Hết hàng</div>
                     )}
                   </div>
                   {/* Total a product */}
@@ -212,7 +212,7 @@ const CartScreen = ({ history }) => {
                           ))}
                         </select>
                       ) : (
-                        <div className="cart-item-qty-alert">Hết hàng</div>
+                        <div className="cart-item-qty-alert text-danger fw-bold">Hết hàng</div>
                       )}
                     </div>
                     {/* Total a product */}

@@ -54,10 +54,10 @@ const UpdateCategory = ({ currentCategory, setIsEditCategory }) => {
             </div>
           </div>
           <div className="d-flex justify-content-between">
-            <button className="btn btn-danger p-2" onClick={() => setIsEditCategory(false)}>
+            <button className="btn btn-danger px-4" onClick={() => setIsEditCategory(false)}>
               Hủy
             </button>
-            <button className="btn btn-warning p-2" onClick={() => submitHandler()}>
+            <button className="btn btn-warning px-4" onClick={() => submitHandler()}>
               Cập nhật
             </button>
           </div>

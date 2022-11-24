@@ -32,9 +32,9 @@ const Footer = () => {
                   </div>
                   <ul className="footer__infomation--contact-list">
                     {/* <li className="footer__infomation--contact-name">TP Bookstore</li> */}
-                    <li className="footer__infomation--contact-address">Address: Q12, Ho Chi Minh City</li>
+                    <li className="footer__infomation--contact-address">Địa chỉ: Q12, Ho Chi Minh City</li>
                     <li className="footer__infomation--contact-email">Email: tp.bookstore@gmail.com</li>
-                    <li className="footer__infomation--contact-phone">Phone: +0909 0009</li>
+                    <li className="footer__infomation--contact-phone">SĐT: +0909 0009</li>
                     <div className="gird">
                       <div className="row no-gutters">
                         <div className="col l-3">
@@ -57,7 +57,7 @@ const Footer = () => {
               </div>
               <div className="col l-2-4 m-6 col-6">
                 <div className="footer__infomation-content">
-                  <h3 className="footer__infomation--heading">SALES CHANNEL</h3>
+                  <h3 className="footer__infomation--heading">KÊNH BÁN HÀNG</h3>
                   <ul className="footer__infomation--list">
                     <li className="footer__infomation--item">
                       <Link to="#" className="footer__infomation--link">
@@ -89,26 +89,26 @@ const Footer = () => {
               </div>
               <div className="col l-2-4 m-6 col-6">
                 <div className="footer__infomation-content">
-                  <h3 className="footer__infomation--heading">MORE INFORMATION</h3>
+                  <h3 className="footer__infomation--heading">THÔNG TIN</h3>
                   <ul className="footer__infomation--list">
                     <li className="footer__infomation--item">
                       <Link to="#" className="footer__infomation--link">
-                        About New Book
+                        Sách mới nhất
                       </Link>
                     </li>
                     <li className="footer__infomation--item">
                       <Link to="#" className="footer__infomation--link">
-                        Promotions
+                        Khuyến mãi
                       </Link>
                     </li>
                     <li className="footer__infomation--item">
                       <Link to="#" className="footer__infomation--link">
-                        Ordering guide
+                        Hướng dẫn đặt hàng
                       </Link>
                     </li>
                     <li className="footer__infomation--item">
                       <Link to="#" className="footer__infomation--link">
-                        News
+                        Tin tức
                       </Link>
                     </li>
                   </ul>
@@ -116,31 +116,31 @@ const Footer = () => {
               </div>
               <div className="col l-2-4 m-6 col-6">
                 <div className="footer__infomation-content">
-                  <h3 className="footer__infomation--heading">POLICY ONLY</h3>
+                  <h3 className="footer__infomation--heading">CHÍNH SÁCH BẢO MẬT</h3>
                   <ul className="footer__infomation--list">
                     <li className="footer__infomation--item">
                       <Link to="#" className="footer__infomation--link">
-                        Sales policy
+                        Chính sách bán hàng
                       </Link>
                     </li>
                     <li className="footer__infomation--item">
                       <Link to="#" className="footer__infomation--link">
-                        Return Policy
+                        Chính sách đổi trả
                       </Link>
                     </li>
                     <li className="footer__infomation--item">
                       <Link to="#" className="footer__infomation--link">
-                        Shipping Policy
+                        Chính sách giao hàng
                       </Link>
                     </li>
                     <li className="footer__infomation--item">
                       <Link to="#" className="footer__infomation--link">
-                        Contributor policy
+                        Chính sách tuyển dụng
                       </Link>
                     </li>
                     <li className="footer__infomation--item">
                       <Link to="#" className="footer__infomation--link">
-                        Warranty Policy
+                        Chính sách bảo hành
                       </Link>
                     </li>
                   </ul>
@@ -148,31 +148,31 @@ const Footer = () => {
               </div>
               <div className="col l-2-4 m-6 col-6">
                 <div className="footer__infomation-content">
-                  <h3 className="footer__infomation--heading">PRODUCT</h3>
+                  <h3 className="footer__infomation--heading">SẢN PHẨM</h3>
                   <ul className="footer__infomation--list">
                     <li className="footer__infomation--item">
                       <Link to="#" className="footer__infomation--link">
-                        Featured products
+                        Sản phẩm nổi bật
                       </Link>
                     </li>
                     <li className="footer__infomation--item">
                       <Link to="#" className="footer__infomation--link">
-                        New collection
+                        Sản phẩm mới
                       </Link>
                     </li>
                     <li className="footer__infomation--item">
                       <Link to="#" className="footer__infomation--link">
-                        Collection 2022
+                        Sản phẩm mới 2022
                       </Link>
                     </li>
                     <li className="footer__infomation--item">
                       <Link to="#" className="footer__infomation--link">
-                        Selling products
+                        Bán sản phẩm
                       </Link>
                     </li>
                     <li className="footer__infomation--item">
                       <Link to="#" className="footer__infomation--link">
-                        Promotional products
+                        Sản phẩm khuyến mãi
                       </Link>
                     </li>
                   </ul>

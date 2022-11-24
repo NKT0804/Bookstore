@@ -119,6 +119,11 @@ const ShopSection = (props) => {
                                 <p className="shoptext__price-special">
                                   <span className="shoptext__price-special-new">{formatCash(product.priceSale)}</span>
                                   {product.priceSale < product.price ? (
+                                    <p className="shoptext__price-old mx-1">{formatCash(product.price)}</p>
+                                  ) : (
+                                    <></>
+                                  )}
+                                  {product.priceSale < product.price ? (
                                     <span className="shoptext__price-special-discount">
                                       -{Math.round(100 - (product.priceSale / product.price) * 100)}%
                                     </span>
@@ -126,11 +131,6 @@ const ShopSection = (props) => {
                                     <></>
                                   )}
                                 </p>
-                                {product.priceSale < product.price ? (
-                                  <p className="shoptext__price-old">{formatCash(product.price)}</p>
-                                ) : (
-                                  <></>
-                                )}
                               </div>
                             </div>
                           </div>

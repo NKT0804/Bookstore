@@ -133,25 +133,27 @@ const OrderScreen = ({ match }) => {
                       <strong>Trạng thái đơn hàng</strong>
                     </h7>
                     {order.isPaid ? (
-                      <div className="bg-info mb-1 p-1 col-12">
-                        <p className="order-detail-text text-white text-center text-sm-start">
+                      <div className=" mb-1 p-1 col-12">
+                        <p className="order-detail-text text-center text-sm-start">
                           Đã thanh toán:{" "}
-                          {moment(order.paidAt).format("LT") + " " + moment(order.paidAt).format("DD/MM/yyyy")}
+                          <p>{moment(order.paidAt).format("LT") + " " + moment(order.paidAt).format("DD/MM/yyyy")}</p>
                         </p>
                       </div>
                     ) : (
-                      <div className="bg-danger mb-1 p-1 col-12">
-                        <p className="order-detail-text text-white text-center text-sm-start">Chưa thanh toán</p>
+                      <div className="mb-2 p-1 col-12">
+                        <p className="order-detail-text text-sm-start text-danger fw-bold text-center">
+                          Chưa thanh toán
+                        </p>
                       </div>
                     )}
                     {order.cancelled ? (
-                      <span className="badge3 btn-danger">Đã hủy</span>
+                      <div className="status__order-user text-center btn-danger">Đã bị hủy</div>
                     ) : order.delivered ? (
-                      <span className="badge3 btn-success">Đã giao</span>
+                      <div className="status__order-user  text-center btn-success">Đã giao</div>
                     ) : order.confirmed ? (
-                      <span className="badge3 btn-warning">Đang giao</span>
+                      <div className="status__order-user text-center btn-warning">Đang giao</div>
                     ) : (
-                      <span className="badge3 btn-primary">Đang chờ xác nhận</span>
+                      <div className="status__order-user text-center btn-primary">Đang chờ xác nhận</div>
                     )}
                   </div>
                 </div>
@@ -194,7 +196,7 @@ const OrderScreen = ({ match }) => {
                 )}
               </div>
               {/* total */}
-              <div className="col-lg-4 d-flex align-items-end flex-column mt-5 subtotal-order">
+              <div className="col-lg-4 d-flex align-items-end flex-column subtotal-order">
                 <table className="table table-bordered">
                   <tbody>
                     <tr>
@@ -230,16 +232,16 @@ const OrderScreen = ({ match }) => {
                   </tbody>
                 </table>
                 {order.confirmed ? (
-                  <button>Đã nhận hàng</button>
+                  <button className="btn btn-primary">Đã nhận hàng</button>
                 ) : !order.cancelled ? (
                   <>
                     {loadingCancel && <Loading />}
-                    <button onClick={cancelHandler} className="btn btn-danger col-12 btn-size mt-2">
+                    <button onClick={cancelHandler} className="btn-danger col-12 btn-size mt-2">
                       Hủy đơn hàng
                     </button>
                   </>
                 ) : (
-                  <button className="btn btn-danger col-12 btn-size mt-2">Đơn hàng đã hủy</button>
+                  <button className="btn-danger btn-disabled btn-cancel col-12 btn-size mt-2">Đơn hàng đã hủy</button>
                 )}
               </div>
             </div>

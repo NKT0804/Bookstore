@@ -255,7 +255,11 @@ const SingleProduct = ({ history, match }) => {
                     </div>
                     <div className="flex-box d-flex justify-content-between align-items-center">
                       <h6>Kho hàng</h6>
-                      {product.countInStock > 0 ? <span>{product.countInStock} sản phẩm</span> : <span>Hết hàng</span>}
+                      {product.countInStock > 0 ? (
+                        <span>{product.countInStock} sản phẩm</span>
+                      ) : (
+                        <span className="text-danger fw-bold">Hết hàng</span>
+                      )}
                     </div>
                     <div className="flex-box d-flex justify-content-between align-items-center">
                       <h6>Đánh giá</h6>
@@ -341,8 +345,10 @@ const SingleProduct = ({ history, match }) => {
             {/* RATING */}
             <div className="row my-5 bg-w pd-y">
               <div className="col-md-6">
-                <h6 className="mb-3">ĐÁNH GIÁ</h6>
-                <Rating value={product.rating} numRating={product.rating} text={`  ${product.numReviews} Đánh giá`} />
+                <span className="d-flex align-items-center">
+                  <h6 className="mx-1">ĐÁNH GIÁ</h6>
+                  <Rating value={product.rating} numRating={product.rating} text={`  ${product.numReviews} Đánh giá`} />
+                </span>
                 {product.reviews.length === 0 && <Message variant={"alert-info mt-3"}>Chưa có đánh giá nào</Message>}
                 {product.reviews &&
                   product.reviews.map((review) => (

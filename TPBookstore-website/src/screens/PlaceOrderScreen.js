@@ -36,13 +36,13 @@ const PlaceOrderScreen = ({ history }) => {
       name: item.product.name,
       qty: item.qty,
       image: item.product.image,
-      price: item.product.price,
+      price: item.product.priceSale,
       product: item.product._id
     });
     return arrayCartCurrent;
   }, []);
   placeOrder.itemsPrice = Number(
-    orderItems.length > 0 ? orderItems.reduce((acc, item) => acc + item.product.price * item.qty, 0) : 0
+    orderItems.length > 0 ? orderItems.reduce((acc, item) => acc + item.product.priceSale * item.qty, 0) : 0
   );
   placeOrder.shippingPrice = 15000;
   placeOrder.taxPrice = Math.round(Number(0.05 * placeOrder.itemsPrice));
@@ -180,11 +180,11 @@ const PlaceOrderScreen = ({ history }) => {
                     </div>
                     <div className="unit__price mt-3 mt-md-0 col-lg-2 col-md-2 col-9  d-flex align-items-center flex-column justify-content-center ">
                       <h4>Đơn giá</h4>
-                      <h6>{formatCash(item.product.price)}</h6>
+                      <h6>{formatCash(item.product.priceSale)}</h6>
                     </div>
                     <div className="mt-3 mt-md-0 col-lg-2 col-md-2 col-3 align-items-end  d-flex flex-column justify-content-center ">
                       <h4>Thành tiền</h4>
-                      <h6 className="text-danger fw-bold">{formatCash(item.qty * item.product.price)}</h6>
+                      <h6 className="text-danger fw-bold">{formatCash(item.qty * item.product.priceSale)}</h6>
                     </div>
                   </div>
                 ))}
@@ -192,7 +192,7 @@ const PlaceOrderScreen = ({ history }) => {
             )}
           </div>
           {/* total */}
-          <div className="col-lg-4 d-flex align-items-end flex-column mt-5 subtotal-order">
+          <div className="col-lg-4 d-flex align-items-end flex-column subtotal-order">
             <table className="table table-bordered">
               <tbody>
                 <tr>
@@ -233,7 +233,7 @@ const PlaceOrderScreen = ({ history }) => {
               </tbody>
             </table>
             {cart.cartItems.length === 0 ? null : (
-              <button type="submit" onClick={placeOrderHandler}>
+              <button className="btn btn-primary" type="submit" onClick={placeOrderHandler}>
                 Đặt hàng
               </button>
             )}
