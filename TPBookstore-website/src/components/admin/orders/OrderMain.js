@@ -74,7 +74,7 @@ const OrderMain = (props) => {
               />
             </form>
 
-            <div className="col-lg-2 col-6 col-md-3">
+            <div className="col-lg-2 mx-2 col-6 col-md-3">
               <select className="form-select" value={status} onChange={(e) => setStatus(e.target.value)}>
                 <option value={""}>Trạng thái</option>
                 <option value={"waiting"}>Đang chờ xác nhận</option>

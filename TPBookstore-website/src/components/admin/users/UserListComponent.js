@@ -56,7 +56,7 @@ const UserListComponent = (props) => {
                 onChange={(e) => setSearchKeyword(e.target.value)}
               />
             </form>
-            <div className="col-lg-2 col-6 col-md-3">
+            <div className="col-lg-2 col-6 mx-2 col-md-3">
               <select className="form-select" value={limit} onChange={(e) => setLimit(e.target.value)}>
                 <option value={"8"}>8 tài khoản</option>
                 <option value={"12"}>12 tài khoản</option>

@@ -21,64 +21,74 @@ const UserDetail = (props) => {
         <Message variant="alert-danger">{error}</Message>
       ) : (
         <>
-          <div className="profile-title">
-            <b>Thông tin cá nhân</b>
-          </div>
-          <div className="user-information">
+          <div className="user-information__admin">
+            <div className="user-information__admin-header">Thông tin khách hàng</div>
             {/* User name */}
-            <div className="col-md-12">
-              <div className="form account__user">
-                <label htmlFor="account-fn">Tên người dùng</label>
+            <div className="col-md-12 mt-5">
+              <div className="user-information__admin-item">
+                <label className="user-information__admin-title">Tên người dùng</label>
                 <label>{user.name ?? ""}</label>
               </div>
             </div>
 
             {/* Phone number */}
             <div className="col-md-12">
-              <div className="form account__user">
-                <label htmlFor="account-phone">Số điện thoại</label>
+              <div className="user-information__admin-item">
+                <label className="user-information__admin-title">Số điện thoại</label>
                 <label>{user.phone ?? ""}</label>
               </div>
             </div>
 
             {/* Email */}
             <div className="col-md-12">
-              <div className="form account__user">
-                <label htmlFor="account-email">Địa chỉ e-mail</label>
+              <div className="user-information__admin-item">
+                <label className="user-information__admin-title">Địa chỉ e-mail</label>
                 <label>{user.email ?? ""}</label>
               </div>
             </div>
 
             {/* Sex */}
             <div className="col-md-6">
-              <div className="form account__user account-sex">
-                <label htmlFor="account-sex-title">Giới tính</label>
+              <div className="">
+                <label className="user-information__admin-title">Giới tính</label>
                 <label>{user.sex ?? ""}</label>
               </div>
             </div>
+
             {/*Birthday*/}
-            <div className="form account__user">
-              <label htmlFor="account-birthday">Ngày sinh</label>
+            <div className="user-information__admin-item">
+              <label className="user-information__admin-title">Ngày sinh</label>
               <label>{user.birthday ?? ""}</label>
             </div>
 
             {/* ADDRESS */}
             <div className="col-md-12">
-              <div className="form account__user_address">
-                <label htmlFor="account-address">Địa chỉ</label>
+              <div className="user-information__admin-item">
+                <label className="user-information__admin-title">Địa chỉ</label>
                 <label>
-                  {user.address?.province?.concat(
-                    ", ",
-                    user.address?.district,
+                  {user.address?.specificAddress?.concat(
                     ", ",
                     user.address?.ward,
                     ", ",
-                    user.address?.specificAddress
+                    user.address?.district,
+                    ", ",
+                    user.address?.province
                   )}
                 </label>
               </div>
             </div>
+            <div className="col-md-12">
+              <div className="user-information__admin-item">
+                <label className="user-information__admin-title">Trạng thái</label>
+                {user.disabled ? <label>Đã bị khoá</label> : <label>Đang hoạt động</label>}
+              </div>
+            </div>
           </div>
+          {user.disabled ? (
+            <button className="user-information__admin-btn btn btn-info">Huỷ khoá tài khoản</button>
+          ) : (
+            <button className="user-information__admin-btn btn btn-danger">Khoá tài khoản</button>
+          )}
         </>
       )}
     </>
