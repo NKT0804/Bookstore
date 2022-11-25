@@ -77,7 +77,7 @@ const CreateSlider = () => {
                 Liên kết đến
               </label>
               <input
-                type="url"
+                type="text"
                 placeholder="Nhập liên kết"
                 className="form-control"
                 id="slider_linkTo"

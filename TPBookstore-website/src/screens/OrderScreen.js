@@ -7,6 +7,7 @@ import moment from "moment";
 import Loading from "../components/base/LoadingError/Loading";
 import Message from "../components/base/LoadingError/Error";
 import formatCash from "../utils/formatCash";
+import Modal from "../components/base/modal/Modal";
 
 const OrderScreen = ({ match }) => {
   window.scrollTo(0, 0);
@@ -26,9 +27,7 @@ const OrderScreen = ({ match }) => {
     dispatch(getOrderDetails(orderId));
   }, [dispatch, orderId, successCancel]);
   const cancelHandler = () => {
-    if (window.confirm("Xác nhận hủy đơn hàng?")) {
-      dispatch(cancelOrderUser(order._id));
-    }
+    dispatch(cancelOrderUser(order._id));
   };
   return (
     <>
@@ -40,6 +39,13 @@ const OrderScreen = ({ match }) => {
           <Message variant="alert-danger">{error}</Message>
         ) : (
           <>
+            <Modal
+              modalTitle={"Hủy đơn hàng"}
+              modalBody={"Bạn có chắc muốn hủy đơn hàng này?"}
+              btnTitle={"Xác nhận hủy đơn"}
+              btnType={"delete"}
+              handler={cancelHandler}
+            />
             <header className="card-header mt-2 p-3 Header-green">
               <div className="row align-items-center ">
                 <div className="col-lg-6 col-md-8">
@@ -56,7 +62,7 @@ const OrderScreen = ({ match }) => {
                   </span>
                 </div>
                 <div className="col-lg-6 col-md-4 ms-auto d-flex justify-content-end align-items-center">
-                  <Link className="btn btn-success ms-2" to="#">
+                  <Link className="btn btn-success ms-2">
                     <i className="fas fa-print"></i>
                   </Link>
                 </div>
@@ -147,9 +153,9 @@ const OrderScreen = ({ match }) => {
                       </div>
                     )}
                     {order.cancelled ? (
-                      <div className="status__order-user text-center btn-danger">Đã bị hủy</div>
+                      <div className="status__order-user text-center btn-danger">Đơn hàng bị đã hủy</div>
                     ) : order.delivered ? (
-                      <div className="status__order-user  text-center btn-success">Đã giao</div>
+                      <div className="status__order-user  text-center btn-success">Giao hàng thành công</div>
                     ) : order.confirmed ? (
                       <div className="status__order-user text-center btn-warning">Đang giao</div>
                     ) : (
@@ -163,7 +169,7 @@ const OrderScreen = ({ match }) => {
             <div className="row order-products justify-content-between">
               <div className="col-lg-8">
                 {order?.orderItems.length === 0 ? (
-                  <Message variant="alert-info mt-5">Bạn chưa có đơn hàng nào</Message>
+                  <Message variant="alert-info mt-5">Bạn chưa có sản phẩm nào trong đơn hàng</Message>
                 ) : (
                   <>
                     {order?.orderItems.map((item, index) => (
@@ -236,12 +242,18 @@ const OrderScreen = ({ match }) => {
                 ) : !order.cancelled ? (
                   <>
                     {loadingCancel && <Loading />}
-                    <button onClick={cancelHandler} className="btn-danger col-12 btn-size mt-2">
+                    <button
+                      data-toggle="modal"
+                      data-target="#exampleModalCenter"
+                      className="btn-danger col-12 btn-size mt-2"
+                    >
                       Hủy đơn hàng
                     </button>
                   </>
                 ) : (
-                  <button className="btn-danger btn-disabled btn-cancel col-12 btn-size mt-2">Đơn hàng đã hủy</button>
+                  <button className="btn-danger btn-disabled btn-cancel col-12 btn-size mt-2">
+                    Đơn hàng đã bị hủy
+                  </button>
                 )}
               </div>
             </div>

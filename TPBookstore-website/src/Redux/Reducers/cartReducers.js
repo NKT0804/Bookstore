@@ -10,7 +10,7 @@ import {
   CART_LIST_MY_REQUEST,
   CART_LIST_MY_SUCCESS,
   // CART_ADD_ITEM,
-  CART_CLEAR_SUCCESS,
+  CART_REMOVE_RESET,
   CART_UPDATE_REQUEST,
   CART_UPDATE_SUCCESS,
   CART_UPDATE_FAIL,
@@ -56,8 +56,8 @@ export const cartRemoveReducer = (state = {}, action) => {
       return { loading: false, success: true, message: action.payload };
     case CART_REMOVE_FAIL:
       return { loading: false, error: action.payload };
-    case CART_CLEAR_SUCCESS:
-      return { loading: false, success: true };
+    case CART_REMOVE_RESET:
+      return {};
     default:
       return state;
   }

@@ -1,9 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Message from "../../base/LoadingError/Error";
 import Loading from "../../base/LoadingError/Loading";
 import { deleteBannerAdmin, listSlider } from "../../../Redux/Actions/bannerActions";
+import Modal from "../../base/modal/Modal";
 
 const SliderTable = ({ setIsEditSlider, setCurrentSlider }) => {
   const dispatch = useDispatch();
@@ -13,11 +14,10 @@ const SliderTable = ({ setIsEditSlider, setCurrentSlider }) => {
 
   const sliderDelete = useSelector((state) => state.bannerDelete);
   const { success } = sliderDelete;
+  const [sliderIdDelete, setSliderIdDelete] = useState("");
 
-  const sliderDeleteHandler = (id) => {
-    if (window.confirm("Xóa slider?")) {
-      dispatch(deleteBannerAdmin(id));
-    }
+  const sliderDeleteHandler = () => {
+    dispatch(deleteBannerAdmin(sliderIdDelete));
   };
   useEffect(() => {
     if (success) {
@@ -31,6 +31,13 @@ const SliderTable = ({ setIsEditSlider, setCurrentSlider }) => {
 
   return (
     <>
+      <Modal
+        modalTitle={"Xóa slider"}
+        modalBody={"Bạn có chắc muốn xóa slider này?"}
+        btnTitle={"Xóa"}
+        btnType={"delete"}
+        handler={sliderDeleteHandler}
+      />
       <table className="admin__sliders-banner-table">
         <thead>
           <tr>
@@ -70,7 +77,9 @@ const SliderTable = ({ setIsEditSlider, setCurrentSlider }) => {
                           setCurrentSlider(index);
                         }}
                       ></i>
-                      <i class="text-danger fas fa-trash-alt" onClick={() => sliderDeleteHandler(item._id)}></i>
+                    </Link>
+                    <Link data-toggle="modal" data-target="#exampleModalCenter">
+                      <i class="text-danger fas fa-trash-alt" onClick={() => setSliderIdDelete(item._id)}></i>
                     </Link>
                     <div className="dropdown-menu"></div>
                   </div>

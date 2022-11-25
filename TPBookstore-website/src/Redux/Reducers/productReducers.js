@@ -14,6 +14,7 @@ import {
   PRODUCT_DELETE_FAIL,
   PRODUCT_DELETE_REQUEST,
   PRODUCT_DELETE_SUCCESS,
+  PRODUCT_DELETE_RESET,
   PRODUCT_EDIT_FAIL,
   PRODUCT_EDIT_REQUEST,
   PRODUCT_EDIT_SUCCESS,
@@ -260,6 +261,8 @@ export const productDeleteReducerAdmin = (state = {}, action) => {
       return { loading: false, success: true };
     case PRODUCT_DELETE_FAIL:
       return { loading: false, error: action.payload };
+    case PRODUCT_DELETE_RESET:
+      return {};
     default:
       return state;
   }

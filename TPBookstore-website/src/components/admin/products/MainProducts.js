@@ -7,10 +7,17 @@ import Loading from "./../../base/LoadingError/Loading";
 import Message from "./../../base/LoadingError/Error";
 import PaginationAdmin from "../Home/PaginationAdmin";
 import Toast from "../../base/LoadingError/Toast";
+import { toast } from "react-toastify";
 import { listCategoryAdmin } from "../../../Redux/Actions/categoryActions";
 import CategoryFilterAdmin from "../filterAdmin/CategoryFilterAdmin";
 import SortBy from "../filterAdmin/SortBy";
-
+import { PRODUCT_DELETE_RESET } from "../../../Redux/Constants/productConstants";
+const ToastObjects = {
+  pauseOnFocusLoss: false,
+  draggable: false,
+  pauseOnHover: false,
+  autoClose: 2000
+};
 const MainProducts = React.memo((props) => {
   const { keyword, pageNumber } = props;
   const dispatch = useDispatch();
@@ -33,6 +40,10 @@ const MainProducts = React.memo((props) => {
   useEffect(() => {
     dispatch(listProductsAdmin(keyword, pageNumber, categoryFilterAdmin, sortBy, limit));
     dispatch(listCategoryAdmin());
+    if (successDelete) {
+      toast.success("Xóa sản phẩm thành công!", ToastObjects);
+      dispatch({ type: PRODUCT_DELETE_RESET });
+    }
   }, [dispatch, keyword, pageNumber, successDelete, categoryFilterAdmin, sortBy, limit]);
 
   const submitHandler = (e) => {
@@ -107,9 +118,7 @@ const MainProducts = React.memo((props) => {
                   </tr>
                 </thead>
                 <tbody>
-                  {products?.map((product, index) => (
-                    <Product product={product} index={index} key={product._id} successDelete={successDelete} />
-                  ))}
+                  <Product products={products} preIndex={(page - 1) * limit} />
                 </tbody>
               </table>
             </>

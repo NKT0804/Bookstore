@@ -168,9 +168,11 @@ const EditProductMain = (props) => {
       <section className="content-main" style={{ maxWidth: "1200px" }}>
         <form onSubmit={submitHandler}>
           <div className="content-header">
-            <Link to="/admin/products" className="btn btn-danger text-white btn-size">
-              Quản lý sản phẩm
+            {/* <Link to="/admin/products" className="btn btn-danger text-white btn-size"> */}
+            <Link to="/admin/products" className="btn ">
+              <i class="fa fa-arrow-left" aria-hidden="true"></i>
             </Link>
+            {/* </Link> */}
             <h2 className="content-title">Cập nhật thông tin sản phẩm</h2>
             <div>
               <button type="submit" className="btn btn-primary btn-size">
