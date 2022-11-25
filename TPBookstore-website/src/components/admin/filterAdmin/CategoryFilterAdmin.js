@@ -2,7 +2,7 @@ import React from "react";
 
 const CategoryFilterAdmin = ({ category, categoryFilterAdmin, setCategoryFilterAdmin }) => {
   return (
-    <div className="col-lg-2 col-6 col-md-3">
+    <div className="col-lg-2 mx-1 col-6 col-md-3">
       <select
         className="form-select"
         value={categoryFilterAdmin}

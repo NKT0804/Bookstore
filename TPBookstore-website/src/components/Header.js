@@ -4,6 +4,7 @@ import { Link, useHistory } from "react-router-dom";
 import { getCartListItem } from "../Redux/Actions/cartActions";
 import { logout } from "../Redux/Actions/userActions";
 import { listBanner } from "../Redux/Actions/bannerActions";
+import CategoryList from "./homeComponents/CategoryList";
 
 const Header = () => {
   const [keyword, setKeyword] = useState("");
@@ -151,7 +152,12 @@ const Header = () => {
                   <img alt="logo" src="/images/logo.png" />
                 </Link>
               </div>
+
               <div className="col-md-6 col-4 d-flex align-items-center">
+                <div className="icon__menu-product">
+                  <CategoryList />
+                </div>
+
                 <form onSubmit={submitHandler} className="input-group">
                   <input
                     type="search"
@@ -182,7 +188,7 @@ const Header = () => {
                       aria-haspopup="true"
                       aria-expanded="false"
                     >
-                      {`${userInfo?.name.length} >= 10` ? `  ${userInfo?.name.slice(0, 10)}` : `  ${userInfo?.name}`}
+                      {`${userInfo?.name.length} >= 15` ? `  ${userInfo?.name.slice(0, 15)}` : `  ${userInfo?.name}`}
                     </button>
                     <div className="dropdown-menu">
                       <Link className="dropdown-item" to="/profile">

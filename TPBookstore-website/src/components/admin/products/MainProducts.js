@@ -73,7 +73,7 @@ const MainProducts = React.memo((props) => {
               setCategoryFilterAdmin={setCategoryFilterAdmin}
             />
             <SortBy sortBy={sortBy} setSortBy={setSortBy} />
-            <div className="col-lg-2 col-6 col-md-3">
+            <div className="col-lg-2 col-6 col-md-3 mx-1">
               <select className="form-select" value={limit} onChange={(e) => setLimit(e.target.value)}>
                 <option value={"10"}>10 sản phẩm</option>
                 <option value={"20"}>20 sản phẩm</option>
