@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -7,6 +7,7 @@ import { CATEGORY_DELETE_RESET, CATEGORY_UPDATE_RESET } from "../../../Redux/Con
 import Message from "../../base/LoadingError/Error";
 import Loading from "../../base/LoadingError/Loading";
 import Toast from "../../base/LoadingError/Toast";
+import Modal from "../../base/modal/Modal";
 
 const ToastObjects = {
   pauseOnFocusLoss: false,
@@ -29,10 +30,9 @@ const CategoriesTable = ({ setIsEditCategory, handleEditCategory, handleCurrentC
   const categoryUpdateAdmin = useSelector((state) => state.categoryUpdateAdmin);
   const { success: successUpdated, error: errorUpdated } = categoryUpdateAdmin;
 
-  const categoryDeleteHandeler = (id) => {
-    if (window.confirm("Xóa danh mục?")) {
-      dispatch(deleteCategoryAdmin(id));
-    }
+  const [categoryIdDelete, setCategoryIdDelete] = useState("");
+  const categoryDeleteHandler = () => {
+    dispatch(deleteCategoryAdmin(categoryIdDelete));
   };
 
   useEffect(() => {
@@ -63,6 +63,13 @@ const CategoriesTable = ({ setIsEditCategory, handleEditCategory, handleCurrentC
   return (
     <>
       <Toast />
+      <Modal
+        modalTitle={"Xóa danh mục"}
+        modalBody={"Bạn có chắc muốn xóa danh mục này?"}
+        btnTitle={"Xóa"}
+        btnType={"delete"}
+        handler={categoryDeleteHandler}
+      />
       <table className="table">
         <thead>
           <tr>
@@ -96,7 +103,9 @@ const CategoriesTable = ({ setIsEditCategory, handleEditCategory, handleCurrentC
                           handleCurrentCategory(index);
                         }}
                       ></i>
-                      <i class="text-danger fas fa-trash-alt" onClick={() => categoryDeleteHandeler(item._id)}></i>
+                    </Link>
+                    <Link data-toggle="modal" data-target="#exampleModalCenter">
+                      <i class="text-danger fas fa-trash-alt" onClick={() => setCategoryIdDelete(item._id)}></i>
                     </Link>
                   </div>
                 </td>

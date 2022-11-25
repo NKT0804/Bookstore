@@ -76,12 +76,20 @@ const Orders = (props) => {
                       </div>
                       <i className="fas fa-long-arrow-alt-right fs-4 opacity-50"></i>
                       <div className="fs-6">
-                        {order.isDelivered ? (
+                        {order.cancelled ? (
+                          <span className="text-danger border border-danger rounded-pill ps-2 pe-2">
+                            <i className="fas fa-truck"></i> Đơn hàng bị đã hủy
+                          </span>
+                        ) : order.delivered ? (
+                          <span className="text-success border border-success rounded-pill ps-2 pe-2">
+                            <i className="fas fa-truck"></i> Giao hàng thành công
+                          </span>
+                        ) : order.confirmed ? (
                           <span className="text-success border border-success rounded-pill ps-2 pe-2">
                             <i className="fas fa-truck"></i> Đang giao
                           </span>
                         ) : (
-                          <span className="text-danger border border-danger rounded-pill ps-2 pe-2">
+                          <span className="text-warning border border-warning rounded-pill ps-2 pe-2">
                             <i className="fas fa-truck"></i> Đang chờ xác nhận
                           </span>
                         )}

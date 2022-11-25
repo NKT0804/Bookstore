@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { Link } from "react-router-dom";
@@ -7,6 +7,8 @@ import { getCartListItem, removeFromCartItem, updateCart } from "./../Redux/Acti
 import { toast } from "react-toastify";
 import Toast from "../components/base/LoadingError/Toast";
 import formatCash from "../utils/formatCash";
+import Modal from "../components/base/modal/Modal";
+import { CART_REMOVE_RESET } from "../Redux/Constants/cartConstants";
 const ToastObjects = {
   pauseOnFocusLoss: false,
   draggable: false,
@@ -19,7 +21,7 @@ const CartScreen = ({ history }) => {
     return state.cartListItem.cartUser ?? state.cartListItem;
   });
   const { cartItems } = cart;
-
+  const [productIdDelete, setProductIdDelete] = useState("");
   // product total handler
   const itemChecked = cartItems?.filter((item) => item.isBuy === true);
   const totalHandler = itemChecked?.reduce((pro, item) => pro + item.qty * item?.product.priceSale, 0); /*.toFixed(2);*/
@@ -35,7 +37,14 @@ const CartScreen = ({ history }) => {
 
   useEffect(() => {
     dispatch(getCartListItem());
-  }, [dispatch, success, removeCartSuccess, removeCartMessage, updateCartSuccess]);
+    if (removeCartSuccess) {
+      toast.success("Sản phẩm đã được xóa khỏi giỏ hàng!", ToastObjects);
+      dispatch({ type: CART_REMOVE_RESET });
+    }
+    if (removeCartError) {
+      toast.error(removeCartError, ToastObjects);
+    }
+  }, [dispatch, success, removeCartSuccess, removeCartError, updateCartSuccess]);
 
   // checkout handler
   const checkOutHandler = () => {
@@ -53,15 +62,8 @@ const CartScreen = ({ history }) => {
   };
 
   // handler remove the product from the cart
-  const removeFromCartHandler = (id) => {
-    if (window.confirm("Xóa sản phẩm khỏi giỏ hàng?")) {
-      dispatch(removeFromCartItem([id]));
-      if (removeCartSuccess) {
-        toast.success("Sản phẩm đã được xóa khỏi giỏ hàng!", ToastObjects);
-      } else if (removeCartError) {
-        toast.error(removeCartError, ToastObjects);
-      }
-    }
+  const removeFromCartHandler = () => {
+    dispatch(removeFromCartItem([productIdDelete]));
   };
 
   //handler updates the product from the cart
@@ -75,6 +77,13 @@ const CartScreen = ({ history }) => {
   return (
     <>
       <Toast />
+      <Modal
+        modalTitle={"Xóa sản phẩm khỏi giỏ hàng"}
+        modalBody={"Bạn có chắc muốn xóa Sản phẩm này khỏi giỏ hàng?"}
+        btnTitle={"Xóa"}
+        btnType={"delete"}
+        handler={removeFromCartHandler}
+      />
       <Header />
       {/* Cart */}
       <div className="container">
@@ -158,8 +167,10 @@ const CartScreen = ({ history }) => {
                     <b>{formatCash(item.product.priceSale * item.qty)}</b>
                   </div>
                   {/* Remove product */}
-                  <div className="col-lg-1 cart-itemPC-remove text-danger">
-                    <i class="fas fa-trash-alt" onClick={() => removeFromCartHandler(item.product._id)}></i>
+                  <div className="col-lg-1 cart-itemPC-remove ">
+                    <Link data-toggle="modal" data-target="#exampleModalCenter">
+                      <i class="fas fa-trash-alt text-danger" onClick={() => setProductIdDelete(item.product._id)}></i>
+                    </Link>
                   </div>
                 </div>
 
@@ -220,8 +231,13 @@ const CartScreen = ({ history }) => {
                       <b>{formatCash(item.product.price * item.qty)}</b>
                     </div> */}
                     {/* Remove product */}
-                    <div className="col-md-12 col-12 mt-3 cart-itemMobile-remove text-danger">
-                      <i class="fas fa-trash-alt" onClick={() => removeFromCartHandler(item.product._id)}></i>
+                    <div className="col-md-12 col-12 mt-3 cart-itemMobile-remove">
+                      <Link data-toggle="modal" data-target="#exampleModalCenter">
+                        <i
+                          class="fas fa-trash-alt text-danger"
+                          onClick={() => setProductIdDelete(item.product._id)}
+                        ></i>
+                      </Link>
                     </div>
                   </div>
                 </div>

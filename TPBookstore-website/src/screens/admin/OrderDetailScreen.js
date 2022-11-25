@@ -1,7 +1,7 @@
 import React from "react";
 import Sidebar from "./../../components/admin/Sidebar";
 import Header from "./../../components/admin/Header";
-import OrderDetailmain from "../../components/admin/orders/OrderDetailMain";
+import OrderDetailMain from "../../components/admin/orders/OrderDetailMain";
 
 const OrderDetailScreen = ({ match }) => {
   const orderId = match.params.id;
@@ -10,7 +10,7 @@ const OrderDetailScreen = ({ match }) => {
       <Sidebar />
       <main className="main-wrap">
         <Header />
-        <OrderDetailmain orderId={orderId} />
+        <OrderDetailMain orderId={orderId} />
       </main>
     </>
   );
