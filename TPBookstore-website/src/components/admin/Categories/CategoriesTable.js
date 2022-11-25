@@ -75,6 +75,7 @@ const CategoriesTable = ({ setIsEditCategory, handleEditCategory, handleCurrentC
           <tr>
             <th>STT</th>
             <th>Tên danh mục</th>
+            <th>Danh mục cha</th>
             <th className="text-end">Thao tác</th>
           </tr>
         </thead>
@@ -93,6 +94,7 @@ const CategoriesTable = ({ setIsEditCategory, handleEditCategory, handleCurrentC
               <tr key={item._id}>
                 <th>{index + 1}</th>
                 <td className="fw-bold">{item.name}</td>
+                <td className="fw-bold">{item.parent_category}</td>
                 <td className="text-end">
                   <div className="dropdown action__categories">
                     <Link to="#" data-bs-toggle="dropdown">

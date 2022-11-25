@@ -13,7 +13,7 @@ const ToastObjects = {
 };
 const CreateCategory = () => {
   const [name, setName] = useState("");
-
+  const [parent_category, setParent_category] = useState("");
   const dispatch = useDispatch();
 
   const categoryCreateAdmin = useSelector((state) => state.categoryCreateAdmin);
@@ -24,6 +24,7 @@ const CreateCategory = () => {
       toast.success("Thêm danh mục thành công!", ToastObjects);
       dispatch({ type: CATEGORY_CREATE_RESET });
       setName("");
+      setParent_category("");
     }
     if (error) {
       toast.error(error, ToastObjects);
@@ -33,7 +34,7 @@ const CreateCategory = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(createCategoryAdmin({ name }));
+    dispatch(createCategoryAdmin({ name, parent_category }));
   };
   return (
     <>
@@ -52,6 +53,20 @@ const CreateCategory = () => {
             id="category_name"
             value={name}
             onChange={(e) => setName(e.target.value)}
+          />
+        </div>
+        <div className="mb-4">
+          <label htmlFor="category_name" className="form-label">
+            Danh mục cha
+          </label>
+          <input
+            required
+            type="text"
+            placeholder="Nhập danh mục cha"
+            className="form-control"
+            id="category_name"
+            value={parent_category}
+            onChange={(e) => setParent_category(e.target.value)}
           />
         </div>
         <div className="d-grid">
