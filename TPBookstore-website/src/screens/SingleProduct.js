@@ -335,10 +335,20 @@ const SingleProduct = ({ history, match }) => {
                 <div>
                   <b>Mô tả</b>
                 </div>
-                <div
-                  className="product-description_content"
-                  dangerouslySetInnerHTML={{ __html: product.description }}
-                ></div>
+                <div id="summary">
+                  <div
+                    className="collapse product-description_content"
+                    id="collapseSummary"
+                    dangerouslySetInnerHTML={{ __html: product.description }}
+                  ></div>
+                  <a
+                    className="collapsed"
+                    data-toggle="collapse"
+                    href="#collapseSummary"
+                    aria-expanded="false"
+                    aria-controls="collapseSummary"
+                  ></a>
+                </div>
               </div>
             </div>
 

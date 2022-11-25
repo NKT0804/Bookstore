@@ -2211,3 +2211,44 @@ a.popu-cate__item {
   text-transform: capitalize;
   font-size: 14px;
 }
+
+
+#summary div.collapse:not(.show) {
+  height: 120px !important;
+  overflow: hidden;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;  
+}
+
+#summary div.collapsing {
+  min-height: 42px !important;
+}
+
+#summary a {
+  display: flex;
+  justify-content: center;
+}
+
+#summary a.collapsed:after  {
+  text-align: center;
+  content: 'Xem thêm';
+  border : #4ac4fa solid 3px;
+  border-radius: 4px;
+  padding : 4px;
+  width : 210px;
+  font-weight: 600;
+}
+
+#summary a:not(.collapsed):after {
+  text-align: center;
+  content: 'Rút gọn';
+  border : #4ac4fa solid 3px;
+  border-radius: 4px;
+  padding : 6px;
+  width : 210px;
+  font-weight: 600;
+
+}
+
