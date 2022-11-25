@@ -18,7 +18,7 @@ const Slideshow = () => {
     dispatch(listSlider());
   }, [dispatch]);
   return (
-    <div className="grid wide">
+    <div className="container">
       <div className="row">
         <div className="slide-container">
           <div className="slide__img">

@@ -465,7 +465,13 @@
   }
 
   .policy__item {
-    width: 240px;
+    width: 180px;
+    font-size: 14px;
+  }
+
+  .policy__icon,
+  .policy__desc {
+    font-size: 13px;
   }
 
   .brands-five__item {

@@ -48,7 +48,7 @@ const Policy = () => {
     <>
       {/* <!-- policy --> */}
       <div className="policy">
-        <div className="grid wide">
+        <div className="container">
           <div className="row">
             <ul className="policy__list">
               {policyData &&
