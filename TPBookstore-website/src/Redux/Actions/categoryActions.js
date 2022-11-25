@@ -82,7 +82,7 @@ export const createCategoryAdmin = (category) => async (dispatch, getState) => {
       }
     };
 
-    const { data } = await axios.post(`/api/v1/category/`, { name: category.name }, config);
+    const { data } = await axios.post(`/api/v1/category/`, { ...category }, config);
 
     dispatch({ type: CATEGORY_CREATE_SUCCESS, payload: data });
   } catch (error) {
@@ -143,11 +143,7 @@ export const updateCategoryAdmin = (category) => async (dispatch, getState) => {
       }
     };
 
-    const { data } = await axios.put(
-      `/api/v1/category/${category._id}`,
-      { name: category.name, status: category.status },
-      config
-    );
+    const { data } = await axios.put(`/api/v1/category/${category._id}`, { ...category }, config);
 
     dispatch({ type: CATEGORY_UPDATE_SUCCESS, payload: data });
   } catch (error) {

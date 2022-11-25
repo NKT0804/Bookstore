@@ -5,6 +5,7 @@ import Loading from "../../base/LoadingError/Loading";
 
 const UpdateCategory = ({ currentCategory, setIsEditCategory }) => {
   const [name, setName] = useState("");
+  const [parent_category, setParent_category] = useState("");
 
   const dispatch = useDispatch();
 
@@ -15,8 +16,8 @@ const UpdateCategory = ({ currentCategory, setIsEditCategory }) => {
   const { loading } = categoryUpdateAdmin;
 
   const updateCategoryHandler = useCallback(() => {
-    const nameUpdate = category[currentCategory]?.name;
-    setName(nameUpdate);
+    setName(category[currentCategory]?.name ?? "");
+    setParent_category(category[currentCategory]?.parent_category ?? "");
   }, [category, currentCategory]);
 
   useEffect(() => {
@@ -28,6 +29,7 @@ const UpdateCategory = ({ currentCategory, setIsEditCategory }) => {
       updateCategoryAdmin({
         _id: category[currentCategory]?._id,
         name,
+        parent_category,
         status: true
       })
     );
@@ -50,6 +52,21 @@ const UpdateCategory = ({ currentCategory, setIsEditCategory }) => {
                 id="category_name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
+              />
+            </div>
+          </div>
+          <div className="d-flex justify-content-between">
+            <div className="mb-3 w-100">
+              <label htmlFor="parent-category" className="form-label">
+                Danh mục cha
+              </label>
+              <input
+                type="text"
+                placeholder="Type here"
+                className="form-control"
+                id="parent-category"
+                value={parent_category}
+                onChange={(e) => setParent_category(e.target.value)}
               />
             </div>
           </div>
