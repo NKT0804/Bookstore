@@ -314,6 +314,66 @@ textarea:focus {
 }
 
 /* ALL PRODUCT */
+
+/* list category */
+.list__category {
+  display: flex;
+  list-style: none;
+  padding : 12px 0 20px 0;
+  margin-bottom: 30px;
+  justify-content: space-between;
+  align-items: center;
+  overflow-x: auto;
+  background-color: var(--white-color);
+  border-radius: 2px;
+  border-bottom: px solid #eee;
+}
+
+.list__category::-webkit-scrollbar {
+  display: block;
+  background-color: #f1f1f1;
+}
+
+.list__category-item {
+  border: 1px solid #eee;
+  font-weight: 600;
+}
+
+.list__category-item :first-child(1) {
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+
+.list__category-item :last-child(1) {
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+.list__category-name.active {
+  background-color: var(--primary-color);
+  color : #fff;
+  border-color: var(--primary-color);
+}
+
+.list__category-item:hover {
+  cursor: pointer;
+  color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.list__category-name {
+  position: relative;
+  flex-shrink: 0;
+  font-size: 14px;
+  width: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding : 20px;
+}
+
+
+
 .shoptext {
   height: 140px;
   padding-top: 10px;
