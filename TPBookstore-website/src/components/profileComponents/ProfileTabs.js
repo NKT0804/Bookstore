@@ -260,9 +260,6 @@ const ProfileTabs = () => {
           <div className="col-md-12">
             <div className="form account__user_address">
               <label htmlFor="account-address">Địa chỉ</label>
-              <div className="frame-error">
-                {messageError.address && <Message variant="alert-danger">{messageError.address}</Message>}
-              </div>
               <div className="account-address__select">
                 <select
                   className="acount-address__item"
@@ -304,6 +301,9 @@ const ProfileTabs = () => {
                 value={specificAddress}
                 onChange={(e) => setSpecificAddress(e.target.value)}
               />
+              <div className="frame-error">
+                {messageError.address && <Message variant="alert-danger">{messageError.address}</Message>}
+              </div>
             </div>
           </div>
           <button type="submit">Cập nhật</button>

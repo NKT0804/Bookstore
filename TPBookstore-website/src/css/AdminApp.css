@@ -257,6 +257,10 @@ body.offcanvas-active {
   border-color: var(--primary-color);
 }
 
+.nav-item-language {
+  margin-top: 12px;
+}
+
 .content-header {
   display: flex;
   align-items: center;

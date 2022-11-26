@@ -48,11 +48,9 @@ const UserDetail = (props) => {
             </div>
 
             {/* Sex */}
-            <div className="col-md-6">
-              <div className="">
-                <label className="user-information__admin-title">Giới tính</label>
-                <label>{user.sex ?? ""}</label>
-              </div>
+            <div className="user-information__admin-item">
+              <label className="user-information__admin-title">Giới tính</label>
+              <label className="text-capitalize">{user.sex ?? ""}</label>
             </div>
 
             {/*Birthday*/}

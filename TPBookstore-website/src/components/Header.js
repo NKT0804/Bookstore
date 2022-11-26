@@ -100,7 +100,7 @@ const Header = () => {
                     </div>
                   ) : (
                     <div className="btn-group">
-                      <button
+                      {/* <button
                         type="button"
                         className="name-button dropdown-toggle"
                         data-toggle="dropdown"
@@ -108,13 +108,13 @@ const Header = () => {
                         aria-expanded="false"
                       >
                         <i className="fas fa-user"></i>
-                      </button>
-                      <div className="dropdown-menu">
-                        <Link className="dropdown-item" to="/login">
+                      </button> */}
+                      <div className="d-flex">
+                        <Link className="px-2" to="/login">
                           Đăng nhập
                         </Link>
 
-                        <Link className="dropdown-item" to="/register">
+                        <Link className="px-2" to="/register">
                           Đăng ký
                         </Link>
                       </div>
@@ -128,6 +128,7 @@ const Header = () => {
                 </div>
                 <div className="col-12 d-flex align-items-center">
                   <form onSubmit={submitHandler} className="input-group">
+                    <CategoryList />
                     <input
                       type="search"
                       className="form-control rounded search"
@@ -154,9 +155,13 @@ const Header = () => {
               </div>
 
               <div className="col-md-6 col-4 d-flex align-items-center">
-                <div className="icon__menu-product">
-                  <CategoryList />
-                </div>
+                {userInfo ? (
+                  <div className="icon__menu-product">
+                    <CategoryList />
+                  </div>
+                ) : (
+                  <></>
+                )}
 
                 <form onSubmit={submitHandler} className="input-group">
                   <input
