@@ -11,7 +11,7 @@ const productQueryParams = {
         disabled: { isDisabled: true },
         notDisabled: { isDisabled: false },
         all: {},
-        default: {}
+        default: { isDisabled: false }
     }
 };
 
