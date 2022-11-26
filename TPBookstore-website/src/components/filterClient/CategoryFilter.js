@@ -11,7 +11,7 @@ const CategoryFilter = ({ category, categoryFilter, setCategoryFilter }) => {
       >
         <option value="">Tất cả danh mục</option>
         {category?.map((itemCategory, index) => (
-          <option value={itemCategory.name} key={index} id={itemCategory._id}>
+          <option value={itemCategory.slug} key={index} id={itemCategory._id}>
             {itemCategory.name}
           </option>
         ))}

@@ -69,6 +69,25 @@ export const logout = () => (dispatch) => {
   // localStorage.setItem("cartItems", JSON.stringify([]));
 };
 
+export const refreshToken = () => async (dispatch, getState) => {
+  try {
+    const {
+      userLogin: { userInfo }
+    } = getState();
+    const { data } = await axios.get(`/api/v1/refresh-token/refresh`, { refreshToken: userInfo.refreshToken });
+    if (data.success) {
+      localStorage.removeItem("userInfo");
+      userInfo.token = data.token;
+      userInfo.refreshToken = data.refreshToken;
+      dispatch({ type: USER_LOGIN_SUCCESS, payload: userInfo });
+      localStorage.setItem("userInfo", JSON.stringify(userInfo));
+    }
+    return true;
+  } catch {
+    dispatch(logout());
+    return false;
+  }
+};
 // REGISTER
 export const userRegisterAction = (history, name, email, phone, password) => async (dispatch) => {
   try {
@@ -136,7 +155,7 @@ export const getUserDetails = () => async (dispatch, getState) => {
   } catch (error) {
     const message = error.response && error.response.data.message ? error.response.data.message : error.message;
     if (message === "Not authorized, token failed") {
-      dispatch(logout());
+      dispatch(refreshToken());
     }
     dispatch({
       type: USER_DETAILS_FAIL,
@@ -163,7 +182,7 @@ export const adminGetUserDetails = (userId) => async (dispatch, getState) => {
   } catch (error) {
     const message = error.response && error.response.data.message ? error.response.data.message : error.message;
     if (message === "Not authorized, token failed") {
-      dispatch(logout());
+      dispatch(refreshToken());
     }
     dispatch({
       type: ADMIN_GET_USER_DETAILS_FAIL,
@@ -195,7 +214,7 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
   } catch (error) {
     const message = error.response && error.response.data.message ? error.response.data.message : error.message;
     if (message === "Not authorized, token failed") {
-      dispatch(logout());
+      dispatch(refreshToken());
     }
     dispatch({
       type: USER_UPDATE_PROFILE_FAIL,
@@ -225,7 +244,7 @@ export const updatePassword = (user) => async (dispatch, getState) => {
   } catch (error) {
     const message = error.response && error.response.data.message ? error.response.data.message : error.message;
     if (message === "Not authorized, token failed") {
-      dispatch(logout());
+      dispatch(refreshToken());
     }
     dispatch({
       type: USER_UPDATE_PASSWORD_FAIL,
@@ -304,7 +323,7 @@ export const updateUserAvatar =
     } catch (error) {
       const message = error.response && error.response.data.message ? error.response.data.message : error.message;
       if (message === "Not authorized, token failed") {
-        dispatch(logout());
+        dispatch(refreshToken());
       }
       dispatch({
         type: USER_UPDATE_AVATAR_FAIL,
@@ -339,7 +358,7 @@ export const listUser =
     } catch (error) {
       const message = error.response && error.response.data.message ? error.response.data.message : error.message;
       if (message === "Not authorized, token failed") {
-        dispatch(logout());
+        dispatch(refreshToken());
       }
       dispatch({
         type: USER_LIST_FAIL,

@@ -51,7 +51,12 @@ const Filter = (props) => {
       </div>
       <div className="" display={{ display: "flex", alignItems: "center" }}>
         <button className="distance-price__submit">
-          <Link className="navbar-brand" to="/" onClick={ClearHandle} style={{ fontSize: "0.85rem", color: "#fff" }}>
+          <Link
+            className="navbar-brand"
+            to="/products"
+            onClick={ClearHandle}
+            style={{ fontSize: "0.85rem", color: "#fff" }}
+          >
             XÓA TẤT CẢ
           </Link>
         </button>

@@ -15,6 +15,7 @@ const HomeScreen = ({ location }) => {
   const queryParams = new URLSearchParams(location.search);
   const keyword = queryParams.get("q") || "";
   const page = queryParams.get("p") || "";
+  const limit = queryParams.get("limit") || "";
 
   const [isFilter, setIsFilter] = useState(false);
 

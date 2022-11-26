@@ -58,8 +58,8 @@ import { PRODUCT_CREATE_REVIEW_REQUEST } from "./../Constants/productConstants";
 export const listProducts =
   (
     keyword = "",
+    categorySlug = "",
     pageNumber = "",
-    categoryFilter = "",
     ratingFilter = "",
     minPrice = "",
     maxPrice = "",
@@ -70,7 +70,7 @@ export const listProducts =
     try {
       dispatch({ type: PRODUCT_LIST_REQUEST });
       const { data } = await axios.get(
-        `/api/v1/product?&category=${categoryFilter}&keyword=${keyword}&rating=${ratingFilter}&minPrice=${minPrice}&maxPrice=${maxPrice}&sortBy=${sortBy}&pageNumber=${pageNumber}&limit=${limit}`
+        `/api/v1/product?&category=${categorySlug}&keyword=${keyword}&rating=${ratingFilter}&minPrice=${minPrice}&maxPrice=${maxPrice}&sortBy=${sortBy}&pageNumber=${pageNumber}&limit=${limit}`
       );
       dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
     } catch (error) {
