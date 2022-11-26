@@ -317,7 +317,7 @@ export const createProductReview = (productId, review) => async (dispatch, getSt
 
 //  GET LIST PRODUCT HAVE BAGINATION
 export const listProductsAdmin =
-  (keyword = "", pageNumber = "", categoryFilterAdmin = "", sortBy = "newest", limit = 10) =>
+  (keyword = "", pageNumber = "", categoryFilterAdmin = "", sortBy = "", limit = 12) =>
   async (dispatch, getState) => {
     try {
       dispatch({ type: PRODUCT_LIST_REQUEST });

@@ -8,6 +8,7 @@ import SortBy from "./SortBy";
 import Limit from "./Limit";
 import ProductComponent from "./ProductComponent";
 import { useHistory } from "react-router-dom";
+
 const ProductList = (props) => {
   const { categorySlug, keyword, pageNumber, limit } = props;
   const dispatch = useDispatch();
@@ -28,6 +29,7 @@ const ProductList = (props) => {
   const loadData = useCallback(() => {
     dispatch(listProducts(keyword, categorySlug, pageNumber, ratingFilter, minPrice, maxPrice, sortBy, limit));
     dispatch(listCategory());
+    setCategoryFilter(categorySlug ?? "");
   }, [dispatch, keyword, categorySlug, pageNumber, ratingFilter, minPrice, maxPrice, , sortBy, limit]);
 
   useEffect(() => {
