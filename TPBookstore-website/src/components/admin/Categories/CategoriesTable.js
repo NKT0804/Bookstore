@@ -73,9 +73,9 @@ const CategoriesTable = ({ setIsEditCategory, handleEditCategory, handleCurrentC
       <table className="table">
         <thead>
           <tr>
-            <th>STT</th>
-            <th>Tên danh mục</th>
-            <th>Danh mục cha</th>
+            <th className="text-center">STT</th>
+            <th className="text-center">Tên danh mục</th>
+            <th className="text-center">Danh mục cha</th>
             <th className="text-end">Thao tác</th>
           </tr>
         </thead>

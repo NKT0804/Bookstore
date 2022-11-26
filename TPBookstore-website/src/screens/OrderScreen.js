@@ -46,7 +46,7 @@ const OrderScreen = ({ match }) => {
               btnType={"delete"}
               handler={cancelHandler}
             />
-            <header className="card-header mt-2 p-3 Header-green">
+            <header className="card-header mt-2 p-3 Header-green" style={{ marginLeft: "-12px", marginRight: "-12px" }}>
               <div className="row align-items-center ">
                 <div className="col-lg-6 col-md-8">
                   <i class="far fa-barcode-alt"></i>
@@ -139,27 +139,35 @@ const OrderScreen = ({ match }) => {
                       <strong>Trạng thái đơn hàng</strong>
                     </h7>
                     {order.isPaid ? (
-                      <div className=" mb-1 p-1 col-12">
-                        <p className="order-detail-text text-center text-sm-start">
-                          Đã thanh toán:{" "}
+                      <div className="mb-1 p-1 col-12">
+                        <p className="order-detail-text border border-success text-success text-center">
+                          Đã thanh toán{" "}
                           <p>{moment(order.paidAt).format("LT") + " " + moment(order.paidAt).format("DD/MM/yyyy")}</p>
                         </p>
                       </div>
                     ) : (
                       <div className="mb-2 p-1 col-12">
-                        <p className="order-detail-text text-sm-start text-danger fw-bold text-center">
+                        <p className="order-detail-text border border-danger text-center text-danger fw-bold text-center">
                           Chưa thanh toán
                         </p>
                       </div>
                     )}
                     {order.cancelled ? (
-                      <div className="status__order-user text-center btn-danger">Đơn hàng bị đã hủy</div>
+                      <div className="status__order-user border border-danger text-danger text-center fw-bold">
+                        Đơn hàng bị đã hủy
+                      </div>
                     ) : order.delivered ? (
-                      <div className="status__order-user  text-center btn-success">Giao hàng thành công</div>
+                      <div className="status__order-user border border-success fw-bold  text-success text-center">
+                        Giao hàng thành công
+                      </div>
                     ) : order.confirmed ? (
-                      <div className="status__order-user text-center btn-warning">Đang giao</div>
+                      <div className="status__order-user border border-success fw-bold  text-success text-center ">
+                        Đang giao
+                      </div>
                     ) : (
-                      <div className="status__order-user text-center btn-primary">Đang chờ xác nhận</div>
+                      <div className="status__order-user border border-danger fw-bold text-center text-danger">
+                        Đang chờ xác nhận
+                      </div>
                     )}
                   </div>
                 </div>
@@ -194,7 +202,7 @@ const OrderScreen = ({ match }) => {
                         </div>
                         <div className="order-products-item-total mt-3 mt-md-0 col-lg-2 col-md-2 col-3 align-items-end  d-flex flex-column justify-content-center ">
                           <h4>Thành tiền</h4>
-                          <h6 className="text-danger fw-bold">{formatCash(item.qty * item.price)}</h6>
+                          <h6 className="text-primary-color fw-bold">{formatCash(item.qty * item.price)}</h6>
                         </div>
                       </div>
                     ))}
@@ -238,22 +246,20 @@ const OrderScreen = ({ match }) => {
                   </tbody>
                 </table>
                 {order.confirmed ? (
-                  <button className="btn btn-primary">Đã nhận hàng</button>
+                  <button className="btn fs-primary btn-primary">Đã nhận hàng</button>
                 ) : !order.cancelled ? (
                   <>
                     {loadingCancel && <Loading />}
                     <button
                       data-toggle="modal"
                       data-target="#exampleModalCenter"
-                      className="btn-danger col-12 btn-size mt-2"
+                      className="btn-danger fs-primary col-12 btn-size mt-2"
                     >
                       Hủy đơn hàng
                     </button>
                   </>
                 ) : (
-                  <button className="btn-danger btn-disabled btn-cancel col-12 btn-size mt-2">
-                    Đơn hàng đã bị hủy
-                  </button>
+                  <button className="col-12 fs-primary fw-bold text-danger mt-2">Đơn hàng đã bị hủy</button>
                 )}
               </div>
             </div>

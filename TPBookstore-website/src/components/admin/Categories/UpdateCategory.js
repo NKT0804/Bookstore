@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateCategoryAdmin } from "../../../Redux/Actions/categoryActions";
 import Loading from "../../base/LoadingError/Loading";
+import Modal from "../../base/modal/Modal";
 
 const UpdateCategory = ({ currentCategory, setIsEditCategory }) => {
   const [name, setName] = useState("");
@@ -37,6 +38,13 @@ const UpdateCategory = ({ currentCategory, setIsEditCategory }) => {
 
   return (
     <>
+      <Modal
+        modalTitle={"Cập nhật Banner"}
+        modalBody={"Bạn có chắc muốn cập nhật danh muc này?"}
+        btnTitle={"Lưu thay đổi"}
+        btnType={"confirm"}
+        handler={submitHandler}
+      />
       <div className="">
         <div>
           {loading && <Loading />}
@@ -74,7 +82,12 @@ const UpdateCategory = ({ currentCategory, setIsEditCategory }) => {
             <button className="btn btn-danger px-4" onClick={() => setIsEditCategory(false)}>
               Hủy
             </button>
-            <button className="btn btn-warning px-4" onClick={() => submitHandler()}>
+            <button
+              data-toggle="modal"
+              data-target="#exampleModalCenter"
+              type="submit"
+              className="btn btn-warning px-4"
+            >
               Cập nhật
             </button>
           </div>

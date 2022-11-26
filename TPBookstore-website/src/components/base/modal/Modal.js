@@ -17,25 +17,32 @@ const Modal = (props) => {
       >
         <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header py-2">
               <h5 class="modal-title" id="exampleModalLongTitle">
                 {modalTitle}
               </h5>
-              <button class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
+              <button
+                className="close px-1"
+                data-dismiss="modal"
+                aria-label="Close"
+                style={{ color: "gray", border: "none", backgroundColor: "white" }}
+              >
+                <span aria-hidden="true" style={{ fontSize: "30px" }}>
+                  &times;
+                </span>
               </button>
             </div>
             <div class="modal-body">{modalBody}</div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">
+              <button type="button" class="btn btn-secondary px-4" data-dismiss="modal">
                 Đóng
               </button>
               {btnType === "delete" ? (
-                <button type="button" class="btn btn-danger" onClick={() => handler()} data-dismiss="modal">
+                <button type="button" class="btn btn-danger  px-4" onClick={() => handler()} data-dismiss="modal">
                   {btnTitle}
                 </button>
               ) : btnType === "confirm" ? (
-                <button type="button" class="btn btn-primary" onClick={() => handler()} data-dismiss="modal">
+                <button type="button" class="btn btn-primary  px-4" onClick={() => handler()} data-dismiss="modal">
                   {btnTitle}
                 </button>
               ) : (

@@ -158,7 +158,7 @@ const SingleProduct = ({ history, match }) => {
 
   const settings = {
     dots: false,
-    infinite: false,
+    infinite: true,
     speed: 500,
     slidesToShow: 5,
     slidesToScroll: 4,
@@ -469,10 +469,12 @@ const SingleProduct = ({ history, match }) => {
                             <Rating value={product.rating} text={`${product.numReviews} reviews`} />
                             <div className="shoptext__price">
                               <p className="shoptext__price-special">
-                                <span className="shoptext__price-special-new">${product.price}</span>
-                                <span className="shoptext__price-special-discount">-30%</span>
+                                <span className="shoptext__price-special-new">${product.priceSale}</span>
+                                <span className="shoptext__price-special-discount">
+                                  -{Math.round(100 - (product.priceSale / product.price) * 100)}%
+                                </span>
                               </p>
-                              <p className="shoptext__price-old">7000</p>
+                              <p className="shoptext__price-old">{product.price}</p>
                               {/* <h3>${product.price}</h3> */}
                             </div>
                           </div>

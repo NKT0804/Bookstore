@@ -8,6 +8,8 @@ import { createOrder } from "../Redux/Actions/orderActions";
 import { ORDER_CREATE_RESET } from "../Redux/Constants/orderConstants";
 import Toast from "../components/base/LoadingError/Toast";
 import formatCash from "../utils/formatCash";
+import isEmpty from "validator/lib/isEmpty";
+import Modal from "../components/base/modal/Modal";
 
 const ToastObjects = {
   pauseOnFocusLoss: false,
@@ -54,6 +56,15 @@ const PlaceOrderScreen = ({ history }) => {
 
   useEffect(() => {
     if (userInfo) {
+      if (
+        isEmpty(userInfo.address?.province) ||
+        isEmpty(userInfo.address?.district) ||
+        isEmpty(userInfo.address?.ward) ||
+        isEmpty(userInfo.address?.specificAddress)
+      ) {
+        history.push("/shipping");
+      }
+
       setShippingAddress(
         userInfo.address?.province.concat(
           ", ",
@@ -66,6 +77,7 @@ const PlaceOrderScreen = ({ history }) => {
       );
     }
   });
+
   useEffect(() => {
     if (success) {
       history.push(`/order/${order._id}`);
@@ -95,6 +107,13 @@ const PlaceOrderScreen = ({ history }) => {
     <>
       <Toast />
       <Header />
+      <Modal
+        modalTitle={"Đặt đơn hàng"}
+        modalBody={"Bạn hãy kiểm tra kỹ thông tin trước khi đặt hàng"}
+        btnTitle={"Xác nhận đặt hàng"}
+        btnType={"confirm"}
+        handler={placeOrderHandler}
+      />
       <div className="container">
         <div className="row  order-detail">
           {/* 1 */}
@@ -184,7 +203,7 @@ const PlaceOrderScreen = ({ history }) => {
                     </div>
                     <div className="mt-3 mt-md-0 col-lg-2 col-md-2 col-3 align-items-end  d-flex flex-column justify-content-center ">
                       <h4>Thành tiền</h4>
-                      <h6 className="text-danger fw-bold">{formatCash(item.qty * item.product.priceSale)}</h6>
+                      <h6 className="text-primary-color fw-bold">{formatCash(item.qty * item.product.priceSale)}</h6>
                     </div>
                   </div>
                 ))}
@@ -233,7 +252,7 @@ const PlaceOrderScreen = ({ history }) => {
               </tbody>
             </table>
             {cart.cartItems.length === 0 ? null : (
-              <button className="btn btn-primary" type="submit" onClick={placeOrderHandler}>
+              <button data-toggle="modal" data-target="#exampleModalCenter" className="btn btn-primary" type="submit">
                 Đặt hàng
               </button>
             )}

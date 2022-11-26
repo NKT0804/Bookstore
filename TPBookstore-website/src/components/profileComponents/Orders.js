@@ -54,7 +54,7 @@ const Orders = (props) => {
                           {formatCash(item.price)}
                         </div>
                         <p className="profile__order-product-qty col-lg-1 col-md-1 col-2 fst-italic">x{item.qty}</p>
-                        <div className="profile__order-product-total col-lg-2 col-md-2 col-4 fw-bold">
+                        <div className="profile__order-product-total text-primary-color col-lg-2 col-md-2 col-4 fw-bold">
                           {formatCash(item.price * item.qty)}
                         </div>
                       </div>
@@ -95,7 +95,7 @@ const Orders = (props) => {
                         )}
                       </div>
                       <div className="fw-bold">
-                        Tổng: <span className="fs-5 text-danger">{formatCash(order.totalPrice)}</span>
+                        Tổng: <span className="fs-5 text-primary-color">{formatCash(order.totalPrice)}</span>
                       </div>
                     </div>
 

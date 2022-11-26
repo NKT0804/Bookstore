@@ -4,8 +4,25 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAddressData } from "../Redux/Actions/userActions";
 import { updateUserProfile } from "../Redux/Actions/userActions";
 import Loading from "../components/base/LoadingError/Loading";
+import isEmpty from "validator/lib/isEmpty";
+import Message from "../components/base/LoadingError/Error";
 
 const ShippingScreen = ({ history }) => {
+  const [messageError, setMessageError] = useState({});
+
+  //validate data
+  const validation = () => {
+    const messageError = {};
+    if (!province || !district || !ward || isEmpty(specificAddress))
+      messageError.address = "Vui lòng nhập đầy đủ địa chỉ";
+
+    setMessageError(messageError);
+    if (Object.keys(messageError).length > 0) {
+      return false;
+    }
+    return true;
+  };
+
   window.scrollTo(0, 0);
 
   const userDetails = useSelector((state) => state.userDetails);
@@ -67,6 +84,7 @@ const ShippingScreen = ({ history }) => {
 
   const submitHandler = (e) => {
     e.preventDefault();
+    if (!validation()) return;
     const addressUpdate = { province, district, ward, specificAddress };
     user.address = addressUpdate;
     dispatch(updateUserProfile(user));
@@ -77,6 +95,7 @@ const ShippingScreen = ({ history }) => {
   }, [dispatch]);
   return (
     <>
+      {error && <Message variant="alert-danger">{error}</Message>}
       <Header />
       <div className="container d-flex justify-content-center align-items-center login-center">
         <form className="Login col-md-8 col-lg-4 col-11" onSubmit={submitHandler}>
@@ -97,7 +116,6 @@ const ShippingScreen = ({ history }) => {
               ))}
             </select>
           </div>
-
           <div className="filter-menu-item">
             <select
               className="form-select"
@@ -113,7 +131,6 @@ const ShippingScreen = ({ history }) => {
               ))}
             </select>
           </div>
-
           <div className="filter-menu-item">
             <select
               className="form-select"
@@ -129,15 +146,15 @@ const ShippingScreen = ({ history }) => {
               ))}
             </select>
           </div>
-
           <input
             type="text"
             placeholder="Địa chỉ cụ thể"
-            required
             value={specificAddress}
             onChange={(e) => setSpecificAddress(e.target.value)}
           />
-
+          <div className="frame-error">
+            {messageError.address && <Message variant="alert-danger">{messageError.address}</Message>}
+          </div>
           <button type="submit">Tiếp tục</button>
         </form>
       </div>

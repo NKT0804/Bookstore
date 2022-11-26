@@ -337,15 +337,6 @@ html {
 
 /* Products in homepage */
 
-.shoptext {
-  height: 160px;
-  padding-top: 10px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  flex-wrap: nowrap;
-}
-
 .pagination-group {
   display: flex;
   justify-content: center;
@@ -375,3 +366,10 @@ html {
   font-weight: bold;
 }
 
+.text-primary-color {
+  color: #4AC4FA;
+}
+
+.fs-primary {
+  font-size: 17px !important;
+}

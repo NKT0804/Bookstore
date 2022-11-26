@@ -110,10 +110,6 @@ const OrderDetailMain = (props) => {
         }
       />
       <section className="content-main">
-        <Link to="/admin/orders" className="btn ">
-          <i class="fa fa-arrow-left" aria-hidden="true"></i>
-        </Link>
-
         {loading ? (
           <Loading />
         ) : error ? (
@@ -122,7 +118,12 @@ const OrderDetailMain = (props) => {
           <div className="card">
             <header className="card-header p-3 Header-green">
               <div className="row align-items-center ">
-                <div className="col-lg-6 col-md-6">
+                <div className="col-lg-1 col-md-1">
+                  <Link to="/admin/orders" className="btn">
+                    <i class="fa fa-arrow-left" aria-hidden="true"></i>
+                  </Link>
+                </div>
+                <div className="col-lg-5 col-md-5">
                   <i class="far fa-barcode-alt"></i>
                   <b className="text-white mx-1">Mã đơn hàng:</b>
                   <span className="text-white mx-1">{order._id}</span>
