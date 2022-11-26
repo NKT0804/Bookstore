@@ -30,6 +30,16 @@ const ShopSection = (props) => {
   const categoryList = useSelector((state) => state.categoryList);
   const { category } = categoryList;
 
+  const CategoryList = () => {
+    const dispatch = useDispatch();
+    const categoryList = useSelector((state) => state.categoryList);
+    const { category } = categoryList;
+
+    useEffect(() => {
+      dispatch(listCategory());
+    }, [dispatch]);
+  };
+
   // const checkNameCategory = (item) => item.name === categoryFilter;
   // const nameCate = category?.find(checkNameCategory)?.name;
   const checkIsFilter = useCallback(() => {
@@ -49,6 +59,7 @@ const ShopSection = (props) => {
     loadData();
     checkIsFilter();
   }, [loadData, checkIsFilter]);
+  const [activeId, setActiveId] = useState();
   return (
     <>
       <div className="container all-products">
@@ -56,22 +67,35 @@ const ShopSection = (props) => {
           <div className="row">
             <div className="col-lg-12 col-md-12  article">
               <div className="shopcontainer">
-                {!isFilter && (
-                  <div className="title-section">
-                    <h2 className="heading-section main-effect">Tất cả sản phẩm</h2>
-                  </div>
-                )}
+                {/* list category */}
+                <ul className="list__category">
+                  {category?.map((item) => (
+                    <div className="list__category-item">
+                      <li
+                        className={
+                          activeId === item._id ? "list__category-name active" : "list__category-name inactive"
+                        }
+                        onClick={() => setActiveId(item._id)}
+                      >
+                        {item.name}
+                      </li>
+                    </div>
+                  ))}
+                </ul>
+
                 {/* Search and products quantity */}
-                <div className="search__catrgoty row">
+                {/* <div className="search__catrgoty row">
                   <div className="col-lg-6">
                     <SortBy sortBy={sortBy} setSortBy={setSortBy} />
                   </div>
                   <div className="col-lg-6">
                     <Limit limit={limit} setLimit={setLimit} />
                   </div>
-                </div>
+                </div> */}
+
                 {/* Show products */}
-                <div className="row justify-content-center col-lg-12 col-md-12 col-12">
+                <div className="row justify-content-center mx-0 col-lg-12 col-md-12 col-12">
+                  {/* Filter */}
                   {/* <div className="find-product col-lg-2 col-md-4 col-3 pc-header">
                     <Filter
                       category={category}
@@ -84,6 +108,7 @@ const ShopSection = (props) => {
                     />
                   </div> */}
 
+                  {/* Show all products */}
                   <div className="col-lg-12 col-md-8 col-9 row product-container ">
                     {loading ? (
                       products?.map((product) => {
@@ -161,25 +186,24 @@ const ShopSection = (props) => {
                   </div>
                 </div>
                 <div style={{ display: "flex", justifyContent: "center", margin: "12px" }}>
-                  <Link>
-                    {" "}
+                  <Link to="/products">
                     <button
                       type="button"
                       style={{
                         textAlign: "center",
                         border: "#4ac4fa solid 3px",
                         borderRadius: "4px",
-                        padding: "8px 12px",
+                        padding: "8px 20px",
                         backgroundColor: "white"
                       }}
                     >
-                      Xem thêm{" >>>>"}
+                      Xem thêm
                     </button>
                   </Link>
                 </div>
 
                 {/* Pagination */}
-                <Pagination page={page} pages={pages} keyword={keyword ? keyword : ""} />
+                {/* <Pagination page={page} pages={pages} keyword={keyword ? keyword : ""} /> */}
               </div>
             </div>
           </div>
