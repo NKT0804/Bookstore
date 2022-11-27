@@ -84,7 +84,7 @@ const ShopSection = (props) => {
                 </ul>
 
                 {/* Search and products quantity */}
-                {/* <div className="search__catrgoty row">
+                {/* <div className="search__category row">
                   <div className="col-lg-6">
                     <SortBy sortBy={sortBy} setSortBy={setSortBy} />
                   </div>
@@ -109,7 +109,7 @@ const ShopSection = (props) => {
                   </div> */}
 
                   {/* Show all products */}
-                  <div className="col-lg-12 col-md-8 col-9 row product-container ">
+                  <div className="col-lg-12 col-md-12 col-9 row product-container ">
                     {loading ? (
                       products?.map((product) => {
                         return (
@@ -124,7 +124,7 @@ const ShopSection = (props) => {
                       <Message variant="alert-danger">{error}</Message>
                     ) : (
                       products?.map((product) => (
-                        <div className="l-2-4 col-md-6 c-6" key={product._id}>
+                        <div className="l-2-4 col-md-4 c-6" key={product._id}>
                           <div className="shadow p-3 mb-4 bg-body border border-1 rounded">
                             <Link to={`/product/${product.slug}`}>
                               <div className="shopBack main-effect">
@@ -193,7 +193,7 @@ const ShopSection = (props) => {
                         textAlign: "center",
                         border: "#4ac4fa solid 3px",
                         borderRadius: "4px",
-                        padding: "8px 20px",
+                        padding: "8px 12px",
                         backgroundColor: "white"
                       }}
                     >

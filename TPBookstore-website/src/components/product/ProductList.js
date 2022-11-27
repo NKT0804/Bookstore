@@ -51,19 +51,22 @@ const ProductList = (props) => {
         <div className="section">
           <div className="row">
             <div className="col-lg-12 col-md-12  article">
-              <div className="shopcontainer row">
+              <div className="shopcontainer row ">
                 {/* Search and products quantity */}
-                <div className="search__catrgoty row">
-                  <div className="col-lg-6">
+                <div className="search__category row">
+                  <div className="col-lg-6 col-md-6 col-5">
                     <SortBy sortBy={sortBy} setSortBy={setSortBy} />
                   </div>
-                  <div className="col-lg-6">
+                  <div className="col-lg-6 col-md-6 col-5">
                     <Limit limitInput={limitInput} setLimitInput={setLimitInput} />
+                  </div>
+                  <div className="icon__filter col-2">
+                    <i class="fas fa-filter"></i>
                   </div>
                 </div>
                 {/* Show products */}
                 <div className="row col-lg-12 col-md-12 col-12">
-                  <div className="find-product col-lg-2 col-md-4 col-3 pc-header">
+                  <div className="find-product col-lg-2 col-md-4 col-3">
                     <Filter
                       category={category}
                       categoryFilter={categoryFilter}

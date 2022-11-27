@@ -23,7 +23,7 @@ const ProductComponent = (props) => {
         <Message variant="alert-danger">{error}</Message>
       ) : (
         products?.map((product) => (
-          <div className="col-lg-3 col-md-6" key={product._id}>
+          <div className="col-lg-3 col-md-6 c-6" key={product._id}>
             <div className="shadow p-3 mb-4 bg-body border border-1 rounded">
               <Link to={`/product/${product.slug}`}>
                 <div className="shopBack main-effect">
@@ -55,6 +55,26 @@ const ProductComponent = (props) => {
                       <></>
                     )}
                   </p>
+                </div>
+
+                {/*Price on Mobile */}
+                <div className="shoptext__price__mobile">
+                  <p className="shoptext__price-special">
+                    <span className="shoptext__price-special-new">{formatCash(product.priceSale)}</span>
+
+                    {product.priceSale < product.price ? (
+                      <span className="shoptext__price-special-discount">
+                        -{Math.round(100 - (product.priceSale / product.price) * 100)}%
+                      </span>
+                    ) : (
+                      <></>
+                    )}
+                  </p>
+                  {product.priceSale < product.price ? (
+                    <p className="shoptext__price-old mx-1">{formatCash(product.price)}</p>
+                  ) : (
+                    <></>
+                  )}
                 </div>
               </div>
             </div>
