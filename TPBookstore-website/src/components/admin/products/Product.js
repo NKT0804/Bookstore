@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { deleteProductAdmin } from "../../../Redux/Actions/productActions";
-import Rating from "../../homeComponents/Rating";
+import Rating from "../../product/Rating";
 import formatCash from "../../../utils/formatCash";
 import Modal from "../../base/modal/Modal";
 

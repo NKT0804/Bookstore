@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import Message from "../components/base/LoadingError/Error";
 import Loading from "../components/base/LoadingError/Loading";
 import { toast } from "react-toastify";
 import Toast from "../components/base/LoadingError/Toast";
@@ -63,9 +62,6 @@ const ForgotPassword = () => {
               <i class="fa fa-arrow-left" aria-hidden="true"></i>
             </Link>
             <h5 className="col-10 form-title">Đặt lại mật khẩu</h5>
-            {/* <div className="col-6 d-flex align-items-center">
-              <img alt="logo" src="/images/logo.png" />
-            </div> */}
           </div>
 
           <input

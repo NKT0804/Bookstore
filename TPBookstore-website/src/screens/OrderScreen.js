@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import Header from "../components/Header";
 import { useDispatch, useSelector } from "react-redux";
-import { cancelOrderUser, getOrderDetails, payOrder } from "../Redux/Actions/orderActions";
+import { cancelOrderUser, getOrderDetails } from "../Redux/Actions/orderActions";
 import moment from "moment";
 import Loading from "../components/base/LoadingError/Loading";
 import Message from "../components/base/LoadingError/Error";

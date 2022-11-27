@@ -4,10 +4,8 @@ import Header from "../components/Header";
 import ProfileTabs from "../components/profileComponents/ProfileTabs";
 import { getUserDetails } from "../Redux/Actions/userActions";
 import Orders from "./../components/profileComponents/Orders";
-import moment from "moment";
 import { listMyOrders } from "../Redux/Actions/orderActions";
 import Avatar from "../components/profileComponents/Avatar";
-import Footer from "../components/Footer";
 import UserPassword from "../components/profileComponents/UserPassword";
 
 const ProfileScreen = () => {

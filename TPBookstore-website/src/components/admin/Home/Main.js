@@ -1,15 +1,28 @@
-import React from "react";
+import React, { useEffect } from "react";
 import TopTotal from "./TopTotal";
 import LatestOrder from "./LatestOrder";
 import SaleStatistics from "./SalesStatistics";
 import ProductsStatistics from "./ProductsStatistics";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { listProductsAdmin } from "../../../Redux/Actions/productActions";
+import { listUser } from "../../../Redux/Actions/userActions";
+import { listOrders } from "../../../Redux/Actions/orderActions";
 
 const Main = () => {
+  const dispatch = useDispatch();
+
   const orderListAdmin = useSelector((state) => state.orderListAdmin);
   const { loading, error, orders } = orderListAdmin;
-  const productList = useSelector((state) => state.productList);
-  const { products } = productList;
+  const productListAdmin = useSelector((state) => state.productListAdmin);
+  const { total: totalProduct } = productListAdmin;
+  const userList = useSelector((state) => state.userList);
+  const { total: totalUser } = userList;
+
+  useEffect(() => {
+    dispatch(listProductsAdmin());
+    dispatch(listOrders());
+    dispatch(listUser());
+  }, [dispatch]);
   return (
     <>
       <section className="content-main">
@@ -17,7 +30,7 @@ const Main = () => {
           <h2 className="content-title"> Bảng điều khiển </h2>
         </div>
         {/* Top Total */}
-        <TopTotal orders={orders} products={products} productList={productList} />
+        <TopTotal orders={orders} totalProduct={totalProduct} totalUser={totalUser} />
 
         <div className="row">
           {/* STATICS */}

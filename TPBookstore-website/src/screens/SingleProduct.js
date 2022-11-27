@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import Rating from "../components/homeComponents/Rating";
+import Rating from "../components/product/Rating";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { createProductReview, detailsProduct, listCommentProduct, listProducts } from "../Redux/Actions/productActions";
@@ -24,8 +24,8 @@ import {
   PRODUCT_UPDATE_COMMENT_SUCCESS
 } from "../Redux/Constants/productConstants";
 import { addToCartItems } from "../Redux/Actions/cartActions";
-import { ADD_TO_CART_FAIL } from "../Redux/Constants/cartConstants";
-import ProductComment from "../components/singleProduct/ProductComment";
+import { ADD_TO_CART_FAIL, ADD_TO_CART_RESET } from "../Redux/Constants/cartConstants";
+import ProductComment from "../components/product/ProductComment";
 import { toast } from "react-toastify";
 import Toast from "../components/base/LoadingError/Toast";
 import Slider from "react-slick";
@@ -69,7 +69,8 @@ const SingleProduct = ({ history, match }) => {
 
   const notifiUpdateProductComment = useSelector((state) => state.productUpdateComment);
   const { success: successUpdateComment, error: errorUpdateComment } = notifiUpdateProductComment;
-
+  const addToCart = useSelector((state) => state.addToCart);
+  const { success: successAddToCart, error: errorAddToCart } = addToCart;
   const loadListCommentProduct = useCallback(() => {
     if (product) {
       dispatch(listCommentProduct(product._id));
@@ -89,7 +90,7 @@ const SingleProduct = ({ history, match }) => {
   // handle show noti create comment
   useEffect(() => {
     if (successCreateComment || successCreateCommentReply) {
-      toast.success("Create product comment success!", ToastObjects);
+      toast.success("Bình luận sản phẩm thành công!", ToastObjects);
       dispatch({ type: PRODUCT_CREATE_COMMENT_RESET });
       dispatch({ type: PRODUCT_CREATE_COMMENT_REPLY_RESET });
     }
@@ -103,7 +104,7 @@ const SingleProduct = ({ history, match }) => {
   // handle show noti delete comment
   useEffect(() => {
     if (successDeleteComment) {
-      toast.success("Delete comment success!!!", ToastObjects);
+      toast.success("Xóa bình luận thành công!", ToastObjects);
       loadListCommentProduct();
       dispatch({ type: PRODUCT_DELETE_COMMENT_SUCCESS });
       dispatch({ type: PRODUCT_DELETE_COMMENT_RESET });
@@ -117,7 +118,7 @@ const SingleProduct = ({ history, match }) => {
   // handle show noti update comment
   useEffect(() => {
     if (successUpdateComment) {
-      toast.success("Update comment success!!!", ToastObjects);
+      toast.success("Cập nhật bình luận thành công!", ToastObjects);
       loadListCommentProduct();
       dispatch({ type: PRODUCT_UPDATE_COMMENT_SUCCESS });
       dispatch({ type: PRODUCT_UPDATE_COMMENT_RESET });
@@ -128,7 +129,30 @@ const SingleProduct = ({ history, match }) => {
     }
   }, [dispatch, successUpdateComment, errorUpdateComment, loadListCommentProduct]);
 
+  useEffect(() => {
+    if (errorAddToCart) {
+      toast.error(errorAddToCart, ToastObjects);
+      dispatch({ type: ADD_TO_CART_RESET });
+    }
+    if (successAddToCart) {
+      toast.success("Thêm sản phẩm vào giỏ hàng thành công!", ToastObjects);
+      dispatch({ type: ADD_TO_CART_RESET });
+    }
+  }, [dispatch, successAddToCart, errorAddToCart]);
   const handleAddToCart = (e) => {
+    e.preventDefault();
+    if (userInfo) {
+      if (qty > 0) {
+        dispatch(addToCartItems(product._id, qty));
+        // history.push(`/cart/${product._id}?qty=${qty}`);
+      } else {
+        dispatch({ type: ADD_TO_CART_FAIL });
+      }
+    } else {
+      history.push("/login");
+    }
+  };
+  const handleBuyNow = (e) => {
     e.preventDefault();
     if (userInfo) {
       if (qty > 0) {
@@ -158,7 +182,7 @@ const SingleProduct = ({ history, match }) => {
 
   const settings = {
     dots: false,
-    infinite: true,
+    infinite: false,
     speed: 500,
     slidesToShow: 5,
     slidesToScroll: 4,
@@ -289,6 +313,13 @@ const SingleProduct = ({ history, match }) => {
                       className="round-black-btn"
                     >
                       Thêm vào giỏ hàng
+                    </button>
+                    <button
+                      onClick={handleBuyNow}
+                      disabled={!product.countInStock || !product.countInStock > 0}
+                      className="round-black-btn"
+                    >
+                      Mua ngay
                     </button>
                   </div>
                 </div>
@@ -469,13 +500,12 @@ const SingleProduct = ({ history, match }) => {
                             <Rating value={product.rating} text={`${product.numReviews} reviews`} />
                             <div className="shoptext__price">
                               <p className="shoptext__price-special">
-                                <span className="shoptext__price-special-new">${product.priceSale}</span>
+                                <span className="shoptext__price-special-new">{formatCash(product.priceSale)}</span>
                                 <span className="shoptext__price-special-discount">
                                   -{Math.round(100 - (product.priceSale / product.price) * 100)}%
                                 </span>
                               </p>
-                              <p className="shoptext__price-old">{product.price}</p>
-                              {/* <h3>${product.price}</h3> */}
+                              <p className="shoptext__price-old">{formatCash(product.price)}</p>
                             </div>
                           </div>
                         </div>

@@ -23,7 +23,7 @@ const SliderTable = ({ setIsEditSlider, setCurrentSlider }) => {
     if (success) {
       dispatch(listSlider());
     }
-  }, [dispatch, listSlider()]);
+  }, [dispatch, success]);
 
   useEffect(() => {
     dispatch(listSlider());

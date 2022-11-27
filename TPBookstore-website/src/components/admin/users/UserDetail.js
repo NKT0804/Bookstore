@@ -9,10 +9,10 @@ const UserDetail = (props) => {
   const dispatch = useDispatch();
 
   const userDetails = useSelector((state) => state.adminGetUserDetails);
-  const { loading, success, error, user } = userDetails;
+  const { loading, error, user } = userDetails;
   useEffect(() => {
     dispatch(adminGetUserDetails(userId));
-  }, [dispatch]);
+  }, [dispatch, userId]);
   return (
     <>
       {loading ? (

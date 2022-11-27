@@ -1,5 +1,5 @@
 import React from "react";
-import Rating from "../homeComponents/Rating.js";
+import Rating from "../product/Rating.js";
 const RatingFilter = ({ ratingFilter, setRatingFilter }) => {
   return (
     <div className="filter-menu-item">

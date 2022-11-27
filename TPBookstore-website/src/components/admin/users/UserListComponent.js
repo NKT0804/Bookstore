@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { listUser, adminGetUserDetails } from "../../../Redux/Actions/userActions";
+import { listUser } from "../../../Redux/Actions/userActions";
 import Loading from "../../base/LoadingError/Loading";
 import Message from "../../base/LoadingError/Error";
 import PaginationAdmin from "../Home/PaginationAdmin";

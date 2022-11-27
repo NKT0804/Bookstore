@@ -31,7 +31,7 @@ const UpdateBanner = ({ isEditBanner, currentBanner, setIsEditBanner, setCurrent
       setIsEditBanner(false);
       dispatch(listBanner());
     }
-  }, [dispatch, setIsEditBanner, listBanner()]);
+  }, [dispatch, setIsEditBanner, success]);
   useEffect(() => {
     updateBannerHandler();
   }, [updateBannerHandler]);

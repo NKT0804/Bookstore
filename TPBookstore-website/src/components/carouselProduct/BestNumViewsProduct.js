@@ -5,9 +5,10 @@ import { listProductsBestNumView } from "../../Redux/Actions/productActions";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import Rating from "../homeComponents/Rating";
+import Rating from "../product/Rating";
 import CardProductLoading from "../base/LoadingError/CardProductLoading";
 import formatCash from "../../utils/formatCash";
+import Loading from "../base/LoadingError/Loading";
 
 const BestNumViewsProduct = () => {
   const dispatch = useDispatch();
@@ -63,6 +64,7 @@ const BestNumViewsProduct = () => {
           <h2 className="heading-section main-effect">Sản phẩm được xem nhiều nhất</h2>
         </div>
         <div className="best-seller-container">
+          {loading && <Loading />}
           <Slider {...settings}>
             {loading
               ? newProducts?.map((product) => {

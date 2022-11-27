@@ -18,7 +18,7 @@ import {
 } from "../../Redux/Constants/productConstants";
 
 const ProductComment = (props) => {
-  const { userInfo, match, productId } = props;
+  const { userInfo, productId } = props;
   const dispatch = useDispatch();
 
   const [content, setContent] = useState("");

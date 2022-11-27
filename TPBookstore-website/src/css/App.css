@@ -319,7 +319,7 @@ textarea:focus {
 .list__category {
   display: flex;
   list-style: none;
-  padding : 12px 0 20px 0;
+  padding: 12px 0 20px 0;
   margin-bottom: 30px;
   justify-content: space-between;
   align-items: center;
@@ -351,7 +351,7 @@ textarea:focus {
 
 .list__category-name.active {
   background-color: var(--primary-color);
-  color : #fff;
+  color: #fff;
   border-color: var(--primary-color);
 }
 
@@ -365,14 +365,12 @@ textarea:focus {
   position: relative;
   flex-shrink: 0;
   font-size: 14px;
-  width: 200px;
+  width: 220px;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding : 20px;
+  padding: 20px;
 }
-
-
 
 .shoptext {
   height: 140px;

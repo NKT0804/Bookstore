@@ -1,6 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import Header from "../components/Header";
+import { useDispatch, useSelector } from "react-redux";
+import { listProducts } from "../Redux/Actions/productActions";
 import ShopSection from "../components/homeComponents/ShopSection";
+import { listCategory } from "../Redux/Actions/categoryActions";
 import ContactInfo from "../components/homeComponents/ContactInfo";
 import CalltoActionSection from "../components/homeComponents/CalltoActionSection";
 import Slideshow from "../components/Slideshow";
@@ -12,31 +15,39 @@ import BestNumViewsProduct from "../components/carouselProduct/BestNumViewsProdu
 
 const HomeScreen = ({ location }) => {
   window.scrollTo(0, 0);
-  const queryParams = new URLSearchParams(location.search);
-  const keyword = queryParams.get("q") || "";
-  const page = queryParams.get("p") || "";
-  const limit = queryParams.get("limit") || "";
+  const dispatch = useDispatch();
 
-  const [isFilter, setIsFilter] = useState(false);
+  const productList = useSelector((state) => state.productList);
+  const { loading, error, products } = productList;
 
+  const categoryList = useSelector((state) => state.categoryList);
+  const { category } = categoryList;
+  let categoryParent = [];
+  category?.map((item) => categoryParent.push(item.parent_category));
+  categoryParent = Array.from(new Set(categoryParent));
+
+  const loadData = useCallback(() => {
+    dispatch(listProducts("", "", "", "", "", "", "", 10000));
+    dispatch(listCategory());
+  }, [dispatch]);
+
+  useEffect(() => {
+    loadData();
+  }, [loadData]);
   return (
     <div>
       <Header />
-      <div
-        style={{
-          display: `${keyword}` || `${page}` || `${isFilter}` === `${true}` ? "none" : "block"
-        }}
-      >
-        <Slideshow />
-        <Policy />
-        <div className="container">
-          <BestSellerProduct />
-        </div>
-        <div className="container">
-          <BestNumViewsProduct />
-        </div>
+
+      <Slideshow />
+      <Policy />
+      <div className="container">
+        <BestSellerProduct />
       </div>
-      <ShopSection keyword={keyword} pageNumber={page} isFilter={isFilter} setIsFilter={setIsFilter} />
+      <div className="container">
+        <BestNumViewsProduct />
+      </div>
+      <ShopSection loading={loading} error={error} categoryList={categoryParent.slice(0, 4)} products={products} />
+      <ShopSection loading={loading} error={error} categoryList={categoryParent.slice(4, 8)} products={products} />
       <CustomerReview />
       <CalltoActionSection />
       <ContactInfo />
