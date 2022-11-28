@@ -3,13 +3,13 @@ import { Fade } from "react-slideshow-image";
 import "react-slideshow-image/dist/styles.css";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { listSlider, listBanner } from "../Redux/Actions/bannerActions";
+import { listSlider } from "../Redux/Actions/bannerActions";
 import Loading from "./base/LoadingError/Loading";
 const Slideshow = () => {
   const dispatch = useDispatch();
 
   const sliderList = useSelector((state) => state.sliderList);
-  const { error, loading, sliders } = sliderList;
+  const { loading, sliders } = sliderList;
 
   const bannerList = useSelector((state) => state.bannerList);
   const { banners } = bannerList;

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Header from "../components/Header";
-import Footer from "../components/Footer";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getCartListItem, removeFromCartItem, updateCart } from "./../Redux/Actions/cartActions";
@@ -30,7 +29,7 @@ const CartScreen = ({ history }) => {
   const { success } = addToCart;
 
   const removeCart = useSelector((state) => state.removeCart);
-  const { success: removeCartSuccess, error: removeCartError, message: removeCartMessage } = removeCart;
+  const { success: removeCartSuccess, error: removeCartError } = removeCart;
 
   const updateCartStore = useSelector((state) => state.cartUpdate);
   const { success: updateCartSuccess, error: updateCartError } = updateCartStore;

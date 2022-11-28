@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Loading from "../../base/LoadingError/Loading";
 import { updateBannerAdmin, listBanner } from "../../../Redux/Actions/bannerActions";
+import Modal from "../../base/modal/Modal";
 
 const UpdateBanner = ({ isEditBanner, currentBanner, setIsEditBanner, setCurrentBanner }) => {
   const dispatch = useDispatch();
@@ -31,7 +32,7 @@ const UpdateBanner = ({ isEditBanner, currentBanner, setIsEditBanner, setCurrent
       setIsEditBanner(false);
       dispatch(listBanner());
     }
-  }, [dispatch, setIsEditBanner, listBanner()]);
+  }, [dispatch, setIsEditBanner, success]);
   useEffect(() => {
     updateBannerHandler();
   }, [updateBannerHandler]);
@@ -54,6 +55,13 @@ const UpdateBanner = ({ isEditBanner, currentBanner, setIsEditBanner, setCurrent
 
   return (
     <>
+      <Modal
+        modalTitle={"Cập nhật Banner"}
+        modalBody={"Bạn có chắc muốn cập nhật Banner này?"}
+        btnTitle={"Lưu thay đổi"}
+        btnType={"confirm"}
+        handler={submitHandler}
+      />
       <div className="">
         <div>
           {loading && <Loading />}
@@ -103,7 +111,12 @@ const UpdateBanner = ({ isEditBanner, currentBanner, setIsEditBanner, setCurrent
               <button disabled={!isEditBanner} className="btn btn-danger p-2" onClick={() => cancelHandler()}>
                 Hủy
               </button>
-              <button disabled={!isEditBanner} className="btn btn-warning p-2" onClick={() => submitHandler()}>
+              <button
+                disabled={!isEditBanner}
+                className="btn btn-warning p-2"
+                data-toggle="modal"
+                data-target="#exampleModalCenter"
+              >
                 Cập nhật
               </button>
             </div>

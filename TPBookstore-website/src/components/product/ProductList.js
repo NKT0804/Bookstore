@@ -8,6 +8,7 @@ import SortBy from "./SortBy";
 import Limit from "./Limit";
 import ProductComponent from "./ProductComponent";
 import { useHistory } from "react-router-dom";
+
 const ProductList = (props) => {
   const { categorySlug, keyword, pageNumber, limit } = props;
   const dispatch = useDispatch();
@@ -28,6 +29,7 @@ const ProductList = (props) => {
   const loadData = useCallback(() => {
     dispatch(listProducts(keyword, categorySlug, pageNumber, ratingFilter, minPrice, maxPrice, sortBy, limit));
     dispatch(listCategory());
+    setCategoryFilter(categorySlug ?? "");
   }, [dispatch, keyword, categorySlug, pageNumber, ratingFilter, minPrice, maxPrice, , sortBy, limit]);
 
   useEffect(() => {
@@ -51,7 +53,7 @@ const ProductList = (props) => {
         <div className="section">
           <div className="row">
             <div className="col-lg-12 col-md-12  article">
-              <div className="shopcontainer row ">
+              <div className="shopcontainer row " style={{ borderTop: "20px solid #f0f0f0" }}>
                 {/* Search and products quantity */}
                 <div className="search__category row">
                   <div className="col-lg-6 col-md-6 col-5">
@@ -65,7 +67,7 @@ const ProductList = (props) => {
                   </div>
                 </div>
                 {/* Show products */}
-                <div className="row col-lg-12 col-md-12 col-12">
+                <div className="row col-lg-12 col-md-12 col-12" style={{ borderBottom: "40px solid #f0f0f0" }}>
                   <div className="find-product col-lg-2 col-md-4 col-3">
                     <Filter
                       category={category}

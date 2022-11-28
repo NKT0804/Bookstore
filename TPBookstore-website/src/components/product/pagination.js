@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 const Pagination = (props) => {
   const { page, pages, keyword = "", limit, categorySlug = "" } = props;
+
   const previousPageQuery = `&p=${page > 1 ? page - 1 : page}`;
   const nextPageQuery = `&p=${page < pages ? page + 1 : pages}`;
   const baseQuery = keyword
@@ -13,6 +14,7 @@ const Pagination = (props) => {
     ? `/category/${categorySlug}?`
     : `?`;
   const limitQuery = limit ? `&limit=${limit}` : "";
+
   return (
     pages > 1 && (
       <nav className="pagination-group">

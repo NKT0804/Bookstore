@@ -39,7 +39,7 @@ const UpdateSlider = ({ currentSlider, setIsEditSlider }) => {
       setIsEditSlider(false);
       dispatch(listSlider());
     }
-  }, [dispatch, setIsEditSlider, listSlider()]);
+  }, [dispatch, setIsEditSlider, success]);
   const submitHandler = () => {
     dispatch(
       updateBannerAdmin({

@@ -1,12 +1,8 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { useFormik } from "formik";
-import * as Yup from "yup";
 import Message from "../components/base/LoadingError/Error";
 import Loading from "../components/base/LoadingError/Loading";
-import { toast } from "react-toastify";
-import Toast from "../components/base/LoadingError/Toast";
 import { verifyEmail } from "../Redux/Actions/userActions";
 
 const RegisterVerify = ({ history, location, match }) => {

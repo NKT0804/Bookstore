@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { deleteProductAdmin } from "../../../Redux/Actions/productActions";
-import Rating from "../../homeComponents/Rating";
+import Rating from "../../product/Rating";
 import formatCash from "../../../utils/formatCash";
 import Modal from "../../base/modal/Modal";
 
@@ -61,7 +61,7 @@ const Product = (props) => {
           <tr className="pc-header ">
             <td>{preIndex + index + 1}</td>
             <td>
-              <img style={{ width: "70px" }} src={product?.image} alt={product?.name} />
+              <img style={{ maxWidth: "70px", minWidth: "70px" }} src={product?.image} alt={product?.name} />
             </td>
             <td>
               <b alt={product?.name}>

@@ -1,22 +1,9 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { listProductsAdmin } from "../../../Redux/Actions/productActions";
+import React from "react";
 import formatCash from "../../../utils/formatCash";
-import { listUser } from "../../../Redux/Actions/userActions";
 import { Link } from "react-router-dom";
 
 const TopTotal = (props) => {
-  const dispatch = useDispatch();
-  const productListAdmin = useSelector((state) => state.productListAdmin);
-  const { total: totalProduct } = productListAdmin;
-
-  const userList = useSelector((state) => state.userList);
-  const { total: totalUser } = userList;
-  useEffect(() => {
-    dispatch(listUser());
-  }, [dispatch]);
-
-  const { orders } = props;
+  const { orders, totalUser, totalProduct } = props;
   let totalSale = 0;
   if (orders) {
     orders.map((order) => (order.isPaid === true ? (totalSale = totalSale + order.totalPrice) : null));

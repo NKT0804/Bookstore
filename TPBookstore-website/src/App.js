@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "../src/css/App.css";
 import "../src/css/responsive.css";
 import "./css/grid.css";
@@ -35,9 +35,6 @@ import UserDetailsScreenAdmin from "./screens/admin/UserDetailsScreen";
 import CommentScreenAdmin from "./screens/admin/CommentsScreen";
 import ProductEditScreenAdmin from "./screens/admin/ProductEditScreen";
 import { PrivateRouter, AdminPrivateRouter } from "./PrivateRouter";
-import { useDispatch, useSelector } from "react-redux";
-import { listProductsAdmin } from "./Redux/Actions/productActions";
-import { listOrders } from "./Redux/Actions/orderActions";
 import SliderBannerScreenAdmin from "./screens/admin/SliderBannerScreen";
 
 import axios from "axios";
@@ -46,16 +43,6 @@ import axios from "axios";
 // axios.defaults.baseURL = "https://tp-bookstore.herokuapp.com/";
 
 const App = () => {
-  const dispatch = useDispatch();
-  const userLogin = useSelector((state) => state.userLogin);
-  const { userInfo } = userLogin;
-  useEffect(() => {
-    if (userInfo && userInfo.isAdmin) {
-      dispatch(listProductsAdmin());
-      dispatch(listOrders());
-    }
-  }, [dispatch, userInfo]);
-
   return (
     <Router>
       <Switch>

@@ -23,8 +23,8 @@ const PlaceOrderScreen = ({ history }) => {
   const dispatch = useDispatch();
 
   const [shippingAddress, setShippingAddress] = useState("");
-  const [paymentMethod, setPaymentMethod] = useState("Thanh toán khi nhận hàng");
-
+  // const [paymentMethod, setPaymentMethod] = useState("Thanh toán khi nhận hàng");
+  const paymentMethod = "Thanh toán khi nhận hàng";
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
   const cart = useSelector((state) => {
@@ -76,12 +76,12 @@ const PlaceOrderScreen = ({ history }) => {
         )
       );
     }
-  });
+  }, [history, userInfo]);
 
   useEffect(() => {
     if (success) {
       history.push(`/order/${order._id}`);
-      toast.success("Product order success!!!", ToastObjects);
+      toast.success("Đặt hàng thành công!", ToastObjects);
     }
     if (error) {
       toast.error(error, ToastObjects);

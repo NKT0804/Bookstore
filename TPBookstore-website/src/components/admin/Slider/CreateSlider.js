@@ -34,7 +34,7 @@ const CreateSlider = () => {
       toast.error(error, ToastObjects);
       dispatch({ type: BANNER_CREATE_RESET });
     }
-  }, [success, dispatch, loading, error, listSlider()]);
+  }, [success, dispatch, loading, error]);
 
   const submitHandler = (e) => {
     e.preventDefault();

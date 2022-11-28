@@ -472,6 +472,10 @@
    min-width: 100px;
   }
 
+.btn__add-product {
+  font-size: 14px;
+}
+
   /* footer */
   .icon__footer {
     display: none;
@@ -498,7 +502,9 @@
   }
 
   /* header */
-
+  .Announcement  {
+    display: none;
+  }
   .heading-section {
     font-size: 17px !important;
   }
