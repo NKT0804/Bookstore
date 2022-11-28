@@ -36,7 +36,8 @@ const createNewCart = async (req, res) => {
 //User add to cart
 const userAddToCart = async (req, res) => {
     const userId = req.user._id || null;
-    const { productId, qty } = req.body;
+    const { productId } = req.body;
+    let { qty } = req.body;
     const cart = await Cart.findOne({ user: userId });
     if (!cart) {
         res.status(404);
@@ -47,15 +48,18 @@ const userAddToCart = async (req, res) => {
         res.status(400);
         throw new Error("Số lượng sản phẩm thêm phải lớn hơn 0!");
     }
+    const product = await Product.findOne({ _id: productId, isDisabled: false });
     let addedItemIndex = cart.cartItems.findIndex((item) => item.product.toString() == productId.toString());
     if (addedItemIndex !== -1) {
         cart.cartItems[addedItemIndex].qty += qty;
+        if (cart.cartItems[addedItemIndex].qty > product.countInStock)
+            cart.cartItems[addedItemIndex].qty = product.countInStock;
     } else {
-        const product = await Product.findOne({ _id: productId, isDisabled: false });
         if (!product) {
             res.status(404);
             throw new Error("Sản phẩm không tồn tại!");
         }
+        if (qty > product.countInStock) qty = product.countInStock;
         const cartItem = {
             product: productId,
             qty: qty
