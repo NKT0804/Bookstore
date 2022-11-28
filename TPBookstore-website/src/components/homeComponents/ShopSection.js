@@ -32,7 +32,7 @@ const ShopSection = (props) => {
       <div className="container all-products">
         <div className="section">
           <div className="row">
-            <div className="col-lg-12 col-md-12  article">
+            <div className="col-lg-12 col-md-12 article">
               <div className="shopcontainer">
                 {/* list category */}
                 <ul className="list__category">
@@ -54,7 +54,7 @@ const ShopSection = (props) => {
                 {/* Show products */}
                 <div className="row justify-content-center mx-0 col-lg-12 col-md-12 col-12">
                   {/* Show all products */}
-                  <div className="col-lg-12 col-md-8 col-9 row product-container ">
+                  <div className="col-lg-12 col-md-12 col-9 row product-container ">
                     {loading && <Loading />}
                     {loading ? (
                       productList?.map((product) => {
@@ -137,18 +137,9 @@ const ShopSection = (props) => {
                     )}
                   </div>
                 </div>
-                <div style={{ display: "flex", justifyContent: "center", margin: "12px" }}>
+                <div className="show__product-more ">
                   <Link to="/products">
-                    <button
-                      type="button"
-                      style={{
-                        textAlign: "center",
-                        border: "#4ac4fa solid 3px",
-                        borderRadius: "4px",
-                        padding: "8px 20px",
-                        backgroundColor: "white"
-                      }}
-                    >
+                    <button className="show__product-more-btn" type="button">
                       Xem thêm
                     </button>
                   </Link>

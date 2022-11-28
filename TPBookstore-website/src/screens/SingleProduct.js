@@ -308,20 +308,23 @@ const SingleProduct = ({ history, match }) => {
                         ))}
                       </select>
                     </div>
-                    <button
-                      onClick={handleAddToCart}
-                      disabled={!product.countInStock || !product.countInStock > 0}
-                      className="round-black-btn"
-                    >
-                      Thêm vào giỏ hàng
-                    </button>
-                    <button
-                      onClick={handleBuyNow}
-                      disabled={!product.countInStock || !product.countInStock > 0}
-                      className="round-black-btn"
-                    >
-                      Mua ngay
-                    </button>
+                    <div className="d-flex">
+                      <button
+                        onClick={handleAddToCart}
+                        disabled={!product.countInStock || !product.countInStock > 0}
+                        className="btn__add-product round-black-btn"
+                      >
+                        <i class="fas fa-cart-plus mx-1" style={{ fontSize: "18px" }}></i>
+                        Thêm vào giỏ hàng
+                      </button>
+                      <button
+                        onClick={handleBuyNow}
+                        disabled={!product.countInStock || !product.countInStock > 0}
+                        className="round-black-btn"
+                      >
+                        Mua ngay
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>

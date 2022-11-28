@@ -19,7 +19,7 @@ const CategoryList = () => {
 
   return (
     <div className="col-md-1 icon__menu-product ">
-      <i class="far fa-bars"></i>
+      <img className="icon__image" src="https://cdn-icons-png.flaticon.com/128/2948/2948037.png" />
       <div className="list-category-header">
         <div className="row py-2">
           <h3 className="mx-4 py-2">DANH MỤC SẢN PHẨM</h3>

@@ -60,6 +60,26 @@ const ProductComponent = (props) => {
                     </p>
                   </div>
                 </div>
+
+                {/*Price on Mobile */}
+                <div className="shoptext__price__mobile">
+                  <p className="shoptext__price-special">
+                    <span className="shoptext__price-special-new">{formatCash(product.priceSale)}</span>
+
+                    {product.priceSale < product.price ? (
+                      <span className="shoptext__price-special-discount">
+                        -{Math.round(100 - (product.priceSale / product.price) * 100)}%
+                      </span>
+                    ) : (
+                      <></>
+                    )}
+                  </p>
+                  {product.priceSale < product.price ? (
+                    <p className="shoptext__price-old mx-1">{formatCash(product.price)}</p>
+                  ) : (
+                    <></>
+                  )}
+                </div>
               </div>
             </div>
           ))

@@ -61,7 +61,7 @@ const Product = (props) => {
           <tr className="pc-header ">
             <td>{preIndex + index + 1}</td>
             <td>
-              <img style={{ width: "70px" }} src={product?.image} alt={product?.name} />
+              <img style={{ maxWidth: "70px", minWidth: "70px" }} src={product?.image} alt={product?.name} />
             </td>
             <td>
               <b alt={product?.name}>

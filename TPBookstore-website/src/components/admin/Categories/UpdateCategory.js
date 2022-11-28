@@ -39,8 +39,8 @@ const UpdateCategory = ({ currentCategory, setIsEditCategory }) => {
   return (
     <>
       <Modal
-        modalTitle={"Cập nhật Banner"}
-        modalBody={"Bạn có chắc muốn cập nhật danh muc này?"}
+        modalTitle={"Cập nhật danh mục sản phẩm"}
+        modalBody={"Bạn có chắc muốn cập nhật danh mục này?"}
         btnTitle={"Lưu thay đổi"}
         btnType={"confirm"}
         handler={submitHandler}
