@@ -51,12 +51,12 @@ const CommentComponent = () => {
                       <Link to={`/product/${item.product}`}>{item.content}</Link>
                     </td>
                     <td>
-                      <img
+                      {/* <img
                         className="img-xs rounded-circle p-1"
                         src={item.user.avatarUrl}
                         onError={onAvatarLoadError}
                         alt="User avatar"
-                      />
+                      /> */}
                       {item.user.name}
                     </td>
                     <td>{moment(item.createdAt).format("LT") + ", " + moment(item.createdAt).format("DD/MM/yyyy")}</td>
