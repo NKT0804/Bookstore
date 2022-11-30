@@ -178,7 +178,7 @@ const SingleProduct = ({ history, match }) => {
   };
   const onAvatarLoadError = (e) => {
     e.currentTarget.onerror = null; // prevents looping
-    e.currentTarget.src = "../images/avatar/default.png";
+    e.currentTarget.src = "../images/avatar/default1.png";
   };
 
   const settings = {
@@ -249,7 +249,8 @@ const SingleProduct = ({ history, match }) => {
                         <label>Nhà cung cấp:&nbsp;</label> <b>{product.supplier}</b>
                       </span>
                       <span>
-                        <label>Tác giả:&nbsp;</label> <b>{product.author}</b>
+                        <label>Tác giả:&nbsp;</label>
+                        <b>{product.author?.length > 22 ? `${product.author.slice(0, 22)}...` : `${product.author}`}</b>
                       </span>
                     </div>
                     <div className="product-manuafactures__item">
@@ -288,11 +289,13 @@ const SingleProduct = ({ history, match }) => {
                     </div>
                     <div className="flex-box d-flex justify-content-between align-items-center">
                       <h6>Đánh giá</h6>
-                      <Rating
-                        value={product.rating}
-                        numRating={product.rating}
-                        text={`  ${product.numReviews} Đánh giá`}
-                      />
+                      <a href="#review">
+                        <Rating
+                          value={product.rating}
+                          numRating={product.rating}
+                          text={`  ${product.numReviews} Đánh giá`}
+                        />
+                      </a>
                     </div>
                     <div className="flex-box d-flex justify-content-between align-items-center">
                       <h6>Số lượng</h6>
@@ -388,7 +391,7 @@ const SingleProduct = ({ history, match }) => {
             </div>
 
             {/* RATING */}
-            <div className="row my-5 bg-w pd-y">
+            <div className="row my-5 bg-w pd-y" id="review">
               <div className="col-md-6">
                 <span className="d-flex align-items-center">
                   <h6 className="mx-1">ĐÁNH GIÁ</h6>
@@ -440,9 +443,8 @@ const SingleProduct = ({ history, match }) => {
                       </select>
                     </div>
                     <div className="my-4">
-                      <strong>Đánh giá chi tiết</strong>
                       <textarea
-                        row="3"
+                        row="5"
                         value={reviewContent}
                         onChange={(e) => setReviewContent(e.target.value)}
                         className="col-12 bg-light p-3 mt-2 border-1 rounded"

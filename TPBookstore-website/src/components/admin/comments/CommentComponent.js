@@ -13,7 +13,7 @@ const CommentComponent = () => {
   const { comments } = getAllComment;
   const onAvatarLoadError = (e) => {
     e.currentTarget.onerror = null; // prevents looping
-    e.currentTarget.src = "../images/avatar/default.png";
+    e.currentTarget.src = "../images/avatar/default1.png";
   };
 
   const loadDataComment = useCallback(() => {

@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Toast from "./../base/LoadingError/Toast";

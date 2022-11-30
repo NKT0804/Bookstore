@@ -78,6 +78,7 @@
   .cart-mobile-icon i {
     font-size: 13px;
     margin-left: 10px;
+    margin-top : 4px;
   }
   .btn-group button {
     font-size: 12px;
@@ -271,7 +272,16 @@
     padding-left: 12px;
   }
 
+/* Loading pages */
+.loader__logo {
+  margin-top: -118px;
+  margin-left: -54px;
+}
 
+.loader img {
+  margin-top: -106px;
+  margin-left: -47px;
+}
 
 }
 
@@ -354,7 +364,7 @@
   /* Shop text */
   .shoptext {
     font-size: 14px;
-    height: 140px;
+    height: 80px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -505,6 +515,12 @@
   .Announcement  {
     display: none;
   }
+
+  .badge {
+     top: -5px;
+     right: -12px;
+  }
+
   .heading-section {
     font-size: 17px !important;
   }
@@ -790,4 +806,13 @@
   margin-left: 140px;
 }
 
+
+/* Loading pages */
+.loader__logo {
+  margin-left: -70px;
+}
+
+.loader img {
+  margin-left: -62px;
+}
 }

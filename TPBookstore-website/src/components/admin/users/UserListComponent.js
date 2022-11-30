@@ -19,7 +19,7 @@ const UserListComponent = (props) => {
 
   const onAvatarLoadError = (e) => {
     e.currentTarget.onerror = null; // prevents looping
-    e.currentTarget.src = `${window.location.origin}/images/avatar/default.png`;
+    e.currentTarget.src = `${window.location.origin}/images/avatar/default1.png`;
   };
   useEffect(() => {
     dispatch(listUser(keyword, status, limit, pageNumber));

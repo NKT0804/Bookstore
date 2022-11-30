@@ -26,7 +26,7 @@ const ProductComponent = (props) => {
           <Message variant="alert-danger">{error}</Message>
         ) : (
           products?.map((product) => (
-            <div className="col-lg-3 col-md-6" key={product._id}>
+            <div className="col-lg-3 col-md-6 c-6" key={product._id}>
               <div className="shadow p-3 mb-4 bg-body border border-1 rounded">
                 <Link to={`/product/${product.slug}`}>
                   <div className="shopBack main-effect">
