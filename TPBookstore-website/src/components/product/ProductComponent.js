@@ -11,11 +11,11 @@ const ProductComponent = (props) => {
   return (
     <>
       <div className="col-lg-10 col-md-8 col-9 row product-container ">
-        {loading && <Loading />}
+        {/* {loading && <Loading />} */}
         {loading ? (
-          products?.map((product) => {
+          [...Array(12).keys()]?.map((index) => {
             return (
-              <div className="col-lg-3" aria-hidden="true" key={product._id}>
+              <div className="col-lg-3" aria-hidden="true" key={index}>
                 <div className="shadow p-3 mb-4 bg-body rounded">
                   <CardProductLoading />
                 </div>

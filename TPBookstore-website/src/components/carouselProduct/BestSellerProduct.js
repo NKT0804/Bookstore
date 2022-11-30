@@ -66,9 +66,9 @@ const BestSellerProduct = () => {
           {loading && <Loading />}
           <Slider {...settings}>
             {loading
-              ? productsBestSeller?.map((product) => {
+              ? [...Array(5).keys()]?.map((index) => {
                   return (
-                    <div className="mb-5" key={product._id}>
+                    <div className="mb-5" key={index}>
                       <div className="shadow p-3 mb-4 me-2 rounded">
                         <CardProductLoading />
                       </div>

@@ -40,7 +40,7 @@ import SliderBannerScreenAdmin from "./screens/admin/SliderBannerScreen";
 import axios from "axios";
 
 //config axios base url default
-// axios.defaults.baseURL = "https://tp-bookstore.herokuapp.com/";
+axios.defaults.baseURL = "https://tp-bookstore.herokuapp.com/";
 
 const App = () => {
   return (
@@ -52,32 +52,32 @@ const App = () => {
         <Route path="/search/category/:category" component={ProductsScreen} exact />
         <Route path="/search" component={ProductsScreen} exact />
         <Route path="/product/:slug" component={SingleProduct} exact />
-        <Route path="/login" component={Login} />
+        <Route path="/login" component={Login} exact />
         <Route path="/register" component={Register} exact />
         <Route path="/register/verify/:email" component={RegisterVerify} exact />
         <Route path="/register/verify/:email/:verificationToken" component={RegisterVerify} exact />
         <Route path="/forgotPassword" component={ForgotPassword} exact />
         <Route path="/resetPassword/:resetPasswordToken" component={ResetPassword} exact />
-        <PrivateRouter path="/profile" component={ProfileScreen} />
-        <Route path="/cart/:id?" component={CartScreen} />
-        <PrivateRouter path="/shipping" component={ShippingScreen} />
-        <PrivateRouter path="/placeOrder" component={PlaceOrderScreen} />
-        <PrivateRouter path="/order/:id" component={OrderScreen} />
+        <PrivateRouter path="/profile" component={ProfileScreen} exact />
+        <Route path="/cart/:id?" component={CartScreen} exact />
+        <PrivateRouter path="/shipping" component={ShippingScreen} exact />
+        <PrivateRouter path="/placeOrder" component={PlaceOrderScreen} exact />
+        <PrivateRouter path="/order/:id" component={OrderScreen} exact />
 
         {/* ADMIN */}
         <AdminPrivateRouter path="/admin" component={HomeScreenAdmin} exact />
         <AdminPrivateRouter path="/admin/products" component={ProductScreenAdmin} exact />
         {/* <AdminPrivateRouter path="/admin/search/:keyword" component={ProductScreenAdmin} exact /> */}
 
-        <AdminPrivateRouter path="/admin/product/:id/edit" component={ProductEditScreenAdmin} />
-        <AdminPrivateRouter path="/admin/addProduct" component={AddProductAdmin} />
-        <AdminPrivateRouter path="/admin/category" component={CategoriesScreenAdmin} />
-        <AdminPrivateRouter path="/admin/orders" component={OrderScreenAdmin} />
-        <AdminPrivateRouter path="/admin/order/:id" component={OrderDetailScreenAdmin} />
-        <AdminPrivateRouter path="/admin/users" component={UsersScreenAdmin} />
-        <AdminPrivateRouter path="/admin/user/:id" component={UserDetailsScreenAdmin} />
-        <AdminPrivateRouter path="/admin/slider-banner/" component={SliderBannerScreenAdmin} />
-        <AdminPrivateRouter path="/admin/comments" component={CommentScreenAdmin} />
+        <AdminPrivateRouter path="/admin/product/:id/edit" component={ProductEditScreenAdmin} exact />
+        <AdminPrivateRouter path="/admin/addProduct" component={AddProductAdmin} exact />
+        <AdminPrivateRouter path="/admin/category" component={CategoriesScreenAdmin} exact />
+        <AdminPrivateRouter path="/admin/orders" component={OrderScreenAdmin} exact />
+        <AdminPrivateRouter path="/admin/order/:id" component={OrderDetailScreenAdmin} exact />
+        <AdminPrivateRouter path="/admin/users" component={UsersScreenAdmin} exact />
+        <AdminPrivateRouter path="/admin/user/:id" component={UserDetailsScreenAdmin} exact />
+        <AdminPrivateRouter path="/admin/slider-banner/" component={SliderBannerScreenAdmin} exact />
+        <AdminPrivateRouter path="/admin/comments" component={CommentScreenAdmin} exact />
         <Route path="*" component={NotFound} />
       </Switch>
     </Router>
