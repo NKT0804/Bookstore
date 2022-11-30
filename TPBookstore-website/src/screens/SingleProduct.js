@@ -131,12 +131,12 @@ const SingleProduct = ({ history, match }) => {
 
   useEffect(() => {
     if (errorAddToCart) {
-      toast.error(errorAddToCart, ToastObjects);
       dispatch({ type: ADD_TO_CART_RESET });
+      toast.error(errorAddToCart, ToastObjects);
     }
     if (successAddToCart) {
-      toast.success("Thêm sản phẩm vào giỏ hàng thành công!", ToastObjects);
       dispatch({ type: ADD_TO_CART_RESET });
+      toast.success("Thêm sản phẩm vào giỏ hàng thành công!", ToastObjects);
     }
   }, [dispatch, successAddToCart, errorAddToCart]);
   const handleAddToCart = (e) => {
@@ -157,6 +157,7 @@ const SingleProduct = ({ history, match }) => {
     if (userInfo) {
       if (qty > 0) {
         dispatch(addToCartItems(product._id, qty));
+        dispatch({ type: ADD_TO_CART_RESET });
         history.push(`/cart/${product._id}?qty=${qty}`);
       } else {
         dispatch({ type: ADD_TO_CART_FAIL });

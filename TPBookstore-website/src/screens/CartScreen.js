@@ -130,13 +130,13 @@ const CartScreen = ({ history }) => {
                   </div>
                   {/* Image */}
                   <div className="cart-itemPC-image col-lg-2">
-                    <Link to={`/product/${item.product._id}`}>
+                    <Link to={`/product/${item.product.slug}`}>
                       <img src={item.product.image} alt={item.product.name} />
                     </Link>
                   </div>
                   {/* Name */}
                   <div className="cart-itemPC-text col-lg-3 col-md-5">
-                    <Link to={`/product/${item.product._id}`}>
+                    <Link to={`/product/${item.product.slug}`}>
                       <p>{item.product.name}</p>
                     </Link>
                   </div>
@@ -200,7 +200,7 @@ const CartScreen = ({ history }) => {
                   {/* Name */}
                   <div className="row col-md-7 col-7">
                     <div className="cart-itemMobile-text col-md-12 col-12">
-                      <Link to={`/product/${item.product._id}`}>
+                      <Link to={`/product/${item.product.slug}`}>
                         <p>{item.product.name}</p>
                       </Link>
                     </div>
