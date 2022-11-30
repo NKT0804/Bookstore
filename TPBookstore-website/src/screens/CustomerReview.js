@@ -29,7 +29,10 @@ const CustomerReview = () => {
             <div className="col l-4 m-6 d-flex justify-content-center">
               <div className="evaluate__user">
                 <div className="evaluate__user-img">
-                  <img src="../images/avatar/default.png" alt="" />
+                  <img
+                    src="https://allimages.sgp1.digitaloceanspaces.com/tipeduvn/2022/01/1643261883_796_Hinh-anh-anime-phong-canh-don-gian-buon-lang-man.jpg"
+                    alt=""
+                  />
                 </div>
                 <div className="evaluate__content">
                   <div className="evaluate__content-icon">
@@ -51,7 +54,7 @@ const CustomerReview = () => {
             <div className="col l-4 m-6 d-flex justify-content-center">
               <div className="evaluate__user">
                 <div className="evaluate__user-img">
-                  <img src="../images/avatar/default.png" alt="" />
+                  <img src="https://xemanhdep.com/wp-content/uploads/2013/02/3047191323_146c5bb15d_z1.jpg" alt="" />
                 </div>
                 <div className="evaluate__content">
                   <div className="evaluate__content-icon">
@@ -73,7 +76,10 @@ const CustomerReview = () => {
             <div className="col l-4 m-6 d-flex justify-content-center">
               <div className="evaluate__user">
                 <div className="evaluate__user-img">
-                  <img src="../images/avatar/default.png" alt="" />
+                  <img
+                    src="https://vintechcity.com/wp-content/uploads/2022/04/hinh-avatar-phong-canh-dep-buoi-chieu-ta.jpg"
+                    alt=""
+                  />
                 </div>
                 <div className="evaluate__content">
                   <div className="evaluate__content-icon">
@@ -86,7 +92,7 @@ const CustomerReview = () => {
                   <h3 className="evaluate__content--name">Nguyen Anh Tuan</h3>
                   <p className="evaluate__content--desc">
                     {newProduct
-                      ? newProduct[1]?.[0]?.reviewContent
+                      ? newProduct[3]?.[0]?.reviewContent
                       : `There are many meaningful books here and their prices are also very reasonable`}
                   </p>
                 </div>

@@ -48,7 +48,7 @@ const login = async (req, res) => {
             name: user.name,
             email: user.email,
             phone: user.phone,
-            avatarUrl: user.avatarUrl || "./images/avatar/default.png",
+            avatarUrl: user.avatarUrl || "./images/avatar/default1.png",
             sex: user.sex,
             birthday: user.birthday,
             address: user.address,
@@ -98,7 +98,7 @@ const register = async (req, res, next) => {
 
         const emailVerificationToken = newUser.getEmailVerificationToken();
         await newUser.save();
-        const url = `${process.env.WEB_CLIENT_URL}/register/verify/${newUser.email}/${emailVerificationToken}`;
+        const url = `${process.env.WEB_CLIENT_URL}register/verify/${newUser.email}/${emailVerificationToken}`;
         const html = `
         <div style = "margin-left : 23%" >
             <img src="https://res.cloudinary.com/nkt2001/image/upload/v1664988644/logo/logo_vd616y.png?fbclid=IwAR0hgGY9-hFxr30G2dacxHMczMGUJ6SLjddCZHy8tkqEd4FCmNL--ckVPX8"
@@ -172,7 +172,7 @@ const verifyEmail = async (req, res) => {
         name: user.name,
         email: user.email,
         phone: user.phone,
-        avatarUrl: user.avatarUrl || "./images/avatar/default.png",
+        avatarUrl: user.avatarUrl || "./images/avatar/default1.png",
         sex: user.sex,
         birthday: user.birthday,
         address: user.address,
@@ -194,7 +194,7 @@ const getProfile = async (req, res) => {
         sex: req.user.sex,
         birthday: req.user.birthday,
         address: req.user.address,
-        avatarUrl: req.user.avatarUrl || "./images/avatar/default.png",
+        avatarUrl: req.user.avatarUrl || "./images/avatar/default1.png",
         isAdmin: req.user.isAdmin,
         createAt: req.user.createAt,
         isDisabled: req.user.isDisabled
@@ -231,7 +231,7 @@ const updateProfile = async (req, res) => {
         sex: updatedUser.sex,
         birthday: updatedUser.birthday,
         address: updatedUser.address,
-        avatarUrl: updatedUser.avatarUrl || "./images/avatar/default.png",
+        avatarUrl: updatedUser.avatarUrl || "./images/avatar/default1.png",
         isAdmin: updatedUser.isAdmin,
         createAt: updatedUser.createAt,
         isDisabled: updatedUser.isDisabled,
@@ -276,7 +276,7 @@ const forgotPassword = async (req, res) => {
     const resetPasswordToken = user.getResetPasswordToken();
     await user.save();
     //send reset password email
-    const url = `${process.env.WEB_CLIENT_URL}/resetPassword/${resetPasswordToken}`;
+    const url = `${process.env.WEB_CLIENT_URL}resetPassword/${resetPasswordToken}`;
     const html = `
     <img src="https://res.cloudinary.com/nkt2001/image/upload/v1664988644/logo/logo_vd616y.png?fbclid=IwAR0hgGY9-hFxr30G2dacxHMczMGUJ6SLjddCZHy8tkqEd4FCmNL--ckVPX8"
     style ="height: 100px; margin-left: 29.5%; margin-bottom: -20px">
@@ -413,7 +413,7 @@ const uploadAvatar = async (req, res) => {
     const updateUser = await user.save();
 
     //delete old avatar
-    if (oldAvatar != "/images/avatar/default.png") {
+    if (oldAvatar != "/images/avatar/default1.png") {
         fs.unlink(path.join(__dirname, "public", oldAvatar), (err) => {
             if (err) console.log("Xóa avatar cũ không thành công:", err);
         });

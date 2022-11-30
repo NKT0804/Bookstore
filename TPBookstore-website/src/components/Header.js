@@ -43,7 +43,7 @@ const Header = () => {
 
   const onAvatarLoadError = (e) => {
     e.currentTarget.onerror = null; // prevents looping
-    e.currentTarget.src = `${window.location.origin}/images/avatar/default.png`;
+    e.currentTarget.src = `${window.location.origin}/images/avatar/default1.png`;
   };
 
   return (
@@ -122,7 +122,7 @@ const Header = () => {
                   )}
 
                   <Link to="/cart" className="cart-mobile-icon">
-                    <i className="fas fa-shopping-bag"></i>
+                    <i class="fas fa-shopping-cart" style={{ color: "#4AC4FA", fontSize: "16px" }}></i>
                     <span className="badge">{cartItems?.length}</span>
                   </Link>
                 </div>
@@ -216,7 +216,7 @@ const Header = () => {
                 )}
 
                 <Link to="/cart">
-                  <i className="fas fa-shopping-bag"></i>
+                  <i class="fas fa-shopping-cart" style={{ color: "#4AC4FA", fontSize: "20px" }}></i>
                   <span className="badge">{cartItems?.length}</span>
                 </Link>
               </div>

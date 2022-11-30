@@ -8,6 +8,7 @@ import SortBy from "./SortBy";
 import Limit from "./Limit";
 import ProductComponent from "./ProductComponent";
 import { useHistory } from "react-router-dom";
+import ReactPaginate from "react-paginate";
 
 const ProductList = (props) => {
   const { categorySlug, keyword, pageNumber, limit } = props;
@@ -47,6 +48,7 @@ const ProductList = (props) => {
     const limitQuery = limitInput ? `&limit=${limitInput}` : "";
     history.push(`${baseQuery}${limitQuery}${pageQuery}`);
   }, [pageNumber, keyword, categoryFilter, limitInput]);
+  console.log(categorySlug);
   return (
     <>
       <div className="container all-products">
