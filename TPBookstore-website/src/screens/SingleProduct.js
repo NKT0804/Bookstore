@@ -311,7 +311,7 @@ const SingleProduct = ({ history, match }) => {
                         ))}
                       </select>
                     </div>
-                    <div className="d-flex">
+                    <div className="d-flex justify-content-center">
                       {!product.isDisabled ? (
                         <>
                           <button
@@ -332,7 +332,7 @@ const SingleProduct = ({ history, match }) => {
                           </button>
                         </>
                       ) : (
-                        <div className="cart-item-qty-alert text-danger fw-bold">Sản phẩm không còn tồn tại</div>
+                        <div className="cart-item-qty-alert py-2 text-danger fw-bold">Sản phẩm không còn tồn tại</div>
                       )}
                     </div>
                   </div>

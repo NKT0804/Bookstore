@@ -10,7 +10,7 @@ const Orders = (props) => {
 
   return (
     <div className="profile__order d-flex justify-content-center align-items-center  flex-column">
-      <p className="d-flex flex-end fw-bold border-bottom border-secondary rounded">Tổng đơn hàng: {orders?.length}</p>
+      <p className="title__top-order">Tổng đơn hàng: {orders?.length}</p>
       {loading ? (
         <Loading />
       ) : error ? (
@@ -37,10 +37,15 @@ const Orders = (props) => {
                   <Link to={`/order/${order._id}`}>
                     <div className="profile__order-product-title row">
                       <p className="profile__order-product-id col-lg-12">
-                        <span className="fw-bold">Mã đơn hàng:</span>&nbsp;
-                        {order._id}&nbsp;
-                        <span className="fw-bold">Ngày đặt:</span>&nbsp;
-                        {moment(order.createdAt).format("LT") + " " + moment(order.createdAt).format("DD/MM/YYYY")}
+                        <span className="d-flex fw-bold">
+                          Mã đơn hàng:&nbsp; <p style={{ fontWeight: "400" }}>{order._id}</p>
+                        </span>
+                        <span className="d-flex fw-bold">
+                          Ngày đặt:&nbsp;
+                          <p style={{ fontWeight: "400" }}>
+                            {moment(order.createdAt).format("LT") + " " + moment(order.createdAt).format("DD/MM/YYYY")}
+                          </p>
+                        </span>
                       </p>
                     </div>
 

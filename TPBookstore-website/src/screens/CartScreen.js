@@ -158,7 +158,9 @@ const CartScreen = ({ history }) => {
                         ))}
                       </select>
                     ) : item.product.isDisabled ? (
-                      <div className="cart-item-qty-alert text-danger fw-bold">Sản phẩm không còn tồn tại</div>
+                      <div className="cart-item-qty-alert text-center text-danger fw-bold">
+                        Sản phẩm không còn tồn tại
+                      </div>
                     ) : (
                       <div className="cart-item-qty-alert text-danger fw-bold">Hết hàng</div>
                     )}

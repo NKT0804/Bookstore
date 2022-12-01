@@ -1127,9 +1127,19 @@ textarea:focus {
 
 /* Profile order */
 .profile__order {
-  background-color: var(--primary-color);
   margin-left: 12px;
 }
+
+.title__top-order {
+  padding: 12px 50px 4px 50px;
+  background-color: var(--primary-color);
+  border-top-left-radius: 120px;
+  border-top-right-radius: 120px;
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--white-color)
+}
+
 .profile__order-product {
   display: flex;
   justify-content: space-between;
@@ -1146,7 +1156,7 @@ textarea:focus {
 
 .profile__order-product-id {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   padding-bottom: 6px;
   border-bottom: 1px solid #999999;
 }
@@ -1325,10 +1335,6 @@ textarea:focus {
   font-size: 24px;
   display: flex;
   justify-content: flex-end;
-}
-
-.cart-item-qty-alert {
-  color: rgb(214, 48, 48);
 }
 
 .total {
