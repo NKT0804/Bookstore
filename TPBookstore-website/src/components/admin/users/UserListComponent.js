@@ -37,7 +37,6 @@ const UserListComponent = (props) => {
     <section className="content-main">
       <div className="content-header">
         <h2 className="content-title">Tài khoản</h2>
-        <h5 className="">Tổng tài khoản:&nbsp;{total}</h5>
         {/* <div>
           <Link to="#" className="btn btn-primary btn-size">
             <i className="material-icons md-plus"></i>Tạo tài khoản
@@ -46,7 +45,10 @@ const UserListComponent = (props) => {
       </div>
 
       <div className="card mb-4">
-        <header className="card-header">
+        <header className="card-header" style={{ backgroundColor: "#fff" }}>
+          <h5 className="title__top" style={{ top: "-48px" }}>
+            Tổng tài khoản:&nbsp;{total}
+          </h5>
           <div className="row gx-3">
             <form onSubmit={submitHandler} className="col-lg-4 col-md-6 me-auto ">
               <input

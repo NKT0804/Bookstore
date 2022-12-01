@@ -59,11 +59,13 @@ const OrderMain = (props) => {
       <Toast />
       <div className="content-header">
         <h2 className="content-title">Đơn hàng</h2>
-        <h5 className="">Tổng đơn hàng:&nbsp;{total}</h5>
       </div>
 
       <div className="card mb-4 shadow-sm">
         <header className="card-header bg-white">
+          <h5 className="title__top" style={{ top: "-48px" }}>
+            Tổng đơn hàng:&nbsp;{total}
+          </h5>
           <div className="row gx-3 py-3">
             <form onSubmit={submitHandler} className="col-lg-4 col-md-6 me-auto">
               <input

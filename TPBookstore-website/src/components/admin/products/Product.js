@@ -46,9 +46,9 @@ const Product = (props) => {
                     >
                       <i className="fas fa-pen"></i>
                     </Link>
-                    <Link to="#" data-toggle="modal" data-target="#exampleModalCenter">
+                    <Link className="text-center" to="#" data-toggle="modal" data-target="#exampleModalCenter">
                       <i
-                        className="fas fa-trash-alt col-12 btn btn-sm btn-outline-danger p-2 pb-3 col-md-6 btn-item-product"
+                        className="text-danger fas fa-trash-alt col-12 btn btn-sm btn-outline-danger p-2 pb-3 col-md-6 btn-item-product"
                         onClick={() => setProductIdDelete(product._id)}
                       ></i>
                     </Link>
@@ -58,56 +58,113 @@ const Product = (props) => {
             </div>
           </div>
 
-          <tr className="pc-header ">
-            <td>{preIndex + index + 1}</td>
-            <td>
-              <img style={{ maxWidth: "70px", minWidth: "70px" }} src={product?.image} alt={product?.name} />
-            </td>
-            <td>
-              <b alt={product?.name}>
-                {`${product?.name.lenght}>=25` ? `${product?.name.slice(0, 25)}...` : `${product?.name}`}
-              </b>
-            </td>
-            <td>
-              <Rating value={product.rating} text={`(${product.numReviews})`} />
-            </td>
-            <td>
-              <b>{product?.category.name}</b>
-            </td>
-            <td>
-              <b>{formatCash(product?.priceSale)}</b>
-            </td>
-            <td>
-              <b>{product?.countInStock}</b>
-            </td>
-            <td>
-              <b>{product?.totalSales}</b>
-            </td>
-            <td className="text-end">
-              <div className="dropdown">
-                {product.isDisabled ? (
-                  <Link className="text-success">
-                    <i className="fas fa-eye"></i>
-                  </Link>
-                ) : (
-                  <Link>
-                    <i class="fas fa-eye-slash"></i>
-                  </Link>
-                )}
-                <Link className="text-warning p-md-2" to={`/admin/product/${product._id}/edit`}>
-                  <i className="fas fa-edit"></i>
-                </Link>
-                <Link data-toggle="modal" data-target="#exampleModalCenter">
-                  <i
-                    class="fas fa-trash-alt edit__products text-danger"
-                    onClick={() => setProductIdDelete(product._id)}
-                  ></i>
-                </Link>
+          {product.isDisabled ? (
+            <tr className="pc-header">
+              <td>{preIndex + index + 1}</td>
+              <td>
+                <img style={{ maxWidth: "70px", minWidth: "70px" }} src={product?.image} alt={product?.name} />
+              </td>
+              <td>
+                <b alt={product?.name}>
+                  {`${product?.name.lenght}>=25` ? `${product?.name.slice(0, 25)}...` : `${product?.name}`}
+                </b>
+              </td>
+              <td>
+                <Rating value={product.rating} text={`(${product.numReviews})`} />
+              </td>
+              <td>
+                <b>{product?.category.name}</b>
+              </td>
+              <td>
+                <b>{formatCash(product?.priceSale)}</b>
+              </td>
+              <td>
+                <b>{product?.countInStock}</b>
+              </td>
+              <td>
+                <b>{product?.totalSales}</b>
+              </td>
+              <td className="text-end">
+                <div className="dropdown">
+                  {product.isDisabled ? (
+                    <div className="text-center">
+                      <Link className="text-success">
+                        <i className="fas fa-eye"></i>
+                      </Link>
+                    </div>
+                  ) : (
+                    <Link>
+                      <i class="fas fa-eye-slash"></i>
+                    </Link>
+                  )}
+                  <div className="text-center">
+                    <Link className="text-warning p-md-2" to={`/admin/product/${product._id}/edit`}>
+                      <i className="fas fa-edit"></i>
+                    </Link>
+                    <Link className="" data-toggle="modal" data-target="#exampleModalCenter">
+                      <i
+                        class="fas fa-trash-alt edit__products text-danger"
+                        onClick={() => setProductIdDelete(product._id)}
+                      ></i>
+                    </Link>
+                  </div>
 
-                <div className="dropdown-menu"></div>
-              </div>
-            </td>
-          </tr>
+                  <div className="dropdown-menu"></div>
+                </div>
+              </td>
+            </tr>
+          ) : (
+            <tr className="pc-header status-disabled">
+              <td>{preIndex + index + 1}</td>
+              <td>
+                <img style={{ maxWidth: "70px", minWidth: "70px" }} src={product?.image} alt={product?.name} />
+              </td>
+              <td>
+                <b alt={product?.name}>
+                  {`${product?.name.lenght}>=25` ? `${product?.name.slice(0, 25)}...` : `${product?.name}`}
+                </b>
+              </td>
+              <td>
+                <Rating value={product.rating} text={`(${product.numReviews})`} />
+              </td>
+              <td>
+                <b>{product?.category.name}</b>
+              </td>
+              <td>
+                <b>{formatCash(product?.priceSale)}</b>
+              </td>
+              <td>
+                <b>{product?.countInStock}</b>
+              </td>
+              <td>
+                <b>{product?.totalSales}</b>
+              </td>
+              <td className="text-end">
+                <div className="dropdown">
+                  {product.isDisabled ? (
+                    <Link className="text-success">
+                      <i className="fas fa-eye"></i>
+                    </Link>
+                  ) : (
+                    <Link>
+                      <i class="fas fa-eye-slash"></i>
+                    </Link>
+                  )}
+                  <Link className="text-warning p-md-2" to={`/admin/product/${product._id}/edit`}>
+                    <i className="fas fa-edit"></i>
+                  </Link>
+                  <Link data-toggle="modal" data-target="#exampleModalCenter">
+                    <i
+                      class="fas fa-trash-alt edit__products text-danger"
+                      onClick={() => setProductIdDelete(product._id)}
+                    ></i>
+                  </Link>
+
+                  <div className="dropdown-menu"></div>
+                </div>
+              </td>
+            </tr>
+          )}
         </>
       ))}
     </>

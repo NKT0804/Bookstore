@@ -157,6 +157,10 @@
     .admin__sliders-banner-table-content td>img {
         width : 100%;
       }
+
+    .card-product-grid {
+        width: 366px;
+    }
     
 }
 
