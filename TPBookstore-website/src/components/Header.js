@@ -7,10 +7,10 @@ import { listBanner } from "../Redux/Actions/bannerActions";
 import CategoryList from "./homeComponents/CategoryList";
 
 const Header = () => {
-  const [keyword, setKeyword] = useState("");
   const dispatch = useDispatch();
   let history = useHistory();
 
+  const [keyword, setKeyword] = useState("");
   const cart = useSelector((state) => {
     return state.cartListItem.cartUser ?? state.cartListItem;
   });
@@ -19,11 +19,16 @@ const Header = () => {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
+  const userDetails = useSelector((state) => state.userDetails);
+  const { user } = userDetails;
+
   const bannerList = useSelector((state) => state.bannerList);
   const { banners } = bannerList;
 
   useEffect(() => {
-    dispatch(getCartListItem());
+    if (userLogin) {
+      dispatch(getCartListItem());
+    }
     dispatch(listBanner());
   }, [dispatch]);
 
@@ -88,7 +93,7 @@ const Header = () => {
                         <Link className="dropdown-item" to="/profile">
                           Tài khoản
                         </Link>
-                        {userInfo?.isAdmin === true && (
+                        {user?.isAdmin === true && (
                           <Link className="dropdown-item" to="/admin">
                             Trang Quản trị
                           </Link>
@@ -100,15 +105,6 @@ const Header = () => {
                     </div>
                   ) : (
                     <div className="btn-group">
-                      {/* <button
-                        type="button"
-                        className="name-button dropdown-toggle"
-                        data-toggle="dropdown"
-                        aria-haspopup="true"
-                        aria-expanded="false"
-                      >
-                        <i className="fas fa-user"></i>
-                      </button> */}
                       <div className="d-flex">
                         <Link className="px-2" to="/login">
                           Đăng nhập
@@ -187,13 +183,13 @@ const Header = () => {
                       aria-haspopup="true"
                       aria-expanded="false"
                     >
-                      {`${userInfo?.name.length} >= 15` ? `  ${userInfo?.name.slice(0, 15)}` : `  ${userInfo?.name}`}
+                      {userInfo?.name?.length >= 15 ? `${userInfo?.name?.slice(0, 15)}` : `${userInfo?.name}`}
                     </button>
                     <div className="dropdown-menu">
                       <Link className="dropdown-item" to="/profile">
                         Tài khoản
                       </Link>
-                      {userInfo?.isAdmin === true && (
+                      {user?.isAdmin === true && (
                         <Link className="dropdown-item" to="/admin">
                           Trang Quản trị
                         </Link>

@@ -49,8 +49,27 @@ export const userLoginAction = (email, password) => async (dispatch) => {
       }
     };
     const { data } = await axios.post(`/api/v1/user/login`, { email, password }, config);
-    dispatch({ type: USER_LOGIN_SUCCESS, payload: data });
-    localStorage.setItem("userInfo", JSON.stringify(data));
+    dispatch({
+      type: USER_LOGIN_SUCCESS,
+      payload: {
+        _id: data._id,
+        name: data.name,
+        avatarUrl: data.avatarUrl,
+        token: data.token,
+        refreshToken: data.refreshToken
+      }
+    });
+    localStorage.setItem(
+      "userInfo",
+      JSON.stringify({
+        _id: data._id,
+        name: data.name,
+        avatarUrl: data.avatarUrl,
+        token: data.token,
+        refreshToken: data.refreshToken
+      })
+    );
+    dispatch({ type: USER_DETAILS_SUCCESS, payload: data });
   } catch (error) {
     dispatch({
       type: USER_LOGIN_FAIL,
@@ -64,9 +83,7 @@ export const logout = () => (dispatch) => {
   localStorage.removeItem("userInfo");
   dispatch({ type: USER_LOGOUT });
   dispatch({ type: USER_DETAILS_RESET });
-  // dispatch({ type: USER_LIST_RESET });
   document.location.href = "/login";
-  // localStorage.setItem("cartItems", JSON.stringify([]));
 };
 
 export const refreshToken = () => async (dispatch, getState) => {
@@ -98,7 +115,7 @@ export const userRegisterAction = (history, name, email, phone, password) => asy
         "Content-type": "application/json"
       }
     };
-    const { data } = await axios.post(`/api/v1/user`, { name, email, phone, password }, config);
+    await axios.post(`/api/v1/user`, { name, email, phone, password }, config);
 
     dispatch({ type: USER_REGISTER_VERIFY });
     history.push(`/register/verify/${email}`);

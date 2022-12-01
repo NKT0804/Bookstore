@@ -123,8 +123,8 @@ const CartScreen = ({ history }) => {
                       name="checkboxBuy"
                       id={item.product._id}
                       checked={item.isBuy}
-                      hidden={item.product?.countInStock <= 0}
-                      disabled={item.product?.countInStock <= 0}
+                      hidden={item.product?.countInStock <= 0 || item.product.isDisabled}
+                      disabled={item.product?.countInStock <= 0 || item.product.isDisabled}
                       onChange={(e) => updateFromCartHandler(item.product._id, item.qty, e.target.checked)}
                     />
                   </div>
@@ -146,7 +146,7 @@ const CartScreen = ({ history }) => {
                   </div>
                   {/* Quantity */}
                   <div className="cart-itemPC-qty col-lg-1">
-                    {item.product.countInStock > 0 ? (
+                    {item.product.countInStock > 0 && !item.product.isDisabled ? (
                       <select
                         value={item.qty}
                         onChange={(e) => updateFromCartHandler(item.product._id, Number(e.target.value), item.isBuy)}
@@ -157,6 +157,8 @@ const CartScreen = ({ history }) => {
                           </option>
                         ))}
                       </select>
+                    ) : item.product.isDisabled ? (
+                      <div className="cart-item-qty-alert text-danger fw-bold">Sản phẩm không còn tồn tại</div>
                     ) : (
                       <div className="cart-item-qty-alert text-danger fw-bold">Hết hàng</div>
                     )}
@@ -184,14 +186,14 @@ const CartScreen = ({ history }) => {
                         name="checkboxBuy"
                         id={item.product._id}
                         checked={item.isBuy}
-                        hidden={item.product?.countInStock <= 0}
-                        disabled={item.product?.countInStock <= 0}
+                        hidden={item.product?.countInStock <= 0 || item.product.isDisabled}
+                        disabled={item.product?.countInStock <= 0 || item.product.isDisabled}
                         onChange={(e) => updateFromCartHandler(item.product._id, item.qty, e.target.checked)}
                       />
                     </div>
                     {/* Image */}
                     <div className="cart-itemMobile-image col-md-8 col-9">
-                      <Link to={`/product/${item.product._id}`}>
+                      <Link to={`/product/${item.product.slug}`}>
                         <img src={item.product.image} alt={item.product.name} />
                       </Link>
                     </div>
@@ -210,7 +212,7 @@ const CartScreen = ({ history }) => {
                     </div>
                     {/* Quantity */}
                     <div className="cart-itemMobile-qty col-md-4 col-5">
-                      {item.product.countInStock > 0 ? (
+                      {item.product.countInStock > 0 && !item.product.isDisabled ? (
                         <select
                           value={item.qty}
                           onChange={(e) => updateFromCartHandler(item.product._id, Number(e.target.value), item.isBuy)}
@@ -221,6 +223,8 @@ const CartScreen = ({ history }) => {
                             </option>
                           ))}
                         </select>
+                      ) : item.product.isDisabled ? (
+                        <div className="cart-item-qty-alert text-danger fw-bold">Sản phẩm không còn tồn tại</div>
                       ) : (
                         <div className="cart-item-qty-alert text-danger fw-bold">Hết hàng</div>
                       )}

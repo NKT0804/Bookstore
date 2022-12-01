@@ -23,7 +23,7 @@ import {
   PRODUCT_UPDATE_COMMENT_RESET,
   PRODUCT_UPDATE_COMMENT_SUCCESS
 } from "../Redux/Constants/productConstants";
-import { addToCartItems } from "../Redux/Actions/cartActions";
+import { addToCartItems, getCartListItem } from "../Redux/Actions/cartActions";
 import { ADD_TO_CART_FAIL, ADD_TO_CART_RESET } from "../Redux/Constants/cartConstants";
 import ProductComment from "../components/product/ProductComment";
 import { toast } from "react-toastify";
@@ -70,7 +70,7 @@ const SingleProduct = ({ history, match }) => {
   const notifiUpdateProductComment = useSelector((state) => state.productUpdateComment);
   const { success: successUpdateComment, error: errorUpdateComment } = notifiUpdateProductComment;
   const addToCart = useSelector((state) => state.addToCart);
-  const { success: successAddToCart, error: errorAddToCart } = addToCart;
+  const { success: successAddToCart, error: errorAddToCart, loading: loadingAddToCart } = addToCart;
   const loadListCommentProduct = useCallback(() => {
     if (product) {
       dispatch(listCommentProduct(product._id));
@@ -135,6 +135,7 @@ const SingleProduct = ({ history, match }) => {
       toast.error(errorAddToCart, ToastObjects);
     }
     if (successAddToCart) {
+      dispatch(getCartListItem());
       dispatch({ type: ADD_TO_CART_RESET });
       toast.success("Thêm sản phẩm vào giỏ hàng thành công!", ToastObjects);
     }
@@ -144,7 +145,6 @@ const SingleProduct = ({ history, match }) => {
     if (userInfo) {
       if (qty > 0) {
         dispatch(addToCartItems(product._id, qty));
-        // history.push(`/cart/${product._id}?qty=${qty}`);
       } else {
         dispatch({ type: ADD_TO_CART_FAIL });
       }
@@ -301,7 +301,7 @@ const SingleProduct = ({ history, match }) => {
                       <h6>Số lượng</h6>
                       <select
                         value={qty}
-                        disabled={!product.countInStock || !product.countInStock > 0}
+                        disabled={!product.countInStock || !product.countInStock > 0 || product.isDisabled}
                         onChange={(e) => setQty(e.target.value)}
                       >
                         {[...Array(product.countInStock).keys()].map((x) => (
@@ -312,21 +312,28 @@ const SingleProduct = ({ history, match }) => {
                       </select>
                     </div>
                     <div className="d-flex">
-                      <button
-                        onClick={handleAddToCart}
-                        disabled={!product.countInStock || !product.countInStock > 0}
-                        className="btn__add-product round-black-btn"
-                      >
-                        <i class="fas fa-cart-plus mx-1" style={{ fontSize: "18px" }}></i>
-                        Thêm vào giỏ hàng
-                      </button>
-                      <button
-                        onClick={handleBuyNow}
-                        disabled={!product.countInStock || !product.countInStock > 0}
-                        className="round-black-btn"
-                      >
-                        Mua ngay
-                      </button>
+                      {!product.isDisabled ? (
+                        <>
+                          <button
+                            onClick={handleAddToCart}
+                            disabled={!product.countInStock || !product.countInStock > 0 || product.isDisabled}
+                            className="btn__add-product round-black-btn"
+                          >
+                            {loadingAddToCart && <Loading />}
+                            <i class="fas fa-cart-plus mx-1" style={{ fontSize: "18px" }}></i>
+                            Thêm vào giỏ hàng
+                          </button>
+                          <button
+                            onClick={handleBuyNow}
+                            disabled={!product.countInStock || !product.countInStock > 0 || product.isDisabled}
+                            className="round-black-btn"
+                          >
+                            Mua ngay
+                          </button>
+                        </>
+                      ) : (
+                        <div className="cart-item-qty-alert text-danger fw-bold">Sản phẩm không còn tồn tại</div>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -474,7 +481,7 @@ const SingleProduct = ({ history, match }) => {
             </div>
             {/* Related products */}
             <div className="ralated-product-list pd-y">
-              {relatedProducts?.length > 0 && <h3 className="mb-3 px-3">Danh mục sản phẩm liên quan</h3>}
+              {relatedProducts?.length > 0 && <h3 className="mb-3 px-3">Sản phẩm tương tự</h3>}
               <div className="col-8 row related-product-container">
                 {loading ? (
                   <div className="mb-5 mt-5">

@@ -173,10 +173,7 @@ const getProducts = async (req, res) => {
 //Non-user, user get product by slug
 const getDetailProductBySlug = async (req, res) => {
     const productSlug = req.params.slug || null;
-    const product = await Product.findOne({ slug: productSlug, isDisabled: false }).populate(
-        "reviews.user",
-        "name avatarUrl"
-    );
+    const product = await Product.findOne({ slug: productSlug }).populate("reviews.user", "name avatarUrl");
     if (!product) {
         res.status(404);
         throw new Error("Sản phẩm không tồn tại!");
