@@ -453,8 +453,8 @@ textarea:focus {
 .show__product-more-btn {
   text-align: center;
   border: #4ac4fa solid 3px;
-  border-radius: 4px;
-  padding: 8px 12px;
+  border-radius: 30px;
+  padding: 8px 75px;
   background-color: var(--white-color);
 }
 
