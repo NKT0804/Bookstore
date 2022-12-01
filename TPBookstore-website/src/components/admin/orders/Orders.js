@@ -72,11 +72,20 @@ const Orders = (props) => {
                   )}
                 </td>
                 <td className="d-flex justify-content-end align-item-center">
-                  <Link to={`/admin/order/${order._id}`} className="text-success">
-                    <i className="fas fa-eye"></i>
-                  </Link>
+                  {order.isDisabled ? (
+                    <Link className="text-success">
+                      <i className="fas fa-eye"></i>
+                    </Link>
+                  ) : (
+                    <Link>
+                      <i class="fas fa-eye-slash"></i>
+                    </Link>
+                  )}
                   <Link data-toggle="modal" data-target="#exampleModalCenter">
                     <i class="text-danger fas fa-trash-alt ms-3" onClick={() => setOrderIdDelete(order._id)}></i>
+                  </Link>
+                  <Link to={`/admin/order/${order._id}`}>
+                    <i class="fas fa-ellipsis-h ms-3"></i>
                   </Link>
                 </td>
               </tr>

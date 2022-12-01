@@ -43,12 +43,12 @@ const CommentComponent = () => {
                   <tr key={item._id}>
                     <td>{index + 1}</td>
                     <td>
-                      <Link className="btn-link" to={`/product/${item.product}`}>
-                        {item.product}
+                      <Link className="link" to={`/product/${item.product.slug}`}>
+                        {item.product.name}
                       </Link>
                     </td>
                     <td>
-                      <Link to={`/product/${item.product}`}>{item.content}</Link>
+                      <Link to={`/product/${item.product.slug}`}>{item.content}</Link>
                     </td>
                     <td>
                       {/* <img
@@ -57,7 +57,7 @@ const CommentComponent = () => {
                         onError={onAvatarLoadError}
                         alt="User avatar"
                       /> */}
-                      {item.user.name}
+                      <b>{item.user.name.length >= 15 ? `${item.user.name.slice(0, 15)}...` : `${item.user.name}`}</b>
                     </td>
                     <td>{moment(item.createdAt).format("LT") + ", " + moment(item.createdAt).format("DD/MM/yyyy")}</td>
                   </tr>

@@ -7,8 +7,12 @@ const PaginationAdmin = (props) => {
   const nextPageQuery = `&p=${page < pages ? page + 1 : pages}`;
   const keywordQuery = keyword ? `?q=${keyword}` : "?";
 
-  let listPages = [...Array(pages).keys()];
-  if (pages > 5) {
+  let listPages = [];
+  if (pages <= 5) {
+    for (let i = 1; i <= pages; i++) {
+      listPages.push(i);
+    }
+  } else {
     listPages = [];
     if (page < 3) {
       listPages.push(1, 2, 3, "...", pages);
@@ -22,7 +26,6 @@ const PaginationAdmin = (props) => {
       listPages.push(1, "...", page - 1, page, page + 1, "...", pages);
     }
   }
-
   return (
     pages > 1 && (
       <nav className="pagination-group">
@@ -45,13 +48,6 @@ const PaginationAdmin = (props) => {
               </li>
             )
           )}
-          {/* {[...Array(pages).keys()].map((x) => (
-            <li className={`page-item ${x + 1 === page ? "active" : ""}`} key={x + 1}>
-              <Link className="page-link" to={`${basePath}${keywordQuery}&p=${x + 1}`}>
-                {x + 1}
-              </Link>
-            </li>
-          ))} */}
         </ul>
         <div className="icon-right">
           <Link to={`${basePath}${keywordQuery}${nextPageQuery}`}>

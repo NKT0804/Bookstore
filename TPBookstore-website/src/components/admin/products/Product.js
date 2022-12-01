@@ -85,7 +85,15 @@ const Product = (props) => {
             </td>
             <td className="text-end">
               <div className="dropdown">
-                {/* <i className="fas fa-ellipsis-h"></i> */}
+                {product.isDisabled ? (
+                  <Link className="text-success">
+                    <i className="fas fa-eye"></i>
+                  </Link>
+                ) : (
+                  <Link>
+                    <i class="fas fa-eye-slash"></i>
+                  </Link>
+                )}
                 <Link className="text-warning p-md-2" to={`/admin/product/${product._id}/edit`}>
                   <i className="fas fa-edit"></i>
                 </Link>

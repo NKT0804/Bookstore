@@ -27,7 +27,7 @@ const OrderMain = (props) => {
   const [searchById, setSearchById] = useState("");
 
   const orderListAdmin = useSelector((state) => state.orderListAdmin);
-  const { loading, error, orders, page, pages } = orderListAdmin;
+  const { loading, error, orders, page, pages, total } = orderListAdmin;
 
   const deleteOrder = useSelector((state) => state.orderDeleteAdmin);
   const { success: successDelOrder, error: errorDelOrder } = deleteOrder;
@@ -59,6 +59,7 @@ const OrderMain = (props) => {
       <Toast />
       <div className="content-header">
         <h2 className="content-title">Đơn hàng</h2>
+        <h5 className="">Tổng đơn hàng:&nbsp;{total}</h5>
       </div>
 
       <div className="card mb-4 shadow-sm">
@@ -83,6 +84,8 @@ const OrderMain = (props) => {
                 <option value={"paid"}>Đã thanh toán</option>
                 <option value={"unpaid"}>Chưa thanh toán</option>
                 <option value={"cancelled"}>Đã hủy</option>
+                <option value={"notDisable"}>Chưa bị ẩn</option>
+                <option value={"disabled"}>Đã bị ẩn</option>
               </select>
             </div>
             <div className="col-lg-2 col-6 col-md-3">

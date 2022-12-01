@@ -27,9 +27,10 @@ const MainProducts = React.memo((props) => {
   const [categoryFilterAdmin, setCategoryFilterAdmin] = useState("");
   const [sortBy, setSortBy] = useState("newest");
   const [limit, setLimit] = useState(10);
+  const [status, setStatus] = useState("all");
 
   const productListAdmin = useSelector((state) => state.productListAdmin);
-  const { loading, error, products, page, pages } = productListAdmin;
+  const { loading, error, products, page, pages, total } = productListAdmin;
 
   const categoryListAdmin = useSelector((state) => state.categoryListAdmin);
   const { category } = categoryListAdmin;
@@ -38,13 +39,13 @@ const MainProducts = React.memo((props) => {
   const { error: errorDelete, success: successDelete } = productDeleteAdmin;
 
   useEffect(() => {
-    dispatch(listProductsAdmin(keyword, pageNumber, categoryFilterAdmin, sortBy, limit));
+    dispatch(listProductsAdmin(keyword, pageNumber, categoryFilterAdmin, sortBy, limit, status));
     dispatch(listCategoryAdmin());
     if (successDelete) {
       toast.success("Xóa sản phẩm thành công!", ToastObjects);
       dispatch({ type: PRODUCT_DELETE_RESET });
     }
-  }, [dispatch, keyword, pageNumber, successDelete, categoryFilterAdmin, sortBy, limit]);
+  }, [dispatch, keyword, pageNumber, successDelete, categoryFilterAdmin, sortBy, limit, status]);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -59,6 +60,7 @@ const MainProducts = React.memo((props) => {
       <Toast />
       <div className="content-header">
         <h2 className="content-title">Sản phẩm</h2>
+        <h5 className="">Tổng sản phẩm:&nbsp;{total}</h5>
         <div>
           <Link to="/admin/addProduct" className="btn btn-primary btn-size">
             Thêm sản phẩm
@@ -84,6 +86,13 @@ const MainProducts = React.memo((props) => {
               setCategoryFilterAdmin={setCategoryFilterAdmin}
             />
             <SortBy sortBy={sortBy} setSortBy={setSortBy} />
+            <div className="col-lg-2 col-6 col-md-3 mx-1">
+              <select className="form-select" value={status} onChange={(e) => setStatus(e.target.value)}>
+                <option value={"all"}>Tất cả trạng thái</option>
+                <option value={"disabled"}>Đang bị ẩn</option>
+                <option value={"notDisabled"}>Chưa bị ẩn</option>
+              </select>
+            </div>
             <div className="col-lg-2 col-6 col-md-3 mx-1">
               <select className="form-select" value={limit} onChange={(e) => setLimit(e.target.value)}>
                 <option value={"10"}>10 sản phẩm</option>
