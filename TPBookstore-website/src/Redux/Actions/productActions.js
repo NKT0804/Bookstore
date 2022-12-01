@@ -317,7 +317,7 @@ export const createProductReview = (productId, review) => async (dispatch, getSt
 
 //  GET LIST PRODUCT HAVE BAGINATION
 export const listProductsAdmin =
-  (keyword = "", pageNumber = "", categoryFilterAdmin = "", sortBy = "", limit = 12) =>
+  (keyword = "", pageNumber = "", categoryFilterAdmin = "", sortBy = "", limit = 12, status = "all") =>
   async (dispatch, getState) => {
     try {
       dispatch({ type: PRODUCT_LIST_REQUEST });
@@ -333,7 +333,7 @@ export const listProductsAdmin =
       };
 
       const { data } = await axios.get(
-        `/api/v1/product?keyword=${keyword}&pageNumber=${pageNumber}&category=${categoryFilterAdmin}&status=all&sortBy=${sortBy}&limit=${limit}`,
+        `/api/v1/product?keyword=${keyword}&pageNumber=${pageNumber}&category=${categoryFilterAdmin}&status=${status}&sortBy=${sortBy}&limit=${limit}`,
         config
       );
 

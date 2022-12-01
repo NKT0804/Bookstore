@@ -15,8 +15,12 @@ const Pagination = (props) => {
     : `?`;
   const limitQuery = limit ? `&limit=${limit}` : "";
 
-  let listPages = [...Array(pages).keys()];
-  if (pages > 5) {
+  let listPages = [];
+  if (pages <= 5) {
+    for (let i = 1; i <= pages; i++) {
+      listPages.push(i);
+    }
+  } else {
     listPages = [];
     if (page < 3) {
       listPages.push(1, 2, 3, "...", pages);

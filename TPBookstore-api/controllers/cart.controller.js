@@ -13,8 +13,16 @@ const userGetTheirCart = async (req, res) => {
         res.status(404);
         throw new Error("Giỏ hàng không tồn tại!");
     }
+    if (cart.cartItems.length > 0) {
+        cart.cartItems.forEach((item) => {
+            if (item.product.countInStock < item.qty) {
+                item.qty = item.product.countInStock;
+            }
+        });
+    }
+    const updateCart = await cart.save();
     res.status(200);
-    res.json(cart);
+    res.json(updateCart);
 };
 
 //Create new cart - Not use

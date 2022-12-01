@@ -11,7 +11,7 @@ const UserListComponent = (props) => {
   const dispatch = useDispatch();
   const { keyword, pageNumber } = props;
   const userList = useSelector((state) => state.userList);
-  const { loading, error, users, page, pages } = userList;
+  const { loading, error, users, page, pages, total } = userList;
 
   const [status, setStatus] = useState("");
   const [limit, setLimit] = useState(8);
@@ -37,6 +37,7 @@ const UserListComponent = (props) => {
     <section className="content-main">
       <div className="content-header">
         <h2 className="content-title">Tài khoản</h2>
+        <h5 className="">Tổng tài khoản:&nbsp;{total}</h5>
         {/* <div>
           <Link to="#" className="btn btn-primary btn-size">
             <i className="material-icons md-plus"></i>Tạo tài khoản
