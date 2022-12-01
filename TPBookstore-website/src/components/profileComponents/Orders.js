@@ -38,7 +38,9 @@ const Orders = (props) => {
                     <div className="profile__order-product-title row">
                       <p className="profile__order-product-id col-lg-12">
                         <span className="fw-bold">Mã đơn hàng:</span>&nbsp;
-                        {order._id}
+                        {order._id}&nbsp;
+                        <span className="fw-bold">Ngày đặt:</span>&nbsp;
+                        {moment(order.createdAt).format("LT") + " " + moment(order.createdAt).format("DD/MM/YYYY")}
                       </p>
                     </div>
 

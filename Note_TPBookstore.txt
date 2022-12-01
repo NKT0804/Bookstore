@@ -1,4 +1,0 @@
-- chỉnh sửa các icon, logo thông tin project
-- màu thương hiệu #4ac4fa
-- Chỉnh sửa lại response của api (các phương thức create, update, delete, ...)
-- 
