@@ -178,7 +178,7 @@ const SingleProduct = ({ history, match }) => {
   };
   const onAvatarLoadError = (e) => {
     e.currentTarget.onerror = null; // prevents looping
-    e.currentTarget.src = "../images/avatar/default1.png";
+    e.currentTarget.src = "../images/avatar/default.png";
   };
 
   const settings = {

@@ -13,7 +13,7 @@ const CommentComponent = () => {
   const { comments } = getAllComment;
   const onAvatarLoadError = (e) => {
     e.currentTarget.onerror = null; // prevents looping
-    e.currentTarget.src = "../images/avatar/default1.png";
+    e.currentTarget.src = "../images/avatar/default.png";
   };
 
   const loadDataComment = useCallback(() => {
@@ -51,13 +51,13 @@ const CommentComponent = () => {
                       <Link to={`/product/${item.product.slug}`}>{item.content}</Link>
                     </td>
                     <td>
-                      <img
+                      {/* <img
                         className="img-xs rounded-circle p-1"
                         src={item.user.avatarUrl}
                         onError={onAvatarLoadError}
                         alt="User avatar"
-                      />
-                      {item.user.name}
+                      /> */}
+                      <b>{item.user.name.length >= 15 ? `${item.user.name.slice(0, 15)}...` : `${item.user.name}`}</b>
                     </td>
                     <td>{moment(item.createdAt).format("LT") + ", " + moment(item.createdAt).format("DD/MM/yyyy")}</td>
                   </tr>

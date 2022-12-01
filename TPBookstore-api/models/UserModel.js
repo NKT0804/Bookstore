@@ -25,7 +25,7 @@ const userSchema = mongoose.Schema(
         },
         avatarUrl: {
             type: String,
-            default: "./images/avatar/default1.png"
+            default: "./images/avatar/default.png"
         },
         isAdmin: {
             type: Boolean,

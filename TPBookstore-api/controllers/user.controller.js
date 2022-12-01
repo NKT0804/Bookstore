@@ -48,7 +48,7 @@ const login = async (req, res) => {
             name: user.name,
             email: user.email,
             phone: user.phone,
-            avatarUrl: user.avatarUrl || "./images/avatar/default1.png",
+            avatarUrl: user.avatarUrl || "./images/avatar/default.png",
             sex: user.sex,
             birthday: user.birthday,
             address: user.address,
@@ -172,7 +172,7 @@ const verifyEmail = async (req, res) => {
         name: user.name,
         email: user.email,
         phone: user.phone,
-        avatarUrl: user.avatarUrl || "./images/avatar/default1.png",
+        avatarUrl: user.avatarUrl || "./images/avatar/default.png",
         sex: user.sex,
         birthday: user.birthday,
         address: user.address,
@@ -194,7 +194,7 @@ const getProfile = async (req, res) => {
         sex: req.user.sex,
         birthday: req.user.birthday,
         address: req.user.address,
-        avatarUrl: req.user.avatarUrl || "./images/avatar/default1.png",
+        avatarUrl: req.user.avatarUrl || "./images/avatar/default.png",
         isAdmin: req.user.isAdmin,
         createAt: req.user.createAt,
         isDisabled: req.user.isDisabled
@@ -231,7 +231,7 @@ const updateProfile = async (req, res) => {
         sex: updatedUser.sex,
         birthday: updatedUser.birthday,
         address: updatedUser.address,
-        avatarUrl: updatedUser.avatarUrl || "./images/avatar/default1.png",
+        avatarUrl: updatedUser.avatarUrl || "./images/avatar/default.png",
         isAdmin: updatedUser.isAdmin,
         createAt: updatedUser.createAt,
         isDisabled: updatedUser.isDisabled,
@@ -413,7 +413,7 @@ const uploadAvatar = async (req, res) => {
     const updateUser = await user.save();
 
     //delete old avatar
-    if (oldAvatar != "/images/avatar/default1.png") {
+    if (oldAvatar != "/images/avatar/default.png") {
         fs.unlink(path.join(__dirname, "public", oldAvatar), (err) => {
             if (err) console.log("Xóa avatar cũ không thành công:", err);
         });

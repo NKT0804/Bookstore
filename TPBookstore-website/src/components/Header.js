@@ -43,7 +43,7 @@ const Header = () => {
 
   const onAvatarLoadError = (e) => {
     e.currentTarget.onerror = null; // prevents looping
-    e.currentTarget.src = `${window.location.origin}/images/avatar/default1.png`;
+    e.currentTarget.src = `${window.location.origin}/images/avatar/default.png`;
   };
 
   return (
@@ -128,7 +128,7 @@ const Header = () => {
                 </div>
                 <div className="col-12 d-flex align-items-center">
                   <form onSubmit={submitHandler} className="input-group">
-                    {userInfo ? <CategoryList /> : <></>}
+                    <CategoryList />
                     <input
                       type="search"
                       className="form-control rounded search"
@@ -155,7 +155,7 @@ const Header = () => {
               </div>
 
               <div className="col-md-6 col-4 d-flex align-items-center">
-                {userInfo ? <CategoryList /> : <></>}
+                <CategoryList />
 
                 <form onSubmit={submitHandler} className="input-group">
                   <input

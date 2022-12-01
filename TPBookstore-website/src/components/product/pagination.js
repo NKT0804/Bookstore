@@ -53,7 +53,7 @@ const Pagination = (props) => {
               </li>
             ) : (
               <li className={`page-item`}>
-                <Link className="page-link">{x}</Link>
+                <Link className="page-link page-link__dots">{x}</Link>
               </li>
             )
           )}

@@ -62,6 +62,17 @@ const createNewOrder = async (req, res, next) => {
             const createdOrder = await order.save();
             res.status(201);
             res.json(createdOrder);
+            //  send order to customer
+            const url = `${process.env.WEB_CLIENT_URL}/order`;
+            const html = `
+            <div style = "display: flex">
+            <span>Mã đơn hàng: </span>
+            <span>${order._id}</span>
+            </div>
+            <div>
+            
+            </div>
+            `;
         }, transactionOptions);
     } catch (error) {
         next(error);
