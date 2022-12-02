@@ -420,7 +420,7 @@ const SingleProduct = ({ history, match }) => {
                       {review.reviewContent && (
                         <div className="review-content alert alert-info mt-3">
                           {review.reviewContent}
-                          <i class="delete__review text-danger fas fa-trash-alt"></i>
+                          {/* <i class="delete__review text-danger fas fa-trash-alt"></i> */}
                         </div>
                       )}
                     </div>

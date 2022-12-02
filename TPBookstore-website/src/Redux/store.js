@@ -27,6 +27,7 @@ import {
   productCreateReducerAdmin,
   productEditReducerAdmin,
   productDeleteReducerAdmin,
+  productHiddenReducerAdmin,
   productListReducerAdminAll,
   productListReducerBestSeller,
   productListReducerBestNumView,
@@ -48,7 +49,8 @@ import {
   orderIsPaidReducer,
   orderListMyReducer,
   orderListReducerAdmin,
-  orderPayReducer
+  orderPayReducer,
+  orderHiddenReducerAdmin
 } from "./Reducers/orderReducres";
 import {
   categoryCreateReducerAdmin,
@@ -103,6 +105,7 @@ const reducer = combineReducers({
   productListAdmin: productListReducerAdmin,
   productListAdminAll: productListReducerAdminAll,
   productDeleteAdmin: productDeleteReducerAdmin,
+  productHiddenAdmin: productHiddenReducerAdmin,
   productCreateAdmin: productCreateReducerAdmin,
   productEditAdmin: productEditReducerAdmin,
   productUpdate: productUpdateReducer,
@@ -116,6 +119,7 @@ const reducer = combineReducers({
   orderConfirm: orderConfirmReducer,
   orderCancelAdmin: orderCancelAdminReducer,
   orderDeleteAdmin: orderDeleteReducerAdmin,
+  orderHiddenAdmin: orderHiddenReducerAdmin,
   orderIsPaidAdmin: orderIsPaidReducer,
   bannerList: bannerListReducer,
   sliderList: sliderListReducer,

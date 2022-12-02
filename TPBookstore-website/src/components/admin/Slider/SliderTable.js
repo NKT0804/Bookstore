@@ -69,7 +69,7 @@ const SliderTable = ({ setIsEditSlider, setCurrentSlider }) => {
                 <td className="fw-bold">{item.linkTo}</td>
                 <td className="text-end">
                   <div className="dropdown action__slider">
-                    <Link to="#" data-bs-toggle="dropdown">
+                    <Link to="#" data-bs-toggle="dropdown" title="Cập nhật" target="_blank">
                       <i
                         className="text-warning fas fa-edit"
                         onClick={() => {
@@ -78,7 +78,7 @@ const SliderTable = ({ setIsEditSlider, setCurrentSlider }) => {
                         }}
                       ></i>
                     </Link>
-                    <Link data-toggle="modal" data-target="#exampleModalCenter">
+                    <Link data-toggle="modal" data-target="#exampleModalCenter" title="Xoá" target="_blank">
                       <i class="text-danger fas fa-trash-alt" onClick={() => setSliderIdDelete(item._id)}></i>
                     </Link>
                     <div className="dropdown-menu"></div>

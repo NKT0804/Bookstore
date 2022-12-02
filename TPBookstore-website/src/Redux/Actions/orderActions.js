@@ -28,7 +28,10 @@ import {
   ORDER_ADMIN_CANCEL_FAIL,
   ORDER_USER_CANCEL_REQUEST,
   ORDER_USER_CANCEL_SUCCESS,
-  ORDER_USER_CANCEL_FAIL
+  ORDER_USER_CANCEL_FAIL,
+  ORDER_HIDDEN_FAIL,
+  ORDER_HIDDEN_REQUEST,
+  ORDER_HIDDEN_SUCCESS
 } from "../Constants/orderConstants";
 import { logout } from "./userActions";
 import axios from "axios";
@@ -358,6 +361,36 @@ export const deleteOrderAdmin = (id) => async (dispatch, getState) => {
     }
     dispatch({
       type: ORDER_DELETE_FAIL,
+      payload: message
+    });
+  }
+};
+
+// HIDDEN ORDER
+export const hiddenOrderAdmin = (id) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: ORDER_HIDDEN_REQUEST });
+
+    const {
+      userLogin: { userInfo }
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`
+      }
+    };
+
+    await axios.patch(`/api/v1/order/${id}/disable`, config);
+
+    dispatch({ type: ORDER_HIDDEN_SUCCESS });
+  } catch (error) {
+    const message = error.response && error.response.data.message ? error.response.data.message : error.message;
+    if (message === "Not authorized, token failed") {
+      dispatch(logout());
+    }
+    dispatch({
+      type: ORDER_HIDDEN_FAIL,
       payload: message
     });
   }

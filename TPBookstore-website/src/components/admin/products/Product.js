@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { deleteProductAdmin } from "../../../Redux/Actions/productActions";
+import { deleteProductAdmin, hiddenProductAdmin } from "../../../Redux/Actions/productActions";
 import Rating from "../../product/Rating";
 import formatCash from "../../../utils/formatCash";
 import Modal from "../../base/modal/Modal";
@@ -9,9 +9,13 @@ import Modal from "../../base/modal/Modal";
 const Product = (props) => {
   const { products, preIndex } = props;
   const [productIdDelete, setProductIdDelete] = useState("");
+  const [productIdHidden, setProductIdHidden] = useState("");
   const dispatch = useDispatch();
   const deleteHandler = () => {
     dispatch(deleteProductAdmin(productIdDelete));
+  };
+  const hiddenHandler = () => {
+    dispatch(hiddenProductAdmin(productIdHidden));
   };
 
   return (
@@ -23,6 +27,13 @@ const Product = (props) => {
         btnType={"delete"}
         handler={deleteHandler}
       />
+      {/* <Modal
+        modalTitle={"Ẩn sản phẩm"}
+        modalBody={"Bạn có chắc muốn ẩn sản phẩm này?"}
+        btnTitle={"Ẩn sản phẩm"}
+        btnType={"delete"}
+        handler={hiddenHandler}
+      /> */}
       {products?.map((product, index) => (
         <>
           <div className="mobile-header row col-md-12 col-sm-6 col-lg-3 mb-3">
@@ -59,61 +70,6 @@ const Product = (props) => {
           </div>
 
           {product.isDisabled ? (
-            <tr className="pc-header">
-              <td>{preIndex + index + 1}</td>
-              <td>
-                <img style={{ maxWidth: "70px", minWidth: "70px" }} src={product?.image} alt={product?.name} />
-              </td>
-              <td>
-                <b alt={product?.name}>
-                  {`${product?.name.lenght}>=25` ? `${product?.name.slice(0, 25)}...` : `${product?.name}`}
-                </b>
-              </td>
-              <td>
-                <Rating value={product.rating} text={`(${product.numReviews})`} />
-              </td>
-              <td>
-                <b>{product?.category.name}</b>
-              </td>
-              <td>
-                <b>{formatCash(product?.priceSale)}</b>
-              </td>
-              <td>
-                <b>{product?.countInStock}</b>
-              </td>
-              <td>
-                <b>{product?.totalSales}</b>
-              </td>
-              <td className="text-end">
-                <div className="dropdown">
-                  {product.isDisabled ? (
-                    <div className="text-center">
-                      <Link className="text-success">
-                        <i className="fas fa-eye"></i>
-                      </Link>
-                    </div>
-                  ) : (
-                    <Link>
-                      <i class="fas fa-eye-slash"></i>
-                    </Link>
-                  )}
-                  <div className="text-center">
-                    <Link className="text-warning p-md-2" to={`/admin/product/${product._id}/edit`}>
-                      <i className="fas fa-edit"></i>
-                    </Link>
-                    <Link className="" data-toggle="modal" data-target="#exampleModalCenter">
-                      <i
-                        class="fas fa-trash-alt edit__products text-danger"
-                        onClick={() => setProductIdDelete(product._id)}
-                      ></i>
-                    </Link>
-                  </div>
-
-                  <div className="dropdown-menu"></div>
-                </div>
-              </td>
-            </tr>
-          ) : (
             <tr className="pc-header status-disabled">
               <td>{preIndex + index + 1}</td>
               <td>
@@ -141,24 +97,75 @@ const Product = (props) => {
               </td>
               <td className="text-end">
                 <div className="dropdown">
-                  {product.isDisabled ? (
-                    <Link className="text-success">
-                      <i className="fas fa-eye"></i>
-                    </Link>
-                  ) : (
-                    <Link>
+                  <div className="text-center">
+                    <Link title="Đang bị ẩn" target="_blank">
                       <i class="fas fa-eye-slash"></i>
                     </Link>
-                  )}
-                  <Link className="text-warning p-md-2" to={`/admin/product/${product._id}/edit`}>
-                    <i className="fas fa-edit"></i>
-                  </Link>
-                  <Link data-toggle="modal" data-target="#exampleModalCenter">
-                    <i
-                      class="fas fa-trash-alt edit__products text-danger"
-                      onClick={() => setProductIdDelete(product._id)}
-                    ></i>
-                  </Link>
+                  </div>
+                  <div className="text-center">
+                    <Link className="text-warning p-md-2" to={`/admin/product/${product._id}/edit`}>
+                      <i className="fas fa-edit"></i>
+                    </Link>
+                    <Link className="" data-toggle="modal" data-target="#exampleModalCenter">
+                      <i
+                        class="fas fa-trash-alt edit__products text-danger"
+                        onClick={() => setProductIdDelete(product._id)}
+                      ></i>
+                    </Link>
+                  </div>
+                  <div className="dropdown-menu"></div>
+                </div>
+              </td>
+            </tr>
+          ) : (
+            <tr className="pc-header">
+              <td>{preIndex + index + 1}</td>
+              <td>
+                <img style={{ maxWidth: "70px", minWidth: "70px" }} src={product?.image} alt={product?.name} />
+              </td>
+              <td>
+                <b alt={product?.name}>
+                  {`${product?.name.lenght}>=25` ? `${product?.name.slice(0, 25)}...` : `${product?.name}`}
+                </b>
+              </td>
+              <td>
+                <Rating value={product.rating} text={`(${product.numReviews})`} />
+              </td>
+              <td>
+                <b>{product?.category.name}</b>
+              </td>
+              <td>
+                <b>{formatCash(product?.priceSale)}</b>
+              </td>
+              <td>
+                <b>{product?.countInStock}</b>
+              </td>
+              <td>
+                <b>{product?.totalSales}</b>
+              </td>
+              <td className="text-end">
+                <div className="dropdown">
+                  <div className="text-center">
+                    <Link className="text-success">
+                      <i className="fas fa-eye" onClick={hiddenHandler}></i>
+                    </Link>
+                  </div>
+                  <div className="text-center">
+                    <Link
+                      className="text-warning p-md-2"
+                      to={`/admin/product/${product._id}/edit`}
+                      title="Cập nhật"
+                      target="_blank"
+                    >
+                      <i className="fas fa-edit"></i>
+                    </Link>
+                    <Link data-toggle="modal" data-target="#exampleModalCenter" title="Xoá" target="_blank">
+                      <i
+                        class="fas fa-trash-alt edit__products text-danger"
+                        onClick={() => setProductIdDelete(product._id)}
+                      ></i>
+                    </Link>
+                  </div>
 
                   <div className="dropdown-menu"></div>
                 </div>

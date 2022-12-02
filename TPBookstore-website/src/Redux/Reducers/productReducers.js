@@ -53,7 +53,11 @@ import {
   PRODUCT_UPDATE_COMMENT_RESET,
   PRODUCT_LIST_COMMENT_REQUEST,
   PRODUCT_LIST_COMMENT_SUCCESS,
-  PRODUCT_LIST_COMMENT_FAIL
+  PRODUCT_LIST_COMMENT_FAIL,
+  PRODUCT_HIDDEN_REQUEST,
+  PRODUCT_HIDDEN_SUCCESS,
+  PRODUCT_HIDDEN_FAIL,
+  PRODUCT_HIDDEN_RESET
 } from "../Constants/productConstants";
 
 /**
@@ -262,6 +266,22 @@ export const productDeleteReducerAdmin = (state = {}, action) => {
     case PRODUCT_DELETE_FAIL:
       return { loading: false, error: action.payload };
     case PRODUCT_DELETE_RESET:
+      return {};
+    default:
+      return state;
+  }
+};
+
+// HIDDEN PRODUCT
+export const productHiddenReducerAdmin = (state = {}, action) => {
+  switch (action.type) {
+    case PRODUCT_HIDDEN_REQUEST:
+      return { loading: true };
+    case PRODUCT_HIDDEN_SUCCESS:
+      return { loading: false, success: true };
+    case PRODUCT_HIDDEN_FAIL:
+      return { loading: false, error: action.payload };
+    case PRODUCT_HIDDEN_RESET:
       return {};
     default:
       return state;

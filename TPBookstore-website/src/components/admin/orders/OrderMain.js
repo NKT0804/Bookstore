@@ -18,6 +18,8 @@ const ToastObjects = {
 };
 const OrderMain = (props) => {
   const { keyword, pageNumber } = props;
+  // const statusHidden = useSelector((state) => state.orderHiddenAdmin);
+  // const { success: successHidden, error: errorHidden } = statusHidden;
 
   let history = useHistory();
   const dispatch = useDispatch();
@@ -39,6 +41,14 @@ const OrderMain = (props) => {
     if (errorDelOrder) {
       toast.error(errorDelOrder, ToastObjects);
     }
+
+    // if (successHidden) {
+    //   toast.success("Ẩn đơn hàng thành công!", ToastObjects);
+    // }
+    // if (errorHidden) {
+    //   toast.error(errorHidden, ToastObjects);
+    // }
+
     dispatch({ type: ORDER_DELETE_RESET });
   }, [dispatch, successDelOrder, errorDelOrder]);
 
