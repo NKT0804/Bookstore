@@ -129,19 +129,37 @@ const CartScreen = ({ history }) => {
                     />
                   </div>
                   {/* Image */}
-                  <div className="cart-itemPC-image col-lg-2">
+                  <div
+                    className={
+                      item.product.isDisabled
+                        ? `cart-itemPC-image col-lg-2 status-disabled`
+                        : `cart-itemPC-image col-lg-2`
+                    }
+                  >
                     <Link to={`/product/${item.product.slug}`}>
                       <img src={item.product.image} alt={item.product.name} />
                     </Link>
                   </div>
                   {/* Name */}
-                  <div className="cart-itemPC-text col-lg-3 col-md-5">
+                  <div
+                    className={
+                      item.product.isDisabled
+                        ? `cart-itemPC-text col-lg-3 col-md-5 status-disabled`
+                        : `cart-itemPC-text col-lg-3`
+                    }
+                  >
                     <Link to={`/product/${item.product.slug}`}>
                       <p>{item.product.name}</p>
                     </Link>
                   </div>
                   {/* Price */}
-                  <div className="cart-itemPC-price col-lg-2">
+                  <div
+                    className={
+                      item.product.isDisabled
+                        ? `cart-itemPC-price col-lg-2 status-disabled`
+                        : `cart-itemPC-price col-lg-2`
+                    }
+                  >
                     <b>{formatCash(item.product.priceSale)}</b>
                   </div>
                   {/* Quantity */}
@@ -166,7 +184,13 @@ const CartScreen = ({ history }) => {
                     )}
                   </div>
                   {/* Total a product */}
-                  <div className="cart-itemPC-total col-lg-2">
+                  <div
+                    className={
+                      item.product.isDisabled
+                        ? `cart-itemPC-total col-lg-2 status-disabled`
+                        : `cart-itemPC-total col-lg-2`
+                    }
+                  >
                     <b>{formatCash(item.product.priceSale * item.qty)}</b>
                   </div>
                   {/* Remove product */}

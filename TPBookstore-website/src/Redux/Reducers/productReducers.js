@@ -57,7 +57,11 @@ import {
   PRODUCT_HIDDEN_REQUEST,
   PRODUCT_HIDDEN_SUCCESS,
   PRODUCT_HIDDEN_FAIL,
-  PRODUCT_HIDDEN_RESET
+  PRODUCT_HIDDEN_RESET,
+  PRODUCT_SHOW_REQUEST,
+  PRODUCT_SHOW_SUCCESS,
+  PRODUCT_SHOW_FAIL,
+  PRODUCT_SHOW_RESET
 } from "../Constants/productConstants";
 
 /**
@@ -282,6 +286,22 @@ export const productHiddenReducerAdmin = (state = {}, action) => {
     case PRODUCT_HIDDEN_FAIL:
       return { loading: false, error: action.payload };
     case PRODUCT_HIDDEN_RESET:
+      return {};
+    default:
+      return state;
+  }
+};
+
+// SHOW PRODUCT
+export const productShowReducerAdmin = (state = {}, action) => {
+  switch (action.type) {
+    case PRODUCT_SHOW_REQUEST:
+      return { loading: true };
+    case PRODUCT_SHOW_SUCCESS:
+      return { loading: false, success: true };
+    case PRODUCT_SHOW_FAIL:
+      return { loading: false, error: action.payload };
+    case PRODUCT_SHOW_RESET:
       return {};
     default:
       return state;

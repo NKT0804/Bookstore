@@ -283,7 +283,7 @@ const restoreOrder = async (req, res) => {
         res.status(404);
         throw new Error("Đơn hàng không tồn tại!");
     }
-    order.isDisabled = save;
+    order.isDisabled = false;
     const updateOrder = await order.save();
     res.status(200);
     res.json(updateOrder);

@@ -40,7 +40,11 @@ import {
   ORDER_HIDDEN_REQUEST,
   ORDER_HIDDEN_SUCCESS,
   ORDER_HIDDEN_FAIL,
-  ORDER_HIDDEN_RESET
+  ORDER_HIDDEN_RESET,
+  ORDER_SHOW_REQUEST,
+  ORDER_SHOW_SUCCESS,
+  ORDER_SHOW_FAIL,
+  ORDER_SHOW_RESET
 } from "../Constants/orderConstants";
 
 /**
@@ -231,6 +235,22 @@ export const orderHiddenReducerAdmin = (state = {}, action) => {
     case ORDER_HIDDEN_FAIL:
       return { loading: false, error: action.payload };
     case ORDER_HIDDEN_RESET:
+      return {};
+    default:
+      return state;
+  }
+};
+
+// SHOW ORDER
+export const orderShowReducerAdmin = (state = {}, action) => {
+  switch (action.type) {
+    case ORDER_SHOW_REQUEST:
+      return { loading: true };
+    case ORDER_SHOW_SUCCESS:
+      return { loading: false, success: true };
+    case ORDER_SHOW_FAIL:
+      return { loading: false, error: action.payload };
+    case ORDER_SHOW_RESET:
       return {};
     default:
       return state;

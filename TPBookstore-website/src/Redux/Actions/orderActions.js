@@ -31,7 +31,10 @@ import {
   ORDER_USER_CANCEL_FAIL,
   ORDER_HIDDEN_FAIL,
   ORDER_HIDDEN_REQUEST,
-  ORDER_HIDDEN_SUCCESS
+  ORDER_HIDDEN_SUCCESS,
+  ORDER_SHOW_REQUEST,
+  ORDER_SHOW_SUCCESS,
+  ORDER_SHOW_FAIL
 } from "../Constants/orderConstants";
 import { logout } from "./userActions";
 import axios from "axios";
@@ -391,6 +394,36 @@ export const hiddenOrderAdmin = (id) => async (dispatch, getState) => {
     }
     dispatch({
       type: ORDER_HIDDEN_FAIL,
+      payload: message
+    });
+  }
+};
+
+// SHOW ORDER
+export const showOrderAdmin = (id) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: ORDER_SHOW_REQUEST });
+
+    const {
+      userLogin: { userInfo }
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`
+      }
+    };
+
+    await axios.patch(`/api/v1/order/${id}/restore`, {}, config);
+
+    dispatch({ type: ORDER_SHOW_SUCCESS });
+  } catch (error) {
+    const message = error.response && error.response.data.message ? error.response.data.message : error.message;
+    if (message === "Not authorized, token failed") {
+      dispatch(logout());
+    }
+    dispatch({
+      type: ORDER_SHOW_FAIL,
       payload: message
     });
   }
