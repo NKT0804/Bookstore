@@ -288,10 +288,14 @@ const updateProduct = async (req, res) => {
     // Tạo slug
     const slug = createSlug(name);
     // Upload image
-    const urlImage = await uploadImage(image, "TPBookstore/products", slug);
-    if (!urlImage.url) {
-        res.status(400);
-        throw new Error(urlImage.err);
+    let urlImage = image;
+    if (image != product.image) {
+        const uploadImage = await uploadImage(image, "TPBookstore/products", slug);
+        if (!uploadImage.url) {
+            res.status(400);
+            throw new Error(uploadImage.err);
+        }
+        urlImage = uploadImage.url;
     }
 
     product.name = name || product.name;
@@ -300,7 +304,7 @@ const updateProduct = async (req, res) => {
     product.priceSale = priceSale || product.priceSale;
     product.description = description || product.description;
     product.author = author || product.author;
-    product.image = urlImage.url || product.image;
+    product.image = urlImage || product.image;
     product.countInStock = countInStock || product.countInStock;
     product.publisher = publisher || product.publisher;
     product.supplier = supplier || product.supplier;
