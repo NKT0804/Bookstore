@@ -381,7 +381,7 @@ export const hiddenOrderAdmin = (id) => async (dispatch, getState) => {
       }
     };
 
-    await axios.patch(`/api/v1/order/${id}/disable`, config);
+    await axios.patch(`/api/v1/order/${id}/disable`, {}, config);
 
     dispatch({ type: ORDER_HIDDEN_SUCCESS });
   } catch (error) {

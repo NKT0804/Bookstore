@@ -337,14 +337,8 @@ const disableProduct = async (req, res) => {
         res.status(400);
         throw new Error("Không thể vô hiệu hóa sản phẩm, vì sản phẩm đang có trong 1 số đơn hàng!");
     }
-    const cart = await Cart.findOne({ "cartItems.product": product._id });
-    if (cart) {
-        res.status(400);
-        throw new Error("Không thể vô hiệu hóa sản phẩm, vì sản phẩm đang thuộc giỏ hàng của người dùng!");
-    }
-    const disabledProduct = await Product.findOneAndUpdate({ _id: product._id }, { isDisabled: true }, { new: true });
-    //disable comments
-    await Comment.updateMany({ isDisabled: false, product: disabledProduct._id }, { $set: { isDisabled: true } });
+
+    const disabledProduct = await Product.findOneAndUpdate({ _id: product._id }, { isDisabled: true });
     res.status(200);
     res.json(disabledProduct);
 };

@@ -264,14 +264,15 @@ const disableOrder = async (req, res) => {
         res.status(404);
         throw new Error("Đơn hàng không tồn tại!");
     }
-    if (!order.cancelled || !order.delivered) {
+    if (order.cancelled || order.delivered) {
+        order.isDisabled = true;
+        await order.save();
+        res.status(200);
+        res.json({ message: "Đơn hàng đã bị vô hiệu hóa!" });
+    } else {
         res.status(400);
         throw new Error("Đơn hàng không thể ẩn khi chưa giao hàng thành công hoặc chưa bị hủy!");
     }
-    order.isDisabled = true;
-    await order.save();
-    res.status(200);
-    res.json({ message: "Đơn hàng đã bị vô hiệu hóa!" });
 };
 
 //Admin restore disabled order

@@ -44,9 +44,10 @@ const Orders = (props) => {
         </thead>
         <tbody>
           {orders &&
-            orders.map((order) =>
-              order.isDisabled ? (
-                <tr className="status-disabled" key={order._id}>
+            orders.map(
+              (order) => (
+                // order.isDisabled ? (
+                <tr className={order.isDisabled ? `status-disabled` : ""} key={order._id}>
                   <td>
                     <td>
                       <Link to={`/admin/order/${order._id}`}>{order._id}</Link>
@@ -89,51 +90,52 @@ const Orders = (props) => {
                     </Link> */}
                   </td>
                 </tr>
-              ) : (
-                <tr className="" key={order._id}>
-                  <td>
-                    <td>
-                      <Link to={`/admin/order/${order._id}`}>{order._id}</Link>
-                    </td>
-                  </td>
-                  <td>
-                    <b>{order.user.name.length >= 15 ? `${order.user.name.slice(0, 15)}...` : `${order.user.name}`}</b>
-                  </td>
-                  <td>{formatCash(order.totalPrice)}</td>
-                  <td>
-                    {order.isPaid ? (
-                      <span className="badge3 rounded-pill alert-success fw-bold">
-                        Thanh toán lúc {moment(order.paidAt).format("DD/MM/yyyy")}
-                      </span>
-                    ) : (
-                      <span className="badge3 rounded-pill alert-danger fw-bold">Chưa thanh toán</span>
-                    )}
-                  </td>
-                  <td>{moment(order.createdAt).format("DD/MM/yyyy")}</td>
-                  <td>
-                    {order.cancelled ? (
-                      <span className="badge3 btn-danger">Đã hủy</span>
-                    ) : order.delivered ? (
-                      <span className="badge3 btn-success">Đã giao</span>
-                    ) : order.confirmed ? (
-                      <span className="badge3 btn-warning">Đang giao</span>
-                    ) : (
-                      <span className="badge3 btn-primary">Đang chờ xác nhận</span>
-                    )}
-                  </td>
-                  <td className="d-flex justify-content-end align-item-center">
-                    <Link className="text-success">
-                      <i className="fas fa-eye" onClick={() => handleHiddenOrder(order._id)}></i>
-                    </Link>
-                    <Link data-toggle="modal" data-target="#exampleModalCenter" title="Xoá" target="_blank">
-                      <i class="text-danger fas fa-trash-alt ms-3" onClick={() => setOrderIdDelete(order._id)}></i>
-                    </Link>
-                    {/* <Link to={`/admin/order/${order._id}`}>
-                      <i class="fas fa-ellipsis-h ms-3"></i>
-                    </Link> */}
-                  </td>
-                </tr>
               )
+              // ) : (
+              //   <tr className="" key={order._id}>
+              //     <td>
+              //       <td>
+              //         <Link to={`/admin/order/${order._id}`}>{order._id}</Link>
+              //       </td>
+              //     </td>
+              //     <td>
+              //       <b>{order.user.name.length >= 15 ? `${order.user.name.slice(0, 15)}...` : `${order.user.name}`}</b>
+              //     </td>
+              //     <td>{formatCash(order.totalPrice)}</td>
+              //     <td>
+              //       {order.isPaid ? (
+              //         <span className="badge3 rounded-pill alert-success fw-bold">
+              //           Thanh toán lúc {moment(order.paidAt).format("DD/MM/yyyy")}
+              //         </span>
+              //       ) : (
+              //         <span className="badge3 rounded-pill alert-danger fw-bold">Chưa thanh toán</span>
+              //       )}
+              //     </td>
+              //     <td>{moment(order.createdAt).format("DD/MM/yyyy")}</td>
+              //     <td>
+              //       {order.cancelled ? (
+              //         <span className="badge3 btn-danger">Đã hủy</span>
+              //       ) : order.delivered ? (
+              //         <span className="badge3 btn-success">Đã giao</span>
+              //       ) : order.confirmed ? (
+              //         <span className="badge3 btn-warning">Đang giao</span>
+              //       ) : (
+              //         <span className="badge3 btn-primary">Đang chờ xác nhận</span>
+              //       )}
+              //     </td>
+              //     <td className="d-flex justify-content-end align-item-center">
+              //       <Link className="text-success">
+              //         <i className="fas fa-eye" onClick={() => handleHiddenOrder(order._id)}></i>
+              //       </Link>
+              //       <Link data-toggle="modal" data-target="#exampleModalCenter" title="Xoá" target="_blank">
+              //         <i class="text-danger fas fa-trash-alt ms-3" onClick={() => setOrderIdDelete(order._id)}></i>
+              //       </Link>
+              //       {/* <Link to={`/admin/order/${order._id}`}>
+              //         <i class="fas fa-ellipsis-h ms-3"></i>
+              //       </Link> */}
+              //     </td>
+              //   </tr>
+              // )
             )}
         </tbody>
       </table>

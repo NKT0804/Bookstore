@@ -23,13 +23,13 @@ export function PrivateRouter({ component: Component, ...rest }) {
 }
 // admin
 export function AdminPrivateRouter({ component: Component, ...rest }) {
-  const userDetails = useSelector((state) => state.userDetails);
-  const { user } = userDetails;
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
   return (
     <Route
       {...rest}
       component={(props) => {
-        if (user && user.isAdmin) {
+        if (userInfo && userInfo.isAdmin) {
           return <Component {...props} />;
         } else {
           return <NotFound />;

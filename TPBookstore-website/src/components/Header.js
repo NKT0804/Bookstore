@@ -19,9 +19,6 @@ const Header = () => {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
-  const userDetails = useSelector((state) => state.userDetails);
-  const { user } = userDetails;
-
   const bannerList = useSelector((state) => state.bannerList);
   const { banners } = bannerList;
 
@@ -93,7 +90,7 @@ const Header = () => {
                         <Link className="dropdown-item" to="/profile">
                           Tài khoản
                         </Link>
-                        {user?.isAdmin === true && (
+                        {userInfo?.isAdmin === true && (
                           <Link className="dropdown-item" to="/admin">
                             Trang Quản trị
                           </Link>
@@ -189,7 +186,7 @@ const Header = () => {
                       <Link className="dropdown-item" to="/profile">
                         Tài khoản
                       </Link>
-                      {user?.isAdmin === true && (
+                      {userInfo?.isAdmin === true && (
                         <Link className="dropdown-item" to="/admin">
                           Trang Quản trị
                         </Link>
