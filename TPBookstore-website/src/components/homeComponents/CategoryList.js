@@ -25,7 +25,7 @@ const CategoryList = () => {
           <h3 className="mx-4 py-2">DANH MỤC SẢN PHẨM</h3>
           {categoryParent.map((categoryParent) => (
             <>
-              <div className="col-lg-3 col-md-6 py-1 list-category-header-item">
+              <div className="col-lg-3 col-md-6 c-6 py-1 list-category-header-item">
                 <span className="list-category-header-item__title">{categoryParent}</span>
                 {category?.map((category) =>
                   category.parent_category === categoryParent ? (
