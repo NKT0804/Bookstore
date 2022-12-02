@@ -97,7 +97,7 @@ const CategoriesTable = ({ setIsEditCategory, handleEditCategory, handleCurrentC
                 <td className="fw-bold">{item.parent_category}</td>
                 <td className="text-end">
                   <div className="dropdown action__categories">
-                    <Link to="#" data-bs-toggle="dropdown">
+                    <Link to="#" data-bs-toggle="dropdown" title="Cập nhật" target="_blank">
                       <i
                         className="text-warning fas fa-edit"
                         onClick={() => {
@@ -106,7 +106,7 @@ const CategoriesTable = ({ setIsEditCategory, handleEditCategory, handleCurrentC
                         }}
                       ></i>
                     </Link>
-                    <Link data-toggle="modal" data-target="#exampleModalCenter">
+                    <Link data-toggle="modal" data-target="#exampleModalCenter" title="Xoá" target="_blank">
                       <i class="text-danger fas fa-trash-alt" onClick={() => setCategoryIdDelete(item._id)}></i>
                     </Link>
                   </div>

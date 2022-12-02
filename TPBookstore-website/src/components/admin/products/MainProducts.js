@@ -60,18 +60,17 @@ const MainProducts = React.memo((props) => {
       <Toast />
       <div className="content-header">
         <h2 className="content-title">Sản phẩm</h2>
-        <h5 className="">Tổng sản phẩm:&nbsp;{total}</h5>
         <div>
           <Link to="/admin/addProduct" className="btn btn-primary btn-size">
             Thêm sản phẩm
           </Link>
         </div>
       </div>
-
       <div className="card mb-4 shadow-sm">
         <header className="card-header bg-white ">
           <div className="row">
-            <form onSubmit={submitHandler} className="col-lg-4 col-md-6 me-auto ">
+            <h5 className="my-2 title__top">Tổng sản phẩm:&nbsp;{total}</h5>
+            <form onSubmit={submitHandler} className="col-lg-3 col-md-6">
               <input
                 type="search"
                 placeholder="Tìm kiếm sản phẩm"
@@ -80,25 +79,25 @@ const MainProducts = React.memo((props) => {
                 onChange={(e) => setKeywordSearch(e.target.value)}
               />
             </form>
+            <div className="col-lg-2 col-6 col-md-3" style={{ marginLeft: "80px" }}>
+              <select className="form-select" value={limit} onChange={(e) => setLimit(e.target.value)}>
+                <option value={"10"}>10 sản phẩm</option>
+                <option value={"20"}>20 sản phẩm</option>
+                <option value={"30"}>30 sản phẩm</option>
+                <option value={"40"}>40 sản phẩm</option>
+              </select>
+            </div>
             <CategoryFilterAdmin
               category={category}
               categoryFilterAdmin={categoryFilterAdmin}
               setCategoryFilterAdmin={setCategoryFilterAdmin}
             />
             <SortBy sortBy={sortBy} setSortBy={setSortBy} />
-            <div className="col-lg-2 col-6 col-md-3 mx-1">
+            <div className="col-lg-2 col-6 col-md-3 ml-4">
               <select className="form-select" value={status} onChange={(e) => setStatus(e.target.value)}>
                 <option value={"all"}>Tất cả trạng thái</option>
                 <option value={"disabled"}>Đang bị ẩn</option>
                 <option value={"notDisabled"}>Chưa bị ẩn</option>
-              </select>
-            </div>
-            <div className="col-lg-2 col-6 col-md-3 mx-1">
-              <select className="form-select" value={limit} onChange={(e) => setLimit(e.target.value)}>
-                <option value={"10"}>10 sản phẩm</option>
-                <option value={"20"}>20 sản phẩm</option>
-                <option value={"30"}>30 sản phẩm</option>
-                <option value={"40"}>40 sản phẩm</option>
               </select>
             </div>
           </div>
@@ -114,7 +113,7 @@ const MainProducts = React.memo((props) => {
             <>
               <table className="table">
                 <thead className="pc-header">
-                  <tr>
+                  <tr className="text-center">
                     <th>Stt</th>
                     <th>Hình ảnh</th>
                     <th>Tên sản phẩm</th>

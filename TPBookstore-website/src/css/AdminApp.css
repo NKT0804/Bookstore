@@ -13,23 +13,39 @@ INCLUDE STYLES AND COMPONENTS
   --height-header: 61px;
 }
 /* ================== HELPERS =================== */
-.table thead th {
-  color: #adb5bd;
-  font-weight: 400;
-}
 .table-lg td,
 .table-lg th {
   padding: 0.8rem 1rem;
 }
+
+.table-title {
+  color: var(--white-color) !important;
+  background-color: var(--primary-color);
+  text-align: center;
+  font-weight: 500;
+}
+
+.title__top{
+  position: absolute;
+  width: 340px;
+  top: -56px;
+  left: calc(50% - 170px);
+  text-align: center;
+  color: #fff;
+  background-color: var(--primary-color);
+  padding: 12px 0px;
+  border-top-left-radius: 200px;
+  border-top-right-radius: 200px;
+}
+
 tbody td {
   border-bottom: 0;
-
 }
 tbody tr {
   border-bottom: 1px solid #cfdbe6;
 }
 tbody tr:hover {
-  background-color: #ebf0fd !important;
+  background-color: #CFF4FC !important;
 }
 
 a.disabled {
@@ -265,7 +281,7 @@ body.offcanvas-active {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 10px;
+  margin-bottom: 40px;
 }
 .content-header .content-title {
   margin-bottom: 0;
@@ -1054,6 +1070,11 @@ button.btn.btn-success.col-12 {
 
 .admin__sliders-banner-update button {
   min-width: 80px;
+}
+
+/* Products */
+.product__disabled-admin {
+  opacity: 0.8;
 }
 
 

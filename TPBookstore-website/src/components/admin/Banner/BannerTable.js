@@ -48,7 +48,7 @@ const BannerTable = ({ setIsEditBanner, setCurrentBanner }) => {
                 <td className="fw-bold">{item.linkTo}</td>
                 <td className="text-end">
                   <div className="dropdown">
-                    <Link to="#" data-bs-toggle="dropdown">
+                    <Link to="#" data-bs-toggle="dropdown" title="Cập nhật" target="_blank">
                       <i
                         className="text-warning fas fa-edit"
                         onClick={() => {

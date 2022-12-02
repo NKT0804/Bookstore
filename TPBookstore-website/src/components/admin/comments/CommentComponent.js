@@ -11,10 +11,6 @@ const CommentComponent = () => {
   const dispatch = useDispatch();
   const getAllComment = useSelector((state) => state.productListCommentAdmin);
   const { comments } = getAllComment;
-  const onAvatarLoadError = (e) => {
-    e.currentTarget.onerror = null; // prevents looping
-    e.currentTarget.src = "../images/avatar/default.png";
-  };
 
   const loadDataComment = useCallback(() => {
     dispatch(listCommentProductsAdminAll());
@@ -23,17 +19,17 @@ const CommentComponent = () => {
   useEffect(() => loadDataComment(), [loadDataComment]);
 
   return (
-    <div className="wrap-comment wrap-comment-admin mt-4 p-3">
-      <h3>BÌNH LUẬN KHÁCH HÀNG</h3>
+    <div className=" row wrap-comment wrap-comment-admin mt-4 p-3">
+      <h3 className="text-center">BÌNH LUẬN KHÁCH HÀNG</h3>
       <div className="list-comment rounded mt-3">
         <Table striped bordered hover>
           <thead>
-            <tr>
-              <th>Stt</th>
-              <th>Sản phẩm</th>
-              <th>Nội dung bình luận</th>
-              <th>Khách hàng</th>
-              <th>Thời gian</th>
+            <tr className="table-title">
+              <th style={{ width: "5%" }}>STT</th>
+              <th style={{ width: "25%" }}>Sản phẩm</th>
+              <th style={{ width: "50%" }}>Nội dung bình luận</th>
+              <th style={{ width: "10%" }}>Khách hàng</th>
+              <th style={{ width: "10%" }}>Thời gian</th>
             </tr>
           </thead>
           <tbody>
@@ -44,11 +40,15 @@ const CommentComponent = () => {
                     <td>{index + 1}</td>
                     <td>
                       <Link className="link" to={`/product/${item.product.slug}`}>
-                        {item.product.name}
+                        {item.product.name.length >= 40
+                          ? ` ${item.product.name.slice(0, 40)}...`
+                          : ` ${item.product.name}`}
                       </Link>
                     </td>
                     <td>
-                      <Link to={`/product/${item.product.slug}`}>{item.content}</Link>
+                      <Link to={`/product/${item.product.slug}`}>
+                        {item.content.length >= 150 ? `${item.content.slice(0, 150)}...` : `${item.content}`}
+                      </Link>
                     </td>
                     <td>
                       {/* <img

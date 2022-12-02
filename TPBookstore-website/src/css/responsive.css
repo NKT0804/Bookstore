@@ -467,6 +467,10 @@
     display: none;
   }
 
+  .cart-item-qty-alert {
+    font-size: 15px;
+  }
+
   /* single product */
   .product-manuafactures__item {
     display: flex;
@@ -650,6 +654,7 @@
 
   .profile__order-product-id {
     font-size: 16px !important;
+    display : block;
   }
 
   .profile__order-product-price {

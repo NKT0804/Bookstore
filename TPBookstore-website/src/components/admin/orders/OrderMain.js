@@ -18,6 +18,8 @@ const ToastObjects = {
 };
 const OrderMain = (props) => {
   const { keyword, pageNumber } = props;
+  // const statusHidden = useSelector((state) => state.orderHiddenAdmin);
+  // const { success: successHidden, error: errorHidden } = statusHidden;
 
   let history = useHistory();
   const dispatch = useDispatch();
@@ -39,6 +41,14 @@ const OrderMain = (props) => {
     if (errorDelOrder) {
       toast.error(errorDelOrder, ToastObjects);
     }
+
+    // if (successHidden) {
+    //   toast.success("Ẩn đơn hàng thành công!", ToastObjects);
+    // }
+    // if (errorHidden) {
+    //   toast.error(errorHidden, ToastObjects);
+    // }
+
     dispatch({ type: ORDER_DELETE_RESET });
   }, [dispatch, successDelOrder, errorDelOrder]);
 
@@ -59,11 +69,13 @@ const OrderMain = (props) => {
       <Toast />
       <div className="content-header">
         <h2 className="content-title">Đơn hàng</h2>
-        <h5 className="">Tổng đơn hàng:&nbsp;{total}</h5>
       </div>
 
       <div className="card mb-4 shadow-sm">
         <header className="card-header bg-white">
+          <h5 className="title__top" style={{ top: "-48px" }}>
+            Tổng đơn hàng:&nbsp;{total}
+          </h5>
           <div className="row gx-3 py-3">
             <form onSubmit={submitHandler} className="col-lg-4 col-md-6 me-auto">
               <input

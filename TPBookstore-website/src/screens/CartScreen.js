@@ -158,7 +158,9 @@ const CartScreen = ({ history }) => {
                         ))}
                       </select>
                     ) : item.product.isDisabled ? (
-                      <div className="cart-item-qty-alert text-danger fw-bold">Sản phẩm không còn tồn tại</div>
+                      <div className="cart-item-qty-alert text-center text-danger fw-bold">
+                        Sản phẩm không còn tồn tại
+                      </div>
                     ) : (
                       <div className="cart-item-qty-alert text-danger fw-bold">Hết hàng</div>
                     )}
@@ -169,7 +171,7 @@ const CartScreen = ({ history }) => {
                   </div>
                   {/* Remove product */}
                   <div className="col-lg-1 cart-itemPC-remove ">
-                    <Link data-toggle="modal" data-target="#exampleModalCenter">
+                    <Link data-toggle="modal" data-target="#exampleModalCenter" title="Xoá" target="_blank">
                       <i class="fas fa-trash-alt text-danger" onClick={() => setProductIdDelete(item.product._id)}></i>
                     </Link>
                   </div>
@@ -235,7 +237,7 @@ const CartScreen = ({ history }) => {
                     </div> */}
                     {/* Remove product */}
                     <div className="col-md-12 col-12 mt-3 cart-itemMobile-remove">
-                      <Link data-toggle="modal" data-target="#exampleModalCenter">
+                      <Link data-toggle="modal" data-target="#exampleModalCenter" title="Xoá" target="_blank">
                         <i
                           class="fas fa-trash-alt text-danger"
                           onClick={() => setProductIdDelete(item.product._id)}

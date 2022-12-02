@@ -46,7 +46,10 @@ import {
   PRODUCT_UPDATE_COMMENT_FAIL,
   PRODUCT_LIST_COMMENT_FAIL,
   PRODUCT_LIST_COMMENT_SUCCESS,
-  PRODUCT_LIST_COMMENT_REQUEST
+  PRODUCT_LIST_COMMENT_REQUEST,
+  PRODUCT_HIDDEN_REQUEST,
+  PRODUCT_HIDDEN_SUCCESS,
+  PRODUCT_HIDDEN_FAIL
 } from "../Constants/productConstants";
 import { logout } from "./userActions";
 import { PRODUCT_CREATE_REVIEW_REQUEST } from "./../Constants/productConstants";
@@ -205,7 +208,7 @@ export const deleteProductReviewComment = (id) => async (dispatch, getState) => 
       }
     };
 
-    await axios.delete(`/api/v1/comment/${id}`, config);
+    await axios.hidden(`/api/v1/comment/${id}`, config);
 
     dispatch({ type: PRODUCT_DELETE_COMMENT_SUCCESS });
   } catch (error) {
@@ -375,6 +378,36 @@ export const deleteProductAdmin = (id) => async (dispatch, getState) => {
     }
     dispatch({
       type: PRODUCT_DELETE_FAIL,
+      payload: message
+    });
+  }
+};
+
+// HIDDENT PRODUCT
+export const hiddenProductAdmin = (id) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: PRODUCT_HIDDEN_REQUEST });
+
+    const {
+      userLogin: { userInfo }
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`
+      }
+    };
+
+    await axios.patch(`/api/v1/product/${id}/disable`, config);
+
+    dispatch({ type: PRODUCT_HIDDEN_SUCCESS });
+  } catch (error) {
+    const message = error.response && error.response.data.message ? error.response.data.message : error.message;
+    if (message === "Not authorized, token failed") {
+      dispatch(logout());
+    }
+    dispatch({
+      type: PRODUCT_HIDDEN_FAIL,
       payload: message
     });
   }
