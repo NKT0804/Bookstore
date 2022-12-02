@@ -2,14 +2,17 @@
   .display-none {
     display: none !important;
   }
+  
   .search-button {
     font-size: 10px;
   }
+
   .Login-Register a {
     font-size: 10px;
   }
+
   .btn-group button {
-    font-size: 13px;
+    font-size: 17px;
   }
   .badge {
     top: -10px;
@@ -76,9 +79,9 @@
   }
 
   .cart-mobile-icon i {
-    font-size: 13px;
-    margin-left: 10px;
-    margin-top : 4px;
+    font-size: 18px !important;
+    margin-left: 6px;
+    margin-top : 8px;
   }
   .btn-group button {
     font-size: 12px;
@@ -521,7 +524,7 @@
   }
 
   .badge {
-     top: -5px;
+     top: -3px;
      right: -12px;
   }
 
@@ -539,7 +542,7 @@
 
   .list-category-header {
     top : 135%;
-    width: 386px;
+    width: 422px;
     margin-left: -8px ;
   }
 
