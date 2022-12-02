@@ -423,6 +423,7 @@ export const createProductAdmin = (product) => async (dispatch, getState) => {
 
     const config = {
       headers: {
+        // "Content-Type": "application/form-data",
         Authorization: `Bearer ${userInfo.token}`
       }
     };

@@ -8,7 +8,6 @@ import Comment from "../models/CommentModel.js";
 import createSlug from "../utils/createSlug.js";
 import uploadImage from "../utils/uploadImage.js";
 import removeImage from "../utils/removeImage.js";
-import { admin, protect, optional } from "../middleware/AuthMiddleware.js";
 import { productQueryParams, validateConstants } from "../constants/searchConstants.js";
 
 //Admin create new product
@@ -20,6 +19,7 @@ const createProduct = async (req, res) => {
         description,
         author,
         image,
+        imageUrl,
         countInStock,
         category,
         publisher,
@@ -33,7 +33,6 @@ const createProduct = async (req, res) => {
         res.status(400);
         throw new Error("Sản phẩm đã tồn tại!");
     }
-
     // Tạo slug
     let slug = createSlug(name);
     const isExistSlug = await Product.findOne({ slug: slug });
@@ -41,7 +40,7 @@ const createProduct = async (req, res) => {
         slug = slug + "-" + Math.round(Math.random() * 10000).toString();
     }
     // Upload image
-    const urlImage = await uploadImage(image, "TPBookstore/products", slug);
+    const urlImage = await uploadImage(imageUrl ? imageUrl : image, "TPBookstore/products", slug);
     if (!urlImage.url) {
         res.status(400);
         throw new Error(urlImage.err);
@@ -271,6 +270,7 @@ const updateProduct = async (req, res) => {
         description,
         author,
         image,
+        imageUrl,
         countInStock,
         category,
         publisher,
@@ -285,8 +285,11 @@ const updateProduct = async (req, res) => {
         res.status(404);
         throw new Error("Sản phẩm không tồn tại!");
     }
+    const slug = product.slug;
     // Tạo slug
-    const slug = createSlug(name);
+    if (name != product.name) {
+        slug = createSlug(name);
+    }
     // Upload image
     let urlImage = image;
     if (image != product.image) {

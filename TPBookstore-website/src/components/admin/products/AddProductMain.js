@@ -9,6 +9,7 @@ import Message from "./../../base/LoadingError/Error";
 import Loading from "./../../base/LoadingError/Loading";
 import { listCategoryAdmin } from "../../../Redux/Actions/categoryActions";
 import ReactQuill from "react-quill";
+import UploadImage from "./UploadImage";
 
 const ToastObjects = {
   pauseOnFocusLoss: false,
@@ -49,6 +50,7 @@ const AddProductMain = () => {
   const [price, setPrice] = useState(null);
   const [priceSale, setPriceSale] = useState(null);
   const [author, setAuthor] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
   const [image, setImage] = useState("");
   const [countInStock, setCountInStock] = useState(null);
   const [description, setDescription] = useState("");
@@ -74,7 +76,7 @@ const AddProductMain = () => {
       setName("");
       setDescription("");
       setCountInStock(null);
-      setImage("");
+      setImageUrl("");
       setAuthor("");
       setPrice(null);
       setPriceSale(null);
@@ -89,23 +91,25 @@ const AddProductMain = () => {
   const submitHandler = (e) => {
     e.preventDefault();
     if (price >= 0 && countInStock >= 0) {
-      dispatch(
-        createProductAdmin({
-          name,
-          price,
-          priceSale,
-          description,
-          author,
-          image,
-          countInStock,
-          category,
-          publisher,
-          supplier,
-          publishingYear,
-          language,
-          numberOfPages
-        })
-      );
+      const product = new FormData();
+      product.append("name", name);
+      product.append("price", price);
+      product.append("priceSale", priceSale);
+      product.append("description", description);
+      product.append("author", author);
+      if (imageUrl) {
+        product.append("imageUrl", imageUrl);
+      } else {
+        product.append("image", JSON.stringify(image));
+      }
+      product.append("countInStock", countInStock);
+      product.append("category", category);
+      product.append("publisher", publisher);
+      product.append("supplier", supplier);
+      product.append("publishingYear", publishingYear);
+      product.append("language", language);
+      product.append("numberOfPages", numberOfPages);
+      dispatch(createProductAdmin(product));
     } else {
       dispatch({ type: PRODUCT_CREATE_FAIL });
       toast.error("Thêm sách không thành công!", ToastObjects);
@@ -299,9 +303,9 @@ const AddProductMain = () => {
                         className="form-control"
                         type="url"
                         placeholder="Nhập URL hình ảnh"
-                        value={image}
+                        value={imageUrl}
                         required
-                        onChange={(e) => setImage(e.target.value)}
+                        onChange={(e) => setImageUrl(e.target.value)}
                       />
                     </div>
 
@@ -330,6 +334,7 @@ const AddProductMain = () => {
                       onChange={(value) => setDescription(value)}
                     />
                   </div>
+                  <UploadImage setImage={(value) => setImage(value)} />
                 </div>
               </div>
             </div>

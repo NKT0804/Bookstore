@@ -41,7 +41,7 @@ import axios from "axios";
 
 //config axios base url default
 // axios.defaults.baseURL = "https://tp-bookstore.herokuapp.com/";
-axios.defaults.baseURL = "http://localhost:5000/";
+// axios.defaults.baseURL = "http://localhost:5000/";
 
 const App = () => {
   return (
