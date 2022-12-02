@@ -29,15 +29,31 @@ const SliderTable = ({ setIsEditSlider, setCurrentSlider }) => {
     dispatch(listSlider());
   }, [dispatch]);
 
+  const [modalTitle, setModalTitle] = useState("");
+  const [modalBody, setModalBody] = useState("");
+  const [btnTitle, setBtnTitle] = useState("");
+  const [btnType, setBtnType] = useState("");
+  const [typeAction, setTypeAction] = useState(() => {});
+
+  const typeModal = (type) => {
+    if (type === "deleteSlider") {
+      setModalTitle("Xác nhận xoá slider");
+      setModalBody("Bạn có chắc muốn xoá Slider này ?");
+      setBtnTitle("Xoá");
+      setBtnType("delete");
+      setTypeAction(type);
+    }
+  };
+
   return (
     <>
       <Modal
-        modalTitle={"Xóa slider"}
-        modalBody={"Bạn có chắc muốn xóa slider này?"}
-        btnTitle={"Xóa"}
-        btnType={"delete"}
-        handler={sliderDeleteHandler}
-      />
+        modalTitle={modalTitle}
+        modalBody={modalBody}
+        btnTitle={btnTitle}
+        btnType={btnType}
+        handler={typeAction === "deleteSlider" ? sliderDeleteHandler : <></>}
+      ></Modal>
       <table className="admin__sliders-banner-table">
         <thead>
           <tr>
@@ -78,8 +94,16 @@ const SliderTable = ({ setIsEditSlider, setCurrentSlider }) => {
                         }}
                       ></i>
                     </Link>
-                    <Link data-toggle="modal" data-target="#exampleModalCenter" title="Xoá" target="_blank">
-                      <i class="text-danger fas fa-trash-alt" onClick={() => setSliderIdDelete(item._id)}></i>
+                    <Link title="Xoá">
+                      <i
+                        class="text-danger fas fa-trash-alt"
+                        data-toggle="modal"
+                        data-target="#exampleModalCenter"
+                        onClick={() => {
+                          typeModal("deleteSlider");
+                          setSliderIdDelete(item._id);
+                        }}
+                      ></i>
                     </Link>
                     <div className="dropdown-menu"></div>
                   </div>

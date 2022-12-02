@@ -2,32 +2,75 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import moment from "moment";
 import { useDispatch } from "react-redux";
-import { deleteOrderAdmin, hiddenOrderAdmin } from "../../../Redux/Actions/orderActions";
+import { deleteOrderAdmin, hiddenOrderAdmin, showOrderAdmin } from "../../../Redux/Actions/orderActions";
 import formatCash from "../../../utils/formatCash";
 import Modal from "../../base/modal/Modal";
 
 const Orders = (props) => {
   const dispatch = useDispatch();
   const { orders } = props;
-  const [orderIdDelete, setOrderIdDelete] = useState("");
-  const [orderIdHidden, setOrderIdHidden] = useState("");
+
+  const [orderIdSelected, setOrderIdSelected] = useState("");
+
   const handleDeleteOrder = () => {
-    dispatch(deleteOrderAdmin(orderIdDelete));
+    dispatch(deleteOrderAdmin(orderIdSelected));
   };
 
-  const handleHiddenOrder = (id) => {
-    dispatch(hiddenOrderAdmin(id));
+  const handleHiddenOrder = () => {
+    dispatch(hiddenOrderAdmin(orderIdSelected));
+  };
+
+  const handleShowOrder = () => {
+    dispatch(showOrderAdmin(orderIdSelected));
+  };
+
+  const [modalTitle, setModalTitle] = useState("");
+  const [modalBody, setModalBody] = useState("");
+  const [btnTitle, setBtnTitle] = useState("");
+  const [btnType, setBtnType] = useState("");
+  const [typeAction, setTypeAction] = useState(() => {});
+
+  const typeModal = (type) => {
+    if (type === "hiddenOrder") {
+      setModalTitle("Xác nhận ẩn đơn hàng");
+      setModalBody("Bạn có chắc muốn ẩn đơn hàng này ?");
+      setBtnTitle("Xác nhận");
+      setBtnType("confirm");
+      setTypeAction(type);
+    }
+
+    if (type === "showOrder") {
+      setModalTitle("Xác nhận hiện đơn hàng");
+      setModalBody("Bạn có chắc muốn hiện đơn hàng này ?");
+      setBtnTitle("Xác nhận");
+      setBtnType("confirm");
+      setTypeAction(type);
+    }
+
+    if (type === "deleteOrder") {
+      setModalTitle("Xác nhận xoá đơn hàng");
+      setModalBody("Bạn có chắc xoá đơn hàng này ?");
+      setBtnTitle("Xoá");
+      setBtnType("delete");
+      setTypeAction(type);
+    }
   };
 
   return (
     <>
       <Modal
-        modalTitle={"Xóa đơn hàng"}
-        modalBody={"Bạn có chắc muốn xóa đơn hàng này?"}
-        btnTitle={"Xóa"}
-        btnType={"delete"}
-        handler={handleDeleteOrder}
-      />
+        modalTitle={modalTitle}
+        modalBody={modalBody}
+        btnTitle={btnTitle}
+        btnType={btnType}
+        handler={
+          typeAction === "showOrder"
+            ? handleShowOrder
+            : typeAction === "hiddenOrder"
+            ? handleHiddenOrder
+            : handleDeleteOrder
+        }
+      ></Modal>
       <table className="table">
         <thead>
           <tr className="text-center">
@@ -79,11 +122,42 @@ const Orders = (props) => {
                     )}
                   </td>
                   <td className="d-flex justify-content-end align-item-center">
-                    <Link title="Đang bị ẩn" target="_blank">
-                      <i class="fas fa-eye-slash"></i>
-                    </Link>
+                    {order.isDisabled ? (
+                      <Link className="">
+                        <i
+                          class="fas fa-eye-slash"
+                          data-toggle="modal"
+                          data-target="#exampleModalCenter"
+                          onClick={() => {
+                            typeModal("showOrder");
+                            setOrderIdSelected(order._id);
+                          }}
+                        ></i>
+                      </Link>
+                    ) : (
+                      <Link className="text-success">
+                        <i
+                          className="fas fa-eye"
+                          data-toggle="modal"
+                          data-target="#exampleModalCenter"
+                          onClick={() => {
+                            typeModal("hiddenOrder");
+                            setOrderIdSelected(order._id);
+                          }}
+                        ></i>
+                      </Link>
+                    )}
+
                     <Link data-toggle="modal" data-target="#exampleModalCenter">
-                      <i class="text-danger fas fa-trash-alt ms-3" onClick={() => setOrderIdDelete(order._id)}></i>
+                      <i
+                        class="text-danger fas fa-trash-alt ms-3"
+                        data-toggle="modal"
+                        data-target="#exampleModalCenter"
+                        onClick={() => {
+                          typeModal("deleteOrder");
+                          setOrderIdSelected(order._id);
+                        }}
+                      ></i>
                     </Link>
                     {/* <Link to={`/admin/order/${order._id}`}>
                       <i class="fas fa-ellipsis-h ms-3"></i>

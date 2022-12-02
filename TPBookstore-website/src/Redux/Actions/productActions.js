@@ -49,7 +49,10 @@ import {
   PRODUCT_LIST_COMMENT_REQUEST,
   PRODUCT_HIDDEN_REQUEST,
   PRODUCT_HIDDEN_SUCCESS,
-  PRODUCT_HIDDEN_FAIL
+  PRODUCT_HIDDEN_FAIL,
+  PRODUCT_SHOW_REQUEST,
+  PRODUCT_SHOW_SUCCESS,
+  PRODUCT_SHOW_FAIL
 } from "../Constants/productConstants";
 import { logout } from "./userActions";
 import { PRODUCT_CREATE_REVIEW_REQUEST } from "./../Constants/productConstants";
@@ -408,6 +411,36 @@ export const hiddenProductAdmin = (id) => async (dispatch, getState) => {
     }
     dispatch({
       type: PRODUCT_HIDDEN_FAIL,
+      payload: message
+    });
+  }
+};
+
+// HIDDENT PRODUCT
+export const showProductAdmin = (id) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: PRODUCT_SHOW_REQUEST });
+
+    const {
+      userLogin: { userInfo }
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`
+      }
+    };
+
+    await axios.patch(`/api/v1/product/${id}/restore`, {}, config);
+
+    dispatch({ type: PRODUCT_SHOW_SUCCESS });
+  } catch (error) {
+    const message = error.response && error.response.data.message ? error.response.data.message : error.message;
+    if (message === "Not authorized, token failed") {
+      dispatch(logout());
+    }
+    dispatch({
+      type: PRODUCT_SHOW_FAIL,
       payload: message
     });
   }

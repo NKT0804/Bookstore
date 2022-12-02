@@ -53,15 +53,30 @@ const UpdateBanner = ({ isEditBanner, currentBanner, setIsEditBanner, setCurrent
     );
   };
 
+  const [modalTitle, setModalTitle] = useState("");
+  const [modalBody, setModalBody] = useState("");
+  const [btnTitle, setBtnTitle] = useState("");
+  const [btnType, setBtnType] = useState("");
+  const [typeAction, setTypeAction] = useState(() => {});
+
+  const typeModal = (type) => {
+    if (type === "updateBanner") {
+      setModalTitle("Cập nhật Banner");
+      setModalBody("Bạn có chắc muốn cập nhật Banner này?");
+      setBtnTitle("Lưu thay đổi");
+      setBtnType("confirm");
+      setTypeAction(type);
+    }
+  };
   return (
     <>
       <Modal
-        modalTitle={"Cập nhật Banner"}
-        modalBody={"Bạn có chắc muốn cập nhật Banner này?"}
-        btnTitle={"Lưu thay đổi"}
-        btnType={"confirm"}
-        handler={submitHandler}
-      />
+        modalTitle={modalTitle}
+        modalBody={modalBody}
+        btnTitle={btnTitle}
+        btnType={btnType}
+        handler={typeAction === "updateBanner" ? submitHandler : <></>}
+      ></Modal>
       <div className="">
         <div>
           {loading && <Loading />}
@@ -116,6 +131,9 @@ const UpdateBanner = ({ isEditBanner, currentBanner, setIsEditBanner, setCurrent
                 className="btn btn-warning p-2"
                 data-toggle="modal"
                 data-target="#exampleModalCenter"
+                onClick={() => {
+                  typeModal("updateBanner");
+                }}
               >
                 Cập nhật
               </button>

@@ -355,7 +355,7 @@ const restoreProduct = async (req, res) => {
         throw new Error("Sản phẩm không tồn tại!");
     }
     product.isDisabled = false;
-    const restoredProduct = await Product.findOneAndUpdate({ _id: product._id }, { isDisabled: false }, { new: true });
+    const restoredProduct = await product.save();
 
     res.status(200);
     res.json(restoredProduct);
