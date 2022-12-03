@@ -35,7 +35,6 @@ const UpdateSlider = ({ currentSlider, setIsEditSlider }) => {
 
   useEffect(() => {
     if (success) {
-      toast.success("Cập nhật slider thành công", ToastObjects);
       setIsEditSlider(false);
       dispatch(listSlider());
     }

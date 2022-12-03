@@ -2,16 +2,37 @@ import React, { useEffect, useState } from "react";
 import ImageUploading from "react-images-uploading";
 
 const UploadImage = (props) => {
+  const { image, setImage } = props;
   const [images, setImages] = useState("");
-  const { setImage } = props;
-  const [imageUrl, setImageUrl] = useState("");
+  const [imagePreview, setImagePreview] = useState("");
+  const [imageInput, setImageInput] = useState("");
+  const [imageUrlInput, setImageUrlInput] = useState("");
 
   const onChange = (imageList) => {
     // data for submit
     setImage(imageList[0]?.data_url);
+    setImageInput(imageList[0]?.data_url);
     setImages(imageList);
+    setImagePreview(imageList[0]?.data_url);
   };
+  useEffect(() => {
+    if (image) {
+      setImageUrlInput(image);
+    }
+    if (imageUrlInput) {
+      setImageInput("");
+      setImagePreview(imageUrlInput);
+      setImage(imageUrlInput);
+    }
+  }, [imageUrlInput, image]);
 
+  useEffect(() => {
+    if (imageInput) {
+      setImageUrlInput("");
+      setImagePreview(imageInput);
+      setImage(imageInput);
+    }
+  }, [imageInput]);
   return (
     <div>
       <ImageUploading value={images} onChange={onChange} dataURLKey="data_url">
@@ -31,20 +52,22 @@ const UploadImage = (props) => {
                 className="form-control upload__image-url"
                 type="url"
                 placeholder="Nhập URL hình ảnh"
-                value={imageUrl}
+                value={imageUrlInput}
                 required
-                onChange={(e) => setImageUrl(e.target.value)}
+                onChange={(e) => setImageUrlInput(e.target.value)}
               />
             </div>
 
-            {imageList.map((image, index) => (
-              <div key={index} className="upload__image-item">
-                <img className="upload__image-img" src={image["data_url"]} alt="" width="100" />
+            {/* {imageList.map((image, index) => ( */}
+            {imagePreview && (
+              <div className="upload__image-item">
+                <img className="upload__image-img" src={imagePreview} alt="" />
                 <span className="upload__image-cancel" title="Xoá ảnh" onClick={() => onImageRemove(0)}>
                   <i class="fas fa-window-close"></i>
                 </span>
               </div>
-            ))}
+            )}
+            {/* ))} */}
           </div>
         )}
       </ImageUploading>

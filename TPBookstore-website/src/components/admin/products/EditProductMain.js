@@ -9,6 +9,7 @@ import Message from "../../base/LoadingError/Error";
 import Loading from "../../base/LoadingError/Loading";
 import { listCategoryAdmin } from "../../../Redux/Actions/categoryActions";
 import ReactQuill from "react-quill";
+import UploadImage from "./UploadImage";
 
 const ToastObjects = {
   pauseOnFocusLoss: false,
@@ -83,24 +84,21 @@ const EditProductMain = (props) => {
   const submitHandler = (e) => {
     e.preventDefault();
     if (price >= 0 && countInStock >= 0) {
-      dispatch(
-        updateProductAdmin({
-          _id: productId,
-          name,
-          price,
-          priceSale,
-          description,
-          author,
-          image,
-          countInStock,
-          category,
-          publisher,
-          supplier,
-          publishingYear,
-          language,
-          numberOfPages
-        })
-      );
+      const product = new FormData();
+      product.append("name", name);
+      product.append("price", price);
+      product.append("priceSale", priceSale);
+      product.append("description", description);
+      product.append("author", author);
+      product.append("image", JSON.stringify(image));
+      product.append("countInStock", countInStock);
+      product.append("category", category);
+      product.append("publisher", publisher);
+      product.append("supplier", supplier);
+      product.append("publishingYear", publishingYear);
+      product.append("language", language);
+      product.append("numberOfPages", numberOfPages);
+      dispatch(updateProductAdmin(productId, product));
     } else {
       dispatch({ type: PRODUCT_UPDATE_FAIL });
       toast.error("Cập nhật sản phẩm không thành công!!!", ToastObjects);
@@ -295,7 +293,7 @@ const EditProductMain = (props) => {
                       </div>
 
                       <div className="row mb-4">
-                        <div className="col-lg-6 col-md-6 mb-2">
+                        <div className="col-lg-3 col-md-6 mb-2">
                           <label htmlFor="product_price" className="form-label">
                             Giá sản phẩm
                           </label>
@@ -309,7 +307,7 @@ const EditProductMain = (props) => {
                             onChange={(e) => setPrice(e.target.value)}
                           />
                         </div>
-                        <div className="col-lg-6 col-md-6 mb-2">
+                        <div className="col-lg-3 col-md-6 mb-2">
                           <label htmlFor="product_price_sale" className="form-label">
                             Giá đã giảm
                           </label>
@@ -323,22 +321,6 @@ const EditProductMain = (props) => {
                             onChange={(e) => setPriceSale(e.target.value)}
                           />
                         </div>
-                      </div>
-
-                      {/*image */}
-                      <div className="row mb-4">
-                        <div className="col-lg-6 col-md-7 mb-2">
-                          <label className="form-label">Hình ảnh sản phẩm</label>
-                          <input
-                            className="form-control"
-                            type="url"
-                            placeholder="Nhập URL hình ảnh"
-                            value={image}
-                            required
-                            onChange={(e) => setImage(e.target.value)}
-                          />
-                        </div>
-
                         <div className="col-lg-6 col-md-6 mb-2">
                           <label htmlFor="product_author" className="form-label">
                             Ngôn ngữ
@@ -353,6 +335,9 @@ const EditProductMain = (props) => {
                             onChange={(e) => setLanguage(e.target.value)}
                           />
                         </div>
+                      </div>
+
+                      <div className="row mb-4">
                         <label className="form-label">Mô tả</label>
                         <ReactQuill
                           placeholder="Nhập mô tả sản phẩm"
@@ -363,6 +348,10 @@ const EditProductMain = (props) => {
                           value={description}
                           onChange={(value) => setDescription(value)}
                         />
+                        <div className="col-lg-12 col-md-7 mt-4">
+                          <label className="form-label">Hình ảnh sản phẩm</label>
+                          <UploadImage image={image} setImage={(value) => setImage(value)} />
+                        </div>
                       </div>
                     </>
                   )}
