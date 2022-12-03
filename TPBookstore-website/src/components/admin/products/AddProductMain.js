@@ -50,7 +50,6 @@ const AddProductMain = () => {
   const [price, setPrice] = useState(null);
   const [priceSale, setPriceSale] = useState(null);
   const [author, setAuthor] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
   const [image, setImage] = useState("");
   const [countInStock, setCountInStock] = useState(null);
   const [description, setDescription] = useState("");
@@ -76,7 +75,7 @@ const AddProductMain = () => {
       setName("");
       setDescription("");
       setCountInStock(null);
-      setImageUrl("");
+      setImage("");
       setAuthor("");
       setPrice(null);
       setPriceSale(null);
@@ -97,11 +96,7 @@ const AddProductMain = () => {
       product.append("priceSale", priceSale);
       product.append("description", description);
       product.append("author", author);
-      if (imageUrl) {
-        product.append("imageUrl", imageUrl);
-      } else {
-        product.append("image", JSON.stringify(image));
-      }
+      product.append("image", JSON.stringify(image));
       product.append("countInStock", countInStock);
       product.append("category", category);
       product.append("publisher", publisher);
@@ -324,14 +319,6 @@ const AddProductMain = () => {
                     <div className="col-lg-12 col-md-7 mt-4">
                       <label className="form-label">Hình ảnh sản phẩm</label>
                       <UploadImage setImage={(value) => setImage(value)} />
-                      {/* <input
-                        className="form-control"
-                        type="url"
-                        placeholder="Nhập URL hình ảnh"
-                        value={imageUrl}
-                        required
-                        onChange={(e) => setImageUrl(e.target.value)}
-                      /> */}
                     </div>
                   </div>
                 </div>

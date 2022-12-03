@@ -495,7 +495,7 @@ export const editProductAdmin = (id) => async (dispatch) => {
 };
 
 // UPDATE PRODUCT
-export const updateProductAdmin = (product) => async (dispatch, getState) => {
+export const updateProductAdmin = (productId, product) => async (dispatch, getState) => {
   try {
     dispatch({ type: PRODUCT_UPDATE_REQUEST });
 
@@ -509,11 +509,12 @@ export const updateProductAdmin = (product) => async (dispatch, getState) => {
         Authorization: `Bearer ${userInfo.token}`
       }
     };
+    console.log(productId);
+    console.log(product);
+    // const { data } = await axios.put(`/api/v1/product/${productId}`, product, config);
 
-    const { data } = await axios.put(`/api/v1/product/${product._id}`, product, config);
-
-    dispatch({ type: PRODUCT_UPDATE_SUCCESS, payload: data });
-    dispatch({ type: PRODUCT_EDIT_SUCCESS, payload: data });
+    // dispatch({ type: PRODUCT_UPDATE_SUCCESS, payload: data });
+    // dispatch({ type: PRODUCT_EDIT_SUCCESS, payload: data });
   } catch (error) {
     const message = error.response && error.response.data.message ? error.response.data.message : error.message;
     if (message === "Not authorized, token failed") {

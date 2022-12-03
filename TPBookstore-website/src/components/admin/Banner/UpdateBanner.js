@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Loading from "../../base/LoadingError/Loading";
 import { updateBannerAdmin, listBanner } from "../../../Redux/Actions/bannerActions";
-import Modal from "../../base/modal/Modal";
+// import Modal from "../../base/modal/Modal";
 
 const UpdateBanner = ({ isEditBanner, currentBanner, setIsEditBanner, setCurrentBanner }) => {
   const dispatch = useDispatch();
@@ -53,30 +53,30 @@ const UpdateBanner = ({ isEditBanner, currentBanner, setIsEditBanner, setCurrent
     );
   };
 
-  const [modalTitle, setModalTitle] = useState("");
-  const [modalBody, setModalBody] = useState("");
-  const [btnTitle, setBtnTitle] = useState("");
-  const [btnType, setBtnType] = useState("");
-  const [typeAction, setTypeAction] = useState(() => {});
+  // const [modalTitle, setModalTitle] = useState("");
+  // const [modalBody, setModalBody] = useState("");
+  // const [btnTitle, setBtnTitle] = useState("");
+  // const [btnType, setBtnType] = useState("");
+  // const [typeAction, setTypeAction] = useState(() => {});
 
-  const typeModal = (type) => {
-    if (type === "updateBanner") {
-      setModalTitle("Cập nhật Banner");
-      setModalBody("Bạn có chắc muốn cập nhật Banner này?");
-      setBtnTitle("Lưu thay đổi");
-      setBtnType("confirm");
-      setTypeAction(type);
-    }
-  };
+  // const typeModal = (type) => {
+  //   if (type === "updateBanner") {
+  //     setModalTitle("Cập nhật Banner");
+  //     setModalBody("Bạn có chắc muốn cập nhật Banner này?");
+  //     setBtnTitle("Lưu thay đổi");
+  //     setBtnType("confirm");
+  //     setTypeAction(type);
+  //   }
+  // };
   return (
     <>
-      <Modal
+      {/* <Modal
         modalTitle={modalTitle}
         modalBody={modalBody}
         btnTitle={btnTitle}
         btnType={btnType}
         handler={typeAction === "updateBanner" ? submitHandler : <></>}
-      ></Modal>
+      ></Modal> */}
       <div className="">
         <div>
           {loading && <Loading />}
@@ -126,7 +126,7 @@ const UpdateBanner = ({ isEditBanner, currentBanner, setIsEditBanner, setCurrent
               <button disabled={!isEditBanner} className="btn btn-danger p-2" onClick={() => cancelHandler()}>
                 Hủy
               </button>
-              <button
+              {/* <button
                 disabled={!isEditBanner}
                 className="btn btn-warning p-2"
                 data-toggle="modal"
@@ -135,6 +135,10 @@ const UpdateBanner = ({ isEditBanner, currentBanner, setIsEditBanner, setCurrent
                   typeModal("updateBanner");
                 }}
               >
+                Cập nhật
+              </button> */}
+
+              <button disabled={!isEditBanner} className="btn btn-warning p-2" onClick={() => submitHandler()}>
                 Cập nhật
               </button>
             </div>

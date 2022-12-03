@@ -25,7 +25,7 @@ INCLUDE STYLES AND COMPONENTS
   font-weight: 500;
 }
 
-.title__top{
+.title__top {
   position: absolute;
   width: 340px;
   top: -56px;
@@ -45,7 +45,7 @@ tbody tr {
   border-bottom: 1px solid #cfdbe6;
 }
 tbody tr:hover {
-  background-color: #CFF4FC !important;
+  background-color: #cff4fc !important;
 }
 
 a.disabled {
@@ -65,10 +65,9 @@ button:disabled {
 }
 
 .form-control.text-align-content {
-  text-align:justify;
+  text-align: justify;
   padding: 12px 8px;
 }
-
 
 .Header-green {
   background-color: var(--primary-color);
@@ -609,7 +608,7 @@ a.itemside:hover .title {
 
 .order-info-wrap {
   background-color: #e5fee9;
-  padding : 20px 4px;
+  padding: 20px 4px;
 }
 
 /* --------- description list --------*/
@@ -847,16 +846,16 @@ ul.row-sm {
 /* Manage comments */
 /*  */
 .wrap-comment.wrap-comment-admin table {
-  background-color: var(--white-color)
+  background-color: var(--white-color);
 }
 
 /* FORGOT PASSWORD */
 .forgot-password-header {
   background-color: var(--white-color);
   padding: 0 260px;
-  display:  flex;
-  justify-content:space-between;
-  height : 100px;
+  display: flex;
+  justify-content: space-between;
+  height: 100px;
   box-shadow: 0 6px 6px rgb(0 0 0 / 6%);
 }
 
@@ -864,20 +863,20 @@ ul.row-sm {
   width: 300px;
 }
 
-.forgot-password-header h6{
-  color : var(--primary-color);
+.forgot-password-header h6 {
+  color: var(--primary-color);
   cursor: pointer;
 }
 
-.forgot-password-title  {
+.forgot-password-title {
   display: flex;
-  align-items : center;
+  align-items: center;
 }
 
 .forgot-password-title a {
-  width : 20px;
-  height : 20px;
-} 
+  width: 20px;
+  height: 20px;
+}
 
 /* ================= RATINGS ============== */
 .label-rating {
@@ -934,8 +933,8 @@ ul.row-sm {
 
 .form-control:hover,
 .form-select:hover {
-    cursor: pointer;
-    border-color: var(--primary-color);
+  cursor: pointer;
+  border-color: var(--primary-color);
 }
 
 .btn-facebook {
@@ -1032,7 +1031,6 @@ button.btn.btn-success.col-12 {
   font-size: 16px;
 }
 
-
 /* ADD PRODUCT */
 .add-product__img {
   display: flex;
@@ -1040,75 +1038,68 @@ button.btn.btn-success.col-12 {
 }
 
 .form-control.input-description {
-  border :none;
-  border-radius : 8px;
+  border: none;
+  border-radius: 8px;
   margin-bottom: 20px;
 }
 
-.form-control.input-description >div:nth-of-type(2) {
+.form-control.input-description > div:nth-of-type(2) {
   min-height: 150px;
   font-size: 17px;
 }
 
 .upload__image-item {
-  display : flex;
+  display: flex;
   align-items: center;
   margin-right: 20px;
-  }
+}
 
-  .upload__image-item:first-child {
-    border:rgba(0, 0, 0, 0.15) solid 1px;
-    display: flex;
-    justify-content: space-between;
-  }
+.upload__image-item:first-child {
+  border: rgba(0, 0, 0, 0.15) solid 1px;
+  display: flex;
+  justify-content: space-between;
+}
 
 .upload__image-file {
   font-size: 24px;
   padding: 4px 14px;
-  border:rgba(0, 0, 0, 0.15) solid 1px;
+  border: rgba(0, 0, 0, 0.15) solid 1px;
   border-radius: 50%;
   margin: 8px 12px;
-  cursor : pointer;
-
-  }
+  cursor: pointer;
+}
 
 .upload__image-cancel {
   font-size: 24px;
-  color : rgb(208, 38, 38);
+  color: rgb(208, 38, 38);
   padding: 4px 10px;
-  border:rgba(0, 0, 0, 0.15) solid 1px;
+  border: rgba(0, 0, 0, 0.15) solid 1px;
   border-radius: 50%;
-  cursor : pointer;
+  cursor: pointer;
   margin: 8px 12px;
-
-  }
-
+}
 
 .upload__image-img {
-  width: 200px;
-  height : 200px;
+  width: 100%;
+  height: 100%;
+  max-width: 400px;
   text-align: center;
-  }
+}
 
-  .upload__image-url {
-    margin-left: 200px;
-
-  }
-
+.upload__image-url {
+  margin-left: 200px;
+}
 
 /* Sliders and banner */
 
 .component__banner,
 .component__sliders {
-  margin-bottom : 20px;
-  
+  margin-bottom: 20px;
 }
-
 
 .border__bottom-admin {
   border: 8px solid #f5f5f5;
   margin: 8px -16px 12px -16px;
-
 }
 
 .admin__sliders-banner {
@@ -1120,10 +1111,10 @@ button.btn.btn-success.col-12 {
   padding: 12px 8px 20px 8px;
 }
 
-.admin__sliders-banner-update-input{
+.admin__sliders-banner-update-input {
   display: flex;
   flex-direction: column;
-  margin-bottom : 20px;
+  margin-bottom: 20px;
 }
 
 .admin__sliders-banner-update button {
@@ -1135,7 +1126,6 @@ button.btn.btn-success.col-12 {
   opacity: 0.8;
 }
 
-
 /* sliders-banner table */
 
 .admin__sliders-banner-table {
@@ -1143,56 +1133,54 @@ button.btn.btn-success.col-12 {
 }
 
 .admin__sliders-banner-table th {
-  border : 1px solid #777;
+  border: 1px solid #777;
   text-align: center !important;
 }
 
 .admin__sliders-banner-table-id {
   width: 7%;
-
 }
 
 .admin__sliders-banner-table-name {
   width: 17%;
-
 }
 
 .admin__sliders-banner-table-img {
-width: 43%;
+  width: 43%;
 }
 
 .admin__sliders-banner-table-link {
-width: 25%;
+  width: 25%;
 }
 
 .admin__sliders-banner-table-action {
-width: 8%;
-text-align: center;
+  width: 8%;
+  text-align: center;
 }
 
 .admin__sliders-banner-table-content tr {
-  border : 1px solid #777;
+  border: 1px solid #777;
   text-align: center;
   margin-bottom: 8px;
 }
 
 .admin__sliders-banner-table-content td {
   padding: 8px;
-  border : 1px solid #777;
+  border: 1px solid #777;
 }
 
 .admin__sliders-banner-table-content .text-end {
   text-align: center !important;
 }
 
-.admin__sliders-banner-table-content td>img {
-  width : 85%;
-  height :85%;
+.admin__sliders-banner-table-content td > img {
+  width: 85%;
+  height: 85%;
 }
 
 .admin__sliders-banner-update-input label {
-  margin-top : 12px;
-  margin-bottom : 4px !important;
+  margin-top: 12px;
+  margin-bottom: 4px !important;
 }
 
 .action__slider i,
@@ -1202,10 +1190,10 @@ text-align: center;
 
 /* order details */
 
-.order-detail__admin th, td{
+.order-detail__admin th,
+td {
   text-align: center;
-  vertical-align : middle;
-
+  vertical-align: middle;
 }
 
 .table__order-details {
@@ -1217,11 +1205,11 @@ text-align: center;
 
 .user-information__admin {
   position: relative;
-  color:#000;
+  color: #000;
   margin-top: 5%;
-  width : 50%;
+  width: 50%;
   margin-left: 24%;
-  padding : 30px 0;
+  padding: 30px 0;
   background-color: var(--white-color);
   display: grid;
   grid-template-columns: 80%;
@@ -1243,7 +1231,7 @@ text-align: center;
   color: var(--white-color);
   padding: 16px 24px;
   border-bottom-left-radius: 40px;
-  border-bottom-right-radius: 40px
+  border-bottom-right-radius: 40px;
 }
 
 .user-information__admin-item {
@@ -1252,7 +1240,7 @@ text-align: center;
 }
 
 .user-information__admin-title {
-  color : #8a8a8a;
+  color: #8a8a8a;
 }
 
 .user-information__admin-btn {

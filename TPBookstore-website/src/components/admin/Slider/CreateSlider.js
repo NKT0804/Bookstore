@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import Loading from "../../base/LoadingError/Loading";
 import { BANNER_CREATE_RESET } from "../../../Redux/Constants/bannerConstants";
 import { createBannerAdmin, listSlider } from "../../../Redux/Actions/bannerActions";
+import UploadImage from "../products/UploadImage";
 
 const ToastObjects = {
   pauseOnFocusLoss: false,
@@ -26,7 +27,7 @@ const CreateSlider = () => {
       toast.success("Thêm slider thành công", ToastObjects);
       dispatch({ type: BANNER_CREATE_RESET });
       setName("");
-      setImage("");
+      // setImage("");
       setLinkTo("");
       dispatch(listSlider());
     }
@@ -38,7 +39,14 @@ const CreateSlider = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(createBannerAdmin({ name, index: 1, image, linkTo, role: "slider" }));
+    const slider = new FormData();
+
+    slider.append("name", name);
+    slider.append("index", 1);
+    slider.append("image", JSON.stringify(image));
+    slider.append("linkTo", linkTo);
+    slider.append("role", "slider");
+    dispatch(createBannerAdmin(slider));
   };
   return (
     <>
@@ -51,6 +59,7 @@ const CreateSlider = () => {
                 Tên Slider
               </label>
               <input
+                required
                 type="text"
                 placeholder="Nhập tên slider"
                 className="form-control"
@@ -63,15 +72,17 @@ const CreateSlider = () => {
               <label htmlFor="slider_image" className="form-label">
                 Hình ảnh
               </label>
-              <input
+              {/* <input
                 type="text"
                 placeholder="Nhập url hình ảnh"
                 className="form-control"
                 id="slider_image"
                 value={image}
                 onChange={(e) => setImage(e.target.value)}
-              />
+              /> */}
+              <UploadImage setImage={setImage} />
             </div>
+
             <div className="">
               <label htmlFor="slider_linkTo" className="form-label">
                 Liên kết đến

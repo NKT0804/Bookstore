@@ -7,6 +7,7 @@ import SliderComponent from "./../../components/admin/Slider/SliderComponent";
 import Toast from "../../components/base/LoadingError/Toast";
 import { toast } from "react-toastify";
 import { BANNER_DELETE_RESET, BANNER_UPDATE_RESET } from "../../Redux/Constants/bannerConstants";
+import Modal from "../../components/base/modal/Modal";
 
 const ToastObjects = {
   pauseOnFocusLoss: false,
