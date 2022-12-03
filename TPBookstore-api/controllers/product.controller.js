@@ -40,7 +40,7 @@ const createProduct = async (req, res) => {
         slug = slug + "-" + Math.round(Math.random() * 10000).toString();
     }
     // Upload image
-    const urlImage = await uploadImage(imageUrl ? imageUrl : image, "TPBookstore/products", slug);
+    const urlImage = await uploadImage(imageUrl ? imageUrl : JSON.parse(image), "TPBookstore/products", slug);
     if (!urlImage.url) {
         res.status(400);
         throw new Error(urlImage.err);

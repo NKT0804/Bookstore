@@ -58,22 +58,17 @@ export const listSlider = () => async (dispatch) => {
 export const createBannerAdmin = (banner) => async (dispatch, getState) => {
   try {
     dispatch({ type: BANNER_CREATE_REQUEST });
-
     const {
       userLogin: { userInfo }
     } = getState();
-
+    console.log(banner["image"]);
     const config = {
       headers: {
         Authorization: `Bearer ${userInfo.token}`
       }
     };
 
-    const { data } = await axios.post(
-      `/api/v1/banner/`,
-      { name: banner.name, index: banner.index, image: banner.image, linkTo: banner.linkTo, role: banner.role },
-      config
-    );
+    const { data } = await axios.post(`/api/v1/banner/`, banner, config);
 
     dispatch({ type: BANNER_CREATE_SUCCESS, payload: data });
   } catch (error) {
