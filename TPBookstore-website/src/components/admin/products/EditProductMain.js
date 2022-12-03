@@ -10,6 +10,7 @@ import Loading from "../../base/LoadingError/Loading";
 import { listCategoryAdmin } from "../../../Redux/Actions/categoryActions";
 import ReactQuill from "react-quill";
 import UploadImage from "./UploadImage";
+import isEmpty from "validator/lib/isEmpty";
 
 const ToastObjects = {
   pauseOnFocusLoss: false,
@@ -34,6 +35,7 @@ const EditProductMain = (props) => {
   const [language, setLanguage] = useState("");
   const [numberOfPages, setNumberOfPages] = useState("");
   const [category, setCategory] = useState("");
+  const [validate, setValidate] = useState({});
 
   const dispatch = useDispatch();
 
@@ -80,8 +82,66 @@ const EditProductMain = (props) => {
   useEffect(() => {
     dispatch(editProductAdmin(productId));
   }, [productId]);
+
+  const isEmptyCheckUpdateProduct = () => {
+    const msg = {};
+    if (isEmpty(name)) {
+      msg.name = "Vui lòng nhập tên sách";
+    }
+
+    if (isEmpty(description)) {
+      msg.description = "Vui lòng nhập mô tả";
+    }
+
+    if (isNaN(countInStock) || countInStock < 0) {
+      msg.countInStock = "Vui lòng nhập số hợp lệ";
+    }
+
+    if (!image) {
+      msg.image = "Vui lòng chọn ảnh";
+    }
+
+    if (isEmpty(author)) {
+      msg.author = "Vui lòng nhập tên tác giả";
+    }
+
+    if (isNaN(price) || price < 0) {
+      msg.price = "Vui lòng nhập giá hợp lệ";
+    }
+    if (isNaN(priceSale) || priceSale < 0) {
+      msg.priceSale = "Vui lòng nhập giá hợp lệ";
+    }
+    if (isEmpty(publisher)) {
+      msg.publisher = "Vui lòng nhập nhà xuất bản";
+    }
+
+    if (isEmpty(supplier)) {
+      msg.supplier = "Vui lòng nhập nhà cung cấp";
+    }
+    if (isNaN(publishingYear) || publishingYear <= 0) {
+      msg.publishingYear = "Vui lòng nhập năm xuất bản";
+    }
+    if (isEmpty(language)) {
+      msg.language = "Vui lòng nhập ngôn ngữ";
+    }
+    if (isNaN(numberOfPages) || numberOfPages <= 0) {
+      msg.numberOfPages = "Vui lòng nhập số hợp lệ";
+    }
+
+    if (isEmpty(category)) {
+      msg.category = "Vui lòng chọn danh mục";
+    }
+    setValidate(msg);
+    if (Object.keys(msg).length > 0) return false;
+    return true;
+  };
+
   const submitHandler = (e) => {
     e.preventDefault();
+
+    const isEmptyValidate = isEmptyCheckUpdateProduct();
+    if (!isEmptyValidate) return;
+
     if (price >= 0 && countInStock >= 0) {
       const product = new FormData();
       product.append("name", name);
@@ -171,12 +231,20 @@ const EditProductMain = (props) => {
                           <input
                             type="text"
                             placeholder="Nhập tên sách"
-                            className="form-control"
+                            className={`form-control ${validate.name?.length > 0 ? "border-red" : ""}`}
                             id="product_title"
-                            required
+                            // required
                             value={name}
                             onChange={(e) => setName(e.target.value)}
+                            onClick={() => {
+                              setValidate((values) => {
+                                const x = { ...values };
+                                x.name = "";
+                                return x;
+                              });
+                            }}
                           />
+                          <p className="msg__validate">{validate.name}</p>
                         </div>
                         <div className="col-lg-6 col-md-6 mb-2">
                           <label htmlFor="product_author" className="form-label">
@@ -185,12 +253,20 @@ const EditProductMain = (props) => {
                           <input
                             type="text"
                             placeholder="Nhập Tác giả"
-                            className="form-control"
+                            className={`form-control ${validate.author?.length > 0 ? "border-red" : ""}`}
                             id="product_author"
-                            required
+                            // required
                             value={author}
                             onChange={(e) => setAuthor(e.target.value)}
+                            onClick={() => {
+                              setValidate((values) => {
+                                const x = { ...values };
+                                x.author = "";
+                                return x;
+                              });
+                            }}
                           />
+                          <p className="msg__validate">{validate.author}</p>
                         </div>
                       </div>
 
@@ -202,12 +278,20 @@ const EditProductMain = (props) => {
                           <input
                             type="text"
                             placeholder="Nhập Nhà xuất bản"
-                            className="form-control"
+                            className={`form-control ${validate.publisher?.length > 0 ? "border-red" : ""}`}
                             id="product_publisher"
-                            required
+                            // required
                             value={publisher}
                             onChange={(e) => setPublisher(e.target.value)}
+                            onClick={() => {
+                              setValidate((values) => {
+                                const x = { ...values };
+                                x.publisher = "";
+                                return x;
+                              });
+                            }}
                           />
+                          <p className="msg__validate">{validate.publisher}</p>
                         </div>
                         <div className="col-lg-6 col-md-6 mb-2">
                           <label htmlFor="product_supplier" className="form-label">
@@ -216,12 +300,20 @@ const EditProductMain = (props) => {
                           <input
                             type="text"
                             placeholder="Nhập Nhà cung cấp"
-                            className="form-control"
+                            className={`form-control ${validate.supplier?.length > 0 ? "border-red" : ""}`}
                             id="product_supplier"
-                            required
+                            // required
                             value={supplier}
                             onChange={(e) => setSupplier(e.target.value)}
+                            onClick={() => {
+                              setValidate((values) => {
+                                const x = { ...values };
+                                x.supplier = "";
+                                return x;
+                              });
+                            }}
                           />
+                          <p className="msg__validate">{validate.supplier}</p>
                         </div>
                       </div>
 
@@ -233,12 +325,20 @@ const EditProductMain = (props) => {
                           <input
                             type="number"
                             placeholder="Nhập năm xuất bản"
-                            className="form-control"
+                            className={`form-control ${validate.publishingYear?.length > 0 ? "border-red" : ""}`}
                             id="product_price"
-                            required
+                            // required
                             value={publishingYear}
                             onChange={(e) => setPublishingYear(e.target.value)}
+                            onClick={() => {
+                              setValidate((values) => {
+                                const x = { ...values };
+                                x.publishingYear = "";
+                                return x;
+                              });
+                            }}
                           />
+                          <p className="msg__validate">{validate.publishingYear}</p>
                         </div>
                         <div className="col-lg-6 col-md-6 mb-2">
                           <label htmlFor="product_price_sale" className="form-label">
@@ -247,12 +347,20 @@ const EditProductMain = (props) => {
                           <input
                             type="number"
                             placeholder="Nhập số trang"
-                            className="form-control"
+                            className={`form-control ${validate.numberOfPages?.length > 0 ? "border-red" : ""}`}
                             id="product_price_sale"
-                            required
+                            // required
                             value={numberOfPages}
                             onChange={(e) => setNumberOfPages(e.target.value)}
+                            onClick={() => {
+                              setValidate((values) => {
+                                const x = { ...values };
+                                x.numberOfPages = "";
+                                return x;
+                              });
+                            }}
                           />
+                          <p className="msg__validate">{validate.numberOfPages}</p>
                         </div>
                       </div>
 
@@ -275,6 +383,7 @@ const EditProductMain = (props) => {
                                 </option>
                               ))}
                           </select>
+                          <p className="msg__validate">{validate.category}</p>
                         </div>
                         <div className="col-lg-6 col-md-6 mb-2">
                           <label htmlFor="product_count_in_stock" className="form-label">
@@ -283,12 +392,20 @@ const EditProductMain = (props) => {
                           <input
                             type="number"
                             placeholder="Số lượng"
-                            className="form-control"
+                            className={`form-control ${validate.countInStock?.length > 0 ? "border-red" : ""}`}
                             id="product_count_in_stock"
-                            required
+                            // required
                             value={countInStock}
                             onChange={(e) => setCountInStock(e.target.value)}
+                            onClick={() => {
+                              setValidate((values) => {
+                                const x = { ...values };
+                                x.countInStock = "";
+                                return x;
+                              });
+                            }}
                           />
+                          <p className="msg__validate">{validate.countInStock}</p>
                         </div>
                       </div>
 
@@ -300,12 +417,20 @@ const EditProductMain = (props) => {
                           <input
                             type="number"
                             placeholder="0 đ"
-                            className="form-control"
+                            className={`form-control ${validate.price?.length > 0 ? "border-red" : ""}`}
                             id="product_price"
-                            required
+                            // required
                             value={price}
                             onChange={(e) => setPrice(e.target.value)}
+                            onClick={() => {
+                              setValidate((values) => {
+                                const x = { ...values };
+                                x.price = "";
+                                return x;
+                              });
+                            }}
                           />
+                          <p className="msg__validate">{validate.price}</p>
                         </div>
                         <div className="col-lg-3 col-md-6 mb-2">
                           <label htmlFor="product_price_sale" className="form-label">
@@ -314,12 +439,20 @@ const EditProductMain = (props) => {
                           <input
                             type="number"
                             placeholder="0 đ"
-                            className="form-control"
+                            className={`form-control ${validate.priceSale?.length > 0 ? "border-red" : ""}`}
                             id="product_price_sale"
-                            required
+                            // required
                             value={priceSale}
                             onChange={(e) => setPriceSale(e.target.value)}
+                            onClick={() => {
+                              setValidate((values) => {
+                                const x = { ...values };
+                                x.priceSale = "";
+                                return x;
+                              });
+                            }}
                           />
+                          <p className="msg__validate">{validate.priceSale}</p>
                         </div>
                         <div className="col-lg-6 col-md-6 mb-2">
                           <label htmlFor="product_author" className="form-label">
@@ -328,12 +461,20 @@ const EditProductMain = (props) => {
                           <input
                             type="text"
                             placeholder="Nhập ngôn ngữ"
-                            className="form-control"
+                            className={`form-control ${validate.language?.length > 0 ? "border-red" : ""}`}
                             id="product_author"
-                            required
+                            // required
                             value={language}
                             onChange={(e) => setLanguage(e.target.value)}
+                            onClick={() => {
+                              setValidate((values) => {
+                                const x = { ...values };
+                                x.language = "";
+                                return x;
+                              });
+                            }}
                           />
+                          <p className="msg__validate">{validate.language}</p>
                         </div>
                       </div>
 
@@ -352,6 +493,7 @@ const EditProductMain = (props) => {
                           <label className="form-label">Hình ảnh sản phẩm</label>
                           <UploadImage image={image} setImage={(value) => setImage(value)} />
                         </div>
+                        <p className="msg__validate">{validate.image}</p>
                       </div>
                     </>
                   )}

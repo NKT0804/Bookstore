@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Loading from "../../base/LoadingError/Loading";
 import { updateBannerAdmin, listBanner } from "../../../Redux/Actions/bannerActions";
 import UploadImage from "../products/UploadImage";
+import isEmpty from "validator/lib/isEmpty";
 
 const UpdateBanner = ({ isEditBanner, currentBanner, setIsEditBanner, setCurrentBanner }) => {
   const dispatch = useDispatch();
@@ -11,6 +12,7 @@ const UpdateBanner = ({ isEditBanner, currentBanner, setIsEditBanner, setCurrent
   const [linkTo, setLinkTo] = useState("");
   const [index, setIndex] = useState("");
   const [role, setRole] = useState("");
+  const [validate, setValidate] = useState({});
 
   const bannerList = useSelector((state) => state.bannerList);
   const { banners } = bannerList;
@@ -46,7 +48,30 @@ const UpdateBanner = ({ isEditBanner, currentBanner, setIsEditBanner, setCurrent
     setLinkTo("");
     setIsEditBanner(false);
   };
-  const submitHandler = () => {
+
+  const isEmptyCheckUpdateBanner = () => {
+    const msg = {};
+    if (isEmpty(name)) {
+      msg.name = "Vui lòng nhập tên Banner";
+    }
+
+    if (!image) {
+      msg.image = "Vui lòng chọn ảnh";
+    }
+
+    if (isEmpty(linkTo)) {
+      msg.linkTo = "Vui lòng nhập liên kết";
+    }
+    setValidate(msg);
+    if (Object.keys(msg).length > 0) return false;
+    return true;
+  };
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+    const isEmptyValidate = isEmptyCheckUpdateBanner();
+    if (!isEmptyValidate) return;
+
     const banner = new FormData();
     banner.append("index", index);
     banner.append("name", name);
@@ -57,30 +82,8 @@ const UpdateBanner = ({ isEditBanner, currentBanner, setIsEditBanner, setCurrent
     dispatch(updateBannerAdmin(bannerId, banner));
   };
 
-  // const [modalTitle, setModalTitle] = useState("");
-  // const [modalBody, setModalBody] = useState("");
-  // const [btnTitle, setBtnTitle] = useState("");
-  // const [btnType, setBtnType] = useState("");
-  // const [typeAction, setTypeAction] = useState(() => {});
-
-  // const typeModal = (type) => {
-  //   if (type === "updateBanner") {
-  //     setModalTitle("Cập nhật Banner");
-  //     setModalBody("Bạn có chắc muốn cập nhật Banner này?");
-  //     setBtnTitle("Lưu thay đổi");
-  //     setBtnType("confirm");
-  //     setTypeAction(type);
-  //   }
-  // };
   return (
     <>
-      {/* <Modal
-        modalTitle={modalTitle}
-        modalBody={modalBody}
-        btnTitle={btnTitle}
-        btnType={btnType}
-        handler={typeAction === "updateBanner" ? submitHandler : <></>}
-      ></Modal> */}
       <div className="">
         <div>
           {loading && <Loading />}
@@ -93,27 +96,28 @@ const UpdateBanner = ({ isEditBanner, currentBanner, setIsEditBanner, setCurrent
                 <input
                   type="text"
                   placeholder="Nhập tên banner"
-                  className="form-control"
+                  className={`form-control ${validate.name?.length > 0 ? "border-red" : ""}`}
                   id="banner_name"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
+                  onClick={() => {
+                    setValidate((values) => {
+                      const x = { ...values };
+                      x.name = "";
+                      return x;
+                    });
+                  }}
                 />
+                <p className="msg__validate">{validate.name}</p>
               </div>
               <div className="">
                 <label htmlFor="banner_image" className="form-label">
                   Hình ảnh
                 </label>
-                {/* <input
-                  type="url"
-                  placeholder="Nhập url hình ảnh"
-                  className="form-control"
-                  id="banner_image"
-                  value={image}
-                  onChange={(e) => setImage(e.target.value)}
-                /> */}
                 <span className="upload__img-both">
                   <UploadImage image={image} setImage={(value) => setImage(value)} />
                 </span>
+                <p className="msg__validate">{validate.image}</p>
               </div>
               <div className="">
                 <label htmlFor="banner_linkTo" className="form-label">
@@ -122,29 +126,25 @@ const UpdateBanner = ({ isEditBanner, currentBanner, setIsEditBanner, setCurrent
                 <input
                   type="text"
                   placeholder="Nhập liên kết"
-                  className="form-control"
+                  className={`form-control ${validate.linkTo?.length > 0 ? "border-red" : ""}`}
                   id="banner_linkTo"
                   value={linkTo}
                   onChange={(e) => setLinkTo(e.target.value)}
+                  onClick={() => {
+                    setValidate((values) => {
+                      const x = { ...values };
+                      x.linkTo = "";
+                      return x;
+                    });
+                  }}
                 />
+                <p className="msg__validate">{validate.linkTo}</p>
               </div>
             </div>
             <div className="d-flex justify-content-between">
               <button disabled={!isEditBanner} className="btn btn-danger p-2" onClick={() => cancelHandler()}>
                 Hủy
               </button>
-              {/* <button
-                disabled={!isEditBanner}
-                className="btn btn-warning p-2"
-                data-toggle="modal"
-                data-target="#exampleModalCenter"
-                onClick={() => {
-                  typeModal("updateBanner");
-                }}
-              >
-                Cập nhật
-              </button> */}
-
               <button disabled={!isEditBanner} className="btn btn-warning p-2" onClick={() => submitHandler()}>
                 Cập nhật
               </button>

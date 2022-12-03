@@ -40,14 +40,14 @@ const CommentComponent = () => {
                     <td>{index + 1}</td>
                     <td className="fw-bold">
                       <Link className="link" to={`/product/${item.product.slug}`}>
-                        {item.product.name.length >= 40
-                          ? ` ${item.product.name.slice(0, 40)}...`
+                        {item.product.name.length >= 80
+                          ? ` ${item.product.name.slice(0, 80)}...`
                           : ` ${item.product.name}`}
                       </Link>
                     </td>
                     <td>
                       <Link to={`/product/${item.product.slug}`}>
-                        {item.content.length >= 150 ? `${item.content.slice(0, 150)}...` : `${item.content}`}
+                        {item.content.length >= 145 ? `${item.content.slice(0, 145)}...` : `${item.content}`}
                       </Link>
                     </td>
                     <td>
