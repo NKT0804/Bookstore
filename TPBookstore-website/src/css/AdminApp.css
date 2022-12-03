@@ -1037,6 +1037,51 @@ button.btn.btn-success.col-12 {
   font-size: 17px;
 }
 
+.upload__image-item {
+  display : flex;
+  align-items: center;
+  margin-right: 20px;
+  }
+
+  .upload__image-item:first-child {
+    border:rgba(0, 0, 0, 0.15) solid 1px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+.upload__image-file {
+  font-size: 24px;
+  padding: 4px 14px;
+  border:rgba(0, 0, 0, 0.15) solid 1px;
+  border-radius: 50%;
+  margin: 8px 12px;
+  cursor : pointer;
+
+  }
+
+.upload__image-cancel {
+  font-size: 24px;
+  color : rgb(208, 38, 38);
+  padding: 4px 10px;
+  border:rgba(0, 0, 0, 0.15) solid 1px;
+  border-radius: 50%;
+  cursor : pointer;
+  margin: 8px 12px;
+
+  }
+
+
+.upload__image-img {
+  width: 200px;
+  height : 200px;
+  text-align: center;
+  }
+
+  .upload__image-url {
+    margin-left: 200px;
+
+  }
+
 
 /* Sliders and banner */
 

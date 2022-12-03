@@ -40,8 +40,8 @@ const Orders = (props) => {
     }
 
     if (type === "showOrder") {
-      setModalTitle("Xác nhận hiện đơn hàng");
-      setModalBody("Bạn có chắc muốn hiện đơn hàng này ?");
+      setModalTitle("Xác nhận bỏ ẩn đơn hàng");
+      setModalBody("Bạn có chắc muốn bỏ ẩn đơn hàng này ?");
       setBtnTitle("Xác nhận");
       setBtnType("confirm");
       setTypeAction(type);
