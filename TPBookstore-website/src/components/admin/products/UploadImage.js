@@ -16,15 +16,18 @@ const UploadImage = (props) => {
     setImagePreview(imageList[0]?.data_url);
   };
   useEffect(() => {
-    if (image) {
-      setImageUrlInput(image);
-    }
     if (imageUrlInput) {
       setImageInput("");
       setImagePreview(imageUrlInput);
       setImage(imageUrlInput);
     }
-  }, [imageUrlInput, image]);
+  }, [imageUrlInput]);
+
+  useEffect(() => {
+    if (image) {
+      setImageUrlInput(image);
+    }
+  }, [image]);
 
   useEffect(() => {
     if (imageInput) {
@@ -52,8 +55,8 @@ const UploadImage = (props) => {
                 className="form-control upload__image-url"
                 type="url"
                 placeholder="Nhập URL hình ảnh"
+                disabled={imageList.length > 0}
                 value={imageUrlInput}
-                required
                 onChange={(e) => setImageUrlInput(e.target.value)}
               />
             </div>
@@ -62,7 +65,14 @@ const UploadImage = (props) => {
             {imagePreview && (
               <div className="upload__image-item">
                 <img className="upload__image-img" src={imagePreview} alt="" />
-                <span className="upload__image-cancel" title="Xoá ảnh" onClick={() => onImageRemove(0)}>
+                <span
+                  className="upload__image-cancel"
+                  title="Xoá ảnh"
+                  onClick={() => {
+                    onImageRemove(0);
+                    setImageUrlInput("");
+                  }}
+                >
                   <i class="fas fa-window-close"></i>
                 </span>
               </div>

@@ -32,18 +32,18 @@ const EditProductMain = (props) => {
   const [publishingYear, setPublishingYear] = useState("");
   const [language, setLanguage] = useState("");
   const [numberOfPages, setNumberOfPages] = useState("");
+  const [category, setCategory] = useState("");
 
   const dispatch = useDispatch();
 
   const productEditAdmin = useSelector((state) => state.productEditAdmin);
   const { loading, error, product } = productEditAdmin;
-  const [category, setCategory] = useState(product.category || "");
-  useEffect(() => {
-    setCategory(product.category);
-    return () => {
-      setCategory(product.category);
-    };
-  }, [product._id, product.category]);
+  // useEffect(() => {
+  //   setCategory(product.category);
+  //   return () => {
+  //     setCategory(product.category);
+  //   };
+  // }, [product._id, product.category]);
 
   const productUpdate = useSelector((state) => state.productUpdate);
   const { loading: loadingUpdate, error: errorUpdate, success: successUpdate } = productUpdate;
@@ -59,13 +59,15 @@ const EditProductMain = (props) => {
     dispatch(listCategoryAdmin());
     if (successUpdate) {
       dispatch({ type: PRODUCT_UPDATE_RESET });
+      dispatch(editProductAdmin(productId));
       toast.success("Cập nhật sản phẩm thành công!", ToastObjects);
     } else {
       if (!product.name || product._id !== productId) {
         dispatch(editProductAdmin(productId));
       } else {
+        console.log(product);
         setName(product.name || "");
-        // setCategory(category);
+        setCategory(product.category);
         setDescription(product.description || "");
         setCountInStock(product.countInStock || 0);
         setImage(product.image || "");
@@ -79,8 +81,10 @@ const EditProductMain = (props) => {
         setNumberOfPages(product.numberOfPages || 0);
       }
     }
-  }, [product, dispatch, productId, successUpdate, category]);
-
+  }, [product, dispatch, productId, successUpdate]);
+  useEffect(() => {
+    dispatch(editProductAdmin(productId));
+  }, [productId]);
   const submitHandler = (e) => {
     e.preventDefault();
     if (price >= 0 && countInStock >= 0) {
@@ -265,6 +269,7 @@ const EditProductMain = (props) => {
                           <select
                             id="category_title"
                             className="form-select"
+                            value={category}
                             onChange={(e) => setCategory(e.target.value)}
                           >
                             <option value="">Chọn danh mục</option>
