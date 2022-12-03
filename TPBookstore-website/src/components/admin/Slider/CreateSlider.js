@@ -5,6 +5,7 @@ import Loading from "../../base/LoadingError/Loading";
 import { BANNER_CREATE_RESET } from "../../../Redux/Constants/bannerConstants";
 import { createBannerAdmin, listSlider } from "../../../Redux/Actions/bannerActions";
 import UploadImage from "../products/UploadImage";
+import isEmpty from "validator/lib/isEmpty";
 
 const ToastObjects = {
   pauseOnFocusLoss: false,
@@ -16,6 +17,7 @@ const CreateSlider = () => {
   const [name, setName] = useState("");
   const [image, setImage] = useState("");
   const [linkTo, setLinkTo] = useState("");
+  const [validate, setValidate] = useState({});
 
   const dispatch = useDispatch();
 
@@ -37,8 +39,30 @@ const CreateSlider = () => {
     }
   }, [success, dispatch, loading, error]);
 
+  const isEmptyCheckSlider = () => {
+    const msg = {};
+    if (isEmpty(name)) {
+      msg.name = "Vui lòng nhập tên Slider";
+    }
+
+    if (isEmpty(image)) {
+      msg.image = "Vui lòng chọn ảnh";
+    }
+
+    if (isEmpty(linkTo)) {
+      msg.linkTo = "Vui lòng nhập liên kết";
+    }
+    setValidate(msg);
+    if (Object.keys(msg).length > 0) return false;
+    return true;
+  };
+
   const submitHandler = (e) => {
     e.preventDefault();
+
+    const isEmptyValidate = isEmptyCheckSlider();
+    if (!isEmptyValidate) return;
+
     const slider = new FormData();
 
     slider.append("name", name);
@@ -59,14 +83,23 @@ const CreateSlider = () => {
                 Tên Slider
               </label>
               <input
-                required
+                // required
                 type="text"
                 placeholder="Nhập tên slider"
-                className="form-control"
+                className={`form-control ${validate.name?.length > 0 ? "border-red" : ""}`}
                 id="slider_name"
                 value={name}
+                onClick={() => {
+                  setValidate((values) => {
+                    const x = { ...values };
+                    x.borderRed1 = "";
+                    x.name = "";
+                    return x;
+                  });
+                }}
                 onChange={(e) => setName(e.target.value)}
               />
+              <p className="msg__validate">{validate.name}</p>
             </div>
             <div className="">
               <label htmlFor="slider_image" className="form-label">
@@ -83,6 +116,7 @@ const CreateSlider = () => {
               <span className="upload__img-both">
                 <UploadImage setImage={setImage} />
               </span>
+              <p className="msg__validate">{validate.image}</p>
             </div>
 
             <div className="">
@@ -92,11 +126,20 @@ const CreateSlider = () => {
               <input
                 type="text"
                 placeholder="Nhập liên kết"
-                className="form-control"
+                className={`form-control ${validate.linkTo?.length > 0 ? "border-red" : ""}`}
                 id="slider_linkTo"
                 value={linkTo}
                 onChange={(e) => setLinkTo(e.target.value)}
+                onClick={() => {
+                  setValidate((values) => {
+                    const x = { ...values };
+                    x.borderRed3 = "";
+                    x.linkTo = "";
+                    return x;
+                  });
+                }}
               />
+              <p className="msg__validate">{validate.linkTo}</p>
             </div>
           </div>
           <div className="d-grid">

@@ -4,6 +4,7 @@ import Loading from "../../base/LoadingError/Loading";
 import { updateBannerAdmin, listSlider } from "../../../Redux/Actions/bannerActions";
 import { toast } from "react-toastify";
 import UploadImage from "../products/UploadImage";
+import isEmpty from "validator/lib/isEmpty";
 
 const ToastObjects = {
   pauseOnFocusLoss: false,
@@ -17,6 +18,7 @@ const UpdateSlider = ({ currentSlider, setIsEditSlider }) => {
   const [name, setName] = useState("");
   const [image, setImage] = useState("");
   const [linkTo, setLinkTo] = useState("");
+  const [validate, setValidate] = useState({});
 
   const sliderList = useSelector((state) => state.sliderList);
   const { sliders } = sliderList;
@@ -40,7 +42,30 @@ const UpdateSlider = ({ currentSlider, setIsEditSlider }) => {
       dispatch(listSlider());
     }
   }, [dispatch, setIsEditSlider, success]);
+
+  const isEmptyCheckUpdateSlider = () => {
+    const msg = {};
+    if (isEmpty(name)) {
+      msg.name = "Vui lòng nhập tên Slider";
+    }
+
+    if (!image) {
+      msg.image = "Vui lòng chọn ảnh";
+    }
+
+    if (isEmpty(linkTo)) {
+      msg.linkTo = "Vui lòng nhập liên kết";
+    }
+
+    setValidate(msg);
+    if (Object.keys(msg).length > 0) return false;
+    return true;
+  };
+
   const submitHandler = () => {
+    const isEmptyValidate = isEmptyCheckUpdateSlider();
+    if (!isEmptyValidate) return;
+
     const slider = new FormData();
     slider.append("name", name);
     slider.append("image", JSON.stringify(image));
@@ -62,11 +87,19 @@ const UpdateSlider = ({ currentSlider, setIsEditSlider }) => {
               <input
                 type="text"
                 placeholder="Nhập tên slider"
-                className="form-control"
+                className={`form-control ${validate.name?.length > 0 ? "border-red" : ""}`}
                 id="slider_name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
+                onClick={() => {
+                  setValidate((values) => {
+                    const x = { ...values };
+                    x.name = "";
+                    return x;
+                  });
+                }}
               />
+              <p className="msg__validate">{validate.name}</p>
             </div>
             <div className="">
               <label htmlFor="slider_image" className="form-label">
@@ -83,6 +116,7 @@ const UpdateSlider = ({ currentSlider, setIsEditSlider }) => {
               <span className="upload__img-both">
                 <UploadImage image={image} setImage={(value) => setImage(value)} />
               </span>
+              <p className="msg__validate">{validate.image}</p>
             </div>
             <div className="">
               <label htmlFor="slider_linkTo" className="form-label">
@@ -91,11 +125,19 @@ const UpdateSlider = ({ currentSlider, setIsEditSlider }) => {
               <input
                 type="text"
                 placeholder="Nhập liên kết"
-                className="form-control"
+                className={`form-control ${validate.linkTo?.length > 0 ? "border-red" : ""}`}
                 id="slider_linkTo"
                 value={linkTo}
                 onChange={(e) => setLinkTo(e.target.value)}
+                onClick={() => {
+                  setValidate((values) => {
+                    const x = { ...values };
+                    x.linkTo = "";
+                    return x;
+                  });
+                }}
               />
+              <p className="msg__validate">{validate.linkTo}</p>
             </div>
           </div>
           <div className="d-flex justify-content-between">

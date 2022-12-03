@@ -72,6 +72,11 @@ button:disabled {
 .Header-green {
   background-color: var(--primary-color);
 }
+
+/* Validator */
+.msg__validate {
+  color :#f33a58;
+}
 /* .screen-overlay {
   width: 0%;
   height: 100%;
