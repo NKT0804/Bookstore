@@ -90,17 +90,17 @@ const Orders = (props) => {
             orders.map(
               (order) => (
                 // order.isDisabled ? (
-                <tr className={order.isDisabled ? `status-disabled` : ""} key={order._id}>
-                  <td>
+                <tr key={order._id}>
+                  <td className={order.isDisabled ? `status-disabled` : ``}>
                     <td>
                       <Link to={`/admin/order/${order._id}`}>{order._id}</Link>
                     </td>
                   </td>
-                  <td>
+                  <td className={order.isDisabled ? `status-disabled` : ``}>
                     <b>{order.user.name.length >= 15 ? `${order.user.name.slice(0, 15)}...` : `${order.user.name}`}</b>
                   </td>
-                  <td>{formatCash(order.totalPrice)}</td>
-                  <td>
+                  <td className={order.isDisabled ? `status-disabled` : ``}>{formatCash(order.totalPrice)}</td>
+                  <td className={order.isDisabled ? `status-disabled` : ``}>
                     {order.isPaid ? (
                       <span className="badge3 rounded-pill alert-success fw-bold">
                         Thanh toán lúc {moment(order.paidAt).format("DD/MM/yyyy")}
@@ -109,8 +109,10 @@ const Orders = (props) => {
                       <span className="badge3 rounded-pill alert-danger fw-bold">Chưa thanh toán</span>
                     )}
                   </td>
-                  <td>{moment(order.createdAt).format("DD/MM/yyyy")}</td>
-                  <td>
+                  <td className={order.isDisabled ? `status-disabled` : ``}>
+                    {moment(order.createdAt).format("DD/MM/yyyy")}
+                  </td>
+                  <td className={order.isDisabled ? `status-disabled` : ``}>
                     {order.cancelled ? (
                       <span className="badge3 btn-danger">Đã hủy</span>
                     ) : order.delivered ? (
@@ -167,7 +169,7 @@ const Orders = (props) => {
               )
               // ) : (
               //   <tr className="" key={order._id}>
-              //     <td>
+              //     <td className={order.isDisabled ? `status-disabled` : ``}>
               //       <td>
               //         <Link to={`/admin/order/${order._id}`}>{order._id}</Link>
               //       </td>

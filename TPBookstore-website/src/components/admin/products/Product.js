@@ -38,8 +38,8 @@ const Product = (props) => {
     }
 
     if (type === "showProduct") {
-      setModalTitle("Xác nhận hiện sản phẩm");
-      setModalBody("Bạn có chắc muốn hiện sản phẩm này ?");
+      setModalTitle("Xác nhận bỏ ẩn sản phẩm");
+      setModalBody("Bạn có chắc muốn bỏ ẩn  sản phẩm này ?");
       setBtnTitle("Xác nhận");
       setBtnType("confirm");
       setTypeAction(type);
@@ -105,77 +105,92 @@ const Product = (props) => {
             </div>
           </div>
 
-          <tr className={product.isDisabled ? `pc-header status-disabled` : `pc-header`}>
-            <td>{preIndex + index + 1}</td>
-            <td>
+          <tr className="pc-header">
+            <td className={product.isDisabled ? `status-disabled` : ``}>{preIndex + index + 1}</td>
+            <td className={product.isDisabled ? `status-disabled` : ``}>
               <img style={{ maxWidth: "70px", minWidth: "70px" }} src={product?.image} alt={product?.name} />
             </td>
-            <td>
+            <td className={product.isDisabled ? `status-disabled` : ``}>
               <b alt={product?.name}>
                 {`${product?.name.lenght}>=25` ? `${product?.name.slice(0, 25)}...` : `${product?.name}`}
               </b>
             </td>
-            <td>
+            <td className={product.isDisabled ? `status-disabled` : ``}>
               <Rating value={product.rating} text={`(${product.numReviews})`} />
             </td>
-            <td>
+            <td className={product.isDisabled ? `status-disabled` : ``}>
               <b>{product?.category.name}</b>
             </td>
-            <td>
+            <td className={product.isDisabled ? `status-disabled` : ``}>
               <b>{formatCash(product?.priceSale)}</b>
             </td>
-            <td>
+            <td className={product.isDisabled ? `status-disabled` : ``}>
               <b>{product?.countInStock}</b>
             </td>
-            <td>
+            <td className={product.isDisabled ? `status-disabled` : ``}>
               <b>{product?.totalSales}</b>
             </td>
-            <td className="text-end">
+            <td className="text-center">
               <div className="dropdown">
-                <div className="text-center">
-                  {product.isDisabled ? (
-                    <Link>
-                      <i
-                        class="fas fa-eye-slash"
-                        data-toggle="modal"
-                        data-target="#exampleModalCenter"
-                        onClick={() => {
-                          typeModal("showProduct");
-                          setProductIdSelected(product._id);
-                        }}
-                      ></i>
-                    </Link>
-                  ) : (
-                    <Link className="text-success">
-                      <i
-                        className="fas fa-eye"
-                        data-toggle="modal"
-                        data-target="#exampleModalCenter"
-                        onClick={() => {
-                          typeModal("hiddenProduct");
-                          setProductIdSelected(product._id);
-                        }}
-                      ></i>
-                    </Link>
-                  )}
+                <div
+                  // className="dropdown-toggle"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                  aria-haspopup="true"
+                  id="action__product-admin"
+                  style={{ opacity: "1" }}
+                >
+                  <i class="fas fa-ellipsis-h"></i>
                 </div>
-                <div className="text-center">
-                  <Link className="text-warning p-md-2" to={`/admin/product/${product._id}/edit`}>
-                    <i className="fas fa-edit"></i>
+
+                <div className="action__product dropdown-menu">
+                  <Link className="dropdown-item" to={`/admin/product/${product._id}/edit`}>
+                    <i className="fas fa-edit text-warning "></i> &nbsp; Sửa
                   </Link>
-                  <Link className="" data-toggle="modal" data-target="#exampleModalCenter">
-                    <i
-                      class="fas fa-trash-alt edit__products text-danger"
+                  {product.isDisabled ? (
+                    <Link
+                      className="dropdown-item"
                       data-toggle="modal"
                       data-target="#exampleModalCenter"
                       onClick={() => {
-                        typeModal("deleteProduct");
+                        typeModal("showProduct");
                         setProductIdSelected(product._id);
                       }}
-                    ></i>
+                      style={{ opacity: "1" }}
+                    >
+                      <i class="fas fa-eye-slash"></i>
+                      &nbsp; Bỏ ẩn
+                    </Link>
+                  ) : (
+                    <Link
+                      className="dropdown-item"
+                      data-toggle="modal"
+                      data-target="#exampleModalCenter"
+                      onClick={() => {
+                        typeModal("hiddenProduct");
+                        setProductIdSelected(product._id);
+                      }}
+                      style={{ opacity: "1" }}
+                    >
+                      <i className="fas fa-eye text-success"></i>
+                      &nbsp; Ẩn
+                    </Link>
+                  )}
+
+                  <Link
+                    className="dropdown-item"
+                    data-toggle="modal"
+                    data-target="#exampleModalCenter"
+                    onClick={() => {
+                      typeModal("deleteProduct");
+                      setProductIdSelected(product._id);
+                    }}
+                    style={{ opacity: "1" }}
+                  >
+                    <i class="fas fa-trash-alt edit__products text-danger"></i>
+                    &nbsp; Xoá
                   </Link>
                 </div>
-                <div className="dropdown-menu"></div>
               </div>
             </td>
           </tr>
