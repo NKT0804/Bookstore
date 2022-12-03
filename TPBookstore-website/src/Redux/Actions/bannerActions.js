@@ -114,10 +114,11 @@ export const deleteBannerAdmin = (id) => async (dispatch, getState) => {
 };
 
 // UPDATE BANNER
-export const updateBannerAdmin = (banner) => async (dispatch, getState) => {
+export const updateBannerAdmin = (bannerId, banner) => async (dispatch, getState) => {
   try {
     dispatch({ type: BANNER_UPDATE_REQUEST });
-
+    console.log(bannerId);
+    console.log(banner);
     const {
       userLogin: { userInfo }
     } = getState();
@@ -130,14 +131,9 @@ export const updateBannerAdmin = (banner) => async (dispatch, getState) => {
     };
 
     const { data } = await axios.put(
-      `/api/v1/banner/${banner._id}`,
+      `/api/v1/banner/${bannerId}`,
       {
-        name: banner.name,
-        index: banner.index,
-        image: banner.image,
-        linkTo: banner.linkTo,
-        role: banner.role,
-        isDisabled: banner.isDisabled
+        banner
       },
       config
     );

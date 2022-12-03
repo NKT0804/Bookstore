@@ -80,7 +80,9 @@ const CreateSlider = () => {
                 value={image}
                 onChange={(e) => setImage(e.target.value)}
               /> */}
-              <UploadImage setImage={setImage} />
+              <span className="upload__img-both">
+                <UploadImage setImage={setImage} />
+              </span>
             </div>
 
             <div className="">

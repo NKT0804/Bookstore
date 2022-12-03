@@ -283,7 +283,7 @@ const updateProduct = async (req, res) => {
         res.status(404);
         throw new Error("Sản phẩm không tồn tại!");
     }
-    const slug = product.slug;
+    let slug = product.slug;
     // Tạo slug
     if (name != product.name) {
         slug = createSlug(name);

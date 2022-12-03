@@ -2,13 +2,15 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Loading from "../../base/LoadingError/Loading";
 import { updateBannerAdmin, listBanner } from "../../../Redux/Actions/bannerActions";
-// import Modal from "../../base/modal/Modal";
+import UploadImage from "../products/UploadImage";
 
 const UpdateBanner = ({ isEditBanner, currentBanner, setIsEditBanner, setCurrentBanner }) => {
   const dispatch = useDispatch();
   const [name, setName] = useState("");
   const [image, setImage] = useState("");
   const [linkTo, setLinkTo] = useState("");
+  const [index, setIndex] = useState("");
+  const [role, setRole] = useState("");
 
   const bannerList = useSelector((state) => state.bannerList);
   const { banners } = bannerList;
@@ -21,6 +23,8 @@ const UpdateBanner = ({ isEditBanner, currentBanner, setIsEditBanner, setCurrent
       setName(banners[currentBanner]?.name);
       setImage(banners[currentBanner]?.image);
       setLinkTo(banners[currentBanner]?.linkTo);
+      setIndex(banners[currentBanner]?.index);
+      setRole(banners[currentBanner]?.role);
     }
   }, [banners, currentBanner]);
   useEffect(() => {
@@ -42,15 +46,16 @@ const UpdateBanner = ({ isEditBanner, currentBanner, setIsEditBanner, setCurrent
     setLinkTo("");
     setIsEditBanner(false);
   };
-  const submitHandler = () => {
-    dispatch(
-      updateBannerAdmin({
-        _id: banners[currentBanner]?._id,
-        name,
-        image,
-        linkTo
-      })
-    );
+  const submitHandler = (e) => {
+    e.preventDefault();
+    const banner = new FormData();
+    banner.append("index", index);
+    banner.append("name", name);
+    banner.append("image", JSON.stringify(image));
+    banner.append("linkTo", linkTo);
+    banner.append("role", role);
+    const bannerId = banners[currentBanner]?._id;
+    dispatch(updateBannerAdmin(bannerId, banner));
   };
 
   // const [modalTitle, setModalTitle] = useState("");
@@ -99,14 +104,17 @@ const UpdateBanner = ({ isEditBanner, currentBanner, setIsEditBanner, setCurrent
                 <label htmlFor="banner_image" className="form-label">
                   Hình ảnh
                 </label>
-                <input
+                {/* <input
                   type="url"
                   placeholder="Nhập url hình ảnh"
                   className="form-control"
                   id="banner_image"
                   value={image}
                   onChange={(e) => setImage(e.target.value)}
-                />
+                /> */}
+                <span className="upload__img-both">
+                  <UploadImage image={image} setImage={(value) => setImage(value)} />
+                </span>
               </div>
               <div className="">
                 <label htmlFor="banner_linkTo" className="form-label">

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Loading from "../../base/LoadingError/Loading";
 import { updateBannerAdmin, listSlider } from "../../../Redux/Actions/bannerActions";
 import { toast } from "react-toastify";
+import UploadImage from "../products/UploadImage";
 
 const ToastObjects = {
   pauseOnFocusLoss: false,
@@ -40,14 +41,12 @@ const UpdateSlider = ({ currentSlider, setIsEditSlider }) => {
     }
   }, [dispatch, setIsEditSlider, success]);
   const submitHandler = () => {
-    dispatch(
-      updateBannerAdmin({
-        _id: sliders[currentSlider]?._id,
-        name,
-        image,
-        linkTo
-      })
-    );
+    const slider = new FormData();
+    slider.append("name", name);
+    slider.append("image", JSON.stringify(image));
+    slider.append("linkTo", linkTo);
+    const sliderId = sliders[currentSlider]?._id;
+    dispatch(updateBannerAdmin(sliderId, slider));
   };
 
   return (
@@ -73,14 +72,17 @@ const UpdateSlider = ({ currentSlider, setIsEditSlider }) => {
               <label htmlFor="slider_image" className="form-label">
                 Hình ảnh
               </label>
-              <input
+              {/* <input
                 type="url"
                 placeholder="Nhập url hình ảnh"
                 className="form-control"
                 id="slider_image"
                 value={image}
                 onChange={(e) => setImage(e.target.value)}
-              />
+              /> */}
+              <span className="upload__img-both">
+                <UploadImage image={image} setImage={(value) => setImage(value)} />
+              </span>
             </div>
             <div className="">
               <label htmlFor="slider_linkTo" className="form-label">

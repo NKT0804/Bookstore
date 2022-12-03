@@ -1121,6 +1121,26 @@ button.btn.btn-success.col-12 {
   min-width: 80px;
 }
 
+/* Image sliders */
+.upload__img-both .upload__image-item:first-child {
+  border:none;
+}
+
+.upload__img-both .upload__image-url {
+  margin-left: 0;
+  width : 230px;
+}
+
+.upload__img-both .upload__image-img{
+  max-width: 245px;
+}
+
+.upload__img-both .upload__image-cancel {
+  font-size: 15px;
+  padding: 2px 6px;
+}
+
+
 /* Products */
 .product__disabled-admin {
   opacity: 0.8;

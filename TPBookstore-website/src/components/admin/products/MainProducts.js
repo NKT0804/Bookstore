@@ -11,7 +11,11 @@ import { toast } from "react-toastify";
 import { listCategoryAdmin } from "../../../Redux/Actions/categoryActions";
 import CategoryFilterAdmin from "../filterAdmin/CategoryFilterAdmin";
 import SortBy from "../filterAdmin/SortBy";
-import { PRODUCT_DELETE_RESET } from "../../../Redux/Constants/productConstants";
+import {
+  PRODUCT_DELETE_RESET,
+  PRODUCT_HIDDEN_RESET,
+  PRODUCT_SHOW_RESET
+} from "../../../Redux/Constants/productConstants";
 const ToastObjects = {
   pauseOnFocusLoss: false,
   draggable: false,
@@ -38,6 +42,12 @@ const MainProducts = React.memo((props) => {
   const productDeleteAdmin = useSelector((state) => state.productDeleteAdmin);
   const { error: errorDelete, success: successDelete } = productDeleteAdmin;
 
+  const productHiddenAdmin = useSelector((state) => state.productHiddenAdmin);
+  const { error: errorHidden, success: successHidden } = productHiddenAdmin;
+
+  const productShowAdmin = useSelector((state) => state.productShowAdmin);
+  const { error: errorShow, success: successShow } = productShowAdmin;
+
   useEffect(() => {
     dispatch(listProductsAdmin(keyword, pageNumber, categoryFilterAdmin, sortBy, limit, status));
     dispatch(listCategoryAdmin());
@@ -45,7 +55,30 @@ const MainProducts = React.memo((props) => {
       toast.success("Xóa sản phẩm thành công!", ToastObjects);
       dispatch({ type: PRODUCT_DELETE_RESET });
     }
-  }, [dispatch, keyword, pageNumber, successDelete, categoryFilterAdmin, sortBy, limit, status]);
+
+    if (successHidden) {
+      toast.success("Ẩn sản phẩm thành công", ToastObjects);
+      dispatch({ type: PRODUCT_HIDDEN_RESET });
+    }
+
+    if (successShow) {
+      toast.success("Bỏ ẩn sản phẩm thành công", ToastObjects);
+      dispatch({ type: PRODUCT_SHOW_RESET });
+    }
+  }, [
+    dispatch,
+    keyword,
+    pageNumber,
+    successDelete,
+    successHidden,
+    errorHidden,
+    successShow,
+    errorShow,
+    categoryFilterAdmin,
+    sortBy,
+    limit,
+    status
+  ]);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -104,7 +137,7 @@ const MainProducts = React.memo((props) => {
         </header>
 
         <div className="card-body">
-          {errorDelete && <Message variant="alert-danger">{errorDelete}</Message>}
+          <>{errorDelete && <Message variant="alert-danger">{errorDelete}</Message>}</>
           {loading ? (
             <Loading />
           ) : error ? (

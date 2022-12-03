@@ -57,9 +57,22 @@ const updateBanner = async (req, res) => {
         throw new Error("Banner không tồn tại!");
     }
 
+    let slug = banner.slug;
+    // Tạo slug
+    if (name != banner.name) {
+        slug = createSlug(name);
+    }
+
+    // Upload image
+    const urlImage = await uploadImage(JSON.parse(image), "TPBookstore/slider and banner", slug);
+    if (!urlImage.url) {
+        res.status(400);
+        throw new Error(urlImage.err);
+    }
+
     banner.name = name || banner.name;
     banner.index = index || banner.index;
-    banner.image = image || banner.image;
+    banner.image = urlImage.url || banner.image;
     banner.linkTo = linkTo || banner.linkTo;
     banner.role = role || banner.role;
     const updatedBanner = await banner.save();

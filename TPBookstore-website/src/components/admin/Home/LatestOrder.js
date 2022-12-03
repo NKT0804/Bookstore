@@ -65,7 +65,7 @@ const LatestOrder = (props) => {
                   </td>
                   <td className="d-flex justify-content-end align-item-center">
                     <Link to={`/admin/order/${order._id}`} className="text-success">
-                      <i className="fas fa-eye"></i>
+                      <i class="fas fa-directions" style={{ fontSize: "20px" }}></i>
                     </Link>
                   </td>
                 </tr>

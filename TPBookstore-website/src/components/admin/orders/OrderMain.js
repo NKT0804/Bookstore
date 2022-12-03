@@ -6,7 +6,7 @@ import Orders from "./Orders";
 import { useDispatch, useSelector } from "react-redux";
 import { listOrders } from "../../../Redux/Actions/orderActions";
 import { toast } from "react-toastify";
-import { ORDER_DELETE_RESET } from "../../../Redux/Constants/orderConstants";
+import { ORDER_DELETE_RESET, ORDER_HIDDEN_RESET, ORDER_SHOW_RESET } from "../../../Redux/Constants/orderConstants";
 import Toast from "../../base/LoadingError/Toast";
 import PaginationAdmin from "../Home/PaginationAdmin";
 
@@ -34,27 +34,49 @@ const OrderMain = (props) => {
   const deleteOrder = useSelector((state) => state.orderDeleteAdmin);
   const { success: successDelOrder, error: errorDelOrder } = deleteOrder;
 
+  const hiddenOrder = useSelector((state) => state.orderHiddenAdmin);
+  const { success: successHiddenOrder, error: errorHiddenOrder } = hiddenOrder;
+
+  const showOrder = useSelector((state) => state.orderShowAdmin);
+  const { success: successShowOrder, error: errorShowOrder } = showOrder;
+
   useEffect(() => {
     if (successDelOrder) {
       toast.success("Xóa đơn hàng thành công!", ToastObjects);
     }
-    if (errorDelOrder) {
-      toast.error(errorDelOrder, ToastObjects);
-    }
-
-    // if (successHidden) {
-    //   toast.success("Ẩn đơn hàng thành công!", ToastObjects);
+    // if (errorDelOrder) {
+    //   toast.error(errorDelOrder, ToastObjects);
     // }
-    // if (errorHidden) {
-    //   toast.error(errorHidden, ToastObjects);
-    // }
-
     dispatch({ type: ORDER_DELETE_RESET });
-  }, [dispatch, successDelOrder, errorDelOrder]);
+
+    if (successHiddenOrder) {
+      toast.success("Ẩn đơn hàng thành công!", ToastObjects);
+    }
+    dispatch({ type: ORDER_HIDDEN_RESET });
+    // if (errorHiddenOrder) {
+    //   toast.error(errorHiddenOrder, ToastObjects);
+    // }
+
+    if (successShowOrder) {
+      toast.success("Bỏ ẩn đơn hàng thành công!", ToastObjects);
+    }
+    dispatch({ type: ORDER_SHOW_RESET });
+    // if (errorShowOrder) {
+    //   toast.error(errorShowOrder, ToastObjects);
+    // }
+  }, [
+    dispatch,
+    successDelOrder,
+    errorDelOrder,
+    successHiddenOrder,
+    errorHiddenOrder,
+    successShowOrder,
+    errorShowOrder
+  ]);
 
   useEffect(() => {
     dispatch(listOrders(keyword, status, limit, pageNumber));
-  }, [dispatch, successDelOrder, keyword, status, limit, pageNumber]);
+  }, [dispatch, successDelOrder, keyword, status, limit, pageNumber, successHiddenOrder, successShowOrder]);
 
   const submitHandler = (e) => {
     e.preventDefault();
