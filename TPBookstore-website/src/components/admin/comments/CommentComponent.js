@@ -38,7 +38,7 @@ const CommentComponent = () => {
                 return (
                   <tr key={item._id}>
                     <td>{index + 1}</td>
-                    <td>
+                    <td className="fw-bold">
                       <Link className="link" to={`/product/${item.product.slug}`}>
                         {item.product.name.length >= 40
                           ? ` ${item.product.name.slice(0, 40)}...`

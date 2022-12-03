@@ -265,7 +265,7 @@ const AddProductMain = () => {
                   </div>
 
                   <div className="row mb-4">
-                    <div className="col-lg-6 col-md-6 mb-2">
+                    <div className="col-lg-3 col-md-6 mb-2">
                       <label htmlFor="product_price" className="form-label">
                         Giá sản phẩm
                       </label>
@@ -279,7 +279,7 @@ const AddProductMain = () => {
                         onChange={(e) => setPrice(e.target.value)}
                       />
                     </div>
-                    <div className="col-lg-6 col-md-6 mb-2">
+                    <div className="col-lg-3 col-md-6 mb-2">
                       <label htmlFor="product_price_sale" className="form-label">
                         Giá đã giảm
                       </label>
@@ -293,22 +293,6 @@ const AddProductMain = () => {
                         onChange={(e) => setPriceSale(e.target.value)}
                       />
                     </div>
-                  </div>
-
-                  {/*image */}
-                  <div className="row mb-4">
-                    <div className="col-lg-6 col-md-7 mb-2">
-                      <label className="form-label">Hình ảnh sản phẩm</label>
-                      <input
-                        className="form-control"
-                        type="url"
-                        placeholder="Nhập URL hình ảnh"
-                        value={imageUrl}
-                        required
-                        onChange={(e) => setImageUrl(e.target.value)}
-                      />
-                    </div>
-
                     <div className="col-lg-6 col-md-6 mb-2">
                       <label htmlFor="product_author" className="form-label">
                         Ngôn ngữ
@@ -323,6 +307,10 @@ const AddProductMain = () => {
                         onChange={(e) => setLanguage(e.target.value)}
                       />
                     </div>
+                  </div>
+
+                  {/*image */}
+                  <div className="row mb-4">
                     <label className="form-label">Mô tả</label>
                     <ReactQuill
                       placeholder="Nhập mô tả sản phẩm"
@@ -333,8 +321,19 @@ const AddProductMain = () => {
                       value={description}
                       onChange={(value) => setDescription(value)}
                     />
+                    <div className="col-lg-12 col-md-7 mt-4">
+                      <label className="form-label">Hình ảnh sản phẩm</label>
+                      <UploadImage setImage={(value) => setImage(value)} />
+                      {/* <input
+                        className="form-control"
+                        type="url"
+                        placeholder="Nhập URL hình ảnh"
+                        value={imageUrl}
+                        required
+                        onChange={(e) => setImageUrl(e.target.value)}
+                      /> */}
+                    </div>
                   </div>
-                  <UploadImage setImage={(value) => setImage(value)} />
                 </div>
               </div>
             </div>
