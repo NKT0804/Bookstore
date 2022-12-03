@@ -26,9 +26,9 @@ import {
   PRODUCT_BEST_SELLER_REQUEST,
   PRODUCT_BEST_SELLER_SUCCESS,
   PRODUCT_BEST_SELLER_FAIL,
-  PRODUCT_BEST_NUM_VIEW_FAIL,
-  PRODUCT_BEST_NUM_VIEW_SUCCESS,
-  PRODUCT_BEST_NUM_VIEW_REQUEST,
+  PRODUCT_NEW_FAIL,
+  PRODUCT_NEW_SUCCESS,
+  PRODUCT_NEW_REQUEST,
   PRODUCT_COMMENT_REQUEST,
   PRODUCT_COMMENT_SUCCESS,
   PRODUCT_COMMENT_FAIL,
@@ -90,7 +90,7 @@ export const listProducts =
 export const listProductsBestSeller = () => async (dispatch) => {
   try {
     dispatch({ type: PRODUCT_BEST_SELLER_REQUEST });
-    const { data } = await axios.get(`/api/v1/product?&sortBy=total_sales&pageSize=12`);
+    const { data } = await axios.get(`/api/v1/product?&sortBy=total_sales&limit=15`);
     dispatch({ type: PRODUCT_BEST_SELLER_SUCCESS, payload: data });
   } catch (error) {
     dispatch({
@@ -99,15 +99,15 @@ export const listProductsBestSeller = () => async (dispatch) => {
     });
   }
 };
-// product best num view
-export const listProductsBestNumView = () => async (dispatch) => {
+// New product
+export const listNewProducts = () => async (dispatch) => {
   try {
-    dispatch({ type: PRODUCT_BEST_NUM_VIEW_REQUEST });
-    const { data } = await axios.get(`/api/v1/product?pageSize=15`);
-    dispatch({ type: PRODUCT_BEST_NUM_VIEW_SUCCESS, payload: data });
+    dispatch({ type: PRODUCT_NEW_REQUEST });
+    const { data } = await axios.get(`/api/v1/product?&sortBy=newest&limit=15`);
+    dispatch({ type: PRODUCT_NEW_SUCCESS, payload: data });
   } catch (error) {
     dispatch({
-      type: PRODUCT_BEST_NUM_VIEW_FAIL,
+      type: PRODUCT_NEW_FAIL,
       payload: error.response && error.response.data.message ? error.response.data.message : error.message
     });
   }
@@ -509,12 +509,10 @@ export const updateProductAdmin = (productId, product) => async (dispatch, getSt
         Authorization: `Bearer ${userInfo.token}`
       }
     };
-    console.log(productId);
-    console.log(product);
-    // const { data } = await axios.put(`/api/v1/product/${productId}`, product, config);
+    const { data } = await axios.put(`/api/v1/product/${productId}`, product, config);
 
-    // dispatch({ type: PRODUCT_UPDATE_SUCCESS, payload: data });
-    // dispatch({ type: PRODUCT_EDIT_SUCCESS, payload: data });
+    dispatch({ type: PRODUCT_UPDATE_SUCCESS, payload: data });
+    dispatch({ type: PRODUCT_EDIT_SUCCESS, payload: data });
   } catch (error) {
     const message = error.response && error.response.data.message ? error.response.data.message : error.message;
     if (message === "Not authorized, token failed") {

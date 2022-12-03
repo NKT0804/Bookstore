@@ -318,7 +318,7 @@ const AddProductMain = () => {
                     />
                     <div className="col-lg-12 col-md-7 mt-4">
                       <label className="form-label">Hình ảnh sản phẩm</label>
-                      <UploadImage setImage={(value) => setImage(value)} />
+                      <UploadImage image={image} setImage={(value) => setImage(value)} />
                     </div>
                   </div>
                 </div>

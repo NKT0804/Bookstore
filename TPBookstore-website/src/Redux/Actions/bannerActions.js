@@ -61,7 +61,6 @@ export const createBannerAdmin = (banner) => async (dispatch, getState) => {
     const {
       userLogin: { userInfo }
     } = getState();
-    console.log(banner["image"]);
     const config = {
       headers: {
         Authorization: `Bearer ${userInfo.token}`
@@ -117,12 +116,9 @@ export const deleteBannerAdmin = (id) => async (dispatch, getState) => {
 export const updateBannerAdmin = (bannerId, banner) => async (dispatch, getState) => {
   try {
     dispatch({ type: BANNER_UPDATE_REQUEST });
-    console.log(bannerId);
-    console.log(banner);
     const {
       userLogin: { userInfo }
     } = getState();
-
     const config = {
       headers: {
         "Content-Type": "application/json",
@@ -130,13 +126,7 @@ export const updateBannerAdmin = (bannerId, banner) => async (dispatch, getState
       }
     };
 
-    const { data } = await axios.put(
-      `/api/v1/banner/${bannerId}`,
-      {
-        banner
-      },
-      config
-    );
+    const { data } = await axios.put(`/api/v1/banner/${bannerId}`, banner, config);
 
     dispatch({ type: BANNER_UPDATE_SUCCESS, payload: data });
   } catch (error) {

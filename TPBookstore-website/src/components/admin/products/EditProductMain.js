@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Toast from "../../base/LoadingError/Toast";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { editProductAdmin, updateProductAdmin } from "./../../../Redux/Actions/productActions";
 import { PRODUCT_UPDATE_FAIL, PRODUCT_UPDATE_RESET } from "../../../Redux/Constants/productConstants";
@@ -19,6 +19,7 @@ const ToastObjects = {
 };
 const EditProductMain = (props) => {
   const { productId } = props;
+  let history = useHistory();
 
   const [name, setName] = useState("");
   const [price, setPrice] = useState(0);
@@ -38,12 +39,6 @@ const EditProductMain = (props) => {
 
   const productEditAdmin = useSelector((state) => state.productEditAdmin);
   const { loading, error, product } = productEditAdmin;
-  // useEffect(() => {
-  //   setCategory(product.category);
-  //   return () => {
-  //     setCategory(product.category);
-  //   };
-  // }, [product._id, product.category]);
 
   const productUpdate = useSelector((state) => state.productUpdate);
   const { loading: loadingUpdate, error: errorUpdate, success: successUpdate } = productUpdate;
@@ -61,11 +56,11 @@ const EditProductMain = (props) => {
       dispatch({ type: PRODUCT_UPDATE_RESET });
       dispatch(editProductAdmin(productId));
       toast.success("Cập nhật sản phẩm thành công!", ToastObjects);
+      history.push("/admin/products");
     } else {
       if (!product.name || product._id !== productId) {
         dispatch(editProductAdmin(productId));
       } else {
-        console.log(product);
         setName(product.name || "");
         setCategory(product.category);
         setDescription(product.description || "");

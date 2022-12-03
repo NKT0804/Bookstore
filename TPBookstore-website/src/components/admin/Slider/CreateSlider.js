@@ -27,7 +27,7 @@ const CreateSlider = () => {
       toast.success("Thêm slider thành công", ToastObjects);
       dispatch({ type: BANNER_CREATE_RESET });
       setName("");
-      // setImage("");
+      setImage("");
       setLinkTo("");
       dispatch(listSlider());
     }
@@ -72,16 +72,8 @@ const CreateSlider = () => {
               <label htmlFor="slider_image" className="form-label">
                 Hình ảnh
               </label>
-              {/* <input
-                type="text"
-                placeholder="Nhập url hình ảnh"
-                className="form-control"
-                id="slider_image"
-                value={image}
-                onChange={(e) => setImage(e.target.value)}
-              /> */}
               <span className="upload__img-both">
-                <UploadImage setImage={setImage} />
+                <UploadImage image={image} setImage={setImage} />
               </span>
             </div>
 

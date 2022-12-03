@@ -46,8 +46,7 @@ const UpdateBanner = ({ isEditBanner, currentBanner, setIsEditBanner, setCurrent
     setLinkTo("");
     setIsEditBanner(false);
   };
-  const submitHandler = (e) => {
-    e.preventDefault();
+  const submitHandler = () => {
     const banner = new FormData();
     banner.append("index", index);
     banner.append("name", name);

@@ -31,7 +31,7 @@ import {
   productShowReducerAdmin,
   productListReducerAdminAll,
   productListReducerBestSeller,
-  productListReducerBestNumView,
+  listNewProductReducer,
   productCommentReducer,
   productCreateCommentReducer,
   productCreateCommentReplyReducer,
@@ -73,7 +73,7 @@ import {
 const reducer = combineReducers({
   productList: productListReducer,
   productListBestSeller: productListReducerBestSeller,
-  productListBestNumView: productListReducerBestNumView,
+  productNew: listNewProductReducer,
   productDetails: productDetailsReducer,
   productReviewCreate: productCreateReviewReducer,
   productComment: productCommentReducer,

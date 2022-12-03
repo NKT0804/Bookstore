@@ -26,6 +26,10 @@ const UploadImage = (props) => {
   useEffect(() => {
     if (image) {
       setImageUrlInput(image);
+    } else {
+      setImageUrlInput("");
+      setImageInput("");
+      setImagePreview("");
     }
   }, [image]);
 

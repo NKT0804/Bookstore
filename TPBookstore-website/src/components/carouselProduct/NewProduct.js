@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { listProductsBestNumView } from "../../Redux/Actions/productActions";
+import { listNewProducts } from "../../Redux/Actions/productActions";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -10,15 +10,13 @@ import CardProductLoading from "../base/LoadingError/CardProductLoading";
 import formatCash from "../../utils/formatCash";
 import Loading from "../base/LoadingError/Loading";
 
-const BestNumViewsProduct = () => {
+const NewProduct = () => {
   const dispatch = useDispatch();
-  const getBestNumViewProduct = useSelector((state) => state.productListBestNumView);
-  const { loading, products } = getBestNumViewProduct;
-
-  const newProducts = products?.sort((a, b) => b.numViews - a.numViews);
+  const NewProduct = useSelector((state) => state.productNew);
+  const { loading, products } = NewProduct;
 
   useEffect(() => {
-    dispatch(listProductsBestNumView());
+    dispatch(listNewProducts());
   }, [dispatch]);
 
   const settings = {
@@ -61,7 +59,7 @@ const BestNumViewsProduct = () => {
     <>
       <div className="row best-number-view">
         <div className="title-section">
-          <h2 className="heading-section main-effect">Sản phẩm được xem nhiều nhất</h2>
+          <h2 className="heading-section main-effect">Sản phẩm mới</h2>
         </div>
         <div className="best-seller-container">
           <Slider {...settings}>
@@ -75,7 +73,7 @@ const BestNumViewsProduct = () => {
                     </div>
                   );
                 })
-              : newProducts?.map((product, index) => {
+              : products?.map((product, index) => {
                   return (
                     <div className="mb-4 col-lg-3" key={index}>
                       <div className="shadow p-3 mb-4 me-2 border border-1 rounded">
@@ -106,9 +104,6 @@ const BestNumViewsProduct = () => {
                           </div>
                           <div className="shoptext__rating">
                             <Rating value={product.rating} numRating={product.rating} />
-                            <p>
-                              Lượt xem: <b>{product.numViews}</b>
-                            </p>
                           </div>
                         </div>
                       </div>
@@ -122,4 +117,4 @@ const BestNumViewsProduct = () => {
   );
 };
 
-export default BestNumViewsProduct;
+export default NewProduct;

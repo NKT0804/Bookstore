@@ -29,9 +29,9 @@ import {
   PRODUCT_BEST_SELLER_REQUEST,
   PRODUCT_BEST_SELLER_SUCCESS,
   PRODUCT_BEST_SELLER_FAIL,
-  PRODUCT_BEST_NUM_VIEW_FAIL,
-  PRODUCT_BEST_NUM_VIEW_SUCCESS,
-  PRODUCT_BEST_NUM_VIEW_REQUEST,
+  PRODUCT_NEW_FAIL,
+  PRODUCT_NEW_SUCCESS,
+  PRODUCT_NEW_REQUEST,
   PRODUCT_COMMENT_REQUEST,
   PRODUCT_COMMENT_SUCCESS,
   PRODUCT_COMMENT_FAIL,
@@ -99,17 +99,17 @@ export const productListReducerBestSeller = (state = { products: [] }, action) =
       return state;
   }
 };
-// PRODUCT LIST BEST NUM VIEW
-export const productListReducerBestNumView = (state = { products: [] }, action) => {
+// LIST NEW PRODUCT
+export const listNewProductReducer = (state = { products: [] }, action) => {
   switch (action.type) {
-    case PRODUCT_BEST_NUM_VIEW_REQUEST:
+    case PRODUCT_NEW_REQUEST:
       return { loading: true, products: [...state.products] };
-    case PRODUCT_BEST_NUM_VIEW_SUCCESS:
+    case PRODUCT_NEW_SUCCESS:
       return {
         loading: false,
         ...action.payload
       };
-    case PRODUCT_BEST_NUM_VIEW_FAIL:
+    case PRODUCT_NEW_FAIL:
       return { loading: false, error: action.payload };
     default:
       return state;
