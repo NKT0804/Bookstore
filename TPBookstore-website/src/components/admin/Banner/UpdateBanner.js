@@ -72,11 +72,9 @@ const UpdateBanner = ({ isEditBanner, currentBanner, setIsEditBanner, setCurrent
     if (!isEmptyValidate) return;
 
     const banner = new FormData();
-    banner.append("index", index);
     banner.append("name", name);
     banner.append("image", JSON.stringify(image));
     banner.append("linkTo", linkTo);
-    banner.append("role", role);
     const bannerId = banners[currentBanner]?._id;
     dispatch(updateBannerAdmin(bannerId, banner));
   };

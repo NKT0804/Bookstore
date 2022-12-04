@@ -115,7 +115,7 @@ const OrderDetailMain = (props) => {
         ) : error ? (
           <Message variant="alert-danger">{error}</Message>
         ) : (
-          <div className="card">
+          <div className={order.isDisabled ? `card status-disabled` : `card`}>
             <header className="card-header p-3 Header-green">
               <div className="row align-items-center ">
                 <div className="col-lg-1 col-md-1">
@@ -130,7 +130,7 @@ const OrderDetailMain = (props) => {
                   <br />
                   <span>
                     <i className="far fa-calendar-alt"></i>
-                    <b className="text-white"> Ngày đặt:</b>
+                    <b className="text-white">Ngày đặt:</b>
                     <span className="text-white mx-3 ">
                       {moment(order.createdAt).format("LT") + " " + moment(order.createdAt).format("DD/MM/yyyy")}
                     </span>
@@ -197,7 +197,7 @@ const OrderDetailMain = (props) => {
                       </tr>
                     </table>
                   </div>
-                  <div className=" box shadow-sm bg-light">
+                  <div className="box shadow-sm bg-light">
                     {!order.cancelled ? (
                       <div>
                         {order?.delivered ? (
