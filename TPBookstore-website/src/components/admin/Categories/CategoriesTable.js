@@ -76,7 +76,7 @@ const CategoriesTable = ({ setIsEditCategory, handleEditCategory, handleCurrentC
             <th className="text-center">STT</th>
             <th className="text-center">Tên danh mục</th>
             <th className="text-center">Danh mục cha</th>
-            <th className="text-end">Thao tác</th>
+            <th className="text-center">Thao tác</th>
           </tr>
         </thead>
         {/* Table Data */}
@@ -96,19 +96,48 @@ const CategoriesTable = ({ setIsEditCategory, handleEditCategory, handleCurrentC
                 <td className="fw-bold">{item.name}</td>
                 <td className="fw-bold">{item.parent_category}</td>
                 <td className="text-end">
-                  <div className="dropdown action__categories">
-                    <Link to="#" data-bs-toggle="dropdown" title="Cập nhật" target="_blank">
-                      <i
-                        className="text-warning fas fa-edit"
-                        onClick={() => {
-                          handleEditCategory();
-                          handleCurrentCategory(index);
-                        }}
-                      ></i>
-                    </Link>
-                    <Link data-toggle="modal" data-target="#exampleModalCenter" title="Xoá" target="_blank">
-                      <i class="text-danger fas fa-trash-alt" onClick={() => setCategoryIdDelete(item._id)}></i>
-                    </Link>
+                  <div className="action__categories">
+                    <div className="dropdown">
+                      <div
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                        aria-haspopup="true"
+                        className="text-center"
+                        style={{ opacity: "1" }}
+                      >
+                        <i class="fas fa-ellipsis-h"></i>
+                      </div>
+                      <div className="action__categories-admin dropdown-menu">
+                        <Link
+                          className="dropdown-item"
+                          to="#"
+                          data-bs-toggle="dropdown"
+                          title="Cập nhật"
+                          target="_blank"
+                          onClick={() => {
+                            handleEditCategory();
+                            handleCurrentCategory(index);
+                          }}
+                        >
+                          Sửa &nbsp;
+                          <i className="text-warning fas fa-edit" title="Sửa"></i>
+                        </Link>
+                        <Link
+                          className="dropdown-item"
+                          data-toggle="modal"
+                          data-target="#exampleModalCenter"
+                          title="Xoá"
+                          target="_blank"
+                        >
+                          Xoá &nbsp;
+                          <i
+                            class="text-danger fas fa-trash-alt"
+                            title="Xoá"
+                            onClick={() => setCategoryIdDelete(item._id)}
+                          ></i>
+                        </Link>
+                      </div>
+                    </div>
                   </div>
                 </td>
               </tr>

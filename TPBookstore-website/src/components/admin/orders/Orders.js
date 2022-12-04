@@ -123,44 +123,52 @@ const Orders = (props) => {
                       <span className="badge3 btn-primary">Đang chờ xác nhận</span>
                     )}
                   </td>
-                  <td className="d-flex justify-content-end align-item-center">
-                    {order.isDisabled ? (
-                      <Link className="">
-                        <i
-                          class="fas fa-eye-slash"
-                          data-toggle="modal"
-                          data-target="#exampleModalCenter"
-                          onClick={() => {
-                            typeModal("showOrder");
-                            setOrderIdSelected(order._id);
-                          }}
-                        ></i>
-                      </Link>
-                    ) : (
-                      <Link className="text-success">
-                        <i
-                          className="fas fa-eye"
-                          data-toggle="modal"
-                          data-target="#exampleModalCenter"
-                          onClick={() => {
-                            typeModal("hiddenOrder");
-                            setOrderIdSelected(order._id);
-                          }}
-                        ></i>
-                      </Link>
-                    )}
+                  <td className="d-flex justify-content-center align-item-center">
+                    <div className="dropdown">
+                      <div data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">
+                        <i class="fas fa-ellipsis-h"></i>
+                      </div>
+                      <div className="dropdown-menu action__order">
+                        {order.isDisabled ? (
+                          <Link className="dropdown-item">
+                            <i
+                              class="fas fa-eye-slash"
+                              data-toggle="modal"
+                              data-target="#exampleModalCenter"
+                              onClick={() => {
+                                typeModal("showOrder");
+                                setOrderIdSelected(order._id);
+                              }}
+                            ></i>
+                          </Link>
+                        ) : (
+                          <Link className="text-success dropdown-item">
+                            <i
+                              className="fas fa-eye"
+                              data-toggle="modal"
+                              data-target="#exampleModalCenter"
+                              onClick={() => {
+                                typeModal("hiddenOrder");
+                                setOrderIdSelected(order._id);
+                              }}
+                            ></i>
+                          </Link>
+                        )}
 
-                    <Link data-toggle="modal" data-target="#exampleModalCenter">
-                      <i
-                        class="text-danger fas fa-trash-alt ms-3"
-                        data-toggle="modal"
-                        data-target="#exampleModalCenter"
-                        onClick={() => {
-                          typeModal("deleteOrder");
-                          setOrderIdSelected(order._id);
-                        }}
-                      ></i>
-                    </Link>
+                        <Link data-toggle="modal" className="dropdown-item" data-target="#exampleModalCenter">
+                          <i
+                            class="text-danger fas fa-trash-alt"
+                            data-toggle="modal"
+                            data-target="#exampleModalCenter"
+                            onClick={() => {
+                              typeModal("deleteOrder");
+                              setOrderIdSelected(order._id);
+                            }}
+                          ></i>
+                        </Link>
+                      </div>
+                    </div>
+
                     {/* <Link to={`/admin/order/${order._id}`}>
                       <i class="fas fa-ellipsis-h ms-3"></i>
                     </Link> */}

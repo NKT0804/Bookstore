@@ -133,7 +133,6 @@ const Product = (props) => {
             <td className="text-center">
               <div className="dropdown">
                 <div
-                  // className="dropdown-toggle"
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                   aria-haspopup="true"
@@ -143,22 +142,20 @@ const Product = (props) => {
                   <i class="fas fa-ellipsis-h"></i>
                 </div>
 
-                <div className="action__product dropdown-menu">
+                <div className="action__ dropdown-menu">
                   <Link className="dropdown-item" to={`/admin/product/${product._id}/edit`}>
                     <i className="fas fa-edit text-warning "></i> &nbsp; Sửa
                   </Link>
                   {product.isDisabled ? (
-                    <Link
-                      className="dropdown-item"
-                      data-toggle="modal"
-                      data-target="#exampleModalCenter"
-                      onClick={() => {
-                        typeModal("showProduct");
-                        setProductIdSelected(product._id);
-                      }}
-                      style={{ opacity: "1" }}
-                    >
-                      <i class="fas fa-eye-slash"></i>
+                    <Link className="dropdown-item" data-toggle="modal" data-target="#exampleModalCenter">
+                      <i
+                        class="fas fa-eye-slash"
+                        onClick={() => {
+                          typeModal("showProduct");
+                          setProductIdSelected(product._id);
+                        }}
+                        style={{ opacity: "1" }}
+                      ></i>
                       &nbsp; Bỏ ẩn
                     </Link>
                   ) : (

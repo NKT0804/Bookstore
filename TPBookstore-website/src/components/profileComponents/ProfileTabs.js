@@ -249,7 +249,6 @@ const ProfileTabs = () => {
               className="input__birthday"
               type="date"
               name="birthday"
-              max="2022-11-12"
               value={birthday}
               onChange={(e) => setBirthday(e.target.value)}
             ></input>
