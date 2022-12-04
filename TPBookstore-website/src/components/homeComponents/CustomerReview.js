@@ -29,7 +29,7 @@ const CustomerReview = () => {
             <div className="col l-4 m-6 d-flex justify-content-center">
               <div className="evaluate__user">
                 <div className="evaluate__user-img">
-                  <img src="./images/avatar/avatar.jpg" alt="" />
+                  <img src="./images/avatar/avartar_user_1.jpg" alt="" />
                 </div>
                 <div className="evaluate__content">
                   <div className="evaluate__content-icon">
@@ -51,7 +51,7 @@ const CustomerReview = () => {
             <div className="col l-4 m-6 d-flex justify-content-center">
               <div className="evaluate__user">
                 <div className="evaluate__user-img">
-                  <img src="https://xemanhdep.com/wp-content/uploads/2013/02/3047191323_146c5bb15d_z1.jpg" alt="" />
+                  <img src="./images/avatar/avartar_user_2.jpg" alt="" />
                 </div>
                 <div className="evaluate__content">
                   <div className="evaluate__content-icon">
@@ -73,7 +73,7 @@ const CustomerReview = () => {
             <div className="col l-4 m-6 d-flex justify-content-center">
               <div className="evaluate__user">
                 <div className="evaluate__user-img">
-                  <img src="./images/avatar/Logo_NKT.png" alt="" />
+                  <img src="./images/avatar/avartar_user_3.png" alt="" />
                 </div>
                 <div className="evaluate__content">
                   <div className="evaluate__content-icon">
@@ -83,7 +83,7 @@ const CustomerReview = () => {
                     <i className="evaluate__content-icon--star fas fa-star"></i>
                     <i className="evaluate__content-icon--star fas fa-star"></i>
                   </div>
-                  <h3 className="evaluate__content--name">Nguyen Anh Tuan</h3>
+                  <h3 className="evaluate__content--name">Nguyên Anh Tuấn</h3>
                   <p className="evaluate__content--desc">
                     {newProduct
                       ? newProduct[3]?.[0]?.reviewContent

@@ -14,7 +14,7 @@ import BestSellerProduct from "../components/carouselProduct/BestSellerProduct";
 import NewProduct from "../components/carouselProduct/NewProduct";
 
 const HomeScreen = ({ location }) => {
-  window.scrollTo(0, 0);
+  // window.scrollTo(0, 0);
   const dispatch = useDispatch();
 
   const productList = useSelector((state) => state.productList);

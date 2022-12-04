@@ -40,7 +40,7 @@ import SliderBannerScreenAdmin from "./screens/admin/SliderBannerScreen";
 import axios from "axios";
 
 //config axios base url default
-// axios.defaults.baseURL = "https://tp-bookstore.herokuapp.com/";
+axios.defaults.baseURL = "https://api.nkt2001.tech/";
 // axios.defaults.baseURL = "http://localhost:5000/";
 
 const App = () => {

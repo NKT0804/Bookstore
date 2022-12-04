@@ -32,7 +32,7 @@ const CartScreen = ({ history }) => {
   const { success: removeCartSuccess, error: removeCartError } = removeCart;
 
   const updateCartStore = useSelector((state) => state.cartUpdate);
-  const { success: updateCartSuccess, error: updateCartError } = updateCartStore;
+  const { loading, success: updateCartSuccess, error: updateCartError } = updateCartStore;
 
   useEffect(() => {
     dispatch(getCartListItem());
@@ -125,7 +125,9 @@ const CartScreen = ({ history }) => {
                       checked={item.isBuy}
                       hidden={item.product?.countInStock <= 0 || item.product.isDisabled}
                       disabled={item.product?.countInStock <= 0 || item.product.isDisabled}
-                      onChange={(e) => updateFromCartHandler(item.product._id, item.qty, e.target.checked)}
+                      onChange={(e) => {
+                        updateFromCartHandler(item.product._id, item.qty, e.target.checked);
+                      }}
                     />
                   </div>
                   {/* Image */}
@@ -176,9 +178,7 @@ const CartScreen = ({ history }) => {
                         ))}
                       </select>
                     ) : item.product.isDisabled ? (
-                      <div className="cart-item-qty-alert text-center text-danger fw-bold">
-                        Sản phẩm không còn tồn tại
-                      </div>
+                      <div className="cart-item-qty-alert text-center text-danger fw-bold">Sản phẩm đã ngừng bán</div>
                     ) : (
                       <div className="cart-item-qty-alert text-danger fw-bold">Hết hàng</div>
                     )}

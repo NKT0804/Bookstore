@@ -37,6 +37,7 @@ const ToastObjects = {
   autoClose: 2000
 };
 const SingleProduct = ({ history, match }) => {
+  window.scrollTo(0, 0);
   const [qty, setQty] = useState(1);
   const [rating, setRating] = useState(5);
   const [reviewContent, setReviewContent] = useState("");
@@ -332,7 +333,7 @@ const SingleProduct = ({ history, match }) => {
                           </button>
                         </>
                       ) : (
-                        <div className="cart-item-qty-alert py-2 text-danger fw-bold">Sản phẩm không còn tồn tại</div>
+                        <div className="cart-item-qty-alert py-2 text-danger fw-bold">Sản phẩm đã ngừng bán</div>
                       )}
                     </div>
                   </div>

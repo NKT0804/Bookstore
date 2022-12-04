@@ -58,7 +58,7 @@ const EditProductMain = (props) => {
       dispatch({ type: PRODUCT_UPDATE_RESET });
       dispatch(editProductAdmin(productId));
       toast.success("Cập nhật sản phẩm thành công!", ToastObjects);
-      history.push("/admin/products");
+      // history.push("/admin/products");
     } else {
       if (!product.name || product._id !== productId) {
         dispatch(editProductAdmin(productId));

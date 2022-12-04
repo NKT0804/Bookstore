@@ -67,8 +67,7 @@ const UpdateBanner = ({ isEditBanner, currentBanner, setIsEditBanner, setCurrent
     return true;
   };
 
-  const submitHandler = (e) => {
-    e.preventDefault();
+  const submitHandler = () => {
     const isEmptyValidate = isEmptyCheckUpdateBanner();
     if (!isEmptyValidate) return;
 
