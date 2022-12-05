@@ -31,7 +31,7 @@ const LatestOrder = (props) => {
               </tr>
             </thead>
             <tbody>
-              {orders.slice(0, 5).map((order) => (
+              {orders?.slice(0, 5).map((order) => (
                 <tr key={order._id}>
                   <td>
                     <td>

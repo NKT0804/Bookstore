@@ -2,7 +2,7 @@
   "name": "tp-bookstore-website",
   "version": "1.0.0",
   "private": true,
-  "proxy": "https://api.nkt2001.tech/",
+  "proxy": "http://localhost:5000/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.15.0",
     "@testing-library/react": "^11.2.7",

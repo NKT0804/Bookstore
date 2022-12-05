@@ -6,10 +6,10 @@ import { logout } from "../Redux/Actions/userActions";
 import { listBanner } from "../Redux/Actions/bannerActions";
 import CategoryList from "./homeComponents/CategoryList";
 
-const Header = () => {
+const Header = (props) => {
   const dispatch = useDispatch();
   let history = useHistory();
-
+  const { categorySlug = "" } = props;
   const [keyword, setKeyword] = useState("");
   const cart = useSelector((state) => {
     return state.cartListItem.cartUser ?? state.cartListItem;
@@ -37,7 +37,11 @@ const Header = () => {
   const submitHandler = (e) => {
     e.preventDefault();
     if (keyword.trim()) {
-      history.push(`/search?q=${keyword}`);
+      if (categorySlug) {
+        history.push(`/search/category/${categorySlug}?q=${keyword}`);
+      } else {
+        history.push(`/search?q=${keyword}`);
+      }
     } else {
       history.push("/");
     }

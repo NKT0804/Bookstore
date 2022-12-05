@@ -49,28 +49,8 @@ export const userLoginAction = (email, password) => async (dispatch) => {
       }
     };
     const { data } = await axios.post(`/api/v1/user/login`, { email, password }, config);
-    dispatch({
-      type: USER_LOGIN_SUCCESS,
-      payload: {
-        _id: data._id,
-        name: data.name,
-        isAdmin:data.isAdmin,
-        avatarUrl: data.avatarUrl,
-        token: data.token,
-        refreshToken: data.refreshToken
-      }
-    });
-    localStorage.setItem(
-      "userInfo",
-      JSON.stringify({
-        _id: data._id,
-        name: data.name,
-        isAdmin:data.isAdmin,
-        avatarUrl: data.avatarUrl,
-        token: data.token,
-        refreshToken: data.refreshToken
-      })
-    );
+    dispatch({ type: USER_LOGIN_SUCCESS, payload: data });
+    localStorage.setItem("userInfo", JSON.stringify(data));
     dispatch({ type: USER_DETAILS_SUCCESS, payload: data });
   } catch (error) {
     dispatch({
@@ -100,25 +80,10 @@ export const refreshToken = () => async (dispatch, getState) => {
       dispatch({
         type: USER_LOGIN_SUCCESS,
         payload: {
-          _id: data._id,
-          name: data.name,
-          isAdmin:data.isAdmin,
-          avatarUrl: data.avatarUrl,
-          token: data.token,
-          refreshToken: data.refreshToken
+          data
         }
       });
-      localStorage.setItem(
-        "userInfo",
-        JSON.stringify({
-          _id: data._id,
-          name: data.name,
-          isAdmin:data.isAdmin,
-          avatarUrl: data.avatarUrl,
-          token: data.token,
-          refreshToken: data.refreshToken
-        })
-      );
+      localStorage.setItem("userInfo", JSON.stringify(data));
     }
     return true;
   } catch {
@@ -162,26 +127,9 @@ export const verifyEmail = (verificationToken) => async (dispatch) => {
     dispatch({ type: USER_REGISTER_SUCCESS, payload: data });
     dispatch({
       type: USER_LOGIN_SUCCESS,
-      payload: {
-        _id: data._id,
-        name: data.name,
-        isAdmin:data.isAdmin,
-        avatarUrl: data.avatarUrl,
-        token: data.token,
-        refreshToken: data.refreshToken
-      }
+      payload: data
     });
-    localStorage.setItem(
-      "userInfo",
-      JSON.stringify({
-        _id: data._id,
-        name: data.name,
-        isAdmin:data.isAdmin,
-        avatarUrl: data.avatarUrl,
-        token: data.token,
-        refreshToken: data.refreshToken
-      })
-    );
+    localStorage.setItem("userInfo", JSON.stringify(data));
   } catch (error) {
     const message = error.response && error.response.data.message ? error.response.data.message : error.message;
     dispatch({
@@ -265,14 +213,7 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
     dispatch({ type: USER_UPDATE_PROFILE_SUCCESS, payload: data });
     dispatch({
       type: USER_LOGIN_SUCCESS,
-      payload: {
-        _id: data._id,
-        name: data.name,
-        isAdmin:data.isAdmin,
-        avatarUrl: data.avatarUrl,
-        token: data.token,
-        refreshToken: data.refreshToken
-      }
+      payload: data
     });
   } catch (error) {
     const message = error.response && error.response.data.message ? error.response.data.message : error.message;
@@ -382,14 +323,7 @@ export const updateUserAvatar =
       dispatch({ type: USER_UPDATE_AVATAR_SUCCESS, payload: data });
       dispatch({
         type: USER_LOGIN_SUCCESS,
-        payload: {
-          _id: data._id,
-          name: data.name,
-          isAdmin:data.isAdmin,
-          avatarUrl: data.avatarUrl,
-          token: data.token,
-          refreshToken: data.refreshToken
-        }
+        payload: data
       });
     } catch (error) {
       const message = error.response && error.response.data.message ? error.response.data.message : error.message;

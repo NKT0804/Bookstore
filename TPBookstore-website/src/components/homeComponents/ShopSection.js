@@ -19,7 +19,7 @@ const ShopSection = (props) => {
     }
   }
   let productList = [];
-  if (products.length > 0) {
+  if (products?.length > 0) {
     products.map((item) => {
       if (item.category.parent_category === categorySelected) productList.push(item);
       return productList;
