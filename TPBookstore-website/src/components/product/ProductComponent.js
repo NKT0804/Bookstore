@@ -24,6 +24,14 @@ const ProductComponent = (props) => {
           })
         ) : error ? (
           <Message variant="alert-danger">{error}</Message>
+        ) : !products?.length > 0 ? (
+          <div className="not__found px-4">
+            <img
+              className="not__found-img"
+              src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg//assets/a60759ad1dabe909c46a817ecbf71878.png"
+            ></img>
+            <p className="text-center">Không có sản phẩm nào phù hợp với từ khóa tìm kiếm của bạn</p>
+          </div>
         ) : (
           products?.map((product) => (
             <div className="col-lg-3 col-md-6 c-6" key={product._id}>
