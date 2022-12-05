@@ -580,13 +580,23 @@ a.itemside:hover .title {
   height: 100%;
 }
 
-.action__product.dropdown-menu {
+.action__product.dropdown-menu,
+.action__order.dropdown-menu {
   min-width: 12px;
 }
 
 .action__product.dropdown-menu.show {
   transform: translate3d(12px, 21px, 0px) !important;
 }
+
+.action__categories-admin {
+  min-width: 12px;
+}
+.action__categories-admin.dropdown-menu.show,
+.action__order.dropdown-menu.show {
+  transform: translate3d(50px, 21px, 0px) !important;
+  max-width: 95px;
+  }
 
 #action__product-admin {
   cursor: pointer;

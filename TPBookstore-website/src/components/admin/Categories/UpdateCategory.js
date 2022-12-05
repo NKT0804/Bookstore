@@ -38,13 +38,13 @@ const UpdateCategory = ({ currentCategory, setIsEditCategory }) => {
 
   return (
     <>
-      <Modal
+      {/* <Modal
         modalTitle={"Cập nhật danh mục sản phẩm"}
         modalBody={"Bạn có chắc muốn cập nhật danh mục này?"}
         btnTitle={"Lưu thay đổi"}
         btnType={"confirm"}
         handler={submitHandler}
-      />
+      /> */}
       <div className="">
         <div>
           {loading && <Loading />}

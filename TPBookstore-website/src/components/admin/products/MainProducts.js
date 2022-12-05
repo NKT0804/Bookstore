@@ -112,14 +112,7 @@ const MainProducts = React.memo((props) => {
                 onChange={(e) => setKeywordSearch(e.target.value)}
               />
             </form>
-            <div className="col-lg-2 col-6 col-md-3" style={{ marginLeft: "80px" }}>
-              <select className="form-select" value={limit} onChange={(e) => setLimit(e.target.value)}>
-                <option value={"10"}>10 sản phẩm</option>
-                <option value={"20"}>20 sản phẩm</option>
-                <option value={"30"}>30 sản phẩm</option>
-                <option value={"40"}>40 sản phẩm</option>
-              </select>
-            </div>
+
             <CategoryFilterAdmin
               category={category}
               categoryFilterAdmin={categoryFilterAdmin}
@@ -131,6 +124,14 @@ const MainProducts = React.memo((props) => {
                 <option value={"all"}>Tất cả trạng thái</option>
                 <option value={"disabled"}>Đang bị ẩn</option>
                 <option value={"notDisabled"}>Chưa bị ẩn</option>
+              </select>
+            </div>
+            <div className="col-lg-2 col-6 col-md-3">
+              <select className="form-select" value={limit} onChange={(e) => setLimit(e.target.value)}>
+                <option value={"10"}>10 sản phẩm</option>
+                <option value={"20"}>20 sản phẩm</option>
+                <option value={"30"}>30 sản phẩm</option>
+                <option value={"40"}>40 sản phẩm</option>
               </select>
             </div>
           </div>
