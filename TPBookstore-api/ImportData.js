@@ -1,12 +1,12 @@
 import express from "express";
 import expressAsyncHandler from "express-async-handler";
 import User from "./models/UserModel.js";
-import Cart from "./models/CartModel.js";
+// import Cart from "./models/CartModel.js";
 import Product from "./models/ProductModel.js";
 import Category from "./models/CategoryModel.js";
 
 import users from "./data/User.js";
-import carts from "./data/Cart.js";
+// import carts from "./data/Cart.js";
 import products from "./data/Products.js";
 import Categories from "./data/category.js";
 
@@ -23,14 +23,14 @@ ImportData.post(
         res.send({ importUser });
     })
 );
-ImportData.post(
-    "/cart",
-    expressAsyncHandler(async (req, res) => {
-        // await Cart.deleteMany({});
-        const importCart = await Cart.insertMany(carts);
-        res.send({ importCart });
-    })
-);
+// ImportData.post(
+//     "/cart",
+//     expressAsyncHandler(async (req, res) => {
+//         // await Cart.deleteMany({});
+//         const importCart = await Cart.insertMany(carts);
+//         res.send({ importCart });
+//     })
+// );
 ImportData.post(
     "/category",
     expressAsyncHandler(async (req, res) => {

@@ -290,13 +290,13 @@ const SingleProduct = ({ history, match }) => {
                     </div>
                     <div className="flex-box d-flex justify-content-between align-items-center">
                       <h6>Đánh giá</h6>
-                      <a href="#review">
+                      <Link href="#review">
                         <Rating
                           value={product.rating}
                           numRating={product.rating}
                           text={`  ${product.numReviews} Đánh giá`}
                         />
-                      </a>
+                      </Link>
                     </div>
                     <div className="flex-box d-flex justify-content-between align-items-center">
                       <h6>Số lượng</h6>
@@ -452,7 +452,7 @@ const SingleProduct = ({ history, match }) => {
                     </div>
                     <div className="my-4">
                       <textarea
-                        row="5"
+                        row="1"
                         value={reviewContent}
                         onChange={(e) => setReviewContent(e.target.value)}
                         className="col-12 bg-light p-3 mt-2 border-1 rounded"
