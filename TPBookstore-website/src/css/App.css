@@ -514,7 +514,7 @@ textarea:focus {
 }
 
 .rating-color i {
-  color: #ffff22;
+  color: var(--primary-color);
 }
 
 .shadow:hover {

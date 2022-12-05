@@ -260,7 +260,7 @@ const OrderScreen = ({ match }) => {
                     </button>
                   </>
                 ) : (
-                  <button className="col-12 fs-primary fw-bold text-danger mt-2">Đơn hàng đã bị hủy</button>
+                  <button className="col-12 btn-danger fs-primary fw-bold mt-2">Đơn hàng đã bị hủy</button>
                 )}
               </div>
             </div>

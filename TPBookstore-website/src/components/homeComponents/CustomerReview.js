@@ -108,7 +108,7 @@ const CustomerReview = () => {
                   <h3 className="evaluate__content--name">Hồ Ngọc Tài</h3>
                   <p className="evaluate__content--desc">
                     {newProduct
-                      ? newProduct[3]?.[0]?.reviewContent
+                      ? newProduct[4]?.[0]?.reviewContent
                       : `There are many meaningful books here and their prices are also very reasonable`}
                   </p>
                 </div>
