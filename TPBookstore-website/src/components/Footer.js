@@ -33,7 +33,7 @@ const Footer = () => {
                   <ul className="footer__infomation--contact-list">
                     {/* <li className="footer__infomation--contact-name">TP Bookstore</li> */}
                     <li className="footer__infomation--contact-address">Địa chỉ: Q12, Ho Chi Minh City</li>
-                    <li className="footer__infomation--contact-email">Email: tp.bookstore@gmail.com</li>
+                    <li className="footer__infomation--contact-email">Email: tpbookstore2022@gmail.com</li>
                     <li className="footer__infomation--contact-phone">SĐT: +0909 0009</li>
                     <div className="gird">
                       <div className="row no-gutters">
