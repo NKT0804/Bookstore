@@ -4,7 +4,6 @@ import Rating from "./Rating";
 import Message from "./../base/LoadingError/Error";
 import CardProductLoading from "../base/LoadingError/CardProductLoading";
 import formatCash from "../../utils/formatCash";
-import Loading from "../base/LoadingError/Loading";
 
 const ProductComponent = (props) => {
   const { loading, error, products } = props;
