@@ -1,26 +1,13 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import React from "react";
+import Message from "../../base/LoadingError/Error";
+import Loading from "../../base/LoadingError/Loading";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import Message from "../components/base/LoadingError/Error";
-import Loading from "../components/base/LoadingError/Loading";
-import Header from "../components/Header";
-import { userRegisterAction } from "../Redux/Actions/userActions";
+import { useDispatch, useSelector } from "react-redux";
 
-const Register = ({ location, history }) => {
-  window.scrollTo(0, 0);
-  const redirect = location.search ? location.search.split("=")[1] : "/";
-
-  const dispatch = useDispatch();
+const CreateUser = () => {
   const userRegister = useSelector((state) => state.userRegister);
   const { loading, error, userInfo } = userRegister;
-  useEffect(() => {
-    if (userInfo) {
-      history.push(redirect);
-    }
-  }, [history, location, userInfo, redirect]);
-
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -53,16 +40,27 @@ const Register = ({ location, history }) => {
         .oneOf([Yup.ref("password"), null], "Mật khẩu không khớp")
     }),
     onSubmit: (value) => {
-      dispatch(userRegisterAction(history, value.name, value.email, value.phone, value.password));
+      // dispatch(userRegisterAction(history, value.name, value.email, value.phone, value.password));
     }
   });
   return (
     <>
-      <Header />
       <div className="container d-flex flex-column justify-content-center align-items-center login-center">
-        {loading && <Loading />}
+        {/* {loading && <Loading />} */}
         <form className="Login col-md-8 col-lg-4 col-11" onSubmit={formik.handleSubmit}>
-          <h5 className="form-title">Đăng ký</h5>
+          <div className="text-start">
+            <h5>Loại liên hệ</h5>
+            <div className="d-flex align-items-center my-3">
+              <span className="user__role">
+                <input className="input__role" type="radio" name="user-role" value="Khách hàng" />
+                <label className="input__role-title">Khách hàng</label>
+              </span>
+              <span className="user__role">
+                <input className="input__role" type="radio" name="user-role" value="Shipper" />
+                <label className="input__role-title">Shipper</label>
+              </span>
+            </div>
+          </div>
           <div className="frame-error">{error && <Message variant="alert-danger">{error}</Message>}</div>
           <input
             type="text"
@@ -142,12 +140,12 @@ const Register = ({ location, history }) => {
             ) : null}
           </div>
           <button type="submit" className="btn">
-            Đăng ký
+            TẠO TÀI KHOẢN
           </button>
           <p>
-            <Link to={redirect ? `/login?redirect=${redirect}` : "/login"}>
+            {/* <Link to={redirect ? `/login?redirect=${redirect}` : "/login"}>
               Tôi đã có tài khoản? <strong>Đăng nhập</strong>
-            </Link>
+            </Link> */}
           </p>
         </form>
       </div>
@@ -155,4 +153,4 @@ const Register = ({ location, history }) => {
   );
 };
 
-export default Register;
+export default CreateUser;

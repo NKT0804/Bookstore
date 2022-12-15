@@ -50,9 +50,13 @@ const Login = ({ location, history }) => {
             placeholder="Email"
             value={formik.values.email}
             onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
           />
           <div className="frame-error">
-            {formik.errors.email && <span className="error-message">{formik.errors.email}</span>}
+            {/* {formik.errors.email && <span className="error-message">{formik.errors.email}</span>} */}
+            {formik.touched.email && formik.errors.email ? (
+              <span className="error-message">{formik.errors.email}</span>
+            ) : null}
           </div>
           <input
             id="password"
@@ -60,9 +64,13 @@ const Login = ({ location, history }) => {
             placeholder="Mật khẩu"
             value={formik.values.password}
             onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
           />
           <div className="frame-error">
-            {formik.errors.password && <span className="error-message">{formik.errors.password}</span>}
+            {/* {formik.errors.password && <span className="error-message">{formik.errors.password}</span>} */}
+            {formik.touched.password && formik.errors.password ? (
+              <span className="error-message">{formik.errors.password}</span>
+            ) : null}
           </div>
           <p className="d-flex justify-content-end mt-2">
             <Link style={{ fontSize: "14px", color: "#007AC8" }} to="/forgotPassword">

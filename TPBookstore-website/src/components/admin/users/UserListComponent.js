@@ -42,6 +42,9 @@ const UserListComponent = (props) => {
             <i className="material-icons md-plus"></i>Tạo tài khoản
           </Link>
         </div> */}
+        <Link to="/admin/createUser">
+          <button className="btn btn-primary">Tạo tài khoản</button>
+        </Link>
       </div>
 
       <div className="card mb-4">
