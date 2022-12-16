@@ -1282,3 +1282,15 @@ td {
   margin-left: 42%;
   margin-top: 12px;
 }
+
+
+/* test css */
+.input__role {
+  font-size: 17px;
+  width: 30px !important;
+  margin-top: 0 !important;
+}
+
+.input__role-title {
+  min-width: 160px;
+}
