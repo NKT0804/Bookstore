@@ -70,7 +70,7 @@ export const listProducts =
     minPrice = "",
     maxPrice = "",
     sortBy = "",
-    limit = 12
+    limit = ""
   ) =>
   async (dispatch) => {
     try {

@@ -106,7 +106,7 @@ const Header = () => {
               <Link className="dropdown-item" to="/profile">
                 Tài khoản
               </Link>
-              <Link className="dropdown-item">Cài đặt</Link>
+              {/* <Link className="dropdown-item">Cài đặt</Link> */}
               <Link onClick={logoutHandler} className="dropdown-item text-danger" to="#">
                 Đăng xuất
               </Link>

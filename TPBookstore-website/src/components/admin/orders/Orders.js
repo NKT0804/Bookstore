@@ -97,7 +97,9 @@ const Orders = (props) => {
                     </td>
                   </td>
                   <td className={order.isDisabled ? `status-disabled` : ``}>
-                    <b>{order.user.name.length >= 15 ? `${order.user.name.slice(0, 15)}...` : `${order.user.name}`}</b>
+                    <b>
+                      {order.user?.name.length >= 15 ? `${order.user?.name.slice(0, 15)}...` : `${order.user?.name}`}
+                    </b>
                   </td>
                   <td className={order.isDisabled ? `status-disabled` : ``}>{formatCash(order.totalPrice)}</td>
                   <td className={order.isDisabled ? `status-disabled` : ``}>
