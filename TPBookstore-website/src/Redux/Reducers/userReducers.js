@@ -39,7 +39,10 @@ import {
   USER_RESET_PASSWORD_RESET,
   ADMIN_GET_USER_DETAILS_REQUEST,
   ADMIN_GET_USER_DETAILS_SUCCESS,
-  ADMIN_GET_USER_DETAILS_FAIL
+  ADMIN_GET_USER_DETAILS_FAIL,
+  ADMIN_ADD_STAFF_REQUEST,
+  ADMIN_ADD_STAFF_SUCCESS,
+  ADMIN_ADD_STAFF_FAIL
 } from "../Constants/userConstants";
 
 // LOGIN
@@ -69,6 +72,18 @@ export const userRegisterReducer = (state = {}, action) => {
     case USER_REGISTER_FAIL:
       return { loading: false, error: action.payload };
 
+    default:
+      return state;
+  }
+};
+export const adminAddStaffReducer = (state = {}, action) => {
+  switch (action.type) {
+    case ADMIN_ADD_STAFF_REQUEST:
+      return { loading: true };
+    case ADMIN_ADD_STAFF_SUCCESS:
+      return { loading: false, success: true, ...action.payload };
+    case ADMIN_ADD_STAFF_FAIL:
+      return { loading: false, error: action.payload };
     default:
       return state;
   }

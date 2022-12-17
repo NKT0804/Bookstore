@@ -34,7 +34,10 @@ import {
   USER_RESET_PASSWORD_FAIL,
   ADMIN_GET_USER_DETAILS_REQUEST,
   ADMIN_GET_USER_DETAILS_SUCCESS,
-  ADMIN_GET_USER_DETAILS_FAIL
+  ADMIN_GET_USER_DETAILS_FAIL,
+  ADMIN_ADD_STAFF_REQUEST,
+  ADMIN_ADD_STAFF_SUCCESS,
+  ADMIN_ADD_STAFF_FAIL
 } from "../Constants/userConstants";
 import axios from "axios";
 
@@ -91,6 +94,7 @@ export const refreshToken = () => async (dispatch, getState) => {
     return false;
   }
 };
+
 // REGISTER
 export const userRegisterAction = (history, name, email, phone, password) => async (dispatch) => {
   try {
@@ -113,6 +117,26 @@ export const userRegisterAction = (history, name, email, phone, password) => asy
   }
 };
 
+// ADMIN ADD STAFF
+export const adminAddStaffAction = (name, email, phone, role, password) => async (dispatch) => {
+  try {
+    dispatch({ type: ADMIN_ADD_STAFF_REQUEST });
+
+    const config = {
+      headers: {
+        "Content-type": "application/json"
+      }
+    };
+    const data = await axios.post(`/api/v1/user`, { name, email, phone, role, password }, config);
+    dispatch({ type: ADMIN_ADD_STAFF_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: ADMIN_ADD_STAFF_FAIL,
+      payload: error.response && error.response.data.message ? error.response.data.message : error.message
+    });
+  }
+};
+
 export const verifyEmail = (verificationToken) => async (dispatch) => {
   try {
     dispatch({ type: USER_REGISTER_VERIFY });
@@ -125,11 +149,7 @@ export const verifyEmail = (verificationToken) => async (dispatch) => {
 
     const { data } = await axios.patch(`/api/v1/user/verifyEmail`, { verificationToken }, config);
     dispatch({ type: USER_REGISTER_SUCCESS, payload: data });
-    dispatch({
-      type: USER_LOGIN_SUCCESS,
-      payload: data
-    });
-    localStorage.setItem("userInfo", JSON.stringify(data));
+    document.location.href = "/login";
   } catch (error) {
     const message = error.response && error.response.data.message ? error.response.data.message : error.message;
     dispatch({

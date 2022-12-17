@@ -22,11 +22,10 @@ const PlaceOrderScreen = ({ history }) => {
 
   const dispatch = useDispatch();
 
+  const receiver = localStorage.getItem("receiver") ? JSON.parse(localStorage.getItem("receiver")) : "";
   const [shippingAddress, setShippingAddress] = useState("");
   // const [paymentMethod, setPaymentMethod] = useState("Thanh toán khi nhận hàng");
   const paymentMethod = "Thanh toán khi nhận hàng";
-  const userLogin = useSelector((state) => state.userLogin);
-  const { userInfo } = userLogin;
   const cart = useSelector((state) => {
     return state.cartListItem.cartUser ?? state.cartListItem;
   });
@@ -47,36 +46,36 @@ const PlaceOrderScreen = ({ history }) => {
     orderItems.length > 0 ? orderItems.reduce((acc, item) => acc + item.product.priceSale * item.qty, 0) : 0
   );
   placeOrder.shippingPrice = 15000;
-  placeOrder.taxPrice = Math.round(Number(0.05 * placeOrder.itemsPrice));
-  placeOrder.totalPrice =
-    Number(placeOrder.itemsPrice) + Number(placeOrder.shippingPrice) + Number(placeOrder.taxPrice);
+  placeOrder.totalPrice = Number(placeOrder.itemsPrice) + Number(placeOrder.shippingPrice);
 
   const orderCreate = useSelector((state) => state.orderCreate);
   const { order, success, error } = orderCreate;
 
   useEffect(() => {
-    if (userInfo) {
+    if (!receiver) {
+      history.push("/shipping");
+    } else {
       if (
-        isEmpty(userInfo.address?.province) ||
-        isEmpty(userInfo.address?.district) ||
-        isEmpty(userInfo.address?.ward) ||
-        isEmpty(userInfo.address?.specificAddress)
+        isEmpty(receiver.address?.province) ||
+        isEmpty(receiver.address?.district) ||
+        isEmpty(receiver.address?.ward) ||
+        isEmpty(receiver.address?.specificAddress)
       ) {
         history.push("/shipping");
       }
 
       setShippingAddress(
-        userInfo.address?.province.concat(
+        receiver.address?.province.concat(
           ", ",
-          userInfo.address?.district,
+          receiver.address?.district,
           ", ",
-          userInfo.address?.ward,
+          receiver.address?.ward,
           ", ",
-          userInfo.address?.specificAddress
+          receiver.address?.specificAddress
         )
       );
     }
-  }, [history, userInfo]);
+  }, [history, receiver]);
 
   useEffect(() => {
     if (success) {
@@ -92,12 +91,13 @@ const PlaceOrderScreen = ({ history }) => {
   const placeOrderHandler = () => {
     dispatch(
       createOrder({
+        receiver: receiver.name,
+        phone: receiver.phone,
         orderItems: placeOrder.orderItems,
         shippingAddress: shippingAddress,
         paymentMethod: paymentMethod,
         itemsPrice: placeOrder.itemsPrice,
         shippingPrice: placeOrder.shippingPrice,
-        taxPrice: placeOrder.taxPrice,
         totalPrice: placeOrder.totalPrice
       })
     );
@@ -126,10 +126,10 @@ const PlaceOrderScreen = ({ history }) => {
               </div>
               <div className="col-md-8 center">
                 <h7 className="order-detail-title">
-                  <strong>Khách hàng</strong>
+                  <strong>Người nhận</strong>
                 </h7>
-                <p>Tên: {userInfo?.name}</p>
-                <p>SĐT: {userInfo?.phone}</p>
+                <p>Tên: {receiver?.name}</p>
+                <p>SĐT: {receiver?.phone}</p>
               </div>
             </div>
           </div>
@@ -225,12 +225,6 @@ const PlaceOrderScreen = ({ history }) => {
                     <strong>Phí vận chuyển</strong>
                   </td>
                   <td>{formatCash(placeOrder.shippingPrice)}</td>
-                </tr>
-                <tr>
-                  <td>
-                    <strong>Thuế VAT (5%)</strong>
-                  </td>
-                  <td>{formatCash(placeOrder.taxPrice)}</td>
                 </tr>
                 <tr>
                   <td>

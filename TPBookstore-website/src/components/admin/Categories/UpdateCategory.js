@@ -38,13 +38,6 @@ const UpdateCategory = ({ currentCategory, setIsEditCategory }) => {
 
   return (
     <>
-      {/* <Modal
-        modalTitle={"Cập nhật danh mục sản phẩm"}
-        modalBody={"Bạn có chắc muốn cập nhật danh mục này?"}
-        btnTitle={"Lưu thay đổi"}
-        btnType={"confirm"}
-        handler={submitHandler}
-      /> */}
       <div className="">
         <div>
           {loading && <Loading />}
@@ -82,12 +75,7 @@ const UpdateCategory = ({ currentCategory, setIsEditCategory }) => {
             <button className="btn btn-danger px-4" onClick={() => setIsEditCategory(false)}>
               Hủy
             </button>
-            <button
-              data-toggle="modal"
-              data-target="#exampleModalCenter"
-              type="submit"
-              className="btn btn-warning px-4"
-            >
+            <button type="button" className="btn btn-warning px-4" onClick={submitHandler}>
               Cập nhật
             </button>
           </div>

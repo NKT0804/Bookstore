@@ -37,107 +37,158 @@ import UsersScreenAdmin from "./screens/admin/UsersScreen";
 import UserDetailsScreenAdmin from "./screens/admin/UserDetailsScreen";
 import CommentScreenAdmin from "./screens/admin/CommentsScreen";
 import ProductEditScreenAdmin from "./screens/admin/ProductEditScreen";
-import { PrivateRouter, AdminPrivateRouter } from "./PrivateRouter";
+import { PrivateRouter, AdminPrivateRouter, ShipperPrivateRouter } from "./PrivateRouter";
 import SliderBannerScreenAdmin from "./screens/admin/SliderBannerScreen";
 import { useSelector, useDispatch } from "react-redux";
-import { getUserDetails } from "./Redux/Actions/userActions";
+import { getUserDetails, logout } from "./Redux/Actions/userActions";
 import axios from "axios";
 
 //config axios base url default
 // axios.defaults.baseURL = "https://api.nkt2001.tech/";
 axios.defaults.baseURL = "http://localhost:5000/";
 const App = () => {
-  const dispatch = useDispatch();
-  const userLogin = useSelector((state) => state.userLogin);
-  const { loading, error, userInfo } = userLogin;
-  const userDetails = useSelector((state) => state.userDetails);
-  const { error: errorGetUserDetail, user } = userDetails;
-  useEffect(() => {
-    if (userInfo?.token) {
-      dispatch(getUserDetails(userInfo.token));
-    }
-  }, [dispatch]);
+  // const dispatch = useDispatch();
+
+  // const userInfoFromLocalStorage = localStorage.getItem("userInfo")
+  //   ? JSON.parse(localStorage.getItem("userInfo"))
+  //   : null;
+  // const userLogin = useSelector((state) => state.userLogin);
+  // const { loading, error, userInfo } = userLogin;
+  // const userDetails = useSelector((state) => state.userDetails);
+  // const { error: errorGetUserDetail, user } = userDetails;
+  // useEffect(() => {
+  //   if (!userInfo) {
+  //     if (userInfoFromLocalStorage?.token) {
+  //       dispatch(getUserDetails(userInfoFromLocalStorage.token));
+  //     }
+  //   }
+  // }, [dispatch]);
   return (
     <Router>
-      {user?.isAdmin ? (
-        <Switch>
-          {/*PAGE SALE*/}
-          {/* <Route path="/register/verify/:email/:verificationToken" component={RegisterVerify} exact />
-          <Route path="/register/verify/:email" component={RegisterVerify} exact /> */}
-          {/* <Route path="/resetPassword/:resetPasswordToken" component={ResetPassword} exact /> */}
-          <Route path="/search/category/:category" component={ProductsScreen} exact />
-          <Route path="/category/:category" component={ProductsScreen} exact />
-          <Route path="/product/:slug" component={SingleProduct} exact />
-          <Route path="/forgotPassword" component={ForgotPassword} exact />
-          <Route path="/products" component={ProductsScreen} exact />
-          <Route path="/search" component={ProductsScreen} exact />
-          {/* <Route path="/register" component={Register} exact />
-          <Route path="/login" component={Login} exact /> */}
-          <Route path="/cart/:id?" component={CartScreen} exact />
-          <PrivateRouter path="/placeOrder" component={PlaceOrderScreen} exact />
-          <PrivateRouter path="/profile" component={ProfileScreen} exact />
-          <PrivateRouter path="/shipping" component={ShippingScreen} exact />
-          <PrivateRouter path="/order/:id" component={OrderScreen} exact />
-          <Route path="/" component={HomeScreen} exact />
+      <Switch>
+        <Route path="/" component={HomeScreen} exact />
+        <Route path="/products" component={ProductsScreen} exact />
+        <Route path="/category/:category" component={ProductsScreen} exact />
+        <Route path="/search/category/:category" component={ProductsScreen} exact />
+        <Route path="/search" component={ProductsScreen} exact />
+        <Route path="/product/:slug" component={SingleProduct} exact />
+        <Route path="/login" component={Login} exact />
+        <Route path="/register" component={Register} exact />
+        <Route path="/register/verify/:email/:verificationToken" component={RegisterVerify} exact />
+        <Route path="/register/verify/:email" component={RegisterVerify} exact />
+        <Route path="/resetPassword/:resetPasswordToken" component={ResetPassword} exact />
+        <Route path="/forgotPassword" component={ForgotPassword} exact />
+        <PrivateRouter path="/profile" component={ProfileScreen} exact />
+        <Route path="/cart/:id?" component={CartScreen} exact />
+        <PrivateRouter path="/shipping" component={ShippingScreen} exact />
+        <PrivateRouter path="/placeOrder" component={PlaceOrderScreen} exact />
+        <PrivateRouter path="/order/:id" component={OrderScreen} exact />
 
-          {/* PAGE ADMIN */}
-          <AdminPrivateRouter path="/admin/product/:id/edit" component={ProductEditScreenAdmin} exact />
-          {/* <AdminPrivateRouter path="/admin/search/:keyword" component={ProductScreenAdmin} exact /> */}
-          <AdminPrivateRouter path="/admin/products" component={ProductScreenAdmin} exact />
-          <AdminPrivateRouter path="/admin/addProduct" component={AddProductAdmin} exact />
-          <AdminPrivateRouter path="/admin/category" component={CategoriesScreenAdmin} exact />
-          <AdminPrivateRouter path="/admin/order/:id" component={OrderDetailScreenAdmin} exact />
-          <AdminPrivateRouter path="/admin/orders" component={OrderScreenAdmin} exact />
-          <AdminPrivateRouter path="/admin/user/:id" component={UserDetailsScreenAdmin} exact />
-          <AdminPrivateRouter path="/admin/users" component={UsersScreenAdmin} exact />
-          <AdminPrivateRouter path="/admin/slider-banner/" component={SliderBannerScreenAdmin} exact />
-          <AdminPrivateRouter path="/admin/comments" component={CommentScreenAdmin} exact />
-          <AdminPrivateRouter path="/admin" component={HomeScreenAdmin} exact />
+        {/* Shipper */}
+        <ShipperPrivateRouter path="/shipper/order/:id" component={ManageShipperScreen} exact />
+        <ShipperPrivateRouter path="/shipper/orders" component={ManageShipperScreen} exact />
 
-          <Route path="*" component={NotFound} />
-        </Switch>
-      ) : user._id ? (
-        <Switch>
-          {/*USER*/}
-          <Route path="/register/verify/:email/:verificationToken" component={RegisterVerify} exact />
-          <Route path="/register/verify/:email" component={RegisterVerify} exact />
-          <Route path="/resetPassword/:resetPasswordToken" component={ResetPassword} exact />
-          <Route path="/search/category/:category" component={ProductsScreen} exact />
-          <Route path="/category/:category" component={ProductsScreen} exact />
-          <Route path="/product/:slug" component={SingleProduct} exact />
-          <Route path="/forgotPassword" component={ForgotPassword} exact />
-          <Route path="/products" component={ProductsScreen} exact />
-          <Route path="/search" component={ProductsScreen} exact />
-          {/* <Route path="/register" component={Register} exact />
-          <Route path="/login" component={Login} exact /> */}
-          <Route path="/cart/:id?" component={CartScreen} exact />
-          <PrivateRouter path="/placeOrder" component={PlaceOrderScreen} exact />
-          <PrivateRouter path="/profile" component={ProfileScreen} exact />
-          <PrivateRouter path="/shipping" component={ShippingScreen} exact />
-          <PrivateRouter path="/order/:id" component={OrderScreen} exact />
-          <Route path="/" component={HomeScreen} exact />
-          <Route path="*" component={NotFound} />
-        </Switch>
-      ) : (
-        <Switch>
-          {/*Non User*/}
-          <Route path="/register/verify/:email/:verificationToken" component={RegisterVerify} exact />
-          <Route path="/register/verify/:email" component={RegisterVerify} exact />
-          <Route path="/resetPassword/:resetPasswordToken" component={ResetPassword} exact />
-          <Route path="/search/category/:category" component={ProductsScreen} exact />
-          <Route path="/category/:category" component={ProductsScreen} exact />
-          <Route path="/product/:slug" component={SingleProduct} exact />
-          <Route path="/forgotPassword" component={ForgotPassword} exact />
-          <Route path="/products" component={ProductsScreen} exact />
-          <Route path="/search" component={ProductsScreen} exact />
-          <Route path="/register" component={Register} exact />
-          <Route path="/login" component={Login} exact />
-          <Route path="/cart/:id?" component={CartScreen} exact />
-          <Route path="/" component={HomeScreen} exact />
-          <Route path="*" component={NotFound} />
-        </Switch>
-      )}
+        {/* ADMIN */}
+        <AdminPrivateRouter path="/admin" component={HomeScreenAdmin} exact />
+        <AdminPrivateRouter path="/admin/staff" component={UsersScreenAdmin} exact />
+        <AdminPrivateRouter path="/admin/products" component={ProductScreenAdmin} exact />
+        {/* <AdminPrivateRouter path="/admin/search/:keyword" component={ProductScreenAdmin} exact /> */}
+        <AdminPrivateRouter path="/admin/product/:id/edit" component={ProductEditScreenAdmin} exact />
+        <AdminPrivateRouter path="/admin/addProduct" component={AddProductAdmin} exact />
+        <AdminPrivateRouter path="/admin/category" component={CategoriesScreenAdmin} exact />
+        <AdminPrivateRouter path="/admin/order/:id" component={OrderDetailScreenAdmin} exact />
+        <AdminPrivateRouter path="/admin/orders" component={OrderScreenAdmin} exact />
+        <AdminPrivateRouter path="/admin/createUser" component={CreateUserScreen} exact />
+        <AdminPrivateRouter path="/admin/user/:id" component={UserDetailsScreenAdmin} exact />
+        <AdminPrivateRouter path="/admin/users" component={UsersScreenAdmin} exact />
+        <AdminPrivateRouter path="/admin/slider-banner/" component={SliderBannerScreenAdmin} exact />
+        <AdminPrivateRouter path="/admin/comments" component={CommentScreenAdmin} exact />
+        <Route path="*" component={NotFound} />
+      </Switch>
     </Router>
+    // <Router>
+    //   {user?.isAdmin ? (
+    //     <Switch>
+    //       {/*PAGE SALE*/}
+    //       {/* <Route path="/register/verify/:email/:verificationToken" component={RegisterVerify} exact />
+    //       <Route path="/register/verify/:email" component={RegisterVerify} exact /> */}
+    //       {/* <Route path="/resetPassword/:resetPasswordToken" component={ResetPassword} exact /> */}
+    //       <Route path="/search/category/:category" component={ProductsScreen} exact />
+    //       <Route path="/category/:category" component={ProductsScreen} exact />
+    //       <Route path="/product/:slug" component={SingleProduct} exact />
+    //       <Route path="/forgotPassword" component={ForgotPassword} exact />
+    //       <Route path="/products" component={ProductsScreen} exact />
+    //       <Route path="/search" component={ProductsScreen} exact />
+    //       {/* <Route path="/register" component={Register} exact />
+    //       <Route path="/login" component={Login} exact /> */}
+    //       <Route path="/cart/:id?" component={CartScreen} exact />
+    //       <PrivateRouter path="/placeOrder" component={PlaceOrderScreen} exact />
+    //       <PrivateRouter path="/profile" component={ProfileScreen} exact />
+    //       <PrivateRouter path="/shipping" component={ShippingScreen} exact />
+    //       <PrivateRouter path="/order/:id" component={OrderScreen} exact />
+    //       <Route path="/" component={HomeScreen} exact />
+
+    //       {/* PAGE ADMIN */}
+    //       <AdminPrivateRouter path="/admin/product/:id/edit" component={ProductEditScreenAdmin} exact />
+    //       {/* <AdminPrivateRouter path="/admin/search/:keyword" component={ProductScreenAdmin} exact /> */}
+    //       <AdminPrivateRouter path="/admin/products" component={ProductScreenAdmin} exact />
+    //       <AdminPrivateRouter path="/admin/addProduct" component={AddProductAdmin} exact />
+    //       <AdminPrivateRouter path="/admin/category" component={CategoriesScreenAdmin} exact />
+    //       <AdminPrivateRouter path="/admin/order/:id" component={OrderDetailScreenAdmin} exact />
+    //       <AdminPrivateRouter path="/admin/orders" component={OrderScreenAdmin} exact />
+    //       <AdminPrivateRouter path="/admin/user/:id" component={UserDetailsScreenAdmin} exact />
+    //       <AdminPrivateRouter path="/admin/users" component={UsersScreenAdmin} exact />
+    //       <AdminPrivateRouter path="/admin/slider-banner/" component={SliderBannerScreenAdmin} exact />
+    //       <AdminPrivateRouter path="/admin/comments" component={CommentScreenAdmin} exact />
+    //       <AdminPrivateRouter path="/admin" component={HomeScreenAdmin} exact />
+    //       {/* Shipper */}
+    //       <AdminPrivateRouter path="/admin/shipper" component={ManageShipperScreen} exact />
+    //       {/* Create user */}
+    //       <AdminPrivateRouter path="/admin/createUser" component={CreateUserScreen} exact />
+    //       <Route path="*" component={NotFound} />
+    //     </Switch>
+    //   ) : user._id ? (
+    //     <Switch>
+    //       {/*USER*/}
+    //       <Route path="/register/verify/:email/:verificationToken" component={RegisterVerify} exact />
+    //       <Route path="/register/verify/:email" component={RegisterVerify} exact />
+    //       <Route path="/resetPassword/:resetPasswordToken" component={ResetPassword} exact />
+    //       <Route path="/search/category/:category" component={ProductsScreen} exact />
+    //       <Route path="/category/:category" component={ProductsScreen} exact />
+    //       <Route path="/product/:slug" component={SingleProduct} exact />
+    //       <Route path="/forgotPassword" component={ForgotPassword} exact />
+    //       <Route path="/products" component={ProductsScreen} exact />
+    //       <Route path="/search" component={ProductsScreen} exact />
+    //       {/* <Route path="/register" component={Register} exact />
+    //       <Route path="/login" component={Login} exact /> */}
+    //       <Route path="/cart/:id?" component={CartScreen} exact />
+    //       <PrivateRouter path="/placeOrder" component={PlaceOrderScreen} exact />
+    //       <PrivateRouter path="/profile" component={ProfileScreen} exact />
+    //       <PrivateRouter path="/shipping" component={ShippingScreen} exact />
+    //       <PrivateRouter path="/order/:id" component={OrderScreen} exact />
+    //       <Route path="/" component={HomeScreen} exact />
+    //       <Route path="*" component={NotFound} />
+    //     </Switch>
+    //   ) : (
+    //     <Switch>
+    //       {/*Non User*/}
+    //       <Route path="/register/verify/:email/:verificationToken" component={RegisterVerify} exact />
+    //       <Route path="/register/verify/:email" component={RegisterVerify} exact />
+    //       <Route path="/resetPassword/:resetPasswordToken" component={ResetPassword} exact />
+    //       <Route path="/search/category/:category" component={ProductsScreen} exact />
+    //       <Route path="/category/:category" component={ProductsScreen} exact />
+    //       <Route path="/product/:slug" component={SingleProduct} exact />
+    //       <Route path="/forgotPassword" component={ForgotPassword} exact />
+    //       <Route path="/products" component={ProductsScreen} exact />
+    //       <Route path="/search" component={ProductsScreen} exact />
+    //       <Route path="/register" component={Register} exact />
+    //       <Route path="/login" component={Login} exact />
+    //       <Route path="/cart/:id?" component={CartScreen} exact />
+    //       <Route path="/" component={HomeScreen} exact />
+    //       <Route path="*" component={NotFound} />
+    //     </Switch>
+    //   )}
+    // </Router>
   );
 };
 

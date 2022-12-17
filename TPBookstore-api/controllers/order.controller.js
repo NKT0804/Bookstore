@@ -9,7 +9,8 @@ import { orderQueryParams, validateConstants } from "../constants/searchConstant
 
 //User place new order
 const createNewOrder = async (req, res, next) => {
-    const { orderItems, shippingAddress, paymentMethod, itemsPrice, taxPrice, shippingPrice, totalPrice } = req.body;
+    const { orderItems, receiver, phone, shippingAddress, paymentMethod, itemsPrice, shippingPrice, totalPrice } =
+        req.body;
     const orderItemsId = orderItems.map((orderItem) => orderItem.product);
     if (orderItems && orderItems.length === 0) {
         res.status(400);
@@ -31,10 +32,11 @@ const createNewOrder = async (req, res, next) => {
             const order = new Order({
                 orderItems,
                 user: req.user._id,
+                receiver,
+                phone,
                 shippingAddress,
                 paymentMethod,
                 itemsPrice,
-                taxPrice,
                 shippingPrice,
                 totalPrice
             });

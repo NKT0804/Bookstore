@@ -128,13 +128,10 @@ const CategoriesTable = ({ setIsEditCategory, handleEditCategory, handleCurrentC
                           data-target="#exampleModalCenter"
                           title="Xoá"
                           target="_blank"
+                          onClick={() => setCategoryIdDelete(item._id)}
                         >
                           Xoá &nbsp;
-                          <i
-                            class="text-danger fas fa-trash-alt"
-                            title="Xoá"
-                            onClick={() => setCategoryIdDelete(item._id)}
-                          ></i>
+                          <i class="text-danger fas fa-trash-alt" title="Xoá"></i>
                         </Link>
                       </div>
                     </div>

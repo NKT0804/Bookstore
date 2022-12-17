@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import Header from "../components/Header";
 import { useDispatch, useSelector } from "react-redux";
 import { getAddressData } from "../Redux/Actions/userActions";
-import { updateUserProfile } from "../Redux/Actions/userActions";
 import Loading from "../components/base/LoadingError/Loading";
 import isEmpty from "validator/lib/isEmpty";
 import Message from "../components/base/LoadingError/Error";
@@ -13,8 +12,8 @@ const ShippingScreen = ({ history }) => {
   //validate data
   const validation = () => {
     const messageError = {};
-    if (!province || !district || !ward || isEmpty(specificAddress))
-      messageError.address = "Vui lòng nhập đầy đủ địa chỉ";
+    if (isEmpty(name) || isEmpty(phone) || !province || !district || !ward || isEmpty(specificAddress))
+      messageError.address = "Vui lòng nhập đầy đủ thông tin";
 
     setMessageError(messageError);
     if (Object.keys(messageError).length > 0) {
@@ -32,12 +31,15 @@ const ShippingScreen = ({ history }) => {
   const [districtList, setDistrictList] = useState([]);
   const [wardList, setWardList] = useState([]);
 
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
   const [province, setProvince] = useState("");
   const [district, setDistrict] = useState("");
   const [ward, setWard] = useState("");
   const [specificAddress, setSpecificAddress] = useState("");
 
   const dispatch = useDispatch();
+  const receiver = localStorage.getItem("receiver") ? JSON.parse(localStorage.getItem("receiver")) : "";
 
   //get list district and list ward
   const getArrayAddress = (inputArray, value) => {
@@ -58,13 +60,22 @@ const ShippingScreen = ({ history }) => {
   };
 
   useEffect(() => {
-    if (user) {
+    if (receiver) {
+      setName(receiver.name || "");
+      setPhone(receiver.phone || "");
+      setProvince(receiver.address?.province || "");
+      setDistrict(receiver.address?.district || "");
+      setWard(receiver.address?.ward || "");
+      setSpecificAddress(receiver.address?.specificAddress || "");
+    } else if (user) {
+      setName(user.name || "");
+      setPhone(user.phone || "");
       setProvince(user.address?.province || "");
       setDistrict(user.address?.district || "");
       setWard(user.address?.ward || "");
       setSpecificAddress(user.address?.specificAddress || "");
     }
-  }, [dispatch, user]);
+  }, [dispatch]);
 
   useEffect(() => {
     if (addressData?.length > 0 && province) {
@@ -86,8 +97,9 @@ const ShippingScreen = ({ history }) => {
     e.preventDefault();
     if (!validation()) return;
     const addressUpdate = { province, district, ward, specificAddress };
-    user.address = addressUpdate;
-    dispatch(updateUserProfile(user));
+    localStorage.setItem("receiver", JSON.stringify({ name, phone, address: addressUpdate }));
+    // user.address = addressUpdate;
+    // dispatch(updateUserProfile(user));
     history.push("/placeOrder");
   };
   useEffect(() => {
@@ -99,9 +111,25 @@ const ShippingScreen = ({ history }) => {
       <Header />
       <div className="container d-flex justify-content-center align-items-center login-center">
         <form className="Login col-md-8 col-lg-4 col-11" onSubmit={submitHandler}>
-          <h6 className="filter-menu-item">ĐỊA CHỈ GIAO HÀNG</h6>
+          <h6 className="filter-menu-item">THÔNG TIN NGƯỜI NHẬN</h6>
           {loading && <Loading />}
           <div className="filter-menu-item">
+            <input
+              type="text"
+              id="receiver"
+              name="receiver"
+              placeholder="Tên người nhận"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+            <input
+              type="text"
+              id="phone"
+              name="phone"
+              placeholder="Số điện thoại"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+            />
             <select
               className="form-select"
               aria-label="Filter by category"

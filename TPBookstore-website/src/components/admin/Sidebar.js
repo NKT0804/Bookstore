@@ -25,7 +25,7 @@ const Sidebar = () => {
               </NavLink>
             </li>
             <li className="menu-item">
-              <NavLink activeClassName="active" className="menu-link" to="/admin/shipper" exact={true}>
+              <NavLink activeClassName="active" className="menu-link" to="/admin/staff" exact={true}>
                 <i class="icon fas fa-users"></i>
                 <span className="text">Quản lý nhân viên</span>
               </NavLink>

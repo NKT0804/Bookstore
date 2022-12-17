@@ -1,18 +1,44 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Message from "../../base/LoadingError/Error";
 import Loading from "../../base/LoadingError/Loading";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
+import { adminAddStaffAction } from "././../../../Redux/Actions/userActions";
+import { toast } from "react-toastify";
 
-const CreateUser = () => {
-  const userRegister = useSelector((state) => state.userRegister);
-  const { loading, error, userInfo } = userRegister;
+const ToastObjects = {
+  pauseOnFocusLoss: false,
+  draggable: false,
+  pauseOnHover: false,
+  autoClose: 2000
+};
+const CreateUser = (history) => {
+  const addStaff = useSelector((state) => state.addStaff);
+  const { loading, error, success } = addStaff;
+
+  const dispatch = useDispatch();
+
+  const getRoleValue = () => {
+    var radioSex = document.getElementsByName("user-role");
+    for (var i = 0; i < radioSex.length; i++) {
+      if (radioSex[i].checked === true) {
+        return radioSex[i].value;
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (success) {
+      toast.success("Thêm nhân viên thành công!", ToastObjects);
+    }
+  }, [dispatch, success]);
   const formik = useFormik({
     initialValues: {
       name: "",
       email: "",
       phone: "",
+      role: "staff",
       password: "",
       confirmedPassword: ""
     },
@@ -28,7 +54,7 @@ const CreateUser = () => {
           /^\+?\d{1,3}?[- .]?\(?(?:\d{2,3})\)?[- .]?\d\d\d[- .]?\d\d\d\d$/,
           "Vui lòng nhập một số điện thoại hợp lệ"
         ),
-
+      role: Yup.string().required("Giá trị bắt buộc*"),
       password: Yup.string()
         .required("Giá trị bắt buộc*")
         .matches(
@@ -40,7 +66,8 @@ const CreateUser = () => {
         .oneOf([Yup.ref("password"), null], "Mật khẩu không khớp")
     }),
     onSubmit: (value) => {
-      // dispatch(userRegisterAction(history, value.name, value.email, value.phone, value.password));
+      value.role = getRoleValue();
+      dispatch(adminAddStaffAction(value.name, value.email, value.phone, value.role, value.password));
     }
   });
   return (
@@ -49,19 +76,28 @@ const CreateUser = () => {
         {/* {loading && <Loading />} */}
         <form className="Login col-md-8 col-lg-4 col-11" onSubmit={formik.handleSubmit}>
           <div className="text-start">
-            <h5>Loại liên hệ</h5>
+            <div className="frame-error">{error && <Message variant="alert-danger">{error}</Message>}</div>
+            <h5>Vai trò</h5>
             <div className="d-flex align-items-center my-3">
               <span className="user__role">
-                <input className="input__role" type="radio" name="user-role" value="Khách hàng" />
-                <label className="input__role-title">Khách hàng</label>
+                <input className="input__role" id="staff" defaultChecked type="radio" name="user-role" value="staff" />
+                <label for="staff" className="input__role-title">
+                  Nhân viên bán hàng
+                </label>
               </span>
               <span className="user__role">
-                <input className="input__role" type="radio" name="user-role" value="Shipper" />
-                <label className="input__role-title">Shipper</label>
+                <input className="input__role" id="shipper" type="radio" name="user-role" value="Shipper" />
+                <label for="shipper" className="input__role-title">
+                  Người giao hàng
+                </label>
               </span>
             </div>
           </div>
-          <div className="frame-error">{error && <Message variant="alert-danger">{error}</Message>}</div>
+          <div className="frame-error">
+            {formik.touched.role && formik.errors.role ? (
+              <span className="error-message">{formik.errors.role}</span>
+            ) : null}
+          </div>
           <input
             type="text"
             id="name"
@@ -72,7 +108,6 @@ const CreateUser = () => {
             onBlur={formik.handleBlur}
           />
           <div className="frame-error">
-            {/* {formik.errors.name && <span className="error-message">{formik.errors.name}</span>} */}
             {formik.touched.name && formik.errors.name ? (
               <span className="error-message">{formik.errors.name}</span>
             ) : null}
@@ -142,11 +177,7 @@ const CreateUser = () => {
           <button type="submit" className="btn">
             TẠO TÀI KHOẢN
           </button>
-          <p>
-            {/* <Link to={redirect ? `/login?redirect=${redirect}` : "/login"}>
-              Tôi đã có tài khoản? <strong>Đăng nhập</strong>
-            </Link> */}
-          </p>
+          <p></p>
         </form>
       </div>
     </>

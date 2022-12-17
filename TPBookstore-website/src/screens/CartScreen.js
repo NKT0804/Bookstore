@@ -47,7 +47,7 @@ const CartScreen = ({ history }) => {
 
   // checkout handler
   const checkOutHandler = () => {
-    history.push("/placeOrder");
+    history.push("/shipping");
   };
 
   // checkbox handler  all items from the cart
@@ -292,7 +292,7 @@ const CartScreen = ({ history }) => {
               </div>
               <div className="cart-buttons col-lg-2 col-md-3 col-3 justify-content-md-end">
                 <button onClick={checkOutHandler} disabled={!itemChecked?.length > 0}>
-                  <b>Thanh toán</b>
+                  <b>Mua hàng</b>
                 </button>
               </div>
             </div>

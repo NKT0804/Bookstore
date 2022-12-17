@@ -16,7 +16,6 @@ const OrderScreen = ({ match }) => {
 
   const orderDetails = useSelector((state) => state.orderDetails);
   const { order, loading, error } = orderDetails;
-  console.log(order);
   const orderCancel = useSelector((state) => state.orderCancelUser);
   const { loading: loadingCancel, success: successCancel } = orderCancel;
 
@@ -80,10 +79,10 @@ const OrderScreen = ({ match }) => {
                   </div>
                   <div className="col-md-9 center">
                     <h7 className="order-detail-title">
-                      <strong>Khách hàng</strong>
+                      <strong>Người nhận</strong>
                     </h7>
-                    <p className="order-detail-text">Tên: {order.user.name}</p>
-                    <p className="order-detail-text">SĐT: {order.user.phone}</p>
+                    <p className="order-detail-text">Tên: {order.receiver}</p>
+                    <p className="order-detail-text">SĐT: {order.phone}</p>
                   </div>
                 </div>
               </div>
@@ -99,8 +98,7 @@ const OrderScreen = ({ match }) => {
                     <h7 className="order-detail-title">
                       <strong>Thông tin vận chuyển</strong>
                     </h7>
-                    <p className="order-detail-text">Đơn vị vận chuyển: GHTK</p>
-                    <p className="order-detail-text">Hình thức vận chuyển: Nhanh</p>
+                    <p className="order-detail-text">Ngày giao hàng dự kiến: {order.estimatedDeliveryDate ?? ""}</p>
                   </div>
                 </div>
               </div>
@@ -225,12 +223,6 @@ const OrderScreen = ({ match }) => {
                         <strong>Phí vận chuyển</strong>
                       </td>
                       <td>{formatCash(order.shippingPrice)}</td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <strong>Thuế VAT (5%)</strong>
-                      </td>
-                      <td>{formatCash(order.taxPrice)}</td>
                     </tr>
                     <tr>
                       <td>

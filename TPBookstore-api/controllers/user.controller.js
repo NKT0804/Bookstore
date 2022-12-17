@@ -66,7 +66,7 @@ const login = async (req, res) => {
 
 //Non-user register new account
 const register = async (req, res, next) => {
-    const { name, email, phone, password } = req.body;
+    const { name, email, phone, password, role } = req.body;
     const isExistingUser = await User.findOne({
         email: email
     });
@@ -81,7 +81,7 @@ const register = async (req, res, next) => {
             email,
             phone,
             password,
-            role: "customer"
+            role: role || "customer"
         });
         if (!newUser) {
             res.status(400);

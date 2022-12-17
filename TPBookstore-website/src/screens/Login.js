@@ -18,11 +18,13 @@ const Login = ({ location, history }) => {
 
   useEffect(() => {
     if (userInfo) {
-      if (userInfo.isAdmin) {
+      if (userInfo.role === "admin" || userInfo.role === "staff") {
         history.push("/admin");
+      } else if (userInfo.role === "shipper") {
+        history.push("/shipper/orders");
       } else {
-        // history.push("/");
-        history.goBack();
+        history.push("/");
+        // history.goBack();
       }
     }
   }, [history, location, userInfo, redirect]);
