@@ -6,14 +6,14 @@ import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { adminAddStaffAction } from "././../../../Redux/Actions/userActions";
 import { toast } from "react-toastify";
-
+import Toast from "../../base/LoadingError/Toast";
 const ToastObjects = {
   pauseOnFocusLoss: false,
   draggable: false,
   pauseOnHover: false,
   autoClose: 2000
 };
-const CreateUser = (history) => {
+const CreateUser = () => {
   const addStaff = useSelector((state) => state.addStaff);
   const { loading, error, success } = addStaff;
 
@@ -72,6 +72,7 @@ const CreateUser = (history) => {
   });
   return (
     <>
+      <Toast />
       <div className="container d-flex flex-column justify-content-center align-items-center login-center">
         {/* {loading && <Loading />} */}
         <form className="Login col-md-8 col-lg-4 col-11" onSubmit={formik.handleSubmit}>
@@ -86,9 +87,9 @@ const CreateUser = (history) => {
                 </label>
               </span>
               <span className="user__role">
-                <input className="input__role" id="shipper" type="radio" name="user-role" value="Shipper" />
+                <input className="input__role" id="shipper" type="radio" name="user-role" value="shipper" />
                 <label for="shipper" className="input__role-title">
-                  Người giao hàng
+                  Nhân viên giao hàng
                 </label>
               </span>
             </div>

@@ -91,22 +91,6 @@ const OrderScreen = ({ match }) => {
                 <div className="row order-detail-item-content">
                   <div className="col-md-3 center">
                     <div className="alert-success order-box">
-                      <i className="fas fa-truck-moving"></i>
-                    </div>
-                  </div>
-                  <div className="col-md-9 center">
-                    <h7 className="order-detail-title">
-                      <strong>Người giao hàng</strong>
-                    </h7>
-                    <p className="order-detail-text">Ngày giao hàng dự kiến: {order.estimatedDeliveryDate ?? ""}</p>
-                  </div>
-                </div>
-              </div>
-              {/* 3 */}
-              <div className="order-detail-item col-lg-3 col-md-6 col-6">
-                <div className="row order-detail-item-content">
-                  <div className="col-md-3 center">
-                    <div className="alert-success order-box">
                       <i className="fas fa-map-marker-alt"></i>
                     </div>
                   </div>
@@ -122,6 +106,22 @@ const OrderScreen = ({ match }) => {
                     ) : (
                       <></>
                     )}
+                  </div>
+                </div>
+              </div>
+              {/* 3 */}
+              <div className="order-detail-item col-lg-3 col-md-6 col-6">
+                <div className="row order-detail-item-content">
+                  <div className="col-md-3 center">
+                    <div className="alert-success order-box">
+                      <i className="fas fa-truck-moving"></i>
+                    </div>
+                  </div>
+                  <div className="col-md-9 center">
+                    <h7 className="order-detail-title">
+                      <strong>Thông tin vận chuyển</strong>
+                    </h7>
+                    <p className="order-detail-text">Ngày giao hàng dự kiến: {order.estimatedDeliveryDate ?? ""}</p>
                   </div>
                 </div>
               </div>

@@ -134,7 +134,7 @@ const PlaceOrderScreen = ({ history }) => {
             </div>
           </div>
           {/* 2 */}
-          <div className="order-detail-item col-lg-4 col-md-4 col-7 mb-lg-4 mb-5 mb-sm-0">
+          {/* <div className="order-detail-item col-lg-4 col-md-4 col-7 mb-lg-4 mb-5 mb-sm-0">
             <div className="row">
               <div className="col-md-3 center">
                 <div className="alert-success order-box">
@@ -149,7 +149,7 @@ const PlaceOrderScreen = ({ history }) => {
                 <p>SĐT: &nbsp 0847474747 </p>
               </div>
             </div>
-          </div>
+          </div> */}
           {/* 3 */}
           <div className="order-detail-item col-lg-4 col-md-4 col-12 mb-lg-4 mb-5 mb-sm-0">
             <div className="row">
