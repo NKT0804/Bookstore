@@ -32,6 +32,8 @@ import OrderDetailScreenAdmin from "./screens/admin/OrderDetailScreen";
 import AddProductAdmin from "./screens/admin/AddProduct";
 // shipper
 import ManageShipperScreen from "./screens/admin/ManageShipperScreen";
+import ManageAgentScreen from "./screens/admin/ManageAgentScreen";
+import OrderDetailShipperScreen from "./screens/admin/OrderDetailShipperScreen";
 import CreateUserScreen from "./screens/admin/CreateUserScreen";
 import UsersScreenAdmin from "./screens/admin/UsersScreen";
 import UserDetailsScreenAdmin from "./screens/admin/UserDetailsScreen";

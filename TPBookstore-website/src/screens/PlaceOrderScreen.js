@@ -143,10 +143,10 @@ const PlaceOrderScreen = ({ history }) => {
               </div>
               <div className="col-md-8 center">
                 <h7 className="order-detail-title">
-                  <strong>Thông tin vận chuyển</strong>
+                  <strong>Người giao hàng</strong>
                 </h7>
-                <p>Đơn vị vận chuyển: GHTK</p>
-                <p>Hình thức vận chuyển: Nhanh</p>
+                <p>Tên: &nbsp Viết Phú </p>
+                <p>SĐT: &nbsp 0847474747 </p>
               </div>
             </div>
           </div>

@@ -25,9 +25,9 @@ const OrderDetailInfo = (props) => {
             <i className="text-success fas fa-truck-moving"></i>
           </span>
           <div className="text">
-            <h6 className="mb-1">Thông tin vận chuyển</h6>
-            <p className="mb-1">Đơn vị vận chuyển: GHTK</p>
-            <p className="mb-1">Hình thức vận chuyển: Nhanh</p>
+            <h6 className="mb-1">Người giao hàng</h6>
+            <p>Tên: &nbsp; Viết Phú </p>
+            <p>SĐT: &nbsp; 0847474747 </p>
           </div>
         </article>
       </div>

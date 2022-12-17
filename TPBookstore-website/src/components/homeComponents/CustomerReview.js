@@ -63,9 +63,10 @@ const CustomerReview = () => {
                   </div>
                   <h3 className="evaluate__content--name">Nguyễn Viết Phú</h3>
                   <p className="evaluate__content--desc">
-                    {newProduct
+                    {/* {newProduct
                       ? newProduct[1]?.[0]?.reviewContent
-                      : `There are many meaningful books here and their prices are also very reasonable`}
+                      : `There are many meaningful books here and their prices are also very reasonable`} */}
+                    Với cá nhân mình,cảm thấy sách rất thú vị, thu lượm được nhiều tri thức.
                   </p>
                 </div>
               </div>
