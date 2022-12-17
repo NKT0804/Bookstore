@@ -21,7 +21,25 @@ export function PrivateRouter({ component: Component, ...rest }) {
     />
   );
 }
+// shipper
+export function ShipperPrivateRouter({ component: Component, ...rest }) {
+  const userDetails = useSelector((state) => state.userDetails);
+  const { user } = userDetails;
+  return (
+    <Route
+      {...rest}
+      component={(props) => {
+        if (user && user.role === "shipper") {
+          return <Component {...props} />;
+        } else {
+          return <NotFound />;
+        }
+      }}
+    />
+  );
+}
 // admin
+
 export function AdminPrivateRouter({ component: Component, ...rest }) {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;

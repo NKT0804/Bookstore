@@ -97,10 +97,10 @@ const OrderScreen = ({ match }) => {
                   </div>
                   <div className="col-md-9 center">
                     <h7 className="order-detail-title">
-                      <strong>Thông tin vận chuyển</strong>
+                      <strong>Người giao hàng</strong>
                     </h7>
-                    <p className="order-detail-text">Đơn vị vận chuyển: GHTK</p>
-                    <p className="order-detail-text">Hình thức vận chuyển: Nhanh</p>
+                    <p>Tên: &nbsp Viết Phú </p>
+                    <p>SĐT: &nbsp 0847474747 </p>
                   </div>
                 </div>
               </div>
@@ -227,9 +227,7 @@ const OrderScreen = ({ match }) => {
                       <td>{formatCash(order.shippingPrice)}</td>
                     </tr>
                     <tr>
-                      <td>
-                        <strong>Thuế VAT (5%)</strong>
-                      </td>
+                      <td>{/* <strong>Thuế VAT (5%)</strong> */}</td>
                       <td>{formatCash(order.taxPrice)}</td>
                     </tr>
                     <tr>

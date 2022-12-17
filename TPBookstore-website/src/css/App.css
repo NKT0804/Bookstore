@@ -2446,4 +2446,20 @@ a.popu-cate__item {
   }
 }
 
-/*  */
+/* Shipper */
+.shipper__order-header .col-search {
+  display: none !important;
+
+}
+
+.shipper__order-header {
+  display: flex;
+  justify-content:space-between;
+  background-color: var(--white-color)
+}
+
+.shipper__order-header .img__logo {
+  width: 200px;
+  margin-left: 32px;
+}
+

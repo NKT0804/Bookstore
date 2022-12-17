@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import "../src/css/App.css";
 import "../src/css/responsive.css";
 import "./css/grid.css";
@@ -32,13 +33,16 @@ import OrderDetailScreenAdmin from "./screens/admin/OrderDetailScreen";
 import AddProductAdmin from "./screens/admin/AddProduct";
 // shipper
 import ManageShipperScreen from "./screens/admin/ManageShipperScreen";
+import ManageAgentScreen from "./screens/admin/ManageAgentScreen";
+import OrderDetailShipperScreen from "./screens/admin/OrderDetailShipperScreen";
 import CreateUserScreen from "./screens/admin/CreateUserScreen";
 import UsersScreenAdmin from "./screens/admin/UsersScreen";
 import UserDetailsScreenAdmin from "./screens/admin/UserDetailsScreen";
 import CommentScreenAdmin from "./screens/admin/CommentsScreen";
 import ProductEditScreenAdmin from "./screens/admin/ProductEditScreen";
-import { PrivateRouter, AdminPrivateRouter } from "./PrivateRouter";
+import { PrivateRouter, AdminPrivateRouter, ShipperPrivateRouter } from "./PrivateRouter";
 import SliderBannerScreenAdmin from "./screens/admin/SliderBannerScreen";
+import { getUserDetails } from "./Redux/Actions/userActions";
 
 import axios from "axios";
 
@@ -47,6 +51,16 @@ import axios from "axios";
 axios.defaults.baseURL = "http://localhost:5000/";
 
 const App = () => {
+  const dispatch = useDispatch();
+  const userLogin = useSelector((state) => state.userLogin);
+  const { loading, error, userInfo } = userLogin;
+  const userDetails = useSelector((state) => state.userDetails);
+  const { error: errorGetUserDetail, user } = userDetails;
+  useEffect(() => {
+    if (userInfo?.token) {
+      dispatch(getUserDetails(userInfo.token));
+    }
+  }, [dispatch]);
   return (
     <Router>
       <Switch>
@@ -68,14 +82,17 @@ const App = () => {
         <PrivateRouter path="/placeOrder" component={PlaceOrderScreen} exact />
         <PrivateRouter path="/order/:id" component={OrderScreen} exact />
 
+        {/*  Shipper*/}
+        <ShipperPrivateRouter path="/shipper/order/:id" component={OrderDetailShipperScreen} exact />
+        <ShipperPrivateRouter path="/shipper/orders" component={ManageShipperScreen} exact />
+
         {/* ADMIN */}
         <AdminPrivateRouter path="/admin" component={HomeScreenAdmin} exact />
         <AdminPrivateRouter path="/admin/products" component={ProductScreenAdmin} exact />
         {/* <AdminPrivateRouter path="/admin/search/:keyword" component={ProductScreenAdmin} exact /> */}
-        {/* Shipper */}
-        <AdminPrivateRouter path="/admin/shipper" component={ManageShipperScreen} exact />
         {/* Create user */}
         <AdminPrivateRouter path="/admin/createUser" component={CreateUserScreen} exact />
+        <AdminPrivateRouter path="/admin/shipper" component={ManageAgentScreen} exact />
 
         <AdminPrivateRouter path="/admin/product/:id/edit" component={ProductEditScreenAdmin} exact />
         <AdminPrivateRouter path="/admin/addProduct" component={AddProductAdmin} exact />

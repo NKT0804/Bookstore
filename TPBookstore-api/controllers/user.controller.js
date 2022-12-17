@@ -52,6 +52,7 @@ const login = async (req, res) => {
             birthday: user.birthday,
             address: user.address,
             isAdmin: user.isAdmin,
+            role: user.role || `customer`,
             token: generateToken(user._id, process.env.ACCESS_TOKEN_SECRET, process.env.ACCESS_TOKEN_EXPIRESIN),
             refreshToken: newRefreshToken.tokenValue,
             createdAt: user.createdAt,
@@ -195,6 +196,7 @@ const getProfile = async (req, res) => {
         address: req.user.address,
         avatarUrl: req.user.avatarUrl || "./images/avatar/default.png",
         isAdmin: req.user.isAdmin,
+        role: req.user.role || `customer`,
         createAt: req.user.createAt,
         isDisabled: req.user.isDisabled
     });

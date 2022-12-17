@@ -49,15 +49,15 @@ const CreateUser = () => {
         {/* {loading && <Loading />} */}
         <form className="Login col-md-8 col-lg-4 col-11" onSubmit={formik.handleSubmit}>
           <div className="text-start">
-            <h5>Loại liên hệ</h5>
+            <h5 className="fw-bold">Vai trò</h5>
             <div className="d-flex align-items-center my-3">
               <span className="user__role">
                 <input className="input__role" type="radio" name="user-role" value="Khách hàng" />
-                <label className="input__role-title">Khách hàng</label>
+                <label className="input__role-title">Nhân viên</label>
               </span>
               <span className="user__role">
                 <input className="input__role" type="radio" name="user-role" value="Shipper" />
-                <label className="input__role-title">Shipper</label>
+                <label className="input__role-title">Người giao hàng</label>
               </span>
             </div>
           </div>
