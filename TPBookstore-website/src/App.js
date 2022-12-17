@@ -92,7 +92,7 @@ const App = () => {
 
         {/* ADMIN */}
         <AdminPrivateRouter path="/admin" component={HomeScreenAdmin} exact />
-        <AdminPrivateRouter path="/admin/staff" component={UsersScreenAdmin} exact />
+        <AdminPrivateRouter path="/admin/staff" component={ManageAgentScreen} exact />
         <AdminPrivateRouter path="/admin/products" component={ProductScreenAdmin} exact />
         {/* <AdminPrivateRouter path="/admin/search/:keyword" component={ProductScreenAdmin} exact /> */}
         <AdminPrivateRouter path="/admin/product/:id/edit" component={ProductEditScreenAdmin} exact />

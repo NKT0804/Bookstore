@@ -65,13 +65,13 @@ const PlaceOrderScreen = ({ history }) => {
       }
 
       setShippingAddress(
-        receiver.address?.province.concat(
-          ", ",
-          receiver.address?.district,
+        receiver.address?.specificAddress.concat(
           ", ",
           receiver.address?.ward,
           ", ",
-          receiver.address?.specificAddress
+          receiver.address?.district,
+          ", ",
+          receiver.address?.province
         )
       );
     }
