@@ -27,7 +27,7 @@ const HomeScreen = ({ location }) => {
   categoryParent = Array.from(new Set(categoryParent));
 
   const loadData = useCallback(() => {
-    dispatch(listProducts("", "", "", "", "", "", "", 10000));
+    dispatch(listProducts());
     dispatch(listCategory());
   }, [dispatch]);
 

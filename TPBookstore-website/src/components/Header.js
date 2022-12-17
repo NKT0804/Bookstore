@@ -26,7 +26,9 @@ const Header = (props) => {
     if (userLogin) {
       dispatch(getCartListItem());
     }
-    dispatch(listBanner());
+    if (!banners) {
+      dispatch(listBanner());
+    }
   }, [dispatch]);
 
   const logoutHandler = () => {

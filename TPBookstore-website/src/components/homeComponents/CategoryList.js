@@ -14,7 +14,9 @@ const CategoryList = () => {
   }
 
   useEffect(() => {
-    dispatch(listCategory());
+    if (!category) {
+      dispatch(listCategory());
+    }
   }, [dispatch]);
 
   return (

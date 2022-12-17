@@ -52,7 +52,7 @@ const login = async (req, res) => {
             birthday: user.birthday,
             address: user.address,
             isAdmin: user.isAdmin,
-            role: user.role || `customer`,
+            role: user.role || "customer",
             token: generateToken(user._id, process.env.ACCESS_TOKEN_SECRET, process.env.ACCESS_TOKEN_EXPIRESIN),
             refreshToken: newRefreshToken.tokenValue,
             createdAt: user.createdAt,
@@ -80,7 +80,8 @@ const register = async (req, res, next) => {
             name,
             email,
             phone,
-            password
+            password,
+            role: "customer"
         });
         if (!newUser) {
             res.status(400);
@@ -142,7 +143,7 @@ const register = async (req, res, next) => {
         //send verify email
         await sendMail(messageOptions);
         res.status(200);
-        res.json({ message: "Đăng ký thành công, đã gửi yêu cầu xác minh tài khoản!" });
+        res.json({ success: true, message: "Đăng ký thành công, đã gửi yêu cầu xác minh tài khoản!" });
     } catch (error) {
         next(error);
     }
@@ -177,6 +178,7 @@ const verifyEmail = async (req, res) => {
         birthday: user.birthday,
         address: user.address,
         isAdmin: user.isAdmin,
+        role: user.role || "customer",
         token: generateToken(user._id, process.env.ACCESS_TOKEN_SECRET, process.env.ACCESS_TOKEN_EXPIRESIN),
         refreshToken: newRefreshToken.tokenValue,
         createdAt: user.createdAt,
@@ -196,7 +198,7 @@ const getProfile = async (req, res) => {
         address: req.user.address,
         avatarUrl: req.user.avatarUrl || "./images/avatar/default.png",
         isAdmin: req.user.isAdmin,
-        role: req.user.role || `customer`,
+        role: req.user.role || "customer",
         createAt: req.user.createAt,
         isDisabled: req.user.isDisabled
     });
@@ -234,6 +236,7 @@ const updateProfile = async (req, res) => {
         address: updatedUser.address,
         avatarUrl: updatedUser.avatarUrl || "./images/avatar/default.png",
         isAdmin: updatedUser.isAdmin,
+        role: user.role || "customer",
         createAt: updatedUser.createAt,
         isDisabled: updatedUser.isDisabled,
         token: generateToken(updatedUser._id, process.env.ACCESS_TOKEN_SECRET, process.env.ACCESS_TOKEN_EXPIRESIN)

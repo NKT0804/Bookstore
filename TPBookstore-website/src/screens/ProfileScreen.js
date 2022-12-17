@@ -34,7 +34,7 @@ const ProfileScreen = () => {
 
   useEffect(() => {
     dispatch(listMyOrders());
-    dispatch(getUserDetails());
+    // dispatch(getUserDetails());
   }, [dispatch]);
   const onAvatarLoadError = (e) => {
     e.currentTarget.onerror = null; // prevents looping

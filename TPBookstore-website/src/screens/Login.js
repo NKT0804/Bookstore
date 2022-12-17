@@ -10,7 +10,6 @@ import * as Yup from "yup";
 
 const Login = ({ location, history }) => {
   window.scrollTo(0, 0);
-
   const redirect = location.search ? location.search.split("=")[1] : "/";
 
   const dispatch = useDispatch();
@@ -19,7 +18,12 @@ const Login = ({ location, history }) => {
 
   useEffect(() => {
     if (userInfo) {
-      history.push(redirect);
+      if (userInfo.isAdmin) {
+        history.push("/admin");
+      } else {
+        // history.push("/");
+        history.goBack();
+      }
     }
   }, [history, location, userInfo, redirect]);
 
