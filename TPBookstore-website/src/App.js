@@ -87,7 +87,7 @@ const App = () => {
         <PrivateRouter path="/order/:id" component={OrderScreen} exact />
 
         {/* Shipper */}
-        <ShipperPrivateRouter path="/shipper/order/:id" component={ManageShipperScreen} exact />
+        <ShipperPrivateRouter path="/shipper/order/:id" component={OrderDetailShipperScreen} exact />
         <ShipperPrivateRouter path="/shipper/orders" component={ManageShipperScreen} exact />
 
         {/* ADMIN */}

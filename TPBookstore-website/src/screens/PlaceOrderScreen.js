@@ -154,7 +154,7 @@ const PlaceOrderScreen = ({ history }) => {
             </div>
           </div> */}
           {/* 3 */}
-          <div className="order-detail-item col-lg-8 col-md-8 col-12 mb-lg-4 mb-5 mb-sm-0">
+          <div className="order-detail-item col-lg-9 col-md-8 col-12 mb-lg-4 mb-5 mb-sm-0">
             <div className="row">
               <div className="col-lg-2 col-md-2 center" style={{ display: "flex", justifyContent: "end" }}>
                 <div className="alert-success order-box">
@@ -170,7 +170,7 @@ const PlaceOrderScreen = ({ history }) => {
                   <p>{shippingAddress}</p>
                 </h7>
                 <Link className="btn-link" to={"/shipping"}>
-                  <button className="btn__change-address">Thay đổi</button>
+                  <span className="btn__change-address">Thay đổi</span>
                 </Link>
               </div>
             </div>

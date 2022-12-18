@@ -1470,11 +1470,8 @@ textarea:focus {
 }
 
 .btn__change-address {
-  padding: 8px 12px;
-  border-radius: 4px;
-  border: none;
-  background-color: var(--primary-color);
   min-width: 77px;
+  margin-right: 40px !important;
 }
 
 .order-box {

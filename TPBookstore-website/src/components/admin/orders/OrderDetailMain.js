@@ -236,16 +236,8 @@ const OrderDetailMain = (props) => {
                           </dl>
                           <dl className="dlist">
                             <dt className="text-start">Phương thức thanh toán:</dt>
-                            <dd className="mx-0 text-end">
-                              {order.isPaid ? (
-                                <span className="badge3 rounded-pill alert alert-success text-success">
-                                  Thanh toán thành công
-                                </span>
-                              ) : (
-                                <span className="badge3 rounded-pill alert alert-danger text-danger">
-                                  Thanh toán khi nhận hàng
-                                </span>
-                              )}
+                            <dd className="mx-0 text-start" style={{ fontSize: "15px" }}>
+                              <span className="">{order.paymentMethod}</span>
                             </dd>
                           </dl>
                         </article>
