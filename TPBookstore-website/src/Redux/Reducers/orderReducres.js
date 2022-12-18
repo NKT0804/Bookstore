@@ -44,7 +44,10 @@ import {
   ORDER_SHOW_REQUEST,
   ORDER_SHOW_SUCCESS,
   ORDER_SHOW_FAIL,
-  ORDER_SHOW_RESET
+  ORDER_SHOW_RESET,
+  ORDER_LIST_SHIPPER_REQUEST,
+  ORDER_LIST_SHIPPER_SUCCESS,
+  ORDER_LIST_SHIPPER_FAIL
 } from "../Constants/orderConstants";
 
 /**
@@ -129,6 +132,19 @@ export const orderListReducerAdmin = (state = { orders: [] }, action) => {
   }
 };
 
+// LIST ORDER BY SHIPPER
+export const orderListByShipperReducer = (state = { orders: [] }, action) => {
+  switch (action.type) {
+    case ORDER_LIST_SHIPPER_REQUEST:
+      return { loading: true };
+    case ORDER_LIST_SHIPPER_SUCCESS:
+      return { loading: false, ...action.payload };
+    case ORDER_LIST_SHIPPER_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
 // ORDER DELIVERED
 export const orderDeliveredReducer = (state = {}, action) => {
   switch (action.type) {

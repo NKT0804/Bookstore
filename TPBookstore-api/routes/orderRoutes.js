@@ -18,5 +18,6 @@ orderRouter.patch("/:id/received", protect, expressAsyncHandler(OrderController.
 orderRouter.patch("/:id/payment", protect, admin, expressAsyncHandler(OrderController.orderPayment));
 orderRouter.patch("/:id/disable", protect, admin, expressAsyncHandler(OrderController.disableOrder));
 orderRouter.patch("/:id/restore", protect, admin, expressAsyncHandler(OrderController.restoreOrder));
+orderRouter.get("/shipper/listOrder", protect, expressAsyncHandler(OrderController.getOrderShipper));
 
 export default orderRouter;

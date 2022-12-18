@@ -34,7 +34,10 @@ import {
   ORDER_HIDDEN_SUCCESS,
   ORDER_SHOW_REQUEST,
   ORDER_SHOW_SUCCESS,
-  ORDER_SHOW_FAIL
+  ORDER_SHOW_FAIL,
+  ORDER_LIST_SHIPPER_REQUEST,
+  ORDER_LIST_SHIPPER_SUCCESS,
+  ORDER_LIST_SHIPPER_FAIL
 } from "../Constants/orderConstants";
 import { logout } from "./userActions";
 import axios from "axios";
@@ -194,6 +197,42 @@ export const getOrderDetailsAdmin = (id) => async (dispatch, getState) => {
     });
   }
 };
+/**
+ * GET ORDER LIST BY SHIPPER
+ */
+export const listOrdersByShipper =
+  (status = "", limit = 20, pageNumber = "") =>
+  async (dispatch, getState) => {
+    try {
+      dispatch({ type: ORDER_LIST_SHIPPER_REQUEST });
+
+      const {
+        userLogin: { userInfo }
+      } = getState();
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${userInfo.token}`
+        }
+      };
+
+      const { data } = await axios.get(
+        `/api/v1/order/shipper/listOrder?&status=${status}&limit=${limit}&page=${pageNumber}`,
+        config
+      );
+
+      dispatch({ type: ORDER_LIST_SHIPPER_SUCCESS, payload: data });
+    } catch (error) {
+      const message = error.response && error.response.data.message ? error.response.data.message : error.message;
+      if (message === "Not authorized, token failed") {
+        dispatch(logout());
+      }
+      dispatch({
+        type: ORDER_LIST_SHIPPER_FAIL,
+        payload: message
+      });
+    }
+  };
 
 // ORDER DELIVER
 export const deliverOrder = (orderId) => async (dispatch, getState) => {

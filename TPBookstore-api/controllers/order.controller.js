@@ -95,6 +95,28 @@ const getOrderAdmin = async (req, res) => {
     res.json({ orders, page, pages, total: count });
 };
 
+//Get order
+const getOrderShipper = async (req, res) => {
+    let page = Number(req.query.page) || 1;
+    const limit = Number(req.query.limit) || 20;
+    const keyword = req.query.keyword || "";
+
+    const statusFilter = validateConstants(orderQueryParams, "status", req.query.status);
+    const count = await Order.countDocuments({ shipper: req.user._id, ...statusFilter });
+    if (count == 0) {
+        res.status(204);
+        throw new Error("Không có đơn hàng nào!");
+    }
+    const pages = Math.ceil(count / limit);
+    page = page <= pages ? page : 1;
+    const orders = await Order.find({ shipper: req.user._id, ...statusFilter })
+        .limit(limit)
+        .skip(limit * (page - 1))
+        .sort({ createdAt: "desc" })
+        .populate("user", "-password");
+    res.status(200);
+    res.json({ orders, page, pages, total: count });
+};
 /**
  * Read: ADMIN GET ALL ORDERS
  */
@@ -325,6 +347,7 @@ const deleteOrder = async (req, res) => {
 const OrderController = {
     createNewOrder,
     getOrderAdmin,
+    getOrderShipper,
     getOrder,
     getDetailOrderById,
     orderPayment,

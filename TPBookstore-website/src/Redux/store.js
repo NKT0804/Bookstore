@@ -53,7 +53,8 @@ import {
   orderListReducerAdmin,
   orderPayReducer,
   orderHiddenReducerAdmin,
-  orderShowReducerAdmin
+  orderShowReducerAdmin,
+  orderListByShipperReducer
 } from "./Reducers/orderReducres";
 import {
   categoryCreateReducerAdmin,
@@ -101,6 +102,9 @@ const reducer = combineReducers({
   listMyOrders: orderListMyReducer,
   categoryList: categoryListReducer,
   addressData: userGetAddressDataReducer,
+
+  // shipper
+  orderListOfShipper: orderListByShipperReducer,
 
   //admin
   userList: userListReducer,

@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "../../components/admin/Header";
 import { Link } from "react-router-dom";
-import ManageShipperMain from "../../components/admin/users/ManageShipperMain";
+import ManageShipperMain from "../../components/admin/orders/ManageShipperMain";
 
 const ManageShipper = () => {
   return (
