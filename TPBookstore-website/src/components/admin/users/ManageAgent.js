@@ -6,7 +6,7 @@ import Loading from "../../base/LoadingError/Loading";
 import Message from "../../base/LoadingError/Error";
 import PaginationAdmin from "../Home/PaginationAdmin";
 
-const UserListComponent = (props) => {
+const ManageAgent = (props) => {
   let history = useHistory();
   const dispatch = useDispatch();
   const { keyword, pageNumber } = props;
@@ -28,15 +28,15 @@ const UserListComponent = (props) => {
   const submitHandler = (e) => {
     e.preventDefault();
     if (searchKeyword.trim()) {
-      history.push(`/admin/users?q=${searchKeyword}`);
+      history.push(`/admin/staff?q=${searchKeyword}`);
     } else {
-      history.push("/admin/users");
+      history.push("/admin/staff");
     }
   };
   return (
     <section className="content-main">
       <div className="content-header">
-        <h2 className="content-title">Tài khoản</h2>
+        <h2 className="content-title">Tài khoản nhân viên</h2>
         <Link to="/admin/createUser">
           <button className="btn btn-primary">Tạo tài khoản</button>
         </Link>
@@ -83,45 +83,39 @@ const UserListComponent = (props) => {
             <Message variant="alert-danger">{error}</Message>
           ) : (
             <div className="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4">
-              {users &&
-                users.map((user) => (
-                  <Link to={`/admin/user/${user._id}`}>
-                    <div className="col" key={user._id}>
-                      <div className="card card-user shadow-sm">
-                        <div className="card-header">
-                          <img
-                            className="img-md img-avatar"
-                            src={user.avatarUrl}
-                            onError={onAvatarLoadError}
-                            alt="User pic"
-                          />
-                        </div>
-                        <div className="card-body">
-                          <h5 className="card-title mt-5" title={user.name}>
-                            {`${user.name.length} >= 15` ? `${user.name.slice(0, 15)}...` : `${user.name}`}
-                          </h5>
-                          <div className="card-text text-muted">
-                            {user.isAdmin === true ? <p className="m-0">Admin</p> : <p className="m-0">Customer</p>}
-
-                            <p>
-                              <a href={`mailto:${user.email}`} title={user.email}>
-                                {`${user.email.length} >= 15` ? `${user.email.slice(0, 20)}...` : `${user.email}`}
-                              </a>
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </Link>
-                ))}
+              <table className="table">
+                <thead className="">
+                  <tr className="text-center">
+                    <th scope="col">Mã nhân viên</th>
+                    <th scope="col">Tên nhân viên</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Số điện thoại</th>
+                    <th scope="col">Chức vụ</th>
+                    <th scope="col">Ngày vào làm</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {users &&
+                    users.map((user) => (
+                      <tr key={user._id}>
+                        <td>{user._id}</td>
+                        <td>{user.name}</td>
+                        <td>{user.email}</td>
+                        <td>{user.phone}</td>
+                        <td>{user.role}</td>
+                        <td>{user.createdAt.length > 11 ? user.createdAt.slice(0, 10) : user.createdAt}</td>
+                      </tr>
+                    ))}
+                </tbody>
+              </table>
             </div>
           )}
 
-          <PaginationAdmin page={page} pages={pages} keyword={keyword ? keyword : ""} basePath={"/admin/users"} />
+          <PaginationAdmin page={page} pages={pages} keyword={keyword ? keyword : ""} basePath={"/admin/staff"} />
         </div>
       </div>
     </section>
   );
 };
 
-export default UserListComponent;
+export default ManageAgent;

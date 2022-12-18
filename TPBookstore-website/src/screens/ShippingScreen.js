@@ -113,23 +113,24 @@ const ShippingScreen = ({ history }) => {
         <form className="Login col-md-8 col-lg-4 col-11" onSubmit={submitHandler}>
           <h6 className="filter-menu-item">THÔNG TIN NGƯỜI NHẬN</h6>
           {loading && <Loading />}
+          <input
+            type="text"
+            id="receiver"
+            name="receiver"
+            placeholder="Tên người nhận"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+          <input
+            className="mb-4"
+            type="text"
+            id="phone"
+            name="phone"
+            placeholder="Số điện thoại"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+          />
           <div className="filter-menu-item">
-            <input
-              type="text"
-              id="receiver"
-              name="receiver"
-              placeholder="Tên người nhận"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
-            <input
-              type="text"
-              id="phone"
-              name="phone"
-              placeholder="Số điện thoại"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-            />
             <select
               className="form-select"
               aria-label="Filter by category"

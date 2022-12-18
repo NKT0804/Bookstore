@@ -65,13 +65,13 @@ const PlaceOrderScreen = ({ history }) => {
       }
 
       setShippingAddress(
-        receiver.address?.province.concat(
-          ", ",
-          receiver.address?.district,
+        receiver.address?.specificAddress.concat(
           ", ",
           receiver.address?.ward,
           ", ",
-          receiver.address?.specificAddress
+          receiver.address?.district,
+          ", ",
+          receiver.address?.province
         )
       );
     }
@@ -115,21 +115,24 @@ const PlaceOrderScreen = ({ history }) => {
         handler={placeOrderHandler}
       />
       <div className="container">
+        <div className="outer-border"></div>
         <div className="row  order-detail">
           {/* 1 */}
-          <div className="order-detail-item col-lg-4 col-md-4 col-5 mb-lg-4 mb-5 mb-sm-0">
+          <div className="order-detail-item col-lg-3 col-md-4 col-12 mb-lg-4 mb-sm-0">
             <div className="row ">
-              <div className="col-md-3 center">
+              <div className="col-lg-3 col-md-3 center">
                 <div className="alert-success order-box">
                   <i className="fas fa-user"></i>
                 </div>
               </div>
-              <div className="col-md-8 center">
+              <div className="col-lg-9 col-md-9 center">
                 <h7 className="order-detail-title">
                   <strong>Người nhận</strong>
                 </h7>
-                <p>Tên: {receiver?.name}</p>
-                <p>SĐT: {receiver?.phone}</p>
+                <p>
+                  {receiver?.name} &nbsp;{`|`} &nbsp;
+                  {receiver?.phone}
+                </p>
               </div>
             </div>
           </div>
@@ -151,20 +154,23 @@ const PlaceOrderScreen = ({ history }) => {
             </div>
           </div> */}
           {/* 3 */}
-          <div className="order-detail-item col-lg-4 col-md-4 col-12 mb-lg-4 mb-5 mb-sm-0">
+          <div className="order-detail-item col-lg-9 col-md-8 col-12 mb-lg-4 mb-5 mb-sm-0">
             <div className="row">
-              <div className="col-md-3 center">
+              <div className="col-lg-2 col-md-2 center" style={{ display: "flex", justifyContent: "end" }}>
                 <div className="alert-success order-box">
                   <i className="fas fa-map-marker-alt"></i>
                 </div>
               </div>
-              <div className="col-md-8 center">
+              <div
+                className="col-md-10 center"
+                style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}
+              >
                 <h7 className="center order-detail-title">
                   <strong>Địa chỉ giao hàng</strong>
                   <p>{shippingAddress}</p>
                 </h7>
                 <Link className="btn-link" to={"/shipping"}>
-                  Thay đổi
+                  <span className="btn__change-address">Thay đổi</span>
                 </Link>
               </div>
             </div>

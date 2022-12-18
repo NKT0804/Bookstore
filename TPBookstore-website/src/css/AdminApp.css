@@ -118,8 +118,8 @@ button:disabled {
 }
 
 .icon-sm {
-  width: 48px;
-  height: 48px;
+  width: 40px;
+  height: 40px;
   line-height: 48px !important;
   font-size: 20px;
 }
@@ -594,7 +594,7 @@ a.itemside:hover .title {
 }
 .action__categories-admin.dropdown-menu.show,
 .action__order.dropdown-menu.show {
-  transform: translate3d(40px, 21px, 0px) !important;
+  transform: translate3d(2px, 21px, 0px) !important;
   max-width: 95px;
   }
 
@@ -624,6 +624,7 @@ a.itemside:hover .title {
 .order-info-wrap {
   background-color: #e5fee9;
   padding: 20px 4px;
+  font-size: 14px;
 }
 
 /* --------- description list --------*/
@@ -640,7 +641,7 @@ a.itemside:hover .title {
   display: flex;
 }
 .dlist dt {
-  width: 150px;
+  min-width: 220px;
   font-weight: normal;
 }
 .dlist dd {
@@ -1232,8 +1233,18 @@ td {
 }
 
 .table__order-details {
-  font-size: 14px;
+  display: flex;
+  justify-content: center;
+  font-size: 17px;
   margin-bottom: 12px;
+}
+
+.status__order-admin {
+  margin-top: 4px;
+  border-radius: 4px;
+  text-align: center;
+  padding: 4px 4px;
+  border: 1px solid;
 }
 
 /* user detail */

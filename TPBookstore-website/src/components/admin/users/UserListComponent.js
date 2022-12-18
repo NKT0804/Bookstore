@@ -37,9 +37,6 @@ const UserListComponent = (props) => {
     <section className="content-main">
       <div className="content-header">
         <h2 className="content-title">Tài khoản</h2>
-        <Link to="/admin/createUser">
-          <button className="btn btn-primary">Tạo tài khoản</button>
-        </Link>
       </div>
 
       <div className="card mb-4">

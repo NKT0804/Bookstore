@@ -10,10 +10,10 @@ const OrderDetailProducts = (props) => {
     <table className="order-detail__admin table border table-lg">
       <thead>
         <tr>
-          <th style={{ width: "40%" }}>Sản phẩm</th>
-          <th style={{ width: "20%" }}>Số lượng</th>
-          <th style={{ width: "20%" }}>Đơn giá</th>
-          <th style={{ width: "20%" }} className="text-end">
+          <th style={{ width: "50%" }}>Sản phẩm</th>
+          <th style={{ width: "15%" }}>Số lượng</th>
+          <th style={{ width: "15%" }}>Đơn giá</th>
+          <th style={{ width: "15%" }} className="text-end">
             Thành tiền
           </th>
         </tr>
@@ -26,7 +26,7 @@ const OrderDetailProducts = (props) => {
                 <div className="left">
                   <img src={item.image} alt={item.name} style={{ width: "100px", height: "auto" }} className="img-xs" />
                 </div>
-                <div className="info">{item.name}</div>
+                <div className="info"> {item.name.length >= 55 ? `${item.name.slice(0, 55)}...` : ` ${item.name}`}</div>
               </Link>
             </td>
             <td>{item.qty} </td>

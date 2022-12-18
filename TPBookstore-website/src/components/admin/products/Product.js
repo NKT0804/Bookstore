@@ -143,9 +143,6 @@ const Product = (props) => {
                 </div>
 
                 <div className="action__product dropdown-menu">
-                  <Link className="dropdown-item" to={`/admin/product/${product._id}/edit`}>
-                    <i className="fas fa-edit text-warning "></i> &nbsp; Sửa
-                  </Link>
                   {product.isDisabled ? (
                     <Link className="dropdown-item" data-toggle="modal" data-target="#exampleModalCenter">
                       <i
@@ -159,19 +156,24 @@ const Product = (props) => {
                       &nbsp; Bỏ ẩn
                     </Link>
                   ) : (
-                    <Link
-                      className="dropdown-item"
-                      data-toggle="modal"
-                      data-target="#exampleModalCenter"
-                      onClick={() => {
-                        typeModal("hiddenProduct");
-                        setProductIdSelected(product._id);
-                      }}
-                      style={{ opacity: "1" }}
-                    >
-                      <i className="fas fa-eye text-success"></i>
-                      &nbsp; Ẩn
-                    </Link>
+                    <>
+                      <Link className="dropdown-item" to={`/admin/product/${product._id}/edit`}>
+                        <i className="fas fa-edit text-warning "></i> &nbsp; Sửa
+                      </Link>
+                      <Link
+                        className="dropdown-item"
+                        data-toggle="modal"
+                        data-target="#exampleModalCenter"
+                        onClick={() => {
+                          typeModal("hiddenProduct");
+                          setProductIdSelected(product._id);
+                        }}
+                        style={{ opacity: "1" }}
+                      >
+                        <i className="fas fa-eye text-success"></i>
+                        &nbsp; Ẩn
+                      </Link>
+                    </>
                   )}
 
                   <Link className="dropdown-item">

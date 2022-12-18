@@ -74,7 +74,7 @@ const CustomerReview = () => {
             <div className="col l-3 m-6 d-flex justify-content-center">
               <div className="evaluate__user">
                 <div className="evaluate__user-img">
-                  <img src="./images/avatar/user_trong.jpg" alt="" />
+                  <img src="./images/avatar/avatar_user_3.jpg" alt="" />
                 </div>
                 <div className="evaluate__content">
                   <div className="evaluate__content-icon">
@@ -84,7 +84,7 @@ const CustomerReview = () => {
                     <i className="evaluate__content-icon--star fas fa-star"></i>
                     <i className="evaluate__content-icon--star fas fa-star"></i>
                   </div>
-                  <h3 className="evaluate__content--name">Phạm Văn Trọng</h3>
+                  <h3 className="evaluate__content--name">Nguyễn Anh Tuấn</h3>
                   <p className="evaluate__content--desc">
                     {/* {newProduct
                       ? newProduct[3]?.[0]?.reviewContent
