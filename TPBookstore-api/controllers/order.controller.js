@@ -6,6 +6,7 @@ import Order from "../models/OrderModel.js";
 import Product from "../models/ProductModel.js";
 import Cart from "../models/CartModel.js";
 import { orderQueryParams, validateConstants } from "../constants/searchConstants.js";
+import { sendMail } from "../utils/nodemailler.js";
 
 //User place new order
 const createNewOrder = async (req, res, next) => {
@@ -62,6 +63,112 @@ const createNewOrder = async (req, res, next) => {
                 throw new Error("Xóa sản phẩm trong giỏ hàng không thành công!");
             }
             const createdOrder = await order.save();
+            const url = `${process.env.WEB_CLIENT_URL}`;
+            const html = `<img
+            src="https://res.cloudinary.com/nkt2001/image/upload/v1664988644/logo/logo_vd616y.png?fbclid=IwAR0hgGY9-hFxr30G2dacxHMczMGUJ6SLjddCZHy8tkqEd4FCmNL--ckVPX8"
+            style="height: 100px; margin-left: 29.5%; margin-bottom: -20px"
+          />
+          <div style="margin-left: 22.5%; font-size: 17px">
+            
+            <div
+              style="
+                width: 514px;
+                padding: 20px;
+                margin: 28px;
+                border: #e1e4e8 solid 1px;
+                border-radius: 8px;
+              "
+            >
+              <p>Xin chào ${req.user.name}, Cảm ơn bạn đã mua hàng tại của hàng chúng tôi.</p>
+              <h4>Thông tin chi tiết đơn hàng.</h4>
+              <p>Mã đơn hàng: ${createdOrder._id}</p>
+              <p>Tên người nhận: ${createdOrder.receiver}</p>
+              <p>Địa chỉ: ${createdOrder.shippingAddress}</p>
+              <p>Ngày đặt hàng: ${createdOrder.createdAt}</p>
+              <p>Số điện thoại: ${createdOrder.phone}</p>
+              <p>Phí vận chuyển: ${
+                  String(createdOrder.shippingPrice)
+                      .split("")
+                      .reverse()
+                      .reduce((prev, next, index) => {
+                          return (index % 3 ? next : next + ".") + prev;
+                      }) + " ₫"
+              }</p>
+              <p>Thành tiền: ${
+                  String(createdOrder.totalPrice)
+                      .split("")
+                      .reverse()
+                      .reduce((prev, next, index) => {
+                          return (index % 3 ? next : next + ".") + prev;
+                      }) + " ₫"
+              }</p>
+              <p>Phương thức thanh toán: ${createdOrder.paymentMethod}</p>
+              <div style="margin: auto">
+                <table
+                  style="
+                    border: 1px solid black;
+                    border-collapse: collapse;
+                    padding: 5px;
+                  "
+                >
+                  <thead>
+                    <tr>
+                      <th style="border: 1px solid black">Tên sách</th>
+                      <th style="border: 1px solid black">Số lượng</th>
+                      <th style="border: 1px solid black">Giá</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  ${createdOrder.orderItems.map((order) => {
+                      return `
+                    <tr>
+                    <td style="border: 1px solid black; padding: 4px">${order.name}</td>
+                    <td style="border: 1px solid black; padding: 4px">${order.qty}</td>
+                    <td style="border: 1px solid black; padding: 4px">${
+                        String(order.price)
+                            .split("")
+                            .reverse()
+                            .reduce((prev, next, index) => {
+                                return (index % 3 ? next : next + ".") + prev;
+                            }) + " ₫"
+                    }</td>
+                    </tr>
+                    `;
+                  })}
+                  </tbody>
+                </table>
+              </div>
+              <a
+                href="${url}"
+                target="_blank"
+                style="text-decoration: none; margin-left: 32.5%"
+              >
+                <div style="display: flex; justify-content: space-around">
+                  <button
+                    style="
+                      background-color: #4ac4fa;
+                      padding: 15px 25px;
+                      border: none;
+                      border-radius: 8px;
+                      font-size: 17px;
+                    "
+                  >
+                    Đi đến website cửa hàng
+                  </button>
+                </div>
+              </a>
+              <p style="text-align: right">Trân trọng.</p>
+              <p style="text-align: right">TPBookStore</p>
+            </div>
+          </div>`;
+            const messageOptions = {
+                recipient: req.user.email,
+                subject: "Đơn hàng của bạn",
+                html: html
+            };
+            //send verify email
+            await sendMail(messageOptions);
+
             res.status(201);
             res.json(createdOrder);
         }, transactionOptions);
