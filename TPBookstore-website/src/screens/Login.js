@@ -35,9 +35,9 @@ const Login = ({ location, history }) => {
       password: ""
     },
     validationSchema: Yup.object({
-      email: Yup.string().required("Giá trị bắt buộc*").email("Vui lòng nhập một địa chỉ email hợp lệ"),
+      email: Yup.string().required("Vui lòng nhập đầy đủ thông tin email*").email("Vui lòng nhập địa chỉ email hợp lệ"),
 
-      password: Yup.string().required("Giá trị bắt buộc*")
+      password: Yup.string().required("Vui lòng nhập mật khẩu*")
     }),
     onSubmit: (value) => {
       dispatch(userLoginAction(value.email, value.password));

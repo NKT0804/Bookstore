@@ -31,25 +31,23 @@ const Register = ({ location, history }) => {
     },
     validationSchema: Yup.object({
       name: Yup.string()
-        .required("Giá trị bắt buộc*")
+        .required("Vui lòng nhập họ tên họ tên của bạn*")
         .min(4, "Họ tên phải dài hơn 3 ký tụ")
         .max(250, "Họ tên phải ngắn hơn 250 ký tự"),
-      email: Yup.string().required("Giá trị bắt buộc*").email("Vui lòng nhập một địa chỉ email hợp lệ"),
+      email: Yup.string().required("Vui lòng nhập email của bạn*").email("Vui lòng nhập một địa chỉ email hợp lệ"),
       phone: Yup.string()
-        .required("Giá trị bắt buộc*")
+        .required("Vui lòng nhập số điện thoại của bạn*")
         .matches(
           /^\+?\d{1,3}?[- .]?\(?(?:\d{2,3})\)?[- .]?\d\d\d[- .]?\d\d\d\d$/,
           "Vui lòng nhập một số điện thoại hợp lệ"
         ),
-
       password: Yup.string()
-        .required("Giá trị bắt buộc*")
-        .matches(
-          /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
-          "Mật khẩu phải dài ít nhất 8 ký tự và có ít nhất một chữ cái và một số"
-        ),
+        .required("Vui lòng nhập mật khẩu của bạn*")
+        .min(8, "Mật khẩu phải dài ít nhất 8 ký tự")
+        .max(250, "Mật khẩu phải ngắn hơn 250 ký tự")
+        .matches(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/, "Mật khẩu phải có ít nhất một chữ cái và một số"),
       confirmedPassword: Yup.string()
-        .required("Giá trị bắt buộc*")
+        .required("Vui lòng xác nhận mật khẩu của bạn*")
         .oneOf([Yup.ref("password"), null], "Mật khẩu không khớp")
     }),
     onSubmit: (value) => {

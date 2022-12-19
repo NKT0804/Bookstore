@@ -3,7 +3,7 @@ import formatCash from "../../../utils/formatCash";
 import { Link } from "react-router-dom";
 
 const TopTotal = (props) => {
-  const { orders, totalUser, totalProduct } = props;
+  const { orders, totalOrder, totalUser, totalProduct } = props;
   let totalSale = 0;
   if (orders) {
     orders.map((order) => (order.isPaid === true ? (totalSale = totalSale + order.totalPrice) : null));
@@ -33,7 +33,7 @@ const TopTotal = (props) => {
             <Link to={"/admin/orders"}>
               <div className="text">
                 <h6 className="mb-1">Tổng đơn hàng</h6>
-                {orders ? <span>{orders.length}</span> : <span>0</span>}
+                {orders ? <span>{totalOrder ?? 0}</span> : <span>0</span>}
               </div>
             </Link>
           </article>

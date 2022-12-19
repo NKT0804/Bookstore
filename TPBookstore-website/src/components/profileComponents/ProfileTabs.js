@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Loading from "./../base/LoadingError/Loading";
 import Message from "./../base/LoadingError/Error";
-import { updateUserProfile } from "../../Redux/Actions/userActions";
+import { getUserDetails, updateUserProfile } from "../../Redux/Actions/userActions";
 import { getAddressData } from "../../Redux/Actions/userActions";
 import isEmpty from "validator/lib/isEmpty";
 
@@ -150,6 +150,7 @@ const ProfileTabs = () => {
 
   useEffect(() => {
     dispatch(getAddressData());
+    dispatch(getUserDetails());
   }, [dispatch]);
   return (
     <>

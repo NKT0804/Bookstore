@@ -28,13 +28,15 @@ const ResetPassword = ({ history, location, match }) => {
     },
     validationSchema: Yup.object({
       newPassword: Yup.string()
-        .required("Giá trị bắt buộc*")
+        .required("Vui lòng nhập mật khẩu mới của bạn*")
+        .min(8, "Mật khẩu mới phải ít nhất 8 ký tự")
+        .max(250, "Mật khẩu mới phải ngắn hơn 250 ký tự")
         .matches(
           /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
-          "Mật khẩu phải dài ít nhất 8 ký tự và có ít nhất một chữ cái và một số"
+          "Mật khẩu mới phải có ít nhất một chữ cái và một số"
         ),
       confirmedPassword: Yup.string()
-        .required("Giá trị bắt buộc*")
+        .required("Vui lòng xác nhận mật khẩu mới của bạn*")
         .oneOf([Yup.ref("newPassword"), null], "Mật khẩu không khớp")
     }),
     onSubmit: (value) => {
@@ -54,7 +56,12 @@ const ResetPassword = ({ history, location, match }) => {
             <h5 className="col-10 form-title">Đặt lại mật khẩu</h5>
           </div>
 
-          <div className="frame-error">{error && <Message variant="alert-danger">{error}</Message>}</div>
+          {/* <div className="frame-error">{error && <Message variant="alert-danger">{error}</Message>}</div> */}
+          <div className="frame-error">
+            {formik.touched.newPassword && formik.errors.newPassword ? (
+              <span className="error-message">{formik.errors.newPassword}</span>
+            ) : null}
+          </div>
 
           <input
             type="password"
@@ -63,10 +70,11 @@ const ResetPassword = ({ history, location, match }) => {
             placeholder="Nhập mật khẩu mới"
             value={formik.values.newPassword}
             onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
           />
-          <div className="frame-error">
+          {/* <div className="frame-error">
             {formik.errors.newPassword && <span className="error-message">{formik.errors.newPassword}</span>}
-          </div>
+          </div> */}
           <input
             type="password"
             id="confirmedPassword"
@@ -74,11 +82,17 @@ const ResetPassword = ({ history, location, match }) => {
             placeholder="Nhập lại mật khẩu"
             value={formik.values.confirmedPassword}
             onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
           />
-          <div className="frame-error">
+          {/* <div className="frame-error">
             {formik.errors.confirmedPassword && (
               <span className="error-message">{formik.errors.confirmedPassword}</span>
             )}
+          </div> */}
+          <div className="frame-error">
+            {formik.touched.confirmedPassword && formik.errors.confirmedPassword ? (
+              <span className="error-message">{formik.errors.confirmedPassword}</span>
+            ) : null}
           </div>
           <button type="submit" className="btn">
             Đặt lại

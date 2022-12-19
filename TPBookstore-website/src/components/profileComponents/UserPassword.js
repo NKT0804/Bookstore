@@ -37,15 +37,14 @@ const UserPassword = () => {
       confirmedPassword: ""
     },
     validationSchema: Yup.object({
-      currentPassword: Yup.string().required("Giá trị bắt buộc*"),
+      currentPassword: Yup.string().required("Vui lòng nhập mật khẩu hiện tại của bạn**"),
       newPassword: Yup.string()
-        .required("Giá trị bắt buộc*")
-        .matches(
-          /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
-          "Mật khẩu phải dài ít nhất 8 ký tự và có ít nhất một chữ cái và một số"
-        ),
+        .required("Vui lòng nhập mật khẩu của bạn*")
+        .min(8, "Mật khẩu phải dài ít nhất 8 ký tự")
+        .max(250, "Mật khẩu phải ngắn hơn 250 ký tự")
+        .matches(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/, "Mật khẩu phải có ít nhất một chữ cái và một số"),
       confirmedPassword: Yup.string()
-        .required("Giá trị bắt buộc*")
+        .required("Vui lòng xác nhận mật khẩu mới*")
         .oneOf([Yup.ref("newPassword"), null], "Mật khẩu không khớp")
     }),
     onSubmit: (value) => {

@@ -1,23 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import formatCash from "../../../utils/formatCash";
-import { listUser } from "../../../Redux/Actions/userActions";
+import { useDispatch } from "react-redux";
 import { selectShipper } from "../../../Redux/Actions/orderActions";
 import moment from "moment";
-import isEmpty from "validator/lib/isEmpty";
+import { Link } from "react-router-dom";
 
 const OrderDetailInfo = (props) => {
-  const { order } = props;
+  const { order, shippers } = props;
   const dispatch = useDispatch();
-  const shipperList = useSelector((state) => state.userList);
-  const { loading: loadingShipper, error: errorShipper, users, page, pages, total } = shipperList;
   const [shipper, setShipper] = useState("");
   const [estimatedDeliveryDate, setEstimatedDeliveryDate] = useState("");
   const [validate, setValidate] = useState({});
 
-  useEffect(() => {
-    dispatch(listUser("", "shipper"));
-  }, [dispatch]);
   useEffect(() => {
     if (order?.shipper) {
       setShipper(order.shipper);
@@ -27,26 +20,7 @@ const OrderDetailInfo = (props) => {
     }
   }, [order]);
 
-  const isEmptyCheckShipper = () => {
-    const msg = {};
-    if (isEmpty(shipper)) {
-      msg.shipper = "Vui lòng chọn nhân viên giao hàng";
-    }
-    if (isEmpty(estimatedDeliveryDate)) {
-      msg.estimatedDeliveryDate = "Vui lòng chọn ngày giao hàng";
-    }
-    setValidate(msg);
-
-    if (Object.keys(msg).length > 0) return false;
-    return true;
-  };
-
-  const buttonConfirmShipper = document.getElementById("confirm-shipper");
-
   const confirmHandle = () => {
-    const isEmptyValidate = isEmptyCheckShipper();
-    if (!isEmptyValidate) return;
-    buttonConfirmShipper.setAttribute("data-dismiss", "modal");
     dispatch(selectShipper(order._id, shipper, estimatedDeliveryDate));
   };
   return (
@@ -84,7 +58,7 @@ const OrderDetailInfo = (props) => {
                   </label>
                   <select className="form-select" value={shipper} onChange={(e) => setShipper(e.target.value)}>
                     <option value="">Chọn nhân viên giao hàng</option>
-                    {users?.map((user) => (
+                    {shippers?.map((user) => (
                       <>
                         <option value={user._id}>{user.name}</option>
                       </>
@@ -123,7 +97,7 @@ const OrderDetailInfo = (props) => {
                 id="confirm-shipper"
                 type="submit"
                 className="btn btn-primary"
-                // data-dismiss="modal"
+                data-dismiss="modal"
                 onClick={() => confirmHandle()}
               >
                 Xác nhận
@@ -172,11 +146,22 @@ const OrderDetailInfo = (props) => {
               <h6 className="fw-bold mb-1">Trạng thái đơn hàng</h6>
               <div className="mt-1">
                 {order.cancelled ? (
-                  <span className="badge3 btn-danger">Đã hủy</span>
+                  <span className="badge3 btn-danger">Đơn hàng đã bị hủy</span>
                 ) : order.delivered ? (
-                  <span className="badge3 btn-success">Đã giao</span>
+                  <>
+                    <span className="badge3 btn-success">Giao hàng thành công</span>
+                    <p>
+                      {moment(order.deliveredAt).format("LT")}&nbsp;
+                      {moment(order.deliveredAt).format("DD/MM/yyyy")}
+                    </p>
+                  </>
                 ) : order.confirmed ? (
-                  <span className="badge3 btn-warning">Đang giao</span>
+                  <>
+                    <span className="badge3 btn-warning">Đang giao</span>
+                    {order.estimatedDeliveryDate && (
+                      <p>Ngày giao hàng dự kiến: {moment(order.estimatedDeliveryDate).format("DD/MM/yyyy")}</p>
+                    )}
+                  </>
                 ) : (
                   <span className="badge3 btn-primary">Đang chờ xác nhận</span>
                 )}
@@ -195,19 +180,15 @@ const OrderDetailInfo = (props) => {
                 <>
                   <p>{order.shipper.name} </p>
                   <p>{order.shipper.phone}</p>
-                  <p>Ngày giao hàng dự kiến: {moment(order.estimatedDeliveryDate).format("DD/MM/yyyy")}</p>
-                  {order.cancelled || order.delivered ? (
-                    <></>
-                  ) : (
-                    <button
-                      data-toggle="modal"
-                      data-target="#exampleModal"
-                      type="button"
-                      className="btn btn-primary col-12 btn-size"
-                    >
-                      Thay đổi
-                    </button>
-                  )}
+                  <button
+                    data-toggle="modal"
+                    data-target="#exampleModal"
+                    type="button"
+                    className="btn btn-primary col-12 btn-size"
+                    hidden={order.cancelled || order.delivered}
+                  >
+                    Thay đổi
+                  </button>
                 </>
               ) : (
                 <>
@@ -216,6 +197,7 @@ const OrderDetailInfo = (props) => {
                     data-target="#exampleModal"
                     type="button"
                     className="btn btn-primary col-12 btn-size"
+                    disabled={!order.confirmed}
                   >
                     Chọn nhân viên giao hàng
                   </button>

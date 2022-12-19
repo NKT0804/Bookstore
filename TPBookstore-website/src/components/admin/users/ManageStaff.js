@@ -175,10 +175,10 @@ const ManageStaff = (props) => {
                             </td>
                           </td>
                           <td className={user.isDisabled ? `status-disabled` : ``}>
-                            <b>{user?.name.length >= 15 ? `${user?.name.slice(0, 15)}...` : `${user?.name}`}</b>
+                            <b>{user?.name.length > 15 ? `${user?.name.slice(0, 15)}...` : `${user?.name}`}</b>
                           </td>
                           <td className={user.isDisabled ? `status-disabled` : ``}>
-                            <b>{user?.email.length >= 15 ? `${user?.email.slice(0, 15)}...` : `${user?.email}`}</b>
+                            <b>{user?.email.length > 15 ? `${user?.email.slice(0, 15)}...` : `${user?.email}`}</b>
                           </td>
                           <td className={user.isDisabled ? `status-disabled` : ``}>{user.phone}</td>
                           <td className={user.isDisabled ? `status-disabled` : ``}>
@@ -188,7 +188,7 @@ const ManageStaff = (props) => {
                               ? `Nhân viên giao hàng`
                               : user.role === "customer"
                               ? `Khách hàng`
-                              : `Admin`}
+                              : `Quản lý`}
                           </td>
                           <td className={user.isDisabled ? `status-disabled` : ``}>
                             {user.createdAt.length > 11 ? user.createdAt.slice(0, 10) : user.createdAt}

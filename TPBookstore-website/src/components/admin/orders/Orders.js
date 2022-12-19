@@ -121,7 +121,7 @@ const Orders = (props) => {
                   <td className={order.isDisabled ? `status-disabled` : ``}>
                     {order.shipper ? (
                       <b>
-                        {order.shipper?.name?.length >= 15
+                        {order.shipper?.name?.length > 15
                           ? `${order.shipper?.name.slice(0, 15)}...`
                           : `${order.shipper?.name}`}
                       </b>

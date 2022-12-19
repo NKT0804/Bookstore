@@ -12,7 +12,7 @@ const Main = () => {
   const dispatch = useDispatch();
 
   const orderListAdmin = useSelector((state) => state.orderListAdmin);
-  const { loading, error, orders } = orderListAdmin;
+  const { loading, error, orders, total: totalOrder } = orderListAdmin;
   const productListAdmin = useSelector((state) => state.productListAdmin);
   const { total: totalProduct } = productListAdmin;
   const userList = useSelector((state) => state.userList);
@@ -30,7 +30,7 @@ const Main = () => {
           <h2 className="content-title"> Bảng điều khiển </h2>
         </div>
         {/* Top Total */}
-        <TopTotal orders={orders} totalProduct={totalProduct} totalUser={totalUser} />
+        <TopTotal orders={orders} totalOrder={totalOrder} totalProduct={totalProduct} totalUser={totalUser} />
 
         <div className="row">
           {/* STATICS */}

@@ -14,7 +14,9 @@ import {
 import Loading from "./../../base/LoadingError/Loading";
 import Message from "./../../base/LoadingError/Error";
 import moment from "moment";
+import { listUser } from "../../../Redux/Actions/userActions";
 import Modal from "../../base/modal/Modal";
+
 const OrderDetailMain = (props) => {
   const { orderId } = props;
   const dispatch = useDispatch();
@@ -32,15 +34,22 @@ const OrderDetailMain = (props) => {
   const orderConfirm = useSelector((state) => state.orderConfirm);
   const { loading: loadingConfirm, success: successConfirm } = orderConfirm;
 
-  const orderIsPaid = useSelector((state) => state.orderIsPaidAdmin);
-  const { loading: loadingIsPaid, success: successIsPaid } = orderIsPaid;
+  // const orderIsPaid = useSelector((state) => state.orderIsPaidAdmin);
+  // const { loading: loadingIsPaid, success: successIsPaid } = orderIsPaid;
 
   const orderCancelAdmin = useSelector((state) => state.orderCancelAdmin);
   const { loading: loadingCancel, success: successCancel } = orderCancelAdmin;
 
+  const orderSelectShipper = useSelector((state) => state.orderSelectShipper);
+  const { success: successSelectShipper } = orderSelectShipper;
+
+  const shipperList = useSelector((state) => state.userList);
+  const { loading: loadingShipper, error: errorShipper, users } = shipperList;
+
   useEffect(() => {
     dispatch(getOrderDetails(orderId));
-  }, [dispatch, orderId, successDelivered, successIsPaid, successConfirm, successCancel]);
+    dispatch(listUser("", "shipper"));
+  }, [dispatch, orderId, successDelivered, successConfirm, successCancel, successSelectShipper]);
   const [modalTitle, setModalTitle] = useState("");
   const [modalBody, setModalBody] = useState("");
   const [btnTitle, setBtnTitle] = useState("");
@@ -62,13 +71,13 @@ const OrderDetailMain = (props) => {
       setBtnType("confirm");
       setTypeAction(type);
     }
-    if (type === "paid") {
-      setModalTitle("Xác nhận đã thanh toán");
-      setModalBody("Bạn có chắc đơn hàng đã thanh toán thành công?");
-      setBtnTitle("Xác nhận");
-      setBtnType("confirm");
-      setTypeAction(type);
-    }
+    // if (type === "paid") {
+    //   setModalTitle("Xác nhận đã thanh toán");
+    //   setModalBody("Bạn có chắc đơn hàng đã thanh toán thành công?");
+    //   setBtnTitle("Xác nhận");
+    //   setBtnType("confirm");
+    //   setTypeAction(type);
+    // }
     if (type === "cancel") {
       setModalTitle("Xác nhận hủy đơn hàng");
       setModalBody("Bạn có chắc muốn hủy đơn hàng này?");
@@ -84,9 +93,9 @@ const OrderDetailMain = (props) => {
   const deliverHandler = () => {
     dispatch(deliverOrder(order._id));
   };
-  const isPaidHandler = () => {
-    dispatch(isPaidOrder(order._id));
-  };
+  // const isPaidHandler = () => {
+  //   dispatch(isPaidOrder(order._id));
+  // };
   const cancelHandler = () => {
     dispatch(cancelOrderAdmin(order._id));
   };
@@ -102,9 +111,9 @@ const OrderDetailMain = (props) => {
             ? confirmHandler
             : typeAction === "deliver"
             ? deliverHandler
-            : typeAction === "paid"
-            ? isPaidHandler
-            : cancelHandler
+            : // : typeAction === "paid"
+              // ? isPaidHandler
+              cancelHandler
         }
       />
       <section className="content-main">
@@ -143,7 +152,7 @@ const OrderDetailMain = (props) => {
             </header>
             <div className="card-body">
               {/* Order info */}
-              <OrderDetailInfo order={order} />
+              <OrderDetailInfo order={order} shippers={users} />
 
               <div className="row">
                 <div className="col-lg-8 col-md-12">
@@ -217,8 +226,9 @@ const OrderDetailMain = (props) => {
                               data-target="#exampleModalCenter"
                               onClick={() => typeModal("deliver")}
                               className="btn btn-primary col-12 btn-size"
+                              disabled={!order.shipper}
                             >
-                              Xác nhận đã giao hàng
+                              Xác nhận giao hàng thành công
                             </button>
                           </>
                         )}
@@ -226,32 +236,7 @@ const OrderDetailMain = (props) => {
                     ) : (
                       <></>
                     )}
-                    {order.confirmed && order?.delivered ? (
-                      <div>
-                        {order.isPaid ? (
-                          <button className="btn btn-success col-12 mt-2">
-                            <p>Đã thanh toán</p>
-                            <p>
-                              ({moment(order.paidAt).format("LT") + " " + moment(order.paidAt).format("DD/MM/yyyy")})
-                            </p>
-                          </button>
-                        ) : (
-                          <>
-                            {loadingIsPaid && <Loading />}
-                            <button
-                              data-toggle="modal"
-                              data-target="#exampleModalCenter"
-                              onClick={() => typeModal("paid")}
-                              className="btn btn-warning col-12 btn-size mt-2"
-                            >
-                              Xác nhận đã thanh toán
-                            </button>
-                          </>
-                        )}
-                      </div>
-                    ) : (
-                      <></>
-                    )}
+
                     {!order?.delivered ? (
                       <>
                         {!order.cancelled ? (

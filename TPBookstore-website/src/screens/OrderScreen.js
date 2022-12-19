@@ -119,9 +119,20 @@ const OrderScreen = ({ match }) => {
                   </div>
                   <div className="col-md-9 center">
                     <h7 className="order-detail-title">
-                      <strong>Thông tin vận chuyển</strong>
+                      <strong>Thông tin người giao hàng</strong>
                     </h7>
-                    <p className="order-detail-text">Ngày giao hàng dự kiến: {order.estimatedDeliveryDate ?? ""}</p>
+                    {order.confirmed && !order.shipper ? (
+                      <>
+                        <p className="order-detail-text">Đơn hàng đang chuẩn bị để gửi đi</p>
+                      </>
+                    ) : order.confirmed && order.shipper ? (
+                      <>
+                        <p>{order.shipper.name} </p>
+                        <p>{order.shipper.phone}</p>
+                      </>
+                    ) : (
+                      <></>
+                    )}
                   </div>
                 </div>
               </div>
@@ -137,32 +148,29 @@ const OrderScreen = ({ match }) => {
                     <h7 className="order-detail-title">
                       <strong>Trạng thái đơn hàng</strong>
                     </h7>
-                    {order.isPaid ? (
-                      <div className="mb-1 p-1 col-12">
-                        <p className="order-detail-text border border-success text-success text-center">
-                          Đã thanh toán{" "}
-                          <p>{moment(order.paidAt).format("LT") + " " + moment(order.paidAt).format("DD/MM/yyyy")}</p>
-                        </p>
-                      </div>
-                    ) : (
-                      <div className="mb-2 p-1 col-12">
-                        <p className="order-detail-text border border-danger text-center text-danger fw-bold text-center">
-                          Chưa thanh toán
-                        </p>
-                      </div>
-                    )}
                     {order.cancelled ? (
                       <div className="status__order-user border border-danger text-danger text-center fw-bold">
                         Đơn hàng bị đã hủy
                       </div>
                     ) : order.delivered ? (
-                      <div className="status__order-user border border-success fw-bold  text-success text-center">
-                        Giao hàng thành công
-                      </div>
+                      <>
+                        <div className="status__order-user border border-success fw-bold  text-success text-center">
+                          <p>Giao hàng thành công</p>
+                          {moment(order.deliveredAt).format("LT")}&nbsp;{moment(order.deliveredAt).format("DD/MM/yyyy")}
+                        </div>
+                      </>
                     ) : order.confirmed ? (
-                      <div className="status__order-user border border-success fw-bold  text-success text-center ">
-                        Đang giao
-                      </div>
+                      <>
+                        <div className="status__order-user border border-success fw-bold  text-success text-center ">
+                          Đang giao
+                        </div>
+                        {order.estimatedDeliveryDate && (
+                          <p className="order-detail-text">
+                            Đơn hàng sẽ được giao trước ngày:{" "}
+                            <b>{moment(order.estimatedDeliveryDate).format("DD/MM/yyyy")}</b>
+                          </p>
+                        )}
+                      </>
                     ) : (
                       <div className="status__order-user border border-danger fw-bold text-center text-danger">
                         Đang chờ xác nhận
@@ -239,7 +247,7 @@ const OrderScreen = ({ match }) => {
                   </tbody>
                 </table>
                 {order.confirmed ? (
-                  <button className="btn fs-primary btn-primary">Đã nhận hàng</button>
+                  <button className="btn fs-primary btn-primary">Liên hệ cửa hàng</button>
                 ) : !order.cancelled ? (
                   <>
                     {loadingCancel && <Loading />}

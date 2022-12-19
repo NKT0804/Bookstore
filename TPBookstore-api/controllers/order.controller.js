@@ -204,6 +204,8 @@ const confirmDelivered = async (req, res) => {
     }
     order.delivered = true;
     order.deliveredAt = Date.now();
+    order.isPaid = true;
+    order.paidAt = Date.now();
     const updateOrder = await order.save();
     res.status(200);
     res.json(updateOrder);
