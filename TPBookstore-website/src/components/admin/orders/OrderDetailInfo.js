@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import formatCash from "../../../utils/formatCash";
 import { listUser } from "../../../Redux/Actions/userActions";
 import { selectShipper } from "../../../Redux/Actions/orderActions";
+import { Link } from "react-router-dom";
 import moment from "moment";
 
 const OrderDetailInfo = (props) => {
@@ -158,15 +159,20 @@ const OrderDetailInfo = (props) => {
                 <>
                   <p>{order.shipper.name} </p>
                   <p>{order.shipper.phone}</p>
-                  <p>Ngày giao hàng dự kiến: {moment(order.estimatedDeliveryDate).format("DD/MM/yyyy")}</p>
-                  <button
-                    data-toggle="modal"
-                    data-target="#exampleModal"
-                    type="button"
-                    className="btn btn-primary col-12 btn-size"
-                  >
-                    Thay đổi
-                  </button>
+                  {order.delivered ? (
+                    <></>
+                  ) : (
+                    <>
+                      <p>Ngày giao hàng dự kiến: {moment(order.estimatedDeliveryDate).format("DD/MM/yyyy")}</p>
+
+                      <Link
+                        className="col-12 d-flex justify-content-center"
+                        style={{ color: "#4AC4FA", textDecoration: "underline", fontSize: "17px" }}
+                      >
+                        Thay đổi
+                      </Link>
+                    </>
+                  )}
                 </>
               ) : (
                 <>
