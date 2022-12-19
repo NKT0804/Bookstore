@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import formatCash from "../../../utils/formatCash";
 import { listUser } from "../../../Redux/Actions/userActions";
 import { selectShipper } from "../../../Redux/Actions/orderActions";
-import { Link } from "react-router-dom";
 import moment from "moment";
+import isEmpty from "validator/lib/isEmpty";
 
 const OrderDetailInfo = (props) => {
   const { order } = props;
@@ -13,6 +13,8 @@ const OrderDetailInfo = (props) => {
   const { loading: loadingShipper, error: errorShipper, users, page, pages, total } = shipperList;
   const [shipper, setShipper] = useState("");
   const [estimatedDeliveryDate, setEstimatedDeliveryDate] = useState("");
+  const [validate, setValidate] = useState({});
+
   useEffect(() => {
     dispatch(listUser("", "shipper"));
   }, [dispatch]);
@@ -25,7 +27,26 @@ const OrderDetailInfo = (props) => {
     }
   }, [order]);
 
+  const isEmptyCheckShipper = () => {
+    const msg = {};
+    if (isEmpty(shipper)) {
+      msg.shipper = "Vui lòng chọn nhân viên giao hàng";
+    }
+    if (isEmpty(estimatedDeliveryDate)) {
+      msg.estimatedDeliveryDate = "Vui lòng chọn ngày giao hàng";
+    }
+    setValidate(msg);
+
+    if (Object.keys(msg).length > 0) return false;
+    return true;
+  };
+
+  const buttonConfirmShipper = document.getElementById("confirm-shipper");
+
   const confirmHandle = () => {
+    const isEmptyValidate = isEmptyCheckShipper();
+    if (!isEmptyValidate) return;
+    buttonConfirmShipper.setAttribute("data-dismiss", "modal");
     dispatch(selectShipper(order._id, shipper, estimatedDeliveryDate));
   };
   return (
@@ -69,6 +90,7 @@ const OrderDetailInfo = (props) => {
                       </>
                     ))}
                   </select>
+                  <p className="msg__validate">{validate.shipper}</p>
                 </div>
                 <div className="form-group mb-3">
                   <label for="deliver-time" className="col-form-label" style={{ minWidth: "200px" }}>
@@ -76,12 +98,20 @@ const OrderDetailInfo = (props) => {
                   </label>
                   <input
                     id="deliver-time"
-                    classNameName="input__birthday"
+                    classNameName=""
                     type="date"
                     name="deliver-time"
                     value={estimatedDeliveryDate}
                     onChange={(e) => setEstimatedDeliveryDate(e.target.value)}
+                    onClick={() => {
+                      setValidate((values) => {
+                        const x = { ...values };
+                        x.estimatedDeliveryDate = "";
+                        return x;
+                      });
+                    }}
                   ></input>
+                  <p className="msg__validate">{validate.estimatedDeliveryDate}</p>
                 </div>
               </form>
             </div>
@@ -89,7 +119,13 @@ const OrderDetailInfo = (props) => {
               <button type="button" className="btn btn-secondary" data-dismiss="modal">
                 Đóng
               </button>
-              <button type="submit" className="btn btn-primary" data-dismiss="modal" onClick={() => confirmHandle()}>
+              <button
+                id="confirm-shipper"
+                type="submit"
+                className="btn btn-primary"
+                // data-dismiss="modal"
+                onClick={() => confirmHandle()}
+              >
                 Xác nhận
               </button>
             </div>
@@ -159,19 +195,18 @@ const OrderDetailInfo = (props) => {
                 <>
                   <p>{order.shipper.name} </p>
                   <p>{order.shipper.phone}</p>
-                  {order.delivered ? (
+                  <p>Ngày giao hàng dự kiến: {moment(order.estimatedDeliveryDate).format("DD/MM/yyyy")}</p>
+                  {order.cancelled || order.delivered ? (
                     <></>
                   ) : (
-                    <>
-                      <p>Ngày giao hàng dự kiến: {moment(order.estimatedDeliveryDate).format("DD/MM/yyyy")}</p>
-
-                      <Link
-                        className="col-12 d-flex justify-content-center"
-                        style={{ color: "#4AC4FA", textDecoration: "underline", fontSize: "17px" }}
-                      >
-                        Thay đổi
-                      </Link>
-                    </>
+                    <button
+                      data-toggle="modal"
+                      data-target="#exampleModal"
+                      type="button"
+                      className="btn btn-primary col-12 btn-size"
+                    >
+                      Thay đổi
+                    </button>
                   )}
                 </>
               ) : (

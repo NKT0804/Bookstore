@@ -2477,3 +2477,13 @@ a.popu-cate__item {
   margin-left: 32px;
 }
 
+/* list order shipper*/
+.list__order-shipper {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 8px;
+  font-size: 20px;
+  background-color: var(--white-color);
+  padding : 12px 0;
+}
+

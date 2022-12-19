@@ -20,14 +20,16 @@ const ShipperOrderListMain = () => {
         <div className="">
           <h3 className="fw-bold my-3 text-center">ĐƠN HÀNG ĐƯỢC GIAO CHO BẠN</h3>
         </div>
-        <div>
-          <p>Tổng đơn hàng:&nbsp;{orders?.length}</p>
-        </div>
-        <div>
-          <p>Số đơn hàng chưa giao:&nbsp;{totalOrdersNotDelivered}</p>
-        </div>
-        <div>
-          <p>Số đơn hàng đã giao thành công:&nbsp;{totalOrdersDelivered}</p>
+        <div className="list__order-shipper">
+          <p>
+            <b>Tổng đơn hàng:</b>&nbsp;{orders?.length}
+          </p>
+          <p>
+            <b>Số đơn hàng chưa giao:</b>&nbsp;{totalOrdersNotDelivered}
+          </p>
+          <p>
+            <b>Số đơn hàng đã giao thành công:</b>&nbsp;{totalOrdersDelivered}
+          </p>
         </div>
         <div className="card">
           <table className="table">
