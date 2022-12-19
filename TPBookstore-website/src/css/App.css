@@ -2463,7 +2463,6 @@ a.popu-cate__item {
 /* Shipper */
 .shipper__order-header .col-search {
   display: none !important;
-
 }
 
 .shipper__order-header {
@@ -2477,6 +2476,8 @@ a.popu-cate__item {
   margin-left: 32px;
 }
 
+
+
 /* list order shipper*/
 .list__order-shipper {
   display: flex;
@@ -2486,4 +2487,10 @@ a.popu-cate__item {
   background-color: var(--white-color);
   padding : 12px 0;
 }
+
+.list__order-shipper-mobile {
+  display: none;
+}
+
+
 

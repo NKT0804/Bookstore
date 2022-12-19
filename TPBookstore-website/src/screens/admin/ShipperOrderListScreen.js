@@ -8,7 +8,7 @@ const ShipperOrderListScreen = () => {
     <>
       <div className="shipper__order">
         <div className="shipper__order-header">
-          <Link className="navbar-brand" to="/">
+          <Link className="navbar-brand">
             <img className="img__logo" alt="logo" src="/images/logo.png" />
           </Link>
           <Header />
