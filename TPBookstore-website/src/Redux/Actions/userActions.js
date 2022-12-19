@@ -373,7 +373,6 @@ export const listUser =
           Authorization: `Bearer ${userInfo.token}`
         }
       };
-
       const { data } = await axios.get(
         `/api/v1/user?&keyword=${keyword}&role=${role}&status=${status}&limit=${limit}&page=${pageNumber}`,
         config

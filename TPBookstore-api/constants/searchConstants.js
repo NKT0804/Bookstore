@@ -45,8 +45,11 @@ const orderQueryParams = {
 
 const userQueryParams = {
     role: {
-        staff: { role: { $in: ["manager", "staff", "shipper"] } },
+        all_staff: { role: { $in: ["admin", "staff", "shipper"] } },
+        staff: { role: "staff" },
         shipper: { role: "shipper" },
+        admin: { role: "admin" },
+        customer: { role: "customer" },
         default: { role: "customer" }
     },
     status: {

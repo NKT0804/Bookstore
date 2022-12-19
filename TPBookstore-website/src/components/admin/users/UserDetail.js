@@ -4,7 +4,7 @@ import { adminGetUserDetails } from "../../../Redux/Actions/userActions";
 import Loading from "../../base/LoadingError/Loading";
 import Message from "../../base/LoadingError/Error";
 
-const UserDetails = (props) => {
+const UserDetail = (props) => {
   const { userId } = props;
   const dispatch = useDispatch();
 
@@ -146,4 +146,4 @@ const UserDetails = (props) => {
     </>
   );
 };
-export default UserDetails;
+export default UserDetail;

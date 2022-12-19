@@ -16,8 +16,7 @@ const ManageAgent = (props) => {
 
   const [status, setStatus] = useState("");
   const [limit, setLimit] = useState(8);
-  // thêm tại đây
-  const [position, setPosition] = useState("");
+  const [role, setRole] = useState("all_staff");
   //
   const [searchKeyword, setSearchKeyword] = useState(keyword);
 
@@ -26,8 +25,8 @@ const ManageAgent = (props) => {
     e.currentTarget.src = `${window.location.origin}/images/avatar/default.png`;
   };
   useEffect(() => {
-    dispatch(listUser(keyword, status, limit, pageNumber));
-  }, [dispatch, keyword, status, limit, pageNumber]);
+    dispatch(listUser(keyword, role, status, limit, pageNumber));
+  }, [dispatch, keyword, role, status, limit, pageNumber]);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -119,12 +118,11 @@ const ManageAgent = (props) => {
                 />
               </form>
               <div className="col-lg-2 col-6 mx-2 col-md-3">
-                <select className="form-select" value={position} onChange={(e) => setPosition(e.target.value)}>
-                  <option value={""}>Tất cả</option>
+                <select className="form-select" value={role} onChange={(e) => setRole(e.target.value)}>
+                  <option value={"all_staff"}>Tất cả</option>
                   <option value={"staff"}>Nhân viên</option>
-                  <option value={"customer"}>Khách hàng</option>
                   <option value={"shipper"}>Nhân viên giao hàng</option>
-                  <option value={"admin"}>Admin</option>
+                  <option value={"admin"}>Quản lý</option>
                 </select>
               </div>
               <div className="col-lg-2 col-6 mx-2 col-md-3">
@@ -173,7 +171,7 @@ const ManageAgent = (props) => {
                         <tr key={user._id}>
                           <td className={user.isDisabled ? `status-disabled` : ``}>
                             <td>
-                              <Link to={`/admin/user/${user._id}/edit`}>{user._id}</Link>
+                              <Link to={`/admin/user/${user._id}`}>{user._id}</Link>
                             </td>
                           </td>
                           <td className={user.isDisabled ? `status-disabled` : ``}>
