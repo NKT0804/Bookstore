@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Message from "../../base/LoadingError/Error";
 import Loading from "../../base/LoadingError/Loading";
 import { useFormik } from "formik";
@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { adminAddStaffAction } from "././../../../Redux/Actions/userActions";
 import { toast } from "react-toastify";
 import Toast from "../../base/LoadingError/Toast";
+
 const ToastObjects = {
   pauseOnFocusLoss: false,
   draggable: false,
@@ -19,6 +20,9 @@ const CreateUser = () => {
 
   const dispatch = useDispatch();
 
+  const [checkSuccess, setCheckSuccess] = useState("false");
+
+  // lấy dữ liệu từ radio button để xác nhân vai trò
   const getRoleValue = () => {
     var radioSex = document.getElementsByName("user-role");
     for (var i = 0; i < radioSex.length; i++) {
@@ -27,12 +31,18 @@ const CreateUser = () => {
       }
     }
   };
-
   useEffect(() => {
-    if (success) {
-      toast.success("Thêm nhân viên thành công!", ToastObjects);
+    if (checkSuccess === "true") {
+      toast.success("Thêm nhân viên thành công, vui lòng kiểm tra email và xác thực tài khoản!", ToastObjects);
+      setCheckSuccess("false");
     }
-  }, [dispatch, success]);
+  }, [dispatch, checkSuccess]);
+  // useEffect(() => {
+  //   if (success) {
+  //     toast.success("Thêm nhân viên thành công, vui lòng kiểm tra email và xác thực tài khoản!", ToastObjects);
+  //   }
+  // }, [dispatch, success]);
+
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -68,8 +78,17 @@ const CreateUser = () => {
     onSubmit: (value) => {
       value.role = getRoleValue();
       dispatch(adminAddStaffAction(value.name, value.email, value.phone, value.role, value.password));
+      handleResetData(value);
+      setCheckSuccess("true");
     }
   });
+  const handleResetData = (v) => {
+    v.name = "";
+    v.email = "";
+    v.phone = "";
+    v.password = "";
+    v.confirmedPassword = "";
+  };
   return (
     <>
       <Toast />

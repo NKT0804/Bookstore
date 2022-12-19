@@ -67,7 +67,7 @@ const TopTotal = (props) => {
             </Link>
             <Link to={"/admin/users"}>
               <div className="text">
-                <h6 className="mb-1">Tổng tài khoản</h6>
+                <h6 className="mb-1">Tổng Khách hàng</h6>
                 <span>{totalUser ?? 0}</span>
               </div>
             </Link>

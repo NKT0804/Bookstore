@@ -77,8 +77,8 @@ const Orders = (props) => {
             <th scope="col">Mã đơn hàng</th>
             <th scope="col">Tên khách hàng</th>
             <th scope="col">Tổng tiền</th>
-            <th scope="col">Trạng thái thanh toán</th>
             <th scope="col">Ngày đặt</th>
+            <th scope="col">Nhân viên giao hàng</th>
             <th scope="col">Trạng thái</th>
             <th scope="col" className="text-end">
               Thao tác
@@ -105,7 +105,7 @@ const Orders = (props) => {
                     <b>{order.receiver}</b>
                   </td> */}
                   <td className={order.isDisabled ? `status-disabled` : ``}>{formatCash(order.totalPrice)}</td>
-                  <td className={order.isDisabled ? `status-disabled` : ``}>
+                  {/* <td className={order.isDisabled ? `status-disabled` : ``}>
                     {order.isPaid ? (
                       <span className="badge3 rounded-pill alert-success fw-bold">
                         Thanh toán lúc {moment(order.paidAt).format("DD/MM/yyyy")}
@@ -113,10 +113,21 @@ const Orders = (props) => {
                     ) : (
                       <span className="badge3 rounded-pill alert-danger fw-bold">Chưa thanh toán</span>
                     )}
-                  </td>
+                  </td> */}
 
                   <td className={order.isDisabled ? `status-disabled` : ``}>
                     {moment(order.createdAt).format("DD/MM/yyyy")}
+                  </td>
+                  <td className={order.isDisabled ? `status-disabled` : ``}>
+                    {order.shipper ? (
+                      <b>
+                        {order.shipper?.name?.length >= 15
+                          ? `${order.shipper?.name.slice(0, 15)}...`
+                          : `${order.shipper?.name}`}
+                      </b>
+                    ) : (
+                      <>-----</>
+                    )}
                   </td>
                   <td className={order.isDisabled ? `status-disabled` : ``}>
                     {order.cancelled ? (
@@ -136,41 +147,41 @@ const Orders = (props) => {
                       </div>
                       <div className="dropdown-menu action__order">
                         {order.isDisabled ? (
-                          <Link className="dropdown-item">
-                            <i
-                              class="fas fa-eye-slash"
-                              data-toggle="modal"
-                              data-target="#exampleModalCenter"
-                              onClick={() => {
-                                typeModal("showOrder");
-                                setOrderIdSelected(order._id);
-                              }}
-                            ></i>
-                          </Link>
-                        ) : (
-                          <Link className="text-success dropdown-item">
-                            <i
-                              className="fas fa-eye"
-                              data-toggle="modal"
-                              data-target="#exampleModalCenter"
-                              onClick={() => {
-                                typeModal("hiddenOrder");
-                                setOrderIdSelected(order._id);
-                              }}
-                            ></i>
-                          </Link>
-                        )}
-
-                        <Link className="dropdown-item">
-                          <i
-                            class="text-danger fas fa-trash-alt"
+                          <Link
+                            className="dropdown-item"
                             data-toggle="modal"
                             data-target="#exampleModalCenter"
                             onClick={() => {
-                              typeModal("deleteOrder");
+                              typeModal("showOrder");
                               setOrderIdSelected(order._id);
                             }}
-                          ></i>
+                          >
+                            <i class="fas fa-eye-slash"></i>
+                          </Link>
+                        ) : (
+                          <Link
+                            className="text-success dropdown-item"
+                            data-toggle="modal"
+                            data-target="#exampleModalCenter"
+                            onClick={() => {
+                              typeModal("hiddenOrder");
+                              setOrderIdSelected(order._id);
+                            }}
+                          >
+                            <i className="fas fa-eye"></i>
+                          </Link>
+                        )}
+
+                        <Link
+                          className="dropdown-item"
+                          data-toggle="modal"
+                          data-target="#exampleModalCenter"
+                          onClick={() => {
+                            typeModal("deleteOrder");
+                            setOrderIdSelected(order._id);
+                          }}
+                        >
+                          <i class="text-danger fas fa-trash-alt"></i>
                         </Link>
                       </div>
                     </div>

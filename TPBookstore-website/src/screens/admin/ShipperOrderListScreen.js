@@ -1,9 +1,9 @@
 import React from "react";
 import Header from "../../components/admin/Header";
 import { Link } from "react-router-dom";
-import ManageShipperMain from "../../components/admin/orders/ManageShipperMain";
+import ShipperOrderListMain from "../../components/admin/shipper/ShipperOrderListMain";
 
-const ManageShipper = () => {
+const ShipperOrderListScreen = () => {
   return (
     <>
       <div className="shipper__order">
@@ -13,10 +13,10 @@ const ManageShipper = () => {
           </Link>
           <Header />
         </div>
-        <ManageShipperMain />
+        <ShipperOrderListMain />
       </div>
     </>
   );
 };
 
-export default ManageShipper;
+export default ShipperOrderListScreen;

@@ -51,7 +51,6 @@ const login = async (req, res) => {
             sex: user.sex,
             birthday: user.birthday,
             address: user.address,
-            isAdmin: user.isAdmin,
             role: user.role || "customer",
             token: generateToken(user._id, process.env.ACCESS_TOKEN_SECRET, process.env.ACCESS_TOKEN_EXPIRESIN),
             refreshToken: newRefreshToken.tokenValue,
@@ -177,7 +176,6 @@ const verifyEmail = async (req, res) => {
         sex: user.sex,
         birthday: user.birthday,
         address: user.address,
-        isAdmin: user.isAdmin,
         role: user.role || "customer",
         token: generateToken(user._id, process.env.ACCESS_TOKEN_SECRET, process.env.ACCESS_TOKEN_EXPIRESIN),
         refreshToken: newRefreshToken.tokenValue,
@@ -197,7 +195,6 @@ const getProfile = async (req, res) => {
         birthday: req.user.birthday,
         address: req.user.address,
         avatarUrl: req.user.avatarUrl || "./images/avatar/default.png",
-        isAdmin: req.user.isAdmin,
         role: req.user.role || "customer",
         createAt: req.user.createAt,
         isDisabled: req.user.isDisabled
@@ -235,7 +232,6 @@ const updateProfile = async (req, res) => {
         birthday: updatedUser.birthday,
         address: updatedUser.address,
         avatarUrl: updatedUser.avatarUrl || "./images/avatar/default.png",
-        isAdmin: updatedUser.isAdmin,
         role: user.role || "customer",
         createAt: updatedUser.createAt,
         isDisabled: updatedUser.isDisabled,
@@ -395,7 +391,7 @@ const uploadAvatar = async (req, res) => {
         _id: req.user._id,
         isDisabled: false
     });
-    if (user.isAdmin && mongoose.isValidObjectId(req.params.id)) {
+    if (user.role === "admin" && mongoose.isValidObjectId(req.params.id)) {
         user = await User.findById(req.params.id);
     }
     if (!user) {
@@ -420,7 +416,7 @@ const uploadAvatar = async (req, res) => {
         birthday: updateUser.birthday,
         address: updateUser.address,
         avatarUrl: updateUser.avatarUrl,
-        isAdmin: updateUser.isAdmin,
+        role: updateUser.role,
         token: generateToken(updateUser._id, process.env.ACCESS_TOKEN_SECRET, process.env.ACCESS_TOKEN_EXPIRESIN),
         isDisabled: updateUser.isDisabled,
         createAt: updateUser.createAt

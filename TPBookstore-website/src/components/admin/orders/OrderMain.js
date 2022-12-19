@@ -43,27 +43,30 @@ const OrderMain = (props) => {
   useEffect(() => {
     if (successDelOrder) {
       toast.success("Xóa đơn hàng thành công!", ToastObjects);
+      dispatch({ type: ORDER_DELETE_RESET });
     }
-    // if (errorDelOrder) {
-    //   toast.error(errorDelOrder, ToastObjects);
-    // }
-    dispatch({ type: ORDER_DELETE_RESET });
+    if (errorDelOrder) {
+      toast.error(errorDelOrder, ToastObjects);
+      dispatch({ type: ORDER_DELETE_RESET });
+    }
 
     if (successHiddenOrder) {
       toast.success("Ẩn đơn hàng thành công!", ToastObjects);
+      dispatch({ type: ORDER_HIDDEN_RESET });
     }
-    dispatch({ type: ORDER_HIDDEN_RESET });
-    // if (errorHiddenOrder) {
-    //   toast.error(errorHiddenOrder, ToastObjects);
-    // }
+    if (errorHiddenOrder) {
+      toast.error(errorHiddenOrder, ToastObjects);
+      dispatch({ type: ORDER_HIDDEN_RESET });
+    }
 
     if (successShowOrder) {
       toast.success("Bỏ ẩn đơn hàng thành công!", ToastObjects);
+      dispatch({ type: ORDER_SHOW_RESET });
     }
-    dispatch({ type: ORDER_SHOW_RESET });
-    // if (errorShowOrder) {
-    //   toast.error(errorShowOrder, ToastObjects);
-    // }
+    if (errorShowOrder) {
+      toast.error(errorShowOrder, ToastObjects);
+      dispatch({ type: ORDER_SHOW_RESET });
+    }
   }, [
     dispatch,
     successDelOrder,

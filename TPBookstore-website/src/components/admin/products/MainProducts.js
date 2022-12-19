@@ -55,14 +55,24 @@ const MainProducts = React.memo((props) => {
       toast.success("Xóa sản phẩm thành công!", ToastObjects);
       dispatch({ type: PRODUCT_DELETE_RESET });
     }
-
+    if (errorDelete) {
+      toast.error(errorDelete, ToastObjects);
+      dispatch({ type: PRODUCT_DELETE_RESET });
+    }
     if (successHidden) {
       toast.success("Ẩn sản phẩm thành công", ToastObjects);
       dispatch({ type: PRODUCT_HIDDEN_RESET });
     }
-
+    if (errorHidden) {
+      toast.error(errorHidden, ToastObjects);
+      dispatch({ type: PRODUCT_HIDDEN_RESET });
+    }
     if (successShow) {
       toast.success("Bỏ ẩn sản phẩm thành công", ToastObjects);
+      dispatch({ type: PRODUCT_SHOW_RESET });
+    }
+    if (errorShow) {
+      toast.error(errorShow, ToastObjects);
       dispatch({ type: PRODUCT_SHOW_RESET });
     }
   }, [
@@ -70,6 +80,7 @@ const MainProducts = React.memo((props) => {
     keyword,
     pageNumber,
     successDelete,
+    errorDelete,
     successHidden,
     errorHidden,
     successShow,
@@ -123,7 +134,7 @@ const MainProducts = React.memo((props) => {
               <select className="form-select" value={status} onChange={(e) => setStatus(e.target.value)}>
                 <option value={"all"}>Tất cả trạng thái</option>
                 <option value={"disabled"}>Đang bị ẩn</option>
-                <option value={"notDisabled"}>Chưa bị ẩn</option>
+                <option value={"not_disabled"}>Chưa bị ẩn</option>
               </select>
             </div>
             <div className="col-lg-2 col-6 col-md-3">
@@ -138,7 +149,6 @@ const MainProducts = React.memo((props) => {
         </header>
 
         <div className="card-body">
-          <>{errorDelete && <Message variant="alert-danger">{errorDelete}</Message>}</>
           {loading ? (
             <Loading />
           ) : error ? (

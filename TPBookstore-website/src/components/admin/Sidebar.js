@@ -57,7 +57,7 @@ const Sidebar = () => {
             <li className="menu-item">
               <NavLink activeClassName="active" className="menu-link" to="/admin/users">
                 <i className="icon fas fa-user"></i>
-                <span className="text">Tài khoản</span>
+                <span className="text">Khách hàng</span>
               </NavLink>
             </li>
             <li className="menu-item">

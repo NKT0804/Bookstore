@@ -5,7 +5,7 @@ import { listOrdersByShipper } from "../../../Redux/Actions/orderActions";
 import formatCash from "../../../utils/formatCash";
 import moment from "moment";
 
-const ManageShipperMain = () => {
+const ShipperOrderListMain = () => {
   const dispatch = useDispatch();
   const orderListOfShipper = useSelector((state) => state.orderListOfShipper);
   const { loading, error, orders, page, pages, total } = orderListOfShipper;
@@ -39,7 +39,7 @@ const ManageShipperMain = () => {
                   <>
                     <tr>
                       <td>
-                        <Link to="">{order._id}</Link>
+                        <Link to={`/shipper/order/${order._id}`}>{order._id}</Link>
                       </td>
                       <td className="fw-bold">{order.receiver}</td>
                       <td>{order.phone}</td>
@@ -67,4 +67,4 @@ const ManageShipperMain = () => {
   );
 };
 
-export default ManageShipperMain;
+export default ShipperOrderListMain;

@@ -1,6 +1,6 @@
 import express from "express";
 import expressAsyncHandler from "express-async-handler";
-import { admin, protect } from "./../middleware/AuthMiddleware.js";
+import { admin, shipper, protect } from "./../middleware/AuthMiddleware.js";
 import OrderController from "../controllers/order.controller.js";
 
 const orderRouter = express.Router();
@@ -19,6 +19,6 @@ orderRouter.patch("/:id/received", protect, expressAsyncHandler(OrderController.
 orderRouter.patch("/:id/payment", protect, admin, expressAsyncHandler(OrderController.orderPayment));
 orderRouter.patch("/:id/disable", protect, admin, expressAsyncHandler(OrderController.disableOrder));
 orderRouter.patch("/:id/restore", protect, admin, expressAsyncHandler(OrderController.restoreOrder));
-orderRouter.get("/shipper/listOrder", protect, expressAsyncHandler(OrderController.getOrderShipper));
+orderRouter.get("/shipper/listOrder", protect, shipper, expressAsyncHandler(OrderController.getOrderShipper));
 
 export default orderRouter;

@@ -249,7 +249,7 @@ const ProductComment = (props) => {
                             <i className="fas fa-ellipsis-h text-primary"></i>
                           </Link>
                           <div className="dropdown-menu">
-                            {(userInfo?.isAdmin === true || userInfo?._id === item.user._id) && (
+                            {(userInfo?.role === "admin" ||userInfo?.role === "staff" || userInfo?._id === item.user._id) && (
                               <>
                                 <Link
                                   to="#"
@@ -349,7 +349,9 @@ const ProductComment = (props) => {
                                   <i className="fas fa-ellipsis-h text-primary"></i>
                                 </Link>
                                 <div className="dropdown-menu">
-                                  {(userInfo?.isAdmin === true || userInfo?._id === reply.user._id) && (
+                                  {(userInfo?.role === "admin" ||
+                                    userInfo?.role === "staff" ||
+                                    userInfo?._id === reply.user._id) && (
                                     <>
                                       <Link
                                         to="#"

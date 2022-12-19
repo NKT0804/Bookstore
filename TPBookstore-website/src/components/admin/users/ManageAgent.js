@@ -15,7 +15,7 @@ const ManageAgent = (props) => {
   const { loading, error, users, page, pages, total } = userList;
 
   const [status, setStatus] = useState("");
-  const [limit, setLimit] = useState(8);
+  const [limit, setLimit] = useState(10);
   const [role, setRole] = useState("all_staff");
   //
   const [searchKeyword, setSearchKeyword] = useState(keyword);
@@ -119,23 +119,23 @@ const ManageAgent = (props) => {
               </form>
               <div className="col-lg-2 col-6 mx-2 col-md-3">
                 <select className="form-select" value={role} onChange={(e) => setRole(e.target.value)}>
-                  <option value={"all_staff"}>Tất cả</option>
-                  <option value={"staff"}>Nhân viên</option>
+                  <option value={"all_staff"}>Tất cả nhân viên</option>
+                  <option value={"staff"}>Nhân viên bán hàng</option>
                   <option value={"shipper"}>Nhân viên giao hàng</option>
                   <option value={"admin"}>Quản lý</option>
                 </select>
               </div>
               <div className="col-lg-2 col-6 mx-2 col-md-3">
                 <select className="form-select" value={limit} onChange={(e) => setLimit(e.target.value)}>
-                  <option value={"8"}>10 tài khoản</option>
-                  <option value={"12"}>20 tài khoản</option>
-                  <option value={"16"}>30 tài khoản</option>
-                  <option value={"20"}>40 tài khoản</option>
+                  <option value={"10"}>10 tài khoản</option>
+                  <option value={"20"}>20 tài khoản</option>
+                  <option value={"30"}>30 tài khoản</option>
+                  <option value={"40"}>40 tài khoản</option>
                 </select>
               </div>
               <div className="col-lg-2 col-6 col-md-3">
                 <select className="form-select" value={status} onChange={(e) => setStatus(e.target.value)}>
-                  <option value={""}>Tất cả</option>
+                  <option value={""}>Tất cả trạng thái</option>
                   <option value={"is_active"}>Đang hoạt động</option>
                   <option value={"locked"}>Đang bị khóa</option>
                 </select>
@@ -183,7 +183,7 @@ const ManageAgent = (props) => {
                           <td className={user.isDisabled ? `status-disabled` : ``}>{user.phone}</td>
                           <td className={user.isDisabled ? `status-disabled` : ``}>
                             {user.role === "staff"
-                              ? `Nhân viên`
+                              ? `Nhân viên bán hàng`
                               : user.role === "shipper"
                               ? `Nhân viên giao hàng`
                               : user.role === "customer"

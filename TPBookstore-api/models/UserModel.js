@@ -27,11 +27,6 @@ const userSchema = mongoose.Schema(
             type: String,
             default: "./images/avatar/default.png"
         },
-        isAdmin: {
-            type: Boolean,
-            required: true,
-            default: false
-        },
         role: {
             type: String,
             required: true,

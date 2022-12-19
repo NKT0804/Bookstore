@@ -90,7 +90,7 @@ const getOrderAdmin = async (req, res) => {
         .limit(limit)
         .skip(limit * (page - 1))
         .sort({ createdAt: "desc" })
-        .populate("user", "-password");
+        .populate("user shipper", "-password");
     res.status(200);
     res.json({ orders, page, pages, total: count });
 };

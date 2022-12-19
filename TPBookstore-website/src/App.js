@@ -31,9 +31,9 @@ import OrderScreenAdmin from "./screens/admin/OrderScreen";
 import OrderDetailScreenAdmin from "./screens/admin/OrderDetailScreen";
 import AddProductAdmin from "./screens/admin/AddProduct";
 // shipper
-import ManageShipperScreen from "./screens/admin/ManageShipperScreen";
-import ManageAgentScreen from "./screens/admin/ManageAgentScreen";
-import OrderDetailShipperScreen from "./screens/admin/OrderDetailShipperScreen";
+import ShipperOrderListScreen from "./screens/admin/ShipperOrderListScreen";
+import ShipperOrderDetailsScreen from "./screens/admin/ShipperOrderDetailsScreen";
+import ManageStaffScreen from "./screens/admin/ManageStaffScreen";
 import CreateUserScreen from "./screens/admin/CreateUserScreen";
 import UsersScreenAdmin from "./screens/admin/UsersScreen";
 import UserDetailsScreenAdmin from "./screens/admin/UserDetailsScreen";
@@ -87,12 +87,12 @@ const App = () => {
         <PrivateRouter path="/order/:id" component={OrderScreen} exact />
 
         {/* Shipper */}
-        <ShipperPrivateRouter path="/shipper/order/:id" component={OrderDetailShipperScreen} exact />
-        <ShipperPrivateRouter path="/shipper/orders" component={ManageShipperScreen} exact />
+        <ShipperPrivateRouter path="/shipper/order/:id" component={ShipperOrderDetailsScreen} exact />
+        <ShipperPrivateRouter path="/shipper/orders" component={ShipperOrderListScreen} exact />
 
         {/* ADMIN */}
         <AdminPrivateRouter path="/admin" component={HomeScreenAdmin} exact />
-        <AdminPrivateRouter path="/admin/staff" component={ManageAgentScreen} exact />
+        <AdminPrivateRouter path="/admin/staff" component={ManageStaffScreen} exact />
         <AdminPrivateRouter path="/admin/products" component={ProductScreenAdmin} exact />
         {/* <AdminPrivateRouter path="/admin/search/:keyword" component={ProductScreenAdmin} exact /> */}
         <AdminPrivateRouter path="/admin/product/:id/edit" component={ProductEditScreenAdmin} exact />

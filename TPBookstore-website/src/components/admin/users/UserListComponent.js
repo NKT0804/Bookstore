@@ -36,13 +36,13 @@ const UserListComponent = (props) => {
   return (
     <section className="content-main">
       <div className="content-header">
-        <h2 className="content-title">Tài khoản</h2>
+        <h2 className="content-title">Khách hàng</h2>
       </div>
 
       <div className="card mb-4">
         <header className="card-header" style={{ backgroundColor: "#fff" }}>
           <h5 className="title__top" style={{ top: "-48px" }}>
-            Tổng tài khoản:&nbsp;{total}
+            Tổng khách hàng:&nbsp;{total}
           </h5>
           <div className="row gx-3">
             <form onSubmit={submitHandler} className="col-lg-4 col-md-6 me-auto ">
@@ -98,7 +98,7 @@ const UserListComponent = (props) => {
                             {`${user.name.length} >= 15` ? `${user.name.slice(0, 15)}...` : `${user.name}`}
                           </h5>
                           <div className="card-text text-muted">
-                            {user.isAdmin === true ? <p className="m-0">Admin</p> : <p className="m-0">Customer</p>}
+                            {user.role === "admin" ? <p className="m-0">Admin</p> : <p className="m-0">Customer</p>}
 
                             <p>
                               <a href={`mailto:${user.email}`} title={user.email}>
