@@ -171,7 +171,7 @@ const ManageAgent = (props) => {
                         <tr key={user._id}>
                           <td className={user.isDisabled ? `status-disabled` : ``}>
                             <td>
-                              <Link to={`/admin/user/${user._id}`}>{user._id}</Link>
+                              <Link to={`/admin/staff/${user._id}`}>{user._id}</Link>
                             </td>
                           </td>
                           <td className={user.isDisabled ? `status-disabled` : ``}>

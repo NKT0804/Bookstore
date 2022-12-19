@@ -53,17 +53,17 @@ const OrderMain = (props) => {
       toast.success("Ẩn đơn hàng thành công!", ToastObjects);
     }
     dispatch({ type: ORDER_HIDDEN_RESET });
-    // if (errorHiddenOrder) {
-    //   toast.error(errorHiddenOrder, ToastObjects);
-    // }
+    if (errorHiddenOrder) {
+      toast.error(errorHiddenOrder, ToastObjects);
+    }
 
     if (successShowOrder) {
       toast.success("Bỏ ẩn đơn hàng thành công!", ToastObjects);
     }
     dispatch({ type: ORDER_SHOW_RESET });
-    // if (errorShowOrder) {
-    //   toast.error(errorShowOrder, ToastObjects);
-    // }
+    if (errorShowOrder) {
+      toast.error(errorShowOrder, ToastObjects);
+    }
   }, [
     dispatch,
     successDelOrder,

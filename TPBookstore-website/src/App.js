@@ -33,6 +33,7 @@ import AddProductAdmin from "./screens/admin/AddProduct";
 // shipper
 import ManageShipperScreen from "./screens/admin/ManageShipperScreen";
 import ManageAgentScreen from "./screens/admin/ManageAgentScreen";
+import AgentDetailScreen from "./screens/admin/AgentDeatailScreen";
 import OrderDetailShipperScreen from "./screens/admin/OrderDetailShipperScreen";
 import CreateUserScreen from "./screens/admin/CreateUserScreen";
 import UsersScreenAdmin from "./screens/admin/UsersScreen";
@@ -92,6 +93,7 @@ const App = () => {
 
         {/* ADMIN */}
         <AdminPrivateRouter path="/admin" component={HomeScreenAdmin} exact />
+        <AdminPrivateRouter path="/admin/staff/:id" component={AgentDetailScreen} exact />
         <AdminPrivateRouter path="/admin/staff" component={ManageAgentScreen} exact />
         <AdminPrivateRouter path="/admin/products" component={ProductScreenAdmin} exact />
         {/* <AdminPrivateRouter path="/admin/search/:keyword" component={ProductScreenAdmin} exact /> */}
