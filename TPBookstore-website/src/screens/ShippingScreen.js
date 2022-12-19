@@ -122,7 +122,7 @@ const ShippingScreen = ({ history }) => {
             onChange={(e) => setName(e.target.value)}
           />
           <input
-            className="mb-4"
+            className="mb-3"
             type="text"
             id="phone"
             name="phone"
@@ -180,6 +180,7 @@ const ShippingScreen = ({ history }) => {
             placeholder="Địa chỉ cụ thể"
             value={specificAddress}
             onChange={(e) => setSpecificAddress(e.target.value)}
+            className="mt-2"
           />
           <div className="frame-error">
             {messageError.address && <Message variant="alert-danger">{messageError.address}</Message>}

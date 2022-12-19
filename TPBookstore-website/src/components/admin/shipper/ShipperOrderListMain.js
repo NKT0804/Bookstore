@@ -18,7 +18,7 @@ const ShipperOrderListMain = () => {
     <>
       <section className="content-main">
         <div className="">
-          <h3 className="fw-bold my-3 text-center">ĐƠN HÀNG ĐƯỢC GIAO CHO BẠN</h3>
+          <h3 className="list__order-shipper-title fw-bold my-3 text-center">ĐƠN HÀNG ĐƯỢC GIAO CHO BẠN</h3>
         </div>
         <div className="list__order-shipper">
           <p>
@@ -31,7 +31,8 @@ const ShipperOrderListMain = () => {
             <b>Số đơn hàng đã giao thành công:</b>&nbsp;{totalOrdersDelivered}
           </p>
         </div>
-        <div className="card">
+        {/* PC */}
+        <div className="card list__order-shipper-pc">
           <table className="table">
             <thead className="pc-header">
               <tr className="text-center">
@@ -63,7 +64,7 @@ const ShipperOrderListMain = () => {
                         {order.cancelled ? (
                           <span className="badge3 btn-danger">Đã hủy</span>
                         ) : order.delivered ? (
-                          <span className="badge3 btn-success">Đã giao</span>
+                          <span className="badge3 btn-success">Giao hàng thành công</span>
                         ) : (
                           <span className="badge3 btn-warning">Chưa giao</span>
                         )}
@@ -74,6 +75,53 @@ const ShipperOrderListMain = () => {
               )}
             </tbody>
           </table>
+        </div>
+
+        {/* Tablet and Mobile */}
+        <div className=" card list__order-shipper-mobile">
+          {!orders?.length > 0 ? (
+            <div>Không có đơn hàng nào được giao cho bạn</div>
+          ) : (
+            orders?.map((order, index) => (
+              <>
+                <div className=" row list__order-shipper-mobile-item p-2">
+                  <div className="col-md-8">
+                    <div>
+                      <Link to={`/shipper/order/${order._id}`}>
+                        <b>Mã hoá đơn: </b>&nbsp; {order._id}
+                      </Link>
+                    </div>
+                    <div className="">
+                      <b>Thông tin người nhận</b>
+                      <div>
+                        {order.receiver} &nbsp; | &nbsp; {order.phone}
+                      </div>
+                      <div>{order.shippingAddress}</div>
+                    </div>
+                  </div>
+                  <div className="col-md-4">
+                    <div>
+                      <b>Ngày giao: &nbsp;</b>
+                      {order.delivered ? <>{moment(order.deliveredAt).format("DD/MM/yyyy")}</> : "--/--/----"}
+                    </div>
+                    <div>
+                      <b>Tổng đơn hàng:</b> &nbsp;{formatCash(order.totalPrice)}{" "}
+                    </div>
+                    <div>
+                      <b>Trạng thái: </b>&nbsp;
+                      {order.cancelled ? (
+                        <span className="badge3 btn-danger">Đã hủy</span>
+                      ) : order.delivered ? (
+                        <span className="badge3 btn-success">Giao hàng thành công</span>
+                      ) : (
+                        <span className="badge3 btn-warning">Chưa giao</span>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </>
+            ))
+          )}
         </div>
       </section>
     </>

@@ -176,7 +176,10 @@ const OrderDetailInfo = (props) => {
                 ) : order.delivered ? (
                   <span className="badge3 btn-success">Đã giao</span>
                 ) : order.confirmed ? (
-                  <span className="badge3 btn-warning">Đang giao</span>
+                  <>
+                    <span className="badge3 btn-warning">Đang giao</span>
+                    <p>Ngày giao hàng dự kiến: {moment(order.estimatedDeliveryDate).format("DD/MM/yyyy")}</p>
+                  </>
                 ) : (
                   <span className="badge3 btn-primary">Đang chờ xác nhận</span>
                 )}
@@ -195,7 +198,6 @@ const OrderDetailInfo = (props) => {
                 <>
                   <p>{order.shipper.name} </p>
                   <p>{order.shipper.phone}</p>
-                  <p>Ngày giao hàng dự kiến: {moment(order.estimatedDeliveryDate).format("DD/MM/yyyy")}</p>
                   {order.cancelled || order.delivered ? (
                     <></>
                   ) : (
@@ -215,7 +217,12 @@ const OrderDetailInfo = (props) => {
                     data-toggle="modal"
                     data-target="#exampleModal"
                     type="button"
-                    className="btn btn-primary col-12 btn-size"
+                    className={
+                      order.confirmed
+                        ? `btn btn-primary col-12 btn-size`
+                        : `btn btn-primary col-12 btn-size status-disabled`
+                    }
+                    // "btn btn-primary col-12 btn-size"
                   >
                     Chọn nhân viên giao hàng
                   </button>

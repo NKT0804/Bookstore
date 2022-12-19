@@ -75,7 +75,7 @@ const ShipperOrderDetails = (props) => {
             <div className="card-body">
               {/* Order info */}
               <div className="row mb-5 order-info-wrap">
-                <div className="col-md-6 col-lg-2 col-md-6 col-6">
+                <div className="col-md-6 col-lg-2 col-md-6 col-12">
                   <article className="icontext align-items-start">
                     <span className="icon icon-sm rounded-circle alert-success">
                       <i className="text-success fas fa-user"></i>
@@ -90,7 +90,7 @@ const ShipperOrderDetails = (props) => {
                   </article>
                 </div>
 
-                <div className="col-md-6 col-lg-4 col-md-6 col-6">
+                <div className="col-md-6 col-lg-4 col-md-6 col-12">
                   <article className="icontext align-items-start">
                     <span className="icon icon-sm rounded-circle alert-success">
                       <i className="text-success fas fa-map-marker-alt"></i>
@@ -105,7 +105,7 @@ const ShipperOrderDetails = (props) => {
                     </div>
                   </article>
                 </div>
-                <div className="col-md-6 col-lg-3 col-md-6 col-6">
+                <div className="col-md-6 col-lg-3 col-md-6 col-12">
                   <article className="icontext align-items-start">
                     <span className="icon icon-sm rounded-circle alert-success">
                       <i className="text-success fas fa-truck-moving"></i>

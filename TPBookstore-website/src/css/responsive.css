@@ -290,6 +290,7 @@
   margin-left: -47px;
 }
 
+
 }
 
 /* Tablet & Mobile */
@@ -499,9 +500,22 @@
    min-width: 100px;
   }
 
-.btn__add-product {
-  font-size: 14px;
-}
+  .btn__add-product {
+    font-size: 14px;
+  }
+
+    /* Shipper */
+  .list__order-shipper-pc {
+    display: none;
+  }
+
+  .list__order-shipper-mobile {
+    display: block;
+  }
+
+  .list__order-shipper-mobile-item {
+    border-bottom: 20px solid #f0f0f0;
+  }
 
   /* footer */
   .icon__footer {
@@ -830,4 +844,23 @@
 .loader img {
   margin-left: -62px;
 }
+
+  /* Shipper */
+  .list__order-shipper {
+    flex-direction: column;
+  }
+
+  .list__order-shipper-title {
+    font-size: 20px;
+  }
+
+  .shipper__order-header .img__logo {
+    margin-left: 0;
+  }
+
+  .shipper__order-header .nav-item .nav-link,
+  .shipper__order-header .fas.fa-bars,
+  .shipper__order-header select {
+    display: none !important;
+  }
 }
