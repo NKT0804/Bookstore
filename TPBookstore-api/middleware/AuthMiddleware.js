@@ -25,7 +25,7 @@ const protect = expressAsyncHandler(async (req, res, next) => {
 });
 
 const shipper = (req, res, next) => {
-    if (req.user && req.user.role === "shipper") {
+    if ((req.user && req.user.role === "shipper") || req.user.role === "admin") {
         next();
     } else {
         res.status(401);

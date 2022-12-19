@@ -9,6 +9,8 @@ const ShipperOrderListMain = () => {
   const dispatch = useDispatch();
   const orderListOfShipper = useSelector((state) => state.orderListOfShipper);
   const { loading, error, orders, page, pages, total } = orderListOfShipper;
+  const totalOrdersDelivered = orders?.filter((order) => order.delivered === true).length;
+  const totalOrdersNotDelivered = orders?.filter((order) => order.delivered === false).length;
   useEffect(() => {
     dispatch(listOrdersByShipper());
   }, [dispatch]);
@@ -17,6 +19,15 @@ const ShipperOrderListMain = () => {
       <section className="content-main">
         <div className="">
           <h3 className="fw-bold my-3 text-center">ĐƠN HÀNG ĐƯỢC GIAO CHO BẠN</h3>
+        </div>
+        <div>
+          <p>Tổng đơn hàng:&nbsp;{orders?.length}</p>
+        </div>
+        <div>
+          <p>Số đơn hàng chưa giao:&nbsp;{totalOrdersNotDelivered}</p>
+        </div>
+        <div>
+          <p>Số đơn hàng đã giao thành công:&nbsp;{totalOrdersDelivered}</p>
         </div>
         <div className="card">
           <table className="table">
