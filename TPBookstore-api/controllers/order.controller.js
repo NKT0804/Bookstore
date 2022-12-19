@@ -1,5 +1,5 @@
 import express from "express";
-import mongoose from "mongoose";
+import mongoose, { isObjectIdOrHexString } from "mongoose";
 import expressAsyncHandler from "express-async-handler";
 import { admin, protect } from "../middleware/AuthMiddleware.js";
 import Order from "../models/OrderModel.js";
@@ -163,7 +163,7 @@ const getOrder = async (req, res) => {
  */
 const getDetailOrderById = async (req, res) => {
     const orderId = req.params.id || null;
-    const order = await Order.findOne({ _id: orderId }).populate("user orderItems.product", "-password");
+    const order = await Order.findOne({ _id: orderId }).populate("user orderItems.product shipper", "-password");
     if (!order) {
         res.status(404);
         throw new Error("Đơn hàng không tồn tại!");
@@ -224,7 +224,22 @@ const confirmOrder = async (req, res) => {
     res.status(200);
     res.json(updateOrder);
 };
-
+/**
+ * Update: SELECT SHIPPER
+ */
+const selectShipper = async (req, res) => {
+    const orderId = req.params.id || null;
+    const order = await Order.findOne({ _id: orderId, isDisabled: false });
+    if (!order) {
+        res.status(404);
+        throw new Error("Đơn hàng không tồn tại!");
+    }
+    order.shipper = req.body.shipper ?? order.shipper;
+    order.estimatedDeliveryDate = req.body.estimatedDeliveryDate ?? order.estimatedDeliveryDate;
+    const updateOrder = await order.save();
+    res.status(200);
+    res.json(updateOrder);
+};
 /**
  * Update: CANCEL ORDER ADMIN
  */
@@ -353,6 +368,7 @@ const OrderController = {
     orderPayment,
     confirmDelivered,
     confirmOrder,
+    selectShipper,
     cancelOrderAdmin,
     cancelOrderUser,
     Received,

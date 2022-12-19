@@ -76,8 +76,8 @@ const Orders = (props) => {
           <tr className="text-center">
             <th scope="col">Mã đơn hàng</th>
             <th scope="col">Tên khách hàng</th>
-            <th scope="col">Tên người nhận</th>
             <th scope="col">Tổng tiền</th>
+            <th scope="col">Trạng thái thanh toán</th>
             <th scope="col">Ngày đặt</th>
             <th scope="col">Trạng thái</th>
             <th scope="col" className="text-end">
@@ -101,11 +101,11 @@ const Orders = (props) => {
                       {order.user?.name.length >= 15 ? `${order.user?.name.slice(0, 15)}...` : `${order.user?.name}`}
                     </b>
                   </td>
-                  <td>
+                  {/* <td>
                     <b>{order.receiver}</b>
-                  </td>
+                  </td> */}
                   <td className={order.isDisabled ? `status-disabled` : ``}>{formatCash(order.totalPrice)}</td>
-                  {/* <td className={order.isDisabled ? `status-disabled` : ``}>
+                  <td className={order.isDisabled ? `status-disabled` : ``}>
                     {order.isPaid ? (
                       <span className="badge3 rounded-pill alert-success fw-bold">
                         Thanh toán lúc {moment(order.paidAt).format("DD/MM/yyyy")}
@@ -113,7 +113,7 @@ const Orders = (props) => {
                     ) : (
                       <span className="badge3 rounded-pill alert-danger fw-bold">Chưa thanh toán</span>
                     )}
-                  </td> */}
+                  </td>
 
                   <td className={order.isDisabled ? `status-disabled` : ``}>
                     {moment(order.createdAt).format("DD/MM/yyyy")}

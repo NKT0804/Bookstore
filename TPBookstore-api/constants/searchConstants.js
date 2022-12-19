@@ -44,6 +44,11 @@ const orderQueryParams = {
 };
 
 const userQueryParams = {
+    role: {
+        staff: { role: { $in: ["manager", "staff", "shipper"] } },
+        shipper: { role: "shipper" },
+        default: { role: "customer" }
+    },
     status: {
         locked: { isDisabled: true },
         is_active: { isDisabled: false },

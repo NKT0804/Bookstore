@@ -47,7 +47,11 @@ import {
   ORDER_SHOW_RESET,
   ORDER_LIST_SHIPPER_REQUEST,
   ORDER_LIST_SHIPPER_SUCCESS,
-  ORDER_LIST_SHIPPER_FAIL
+  ORDER_LIST_SHIPPER_FAIL,
+  ORDER_SELECT_SHIPPER_REQUEST,
+  ORDER_SELECT_SHIPPER_SUCCESS,
+  ORDER_SELECT_SHIPPER_FAIL,
+  ORDER_SELECT_SHIPPER_RESET
 } from "../Constants/orderConstants";
 
 /**
@@ -171,6 +175,21 @@ export const orderConfirmReducer = (state = {}, action) => {
     case ORDER_CONFIRM_FAIL:
       return { loading: false, error: action.payload };
     case ORDER_CONFIRM_RESET:
+      return {};
+    default:
+      return state;
+  }
+};
+// SELECT SHIPPER
+export const orderSelectShipperReducer = (state = {}, action) => {
+  switch (action.type) {
+    case ORDER_SELECT_SHIPPER_REQUEST:
+      return { loading: true };
+    case ORDER_SELECT_SHIPPER_SUCCESS:
+      return { loading: false, success: true };
+    case ORDER_SELECT_SHIPPER_FAIL:
+      return { loading: false, error: action.payload };
+    case ORDER_SELECT_SHIPPER_RESET:
       return {};
     default:
       return state;

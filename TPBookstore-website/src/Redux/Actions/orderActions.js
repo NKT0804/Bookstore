@@ -37,7 +37,10 @@ import {
   ORDER_SHOW_FAIL,
   ORDER_LIST_SHIPPER_REQUEST,
   ORDER_LIST_SHIPPER_SUCCESS,
-  ORDER_LIST_SHIPPER_FAIL
+  ORDER_LIST_SHIPPER_FAIL,
+  ORDER_SELECT_SHIPPER_REQUEST,
+  ORDER_SELECT_SHIPPER_SUCCESS,
+  ORDER_SELECT_SHIPPER_FAIL
 } from "../Constants/orderConstants";
 import { logout } from "./userActions";
 import axios from "axios";
@@ -291,7 +294,37 @@ export const confirmOrder = (orderId) => async (dispatch, getState) => {
     });
   }
 };
+// Select shipper
+export const selectShipper = (orderId, shipper, estimatedDeliveryDate) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: ORDER_SELECT_SHIPPER_REQUEST });
 
+    const {
+      userLogin: { userInfo }
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`
+      }
+    };
+    const { data } = await axios.patch(
+      `/api/v1/order/${orderId}/selectShipper`,
+      { shipper, estimatedDeliveryDate },
+      config
+    );
+    dispatch({ type: ORDER_SELECT_SHIPPER_SUCCESS, payload: data });
+  } catch (error) {
+    const message = error.response && error.response.data.message ? error.response.data.message : error.message;
+    if (message === "Not authorized, token failed") {
+      dispatch(logout());
+    }
+    dispatch({
+      type: ORDER_SELECT_SHIPPER_FAIL,
+      payload: message
+    });
+  }
+};
 // Admin cancel order
 export const cancelOrderAdmin = (orderId) => async (dispatch, getState) => {
   try {

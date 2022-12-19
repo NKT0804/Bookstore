@@ -1,10 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { adminGetUserDetails } from "../../../Redux/Actions/userActions";
 import Loading from "../../base/LoadingError/Loading";
 import Message from "../../base/LoadingError/Error";
 
-const UserDetail = (props) => {
+const UserDetails = (props) => {
   const { userId } = props;
   const dispatch = useDispatch();
 
@@ -13,6 +13,9 @@ const UserDetail = (props) => {
   useEffect(() => {
     dispatch(adminGetUserDetails(userId));
   }, [dispatch, userId]);
+
+  const [position, setPosition] = useState("");
+
   return (
     <>
       {loading ? (
@@ -22,11 +25,18 @@ const UserDetail = (props) => {
       ) : (
         <>
           <div className="user-information__admin">
-            <div className="user-information__admin-header">Thông tin khách hàng</div>
-            {/* User name */}
+            <div className="user-information__admin-header">Thông tin tài khoản</div>
+            {/* User ID */}
             <div className="col-md-12 mt-5">
               <div className="user-information__admin-item">
-                <label className="user-information__admin-title">Tên người dùng</label>
+                <label className="user-information__admin-title">Mã nhân viên</label>
+                <label>{user._id ?? ""}</label>
+              </div>
+            </div>
+            {/* User name */}
+            <div className="col-md-12 ">
+              <div className="user-information__admin-item">
+                <label className="user-information__admin-title">Tên nhân viên</label>
                 <label>{user.name ?? ""}</label>
               </div>
             </div>
@@ -75,6 +85,43 @@ const UserDetail = (props) => {
                 </label>
               </div>
             </div>
+            {/*Role*/}
+            <div className="user-information__admin-item">
+              <label className="user-information__admin-title">Vai trò</label>
+              {/* sửa tại đây */}
+              <select className="form-select" onChange={(e) => setPosition(e.target.value)}>
+                {user.role === "shipper" ? (
+                  <>
+                    <option value={"shipper"}>Nhân viên giao hàng</option>
+                    <option value={"staff"}>Nhân viên</option>
+                    <option value={"customer"}>Khách hàng</option>
+                    <option value={"admin"}>Admin</option>
+                  </>
+                ) : user.role === "staff" ? (
+                  <>
+                    <option value={"staff"}>Nhân viên</option>
+                    <option value={"customer"}>Khách hàng</option>
+                    <option value={"shipper"}>Nhân viên giao hàng</option>
+                    <option value={"admin"}>Admin</option>
+                  </>
+                ) : user.role === "customer" ? (
+                  <>
+                    <option value={"customer"}>Khách hàng</option>
+                    <option value={"staff"}>Nhân viên</option>
+                    <option value={"shipper"}>Nhân viên giao hàng</option>
+                    <option value={"admin"}>Admin</option>
+                  </>
+                ) : (
+                  <>
+                    <option value={"admin"}>Admin</option>
+                    <option value={"staff"}>Nhân viên</option>
+                    <option value={"customer"}>Khách hàng</option>
+                    <option value={"shipper"}>Nhân viên giao hàng</option>
+                  </>
+                )}
+              </select>
+            </div>
+
             <div className="col-md-12">
               <div className="user-information__admin-item">
                 <label className="user-information__admin-title">Trạng thái</label>
@@ -82,14 +129,21 @@ const UserDetail = (props) => {
               </div>
             </div>
           </div>
-          {user.disabled ? (
-            <button className="user-information__admin-btn btn btn-info">Huỷ khoá tài khoản</button>
-          ) : (
-            <button className="user-information__admin-btn btn btn-danger">Khoá tài khoản</button>
-          )}
+          <div className="d-flex user-information__admin-btn1 justify-content-center ">
+            {user.disabled ? (
+              <button className="user-information__admin-btn1 btn btn-info">Huỷ khoá tài khoản</button>
+            ) : (
+              <button className="user-information__admin-btn1 btn btn-danger">Khoá tài khoản</button>
+            )}
+            {user.disabled && position === setPosition ? (
+              <button className="user-information__admin-btn1 btn btn-info">Chưa cập nhật</button>
+            ) : (
+              <button className="user-information__admin-btn1 btn btn-info">Cập nhật</button>
+            )}
+          </div>
         </>
       )}
     </>
   );
 };
-export default UserDetail;
+export default UserDetails;

@@ -15,7 +15,6 @@ import Loading from "./../../base/LoadingError/Loading";
 import Message from "./../../base/LoadingError/Error";
 import moment from "moment";
 import Modal from "../../base/modal/Modal";
-
 const OrderDetailMain = (props) => {
   const { orderId } = props;
   const dispatch = useDispatch();
@@ -42,7 +41,6 @@ const OrderDetailMain = (props) => {
   useEffect(() => {
     dispatch(getOrderDetails(orderId));
   }, [dispatch, orderId, successDelivered, successIsPaid, successConfirm, successCancel]);
-
   const [modalTitle, setModalTitle] = useState("");
   const [modalBody, setModalBody] = useState("");
   const [btnTitle, setBtnTitle] = useState("");
@@ -94,63 +92,6 @@ const OrderDetailMain = (props) => {
   };
   return (
     <>
-      {/* Modal shipper */}
-      <div
-        className="modal fade"
-        id="exampleModal"
-        tabindex="-1"
-        role="dialog"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
-      >
-        <div className="modal-dialog" role="document" style={{ margin: "9.5rem auto" }}>
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title" id="exampleModalLabel">
-                Thông tin giao hàng
-              </h5>
-              <button
-                type="button"
-                className="close px-1"
-                data-dismiss="modal"
-                aria-label="Close"
-                style={{ color: "black", border: "none", backgroundColor: "white", fontSize: "30px" }}
-              >
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div className="modal-body">
-              <form>
-                <div className="form-group mb-3">
-                  <label className="col-form-label" style={{ minWidth: "200px" }}>
-                    Tên người giao hàng
-                  </label>
-                  <select>
-                    <option value="">Chọn người giao hàng</option>
-                    <option value="">Viet Phu</option>
-                    <option value="">Khac Tuan</option>
-                    <option value="">Anh Tuan</option>
-                  </select>
-                </div>
-                <div className="form-group mb-3">
-                  <label for="deliver-time" className="col-form-label" style={{ minWidth: "200px" }}>
-                    Ngày giao hàng dự kiến
-                  </label>
-                  <input id="deliver-time" classNameName="input__birthday" type="date" name="birthday" value=""></input>
-                </div>
-              </form>
-            </div>
-            <div className="modal-footer" style={{ display: "flex", justifyContent: "space-between" }}>
-              <button type="button" className="btn btn-secondary" data-dismiss="modal">
-                Đóng
-              </button>
-              <button type="button" className="btn btn-primary" onClick={confirmHandler}>
-                Xác nhận
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
       <Modal
         modalTitle={modalTitle}
         modalBody={modalBody}
@@ -260,8 +201,8 @@ const OrderDetailMain = (props) => {
                             {loadingConfirm && <Loading />}
                             <button
                               data-toggle="modal"
-                              data-target="#exampleModal"
-                              // onClick={() => typeModal("confirm")}
+                              data-target="#exampleModalCenter"
+                              onClick={() => typeModal("confirm")}
                               type="button"
                               className="btn btn-primary col-12 btn-size"
                             >

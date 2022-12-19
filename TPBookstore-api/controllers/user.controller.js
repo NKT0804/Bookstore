@@ -364,6 +364,7 @@ const getUsers = async (req, res) => {
     const limit = Number(req.query.limit) || 8;
     let page = Number(req.query.page) || 1;
     const statusFilter = validateConstants(userQueryParams, "status", req.query.status);
+    const roleFilter = validateConstants(userQueryParams, "role", req.query.role);
     const keyword = req.query.keyword
         ? {
               name: {
@@ -373,7 +374,7 @@ const getUsers = async (req, res) => {
           }
         : {};
 
-    const count = await User.countDocuments({ ...keyword, ...statusFilter });
+    const count = await User.countDocuments({ ...keyword, ...statusFilter, ...roleFilter });
     if (count == 0) {
         res.status(204);
         throw new Error("Không có tài khoản nào!");
@@ -381,7 +382,7 @@ const getUsers = async (req, res) => {
     const pages = Math.ceil(count / limit);
     page = page <= pages ? page : 1;
 
-    const users = await User.find({ ...keyword, ...statusFilter })
+    const users = await User.find({ ...keyword, ...statusFilter, ...roleFilter })
         .limit(limit)
         .skip(limit * (page - 1))
         .sort({ createdAt: "desc" });

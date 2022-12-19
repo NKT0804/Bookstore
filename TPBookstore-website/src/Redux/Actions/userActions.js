@@ -359,7 +359,7 @@ export const updateUserAvatar =
 
 // ALL USER
 export const listUser =
-  (keyword = "", status = "", limit = 8, pageNumber = "") =>
+  (keyword = "", role = "", status = "", limit = 8, pageNumber = "") =>
   async (dispatch, getState) => {
     try {
       dispatch({ type: USER_LIST_REQUEST });
@@ -375,7 +375,7 @@ export const listUser =
       };
 
       const { data } = await axios.get(
-        `/api/v1/user?&keyword=${keyword}&status=${status}&limit=${limit}&page=${pageNumber}`,
+        `/api/v1/user?&keyword=${keyword}&role=${role}&status=${status}&limit=${limit}&page=${pageNumber}`,
         config
       );
 

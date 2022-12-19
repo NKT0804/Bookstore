@@ -96,7 +96,7 @@ const Header = (props) => {
                         <Link className="dropdown-item" to="/profile">
                           Tài khoản
                         </Link>
-                        {userInfo?.isAdmin === true && (
+                        {userInfo?.role === "admin" && (
                           <Link className="dropdown-item" to="/admin">
                             Trang Quản trị
                           </Link>
@@ -192,7 +192,7 @@ const Header = (props) => {
                       <Link className="dropdown-item" to="/profile">
                         Tài khoản
                       </Link>
-                      {userInfo?.isAdmin === true && (
+                      {userInfo?.role === "admin" && (
                         <Link className="dropdown-item" to="/admin">
                           Trang Quản trị
                         </Link>

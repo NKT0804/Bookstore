@@ -54,7 +54,8 @@ import {
   orderPayReducer,
   orderHiddenReducerAdmin,
   orderShowReducerAdmin,
-  orderListByShipperReducer
+  orderListByShipperReducer,
+  orderSelectShipperReducer
 } from "./Reducers/orderReducres";
 import {
   categoryCreateReducerAdmin,
@@ -126,6 +127,7 @@ const reducer = combineReducers({
   orderListAdmin: orderListReducerAdmin,
   orderDeliver: orderDeliveredReducer,
   orderConfirm: orderConfirmReducer,
+  orderSelectShipper: orderSelectShipperReducer,
   orderCancelAdmin: orderCancelAdminReducer,
   orderDeleteAdmin: orderDeleteReducerAdmin,
   orderHiddenAdmin: orderHiddenReducerAdmin,
