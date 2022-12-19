@@ -37,12 +37,17 @@ const UserPassword = () => {
       confirmedPassword: ""
     },
     validationSchema: Yup.object({
-      currentPassword: Yup.string().required("Vui lòng nhập mật khẩu hiện tại của bạn**"),
+      currentPassword: Yup.string().required("Vui lòng nhập mật khẩu hiện tại*"),
       newPassword: Yup.string()
-        .required("Vui lòng nhập mật khẩu của bạn*")
-        .min(8, "Mật khẩu phải dài ít nhất 8 ký tự")
+        .required("Vui lòng nhập mật khẩu mới*")
+        .min(8, "Mật khẩu mới phải dài ít nhất 8 ký tự")
         .max(250, "Mật khẩu phải ngắn hơn 250 ký tự")
-        .matches(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/, "Mật khẩu phải có ít nhất một chữ cái và một số"),
+        .matches(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/, 
+        "Mật khẩu mới phải có ít nhất một chữ cái và một số"),
+        // .matches(
+        //   /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
+        //   "Mật khẩu phải dài ít nhất 8 ký tự và có ít nhất một chữ cái và một số"
+        // ),
       confirmedPassword: Yup.string()
         .required("Vui lòng xác nhận mật khẩu mới*")
         .oneOf([Yup.ref("newPassword"), null], "Mật khẩu không khớp")
@@ -98,12 +103,18 @@ const UserPassword = () => {
                 value={formik.values.currentPassword}
                 onChange={formik.handleChange}
                 placeholder="Nhập mật khẩu hiện tại"
+                onBlur={formik.handleBlur}
               />
             </div>
           </div>
-          <div className="frame-error">
+          {/* <div className="frame-error">
             {formik.errors.currentPassword && <span className="error-message">{formik.errors.currentPassword}</span>}
-          </div>
+          </div> */}
+            <div className="frame-error">
+                {formik.touched.currentPassword && formik.errors.currentPassword ? (
+                  <span className="error-message">{formik.errors.currentPassword}</span>
+                ) : null}
+            </div>
           <div className="col-md-12">
             <div className="form account__user">
               <label htmlFor="account-pass__new">Mật khẩu mới</label>
@@ -115,12 +126,18 @@ const UserPassword = () => {
                 value={formik.values.newPassword}
                 onChange={formik.handleChange}
                 placeholder="Nhập mật khẩu mới"
+                onBlur={formik.handleBlur}
               />
             </div>
           </div>
-          <div className="frame-error">
+          {/* <div className="frame-error">
             {formik.errors.newPassword && <span className="error-message">{formik.errors.newPassword}</span>}
-          </div>
+          </div> */}
+            <div className="frame-error">
+              {formik.touched.newPassword && formik.errors.newPassword ? (
+                <span className="error-message">{formik.errors.newPassword}</span>
+              ) : null}
+            </div>
           <div className="col-md-12">
             <div className="form account__user">
               <label htmlFor="account-confirm-pass">Xác nhận mật khẩu</label>
@@ -132,13 +149,19 @@ const UserPassword = () => {
                 value={formik.values.confirmedPassword}
                 onChange={formik.handleChange}
                 placeholder="Xác nhận mật khẩu mới"
+                onBlur={formik.handleBlur}
               />
             </div>
           </div>
-          <div className="frame-error">
+          {/* <div className="frame-error">
             {formik.errors.confirmedPassword && (
               <span className="error-message">{formik.errors.confirmedPassword}</span>
             )}
+          </div> */}
+          <div className="frame-error">
+              {formik.touched.confirmedPassword && formik.errors.confirmedPassword ? (
+                <span className="error-message">{formik.errors.confirmedPassword}</span>
+              ) : null}
           </div>
           <button type="submit">Cập nhật</button>
         </div>

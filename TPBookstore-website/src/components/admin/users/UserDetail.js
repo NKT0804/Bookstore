@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { adminGetUserDetails } from "../../../Redux/Actions/userActions";
+import { adminGetUserDetails, disableUser } from "../../../Redux/Actions/userActions";
 import Loading from "../../base/LoadingError/Loading";
 import Message from "../../base/LoadingError/Error";
 
@@ -10,11 +10,15 @@ const UserDetail = (props) => {
 
   const userDetails = useSelector((state) => state.adminGetUserDetails);
   const { loading, error, user } = userDetails;
+  const userDisable = useSelector((state) => state.userDisable);
+  const { loading: loadingDisable, error: errorDisable, success: successDisable } = userDisable;
+
   useEffect(() => {
     dispatch(adminGetUserDetails(userId));
-  }, [dispatch, userId]);
-
-  const [position, setPosition] = useState("");
+  }, [dispatch, userId, successDisable]);
+  const disableHandle = () => {
+    dispatch(disableUser(user._id));
+  };
 
   return (
     <>
@@ -112,9 +116,11 @@ const UserDetail = (props) => {
           </div>
           <div className="d-flex user-information__admin-btn1 justify-content-center">
             {user.disabled ? (
-              <button className=" btn btn-info mx-2">Huỷ khoá tài khoản</button>
+              <button className=" btn btn-danger mx-2">Huỷ khoá tài khoản</button>
             ) : (
-              <button className=" btn btn-danger mx-2">Khoá tài khoản</button>
+              <button className=" btn btn-danger mx-2" onClick={() => disableHandle()}>
+                Khoá tài khoản
+              </button>
             )}
           </div>
         </>

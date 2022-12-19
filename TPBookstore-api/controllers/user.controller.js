@@ -239,6 +239,20 @@ const updateProfile = async (req, res) => {
     });
 };
 
+//User update profile
+const updateRoleStaff = async (req, res) => {
+    const user = await User.findById(req.params.id);
+    if (!user) {
+        res.status(404);
+        throw new Error("Tài khoản không tồn tại!");
+    }
+    user.role = req.body.role || user.role;
+
+    const updatedUser = await user.save();
+    res.status(200);
+    res.json(updatedUser);
+};
+
 // update password
 const updatePassword = async (req, res) => {
     const userId = req.params.id;
@@ -431,12 +445,16 @@ const disableUser = async (req, res) => {
         res.status(404);
         throw new Error("Tài khoản không tồn tại!");
     }
-    const order = await Order.findOne({ user: user._id, isDisabled: false });
-    if (order) {
-        res.status(400);
-        throw new Error("Không thể vô hiệu hóa tài khoản này!");
-    }
-    res.status(200).json(disabledUser);
+    const orders = await Order.find({ user: user._id, isDisabled: false });
+    orders.map((order) => {
+        if (!order.cancelled || !order.delivered) {
+            res.status(400);
+            throw new Error("Không thể khóa vì tài khoản này đang có đơn hàng chưa hoàn thành!");
+        }
+    });
+    user.isDisabled = true;
+    const disableUser = await user.save();
+    res.status(200).json(disableUser);
 };
 
 //Admin restore disabled user
@@ -519,6 +537,7 @@ const UserController = {
     getProfile,
     getProfileByAdmin,
     updateProfile,
+    updateRoleStaff,
     getUsers,
     uploadAvatar,
     disableUser,

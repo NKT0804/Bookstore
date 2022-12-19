@@ -15,7 +15,9 @@ import {
   userForgotPasswordReducer,
   userResetPasswordReducer,
   adminGetUserDetailsReducer,
-  adminAddStaffReducer
+  adminAddStaffReducer,
+  userUpdateRoleReducer,
+  userDisableReducer
 } from "./Reducers/userReducers";
 import {
   productListReducer,
@@ -110,6 +112,8 @@ const reducer = combineReducers({
   //admin
   userList: userListReducer,
   addStaff: adminAddStaffReducer,
+  userDisable: userDisableReducer,
+  userUpdateRole: userUpdateRoleReducer,
   adminGetUserDetails: adminGetUserDetailsReducer,
   productListAdmin: productListReducerAdmin,
   productListAdminAll: productListReducerAdminAll,

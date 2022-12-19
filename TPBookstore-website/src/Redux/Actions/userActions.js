@@ -20,6 +20,9 @@ import {
   USER_UPDATE_PROFILE_FAIL,
   USER_UPDATE_PROFILE_REQUEST,
   USER_UPDATE_PROFILE_SUCCESS,
+  USER_UPDATE_ROLE_REQUEST,
+  USER_UPDATE_ROLE_SUCCESS,
+  USER_UPDATE_ROLE_FAIL,
   USER_GET_ADDRESS_DATA_REQUEST,
   USER_GET_ADDRESS_DATA_SUCCESS,
   USER_GET_ADDRESS_DATA_FAIL,
@@ -32,6 +35,9 @@ import {
   USER_RESET_PASSWORD_REQUEST,
   USER_RESET_PASSWORD_SUCCESS,
   USER_RESET_PASSWORD_FAIL,
+  USER_DISABLE_REQUEST,
+  USER_DISABLE_SUCCESS,
+  USER_DISABLE_FAIL,
   ADMIN_GET_USER_DETAILS_REQUEST,
   ADMIN_GET_USER_DETAILS_SUCCESS,
   ADMIN_GET_USER_DETAILS_FAIL,
@@ -242,6 +248,66 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
     }
     dispatch({
       type: USER_UPDATE_PROFILE_FAIL,
+      payload: message
+    });
+  }
+};
+
+// UPDATE ROLE USER BY ADMIN
+export const updateUserRole = (userId, role) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: USER_UPDATE_ROLE_REQUEST });
+
+    const {
+      userLogin: { userInfo }
+    } = getState();
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${userInfo.token}`
+      }
+    };
+
+    const { data } = await axios.patch(`/api/v1/user/${userId}/updateRole`, { role }, config);
+    dispatch({ type: USER_UPDATE_ROLE_SUCCESS, payload: data });
+  } catch (error) {
+    const message = error.response && error.response.data.message ? error.response.data.message : error.message;
+    if (message === "Not authorized, token failed") {
+      dispatch(logout());
+    }
+    dispatch({
+      type: USER_UPDATE_ROLE_FAIL,
+      payload: message
+    });
+  }
+};
+
+// Admin disable user
+export const disableUser = (userId) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: USER_DISABLE_REQUEST });
+
+    const {
+      userLogin: { userInfo }
+    } = getState();
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${userInfo.token}`
+      }
+    };
+
+    const { data } = await axios.patch(`/api/v1/user/${userId}/disable`, {}, config);
+    dispatch({ type: USER_DISABLE_SUCCESS, payload: data });
+  } catch (error) {
+    const message = error.response && error.response.data.message ? error.response.data.message : error.message;
+    if (message === "Not authorized, token failed") {
+      dispatch(logout());
+    }
+    dispatch({
+      type: USER_DISABLE_FAIL,
       payload: message
     });
   }

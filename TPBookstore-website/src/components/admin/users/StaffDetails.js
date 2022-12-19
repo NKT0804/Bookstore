@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { adminGetUserDetails } from "../../../Redux/Actions/userActions";
+import { adminGetUserDetails, disableUser, updateUserRole } from "../../../Redux/Actions/userActions";
 import Loading from "../../base/LoadingError/Loading";
 import Message from "../../base/LoadingError/Error";
 
@@ -9,19 +9,28 @@ const StaffDetails = (props) => {
   const dispatch = useDispatch();
 
   const userDetails = useSelector((state) => state.adminGetUserDetails);
-  const { loading, error, user } = userDetails;
+  const { loading: loadingUserDetails, error: errorUserDetails, user } = userDetails;
+  const userUpdateRole = useSelector((state) => state.userUpdateRole);
+  const { loading: loadingUpdateRole, error: errorUpdateRole, success: successUpdateRole } = userUpdateRole;
+  const userDisable = useSelector((state) => state.userDisable);
+  const { loading: loadingDisable, error: errorDisable, success: successDisable } = userDisable;
   useEffect(() => {
     dispatch(adminGetUserDetails(userId));
-  }, [dispatch, userId]);
+  }, [dispatch, userId, successUpdateRole, successDisable]);
 
-  const [position, setPosition] = useState("");
-
+  const [role, setRole] = useState(user?.role);
+  const disableHandle = () => {
+    dispatch(disableUser(user._id));
+  };
+  const updateRoleHandle = () => {
+    dispatch(updateUserRole(user._id, role));
+  };
   return (
     <>
-      {loading ? (
+      {loadingUserDetails ? (
         <Loading />
-      ) : error ? (
-        <Message variant="alert-danger">{error}</Message>
+      ) : errorUserDetails ? (
+        <Message variant="alert-danger">{errorUserDetails}</Message>
       ) : (
         <>
           <div className="user-information__admin">
@@ -111,36 +120,10 @@ const StaffDetails = (props) => {
             {/*Role*/}
             <div className="user-information__admin-item">
               <label className="user-information__admin-title">Vai trò</label>
-              <select className="form-select" onChange={(e) => setPosition(e.target.value)}>
-                {user.role === "shipper" ? (
-                  <>
-                    <option value={"shipper"}>Nhân viên giao hàng</option>
-                    <option value={"staff"}>Nhân viên</option>
-                    <option value={"customer"}>Khách hàng</option>
-                    <option value={"admin"}>Admin</option>
-                  </>
-                ) : user.role === "staff" ? (
-                  <>
-                    <option value={"staff"}>Nhân viên</option>
-                    <option value={"customer"}>Khách hàng</option>
-                    <option value={"shipper"}>Nhân viên giao hàng</option>
-                    <option value={"admin"}>Admin</option>
-                  </>
-                ) : user.role === "customer" ? (
-                  <>
-                    <option value={"customer"}>Khách hàng</option>
-                    <option value={"staff"}>Nhân viên</option>
-                    <option value={"shipper"}>Nhân viên giao hàng</option>
-                    <option value={"admin"}>Admin</option>
-                  </>
-                ) : (
-                  <>
-                    <option value={"admin"}>Admin</option>
-                    <option value={"staff"}>Nhân viên</option>
-                    <option value={"customer"}>Khách hàng</option>
-                    <option value={"shipper"}>Nhân viên giao hàng</option>
-                  </>
-                )}
+              <select className="form-select" value={role} onChange={(e) => setRole(e.target.value)}>
+                <option value={"shipper"}>Nhân viên giao hàng</option>
+                <option value={"staff"}>Nhân viên bán hàng</option>
+                <option value={"admin"}>Quản lý</option>
               </select>
             </div>
 
@@ -152,16 +135,17 @@ const StaffDetails = (props) => {
             </div>
           </div>
           <div className="d-flex user-information__admin-btn1 justify-content-center">
-            {user.disabled ? (
-              <button className=" btn btn-info mx-2">Huỷ khoá tài khoản</button>
+            {user.isDisabled ? (
+              <button className=" btn btn-danger mx-2">Huỷ khoá tài khoản</button>
             ) : (
-              <button className=" btn btn-danger mx-2">Khoá tài khoản</button>
+              <button className=" btn btn-danger mx-2" onClick={() => disableHandle()}>
+                Khoá tài khoản
+              </button>
             )}
-            {user.disabled && position === setPosition ? (
-              <button className=" btn btn-info mx-2">Chưa cập nhật</button>
-            ) : (
-              <button className=" btn btn-info mx-2">Cập nhật</button>
-            )}
+
+            <button className=" btn btn-info mx-2" onClick={() => updateRoleHandle()} disabled={user.isDisabled}>
+              Cập nhật
+            </button>
           </div>
         </>
       )}
