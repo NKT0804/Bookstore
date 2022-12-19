@@ -20,6 +20,9 @@ import PlaceOrderScreen from "./screens/PlaceOrderScreen";
 import OrderScreen from "./screens/OrderScreen";
 import NotFound from "./screens/NotFound";
 
+// shipper
+import ShipperOrderListScreen from "./screens/admin/ShipperOrderListScreen";
+import ShipperOrderDetailsScreen from "./screens/admin/ShipperOrderDetailsScreen";
 //admin
 import "../src/css/AdminApp.css";
 import "../src/css/AdminResponsive.css";
@@ -30,10 +33,8 @@ import CategoriesScreenAdmin from "./screens/admin/CategoriesScreen";
 import OrderScreenAdmin from "./screens/admin/OrderScreen";
 import OrderDetailScreenAdmin from "./screens/admin/OrderDetailScreen";
 import AddProductAdmin from "./screens/admin/AddProduct";
-// shipper
-import ShipperOrderListScreen from "./screens/admin/ShipperOrderListScreen";
-import ShipperOrderDetailsScreen from "./screens/admin/ShipperOrderDetailsScreen";
 import ManageStaffScreen from "./screens/admin/ManageStaffScreen";
+import StaffDetailsScreen from "./screens/admin/StaffDetailsScreen";
 import CreateUserScreen from "./screens/admin/CreateUserScreen";
 import UsersScreenAdmin from "./screens/admin/UsersScreen";
 import UserDetailsScreenAdmin from "./screens/admin/UserDetailsScreen";
@@ -41,30 +42,12 @@ import CommentScreenAdmin from "./screens/admin/CommentsScreen";
 import ProductEditScreenAdmin from "./screens/admin/ProductEditScreen";
 import { PrivateRouter, AdminPrivateRouter, ShipperPrivateRouter } from "./PrivateRouter";
 import SliderBannerScreenAdmin from "./screens/admin/SliderBannerScreen";
-import { useSelector, useDispatch } from "react-redux";
-import { getUserDetails, logout } from "./Redux/Actions/userActions";
 import axios from "axios";
 
 //config axios base url default
 // axios.defaults.baseURL = "https://api.nkt2001.tech/";
 axios.defaults.baseURL = "http://localhost:5000/";
 const App = () => {
-  // const dispatch = useDispatch();
-
-  // const userInfoFromLocalStorage = localStorage.getItem("userInfo")
-  //   ? JSON.parse(localStorage.getItem("userInfo"))
-  //   : null;
-  // const userLogin = useSelector((state) => state.userLogin);
-  // const { loading, error, userInfo } = userLogin;
-  // const userDetails = useSelector((state) => state.userDetails);
-  // const { error: errorGetUserDetail, user } = userDetails;
-  // useEffect(() => {
-  //   if (!userInfo) {
-  //     if (userInfoFromLocalStorage?.token) {
-  //       dispatch(getUserDetails(userInfoFromLocalStorage.token));
-  //     }
-  //   }
-  // }, [dispatch]);
   return (
     <Router>
       <Switch>
@@ -92,6 +75,7 @@ const App = () => {
 
         {/* ADMIN */}
         <AdminPrivateRouter path="/admin" component={HomeScreenAdmin} exact />
+        <AdminPrivateRouter path="/admin/staff/:id" component={StaffDetailsScreen} exact />
         <AdminPrivateRouter path="/admin/staff" component={ManageStaffScreen} exact />
         <AdminPrivateRouter path="/admin/products" component={ProductScreenAdmin} exact />
         {/* <AdminPrivateRouter path="/admin/search/:keyword" component={ProductScreenAdmin} exact /> */}

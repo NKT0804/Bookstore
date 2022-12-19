@@ -1,7 +1,7 @@
 import React from "react";
 import Sidebar from "../../components/admin/Sidebar";
 import Header from "../../components/admin/Header";
-import ManageAgent from "../../components/admin/users/ManageAgent";
+import ManageStaff from "../../components/admin/users/ManageStaff";
 
 const ManageStaffScreen = ({ location }) => {
   const queryParams = new URLSearchParams(location.search);
@@ -12,7 +12,7 @@ const ManageStaffScreen = ({ location }) => {
       <Sidebar />
       <main className="main-wrap">
         <Header />
-        <ManageAgent keyword={keyword} pageNumber={page} />
+        <ManageStaff keyword={keyword} pageNumber={page} />
       </main>
     </>
   );

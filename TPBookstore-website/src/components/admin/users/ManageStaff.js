@@ -7,7 +7,7 @@ import Message from "../../base/LoadingError/Error";
 import PaginationAdmin from "../Home/PaginationAdmin";
 import Modal from "../../base/modal/Modal";
 
-const ManageAgent = (props) => {
+const ManageStaff = (props) => {
   let history = useHistory();
   const dispatch = useDispatch();
   const { keyword, pageNumber } = props;
@@ -171,7 +171,7 @@ const ManageAgent = (props) => {
                         <tr key={user._id}>
                           <td className={user.isDisabled ? `status-disabled` : ``}>
                             <td>
-                              <Link to={`/admin/user/${user._id}`}>{user._id}</Link>
+                              <Link to={`/admin/staff/${user._id}`}>{user._id}</Link>
                             </td>
                           </td>
                           <td className={user.isDisabled ? `status-disabled` : ``}>
@@ -263,4 +263,4 @@ const ManageAgent = (props) => {
   );
 };
 
-export default ManageAgent;
+export default ManageStaff;
