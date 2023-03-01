@@ -17,7 +17,7 @@ const ProductList = (props) => {
   const [ratingFilter, setRatingFilter] = useState("");
   const [minPrice, setMinPriceInput] = useState("");
   const [maxPrice, setMaxPriceInput] = useState("");
-  const [limitInput, setLimitInput] = useState(limit ?? 12);
+  const [limitInput, setLimitInput] = useState(limit || 12);
   const [sortBy, setSortBy] = useState("");
 
   const productList = useSelector((state) => state.productList);
